@@ -68,6 +68,37 @@
       {%- endfor -%}
     ],
 
+    // 5. Hardcoded Design Options (For Visual Configurator)
+    frameColors: [
+      { id: 'anthracite', title: 'Anthracite', hex: '#373F47', selected: true },
+      { id: 'white', title: 'White', hex: '#FFFFFF', selected: false },
+      { id: 'gray', title: 'Gray', hex: '#9CA3AF', selected: false },
+      { id: 'black', title: 'Black', hex: '#111827', selected: false }
+    ],
+    fabrics: [
+      {
+        id: '5-percent',
+        title: '5% Openness',
+        desc: 'Perfect for living rooms.',
+        image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/fabric_5.jpg',
+        colors: ['Grey', 'Charcoal', 'White']
+      },
+      {
+        id: '1-percent',
+        title: '1% Openness',
+        desc: 'Balanced privacy.',
+        image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/fabric_1.jpg',
+        colors: ['Grey', 'Charcoal', 'White']
+      },
+      {
+        id: 'blackout',
+        title: 'Blackout',
+        desc: 'Complete darkness.',
+        image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/fabric_blackout.jpg',
+        colors: ['Grey', 'Charcoal']
+      }
+    ],
+
     // Configuration Constants
     // Configuration Constants (From Theme Settings)
     config: {
