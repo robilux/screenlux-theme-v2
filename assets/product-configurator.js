@@ -317,16 +317,22 @@ class ProductConfigurator extends HTMLElement {
     section.className = 'section-spacing';
     section.innerHTML = `<h3>Installation</h3>`;
 
-    // Type Switcher
+    // Type Switcher (Segmented Control)
     const switcher = document.createElement('div');
-    switcher.className = 'install-switch';
+    switcher.className = 'segmented-control';
     switcher.innerHTML = `
-      <label><input type="radio" name="install" value="diy" ${
-        this.state.installationType === 'diy' ? 'checked' : ''
-      }> DIY</label>
-      <label><input type="radio" name="install" value="professional" ${
-        this.state.installationType === 'professional' ? 'checked' : ''
-      }> Professional</label>
+      <label class="${this.state.installationType === 'diy' ? 'active' : ''}">
+        <input type="radio" name="install" value="diy" class="hidden-input" ${
+          this.state.installationType === 'diy' ? 'checked' : ''
+        }> 
+        <span>DIY</span>
+      </label>
+      <label class="${this.state.installationType === 'professional' ? 'active' : ''}">
+        <input type="radio" name="install" value="professional" class="hidden-input" ${
+          this.state.installationType === 'professional' ? 'checked' : ''
+        }> 
+        <span>Professional</span>
+      </label>
     `;
 
     switcher.querySelectorAll('input').forEach((radio) => {
@@ -336,24 +342,58 @@ class ProductConfigurator extends HTMLElement {
 
     // DIY Brackets
     if (this.state.installationType === 'diy') {
-      const bracketsList = document.createElement('div');
-      bracketsList.innerHTML = `<h4>Select Brackets</h4>`;
-
       if (this.data.brackets.length === 0) {
-        bracketsList.innerHTML += `<p class="text-subdued"><em>No brackets found. Create collection "installation-brackets".</em></p>`;
-      }
+        const msg = document.createElement('div');
+        msg.innerHTML = `<p class="text-subdued margin-top"><em>No brackets found. Create collection "installation-brackets".</em></p>`;
+        section.appendChild(msg);
+      } else {
+        // Use the reused visual grid helper!
+        // We need to map 'price' to a description or handle it
+        // The helper expects {id, title, [hex|image], [desc]}
+        // Our brackets have {id, title, image, price}
+        // Let's create a temporary mapped array for display
+        const displayOptions = this.data.brackets.map((b) => ({
+          ...b,
+          image: b.image || '', // Ensure property exists
+          desc: `+€${(b.price / 100).toFixed(2)}`,
+        }));
 
-      this.data.brackets.forEach((b) => {
-        const row = document.createElement('div');
-        row.innerHTML = `<label><input type="radio" name="bracket" value="${b.id}" ${
-          this.state.bracketId == b.id ? 'checked' : ''
-        }> ${b.title} (+€${b.price / 100})</label>`;
-        row.querySelector('input').addEventListener('change', () => {
-          this.state.bracketId = b.id;
+        section.innerHTML += this.renderSelectionGrid(
+          'Select Brackets',
+          'bracket',
+          displayOptions,
+          this.state.bracketId,
+          0 // Index doesn't matter for global install
+        );
+
+        // Re-attach listeners because renderSelectionGrid returns string HTML
+        // wait... section.innerHTML += string DESTROYS previous listeners on switcher!
+        // CRITICAL FIX: We must append the grid as an element or re-attach switcher listeners.
+        // Better strategy: Build the grid string first, then append innerHTML to a container?
+        // No, renderSelectionGrid returns a string.
+        // Let's preserve the switcher reference.
+      }
+    } else {
+      // Professional Info
+      const proInfo = document.createElement('div');
+      proInfo.className = 'info-box margin-top';
+      proInfo.innerHTML = `<p>Our experts will contact you to schedule an installation date.</p>`;
+      section.appendChild(proInfo);
+    }
+
+    // Re-attach switcher listeners (safest approach after innerHTML manip)
+    section.querySelectorAll('.segmented-control input').forEach((radio) => {
+      radio.addEventListener('change', (e) => this.setInstallationType(e.target.value));
+    });
+
+    // Attach Bracket listeners
+    if (this.state.installationType === 'diy') {
+      section.querySelectorAll('input[name^="bracket_"]').forEach((input) => {
+        input.addEventListener('change', (e) => {
+          this.state.bracketId = parseInt(e.target.value);
+          this.render(); // Re-render to update summary/selection state
         });
-        bracketsList.appendChild(row);
       });
-      section.appendChild(bracketsList);
     }
 
     return section;
