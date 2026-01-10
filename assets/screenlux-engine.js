@@ -100,8 +100,6 @@ window.ScreenluxEngine = {
     const MAX_PRICE = 300000; // 3000€
 
     // 2. Clamp (2.3.1.2)
-    const MIN_PRICE = 50000; // 500€
-    const MAX_PRICE = 300000; // 3000€
 
     if (target < MIN_PRICE) target = MIN_PRICE;
     if (target > MAX_PRICE) target = MAX_PRICE;

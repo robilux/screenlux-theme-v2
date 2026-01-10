@@ -1451,5 +1451,58 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "Screenlux Configurator",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Pricing Logic"
+      },
+      {
+        "type": "paragraph",
+        "content": "Adjust the base formula parameters. All prices in cents (e.g. 5000 = €50.00)."
+      },
+      {
+        "type": "number",
+        "id": "configurator_base_price",
+        "label": "Base Price (cents)",
+        "default": 50000
+      },
+      {
+        "type": "number",
+        "id": "configurator_price_per_sqm",
+        "label": "Price per SQM (cents)",
+        "default": 5000
+      },
+      {
+        "type": "number",
+        "id": "configurator_min_billable",
+        "label": "Min Billable SQM (units)",
+        "default": 0
+      },
+      {
+        "type": "number",
+        "id": "configurator_base_includes",
+        "label": "Base Includes SQM (units)",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Surcharges"
+      },
+      {
+        "type": "number",
+        "id": "configurator_surcharge_cassette",
+        "label": "Cassette Surcharge (cents)",
+        "default": 5000
+      },
+      {
+        "type": "number",
+        "id": "configurator_surcharge_solar",
+        "label": "Solar Surcharge (cents)",
+        "default": 10000
+      }
+    ]
   }
 ]
