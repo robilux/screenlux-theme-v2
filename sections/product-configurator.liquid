@@ -1,4 +1,10 @@
-{{ 'screenlux.css' | asset_url | stylesheet_tag }}
+<link
+  rel="stylesheet"
+  href="{{ 'screenlux.css' | asset_url }}&v={{ 'now' | date: '%N' }}"
+  media="print"
+  onload="this.media='all'"
+>
+<noscript>{{ 'screenlux.css' | asset_url | stylesheet_tag }}</noscript>
 {% render 'screenlux-data' %}
 
 <script src="{{ 'screenlux-engine.js' | asset_url }}" defer="defer"></script>
