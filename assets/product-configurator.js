@@ -168,28 +168,11 @@ class ProductConfigurator extends HTMLElement {
     this.appendChild(container);
   }
 
-           <!-- Actions -->
-            ${
-              this.state.screens.length > 1
-                ? `
-              <div class="screen-actions margin-top">
-                <button type="button" class="button--text text-danger remove-screen-btn">Remove Screen</button>
-              </div>
-            `
-                : ''
-            }
-        </div>
-      </details>
-    `;
-
-    // ... (rest of function) ...
-  }
-  
   // New Helper: Render Visual Selection Grid
   renderSelectionGrid(label, fieldName, options, selectedValue, index, isColor = false) {
     let html = `<div class="field margin-top"><label>${label}</label><div class="selection-grid">`;
-    
-    options.forEach(opt => {
+
+    options.forEach((opt) => {
       const isSelected = selectedValue === opt.id;
       // Visual: Color Circle or Image Card?
       let visual = '';
@@ -199,10 +182,12 @@ class ProductConfigurator extends HTMLElement {
         // Placeholder image if link is broken, or just style a box
         visual = `<div class="card-image" style="background-image: url('${opt.image}');"></div>`;
       }
-      
+
       html += `
         <label class="selection-card ${isSelected ? 'selected' : ''}">
-          <input type="radio" name="${fieldName}_${index}" value="${opt.id}" ${isSelected ? 'checked' : ''} class="hidden-input">
+          <input type="radio" name="${fieldName}_${index}" value="${opt.id}" ${
+        isSelected ? 'checked' : ''
+      } class="hidden-input">
           <div class="card-content">
             ${visual}
             <div class="card-text">
@@ -213,7 +198,7 @@ class ProductConfigurator extends HTMLElement {
         </label>
       `;
     });
-    
+
     html += `</div></div>`;
     return html;
   }
@@ -261,10 +246,22 @@ class ProductConfigurator extends HTMLElement {
            ${!screen.valid ? `<div class="error-msg">⚠️ ${screen.errors.dimension || 'Invalid dimensions'}</div>` : ''}
            
            <!-- Frame Color Selector -->
-           ${this.renderSelectionGrid('Frame Color', 'frameColor', frameOptions, screen.frameColor || 'anthracite', index)}
+           ${this.renderSelectionGrid(
+             'Frame Color',
+             'frameColor',
+             frameOptions,
+             screen.frameColor || 'anthracite',
+             index
+           )}
            
            <!-- Fabric Selector -->
-           ${this.renderSelectionGrid('Fabric Transparency', 'cassette', fabricOptions, screen.cassette || 'standard', index)}
+           ${this.renderSelectionGrid(
+             'Fabric Transparency',
+             'cassette',
+             fabricOptions,
+             screen.cassette || 'standard',
+             index
+           )}
            
            <!-- Toggles -->
            <div class="field-checkbox margin-top">
