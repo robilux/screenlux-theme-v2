@@ -4,7 +4,7 @@
 <script src="{{ 'screenlux-engine.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'details-accordion.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'hybrid-quantity-selector.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'product-configurator.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-configurator.js' | asset_url }}&v={{ 'now' | date: '%N' }}" defer="defer"></script>
 
 <div class="page-width screenlux-product-container">
   <!-- Left Column: Sticky Media Gallery -->
@@ -56,7 +56,21 @@
     </div>
 
     <!-- The Custom Application Root -->
+    <script>
+      console.log('Screenlux Data Loaded:', window.ScreenluxData);
+      if (!window.ScreenluxData) console.error('ScreenluxData is missing!');
+      if (window.ScreenluxData && window.ScreenluxData.screens.length === 0)
+        console.warn('ScreenluxData.screens is empty! Check collection "main-product".');
+    </script>
     <product-configurator>
+      <div
+        id="loading-fallback"
+        style="padding: 20px; text-align: center; border: 1px dashed #ccc; background: #fafafa;"
+      >
+        <h3>Configuration Loading...</h3>
+        <p>If this does not disappear, no products were found in the "main-product" collection.</p>
+        <p><small>(Check Console for details)</small></p>
+      </div>
       <!--
         The content here is rendered by JS.
         We pass the cart-add-url for the engine to use.

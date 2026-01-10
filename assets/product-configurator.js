@@ -1,3 +1,5 @@
+console.log('🚀 Product Configurator Script Executing...');
+
 class ProductConfigurator extends HTMLElement {
   constructor() {
     super();
@@ -8,31 +10,40 @@ class ProductConfigurator extends HTMLElement {
       bracketId: null, // selected bracket variant ID
     };
 
-    // Bind methods
-    this.handleAddScreen = this.handleAddScreen.bind(this);
-    this.handleGlobalSolar = this.handleGlobalSolar.bind(this);
-    this.handleAddToCart = this.handleAddToCart.bind(this);
+    // Auto-bound methods via arrow functions below
+  }
 
-    // Initialize
+  connectedCallback() {
     this.init();
   }
 
   init() {
-    // 1. Load Data
-    this.data = window.ScreenluxData;
-    if (!this.data) {
-      this.innerHTML = '<div class="error">Error loading configuration data.</div>';
-      return;
-    }
+    try {
+      // 1. Load Data
+      this.data = window.ScreenluxData;
+      if (!this.data) {
+        throw new Error('ScreenluxData is undefined. Check console.');
+      }
 
-    // 2. Initial State: 1 Screen
-    this.addScreen();
-    this.render();
+      // 2. Initial State: 1 Screen
+      this.handleAddScreen();
+      // 3. Initial Render
+      this.render(); // If render fails, it will catch below.
+    } catch (err) {
+      console.error('Configurator Init Error:', err);
+      this.innerHTML = `
+            <div style="padding: 20px; color: red; text-align: center; border: 1px solid red; margin: 20px;">
+                <h3>Application Error</h3>
+                <p>${err.message}</p>
+                <small>${err.stack || ''}</small>
+            </div>
+        `;
+    }
   }
 
   /* --- State Modifiers --- */
 
-  addScreen() {
+  handleAddScreen = () => {
     // Basic validation could go here
     const newId = this.state.screens.length + 1;
     this.state.screens.push({
@@ -54,7 +65,10 @@ class ProductConfigurator extends HTMLElement {
     });
 
     this.render();
-  }
+  };
+
+  // Other methods remain standard methods unless they are callbacks.
+  // Standard methods are fine if not used as callbacks, or we can convert them for consistency.
 
   updateScreen(index, field, value) {
     const screen = this.state.screens[index];
@@ -92,10 +106,10 @@ class ProductConfigurator extends HTMLElement {
     this.render();
   }
 
-  handleGlobalSolar() {
+  handleGlobalSolar = () => {
     this.state.screens.forEach((s) => (s.solar = true));
     this.render();
-  }
+  };
 
   updateAddon(id, qty) {
     this.state.addons[id] = qty;
@@ -338,7 +352,7 @@ class ProductConfigurator extends HTMLElement {
 
   /* --- Actions --- */
 
-  handleAddToCart() {
+  handleAddToCart = () => {
     const payload = window.ScreenluxEngine.generateCartPayload(this.state, this.data);
     const cartUrlInput = this.querySelector('input[name="cart-add-url"]');
     // Fallback for independent testing
@@ -361,7 +375,10 @@ class ProductConfigurator extends HTMLElement {
         // For testing without Shopify
         if (cartUrl === '/cart/add') alert('Simulation: Added to cart (See console)');
       });
-  }
+  };
 }
 
-customElements.define('product-configurator', ProductConfigurator);
+// Global safe check (though customElement.define handles this usually)
+if (!customElements.get('product-configurator')) {
+  customElements.define('product-configurator', ProductConfigurator);
+}

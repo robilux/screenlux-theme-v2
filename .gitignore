@@ -1,10 +1,18 @@
-# OS generated files #
-######################
+# Shopify
+config/settings_data.json
+*.log
+.shopify/
+
+# System
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-.shopify
+thumbs.db
+
+# Node
+node_modules/
+.npm
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/

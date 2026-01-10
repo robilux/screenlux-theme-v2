@@ -50,4 +50,6 @@ class HybridQuantitySelector extends HTMLElement {
   }
 }
 
-customElements.define('hybrid-quantity-selector', HybridQuantitySelector);
+if (!customElements.get('hybrid-quantity-selector')) {
+  customElements.define('hybrid-quantity-selector', HybridQuantitySelector);
+}
