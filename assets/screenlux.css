@@ -108,8 +108,90 @@
 .screenlux-gallery img {
   width: 100%;
   height: auto;
-  border-radius: var(--sl-radius-lg);
+  border-radius: var(--sl-radius-xl); /* Increased radius per design */
   display: block;
+}
+
+/* Gallery Controls Overlay */
+.product-gallery__overlay-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Let clicks pass through to image if needed, but buttons need events */
+  z-index: 2;
+}
+
+.product-gallery__overlay-controls > * {
+  pointer-events: auto; /* Re-enable clicks for controls */
+}
+
+/* Navigation Buttons */
+.slider-buttons {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.slider-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--sl-color-white);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+  color: var(--sl-text-primary);
+}
+
+.slider-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.slider-button .svg-wrapper {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rotate the caret icon for next/prev if needed, or rely on existing SVG orientation */
+.slider-button--next .svg-wrapper {
+  transform: rotate(-90deg); /* Adjust based on icon-caret.svg content */
+}
+
+.slider-button--prev .svg-wrapper {
+  transform: rotate(90deg);
+}
+
+
+/* Counter */
+.slider-counter {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--sl-color-white);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: var(--sl-text-sm);
+  font-weight: var(--sl-weight-medium);
+  backdrop-filter: blur(4px);
+  display: flex; /* Ensure it displays cleanly */
+  gap: 4px;
 }
 
 .thumbnail-slider {
@@ -196,15 +278,20 @@ h3 { font-size: var(--sl-text-h4); font-weight: var(--sl-weight-medium); margin-
 }
 
 /* Selection Cards (Visual Radio Groups) */
-/* Selection Cards (Visual Radio Groups) */
 .selection-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--sl-spacing-3);
 }
 
+@media (max-width: 600px) {
+  .selection-grid {
+    grid-template-columns: 1fr; /* Stack on very small screens */
+  }
+}
+
 .selection-card {
-  display: flex; /* Changed from block to flex for better centering if needed */
+  display: flex;
   align-items: center;
   position: relative;
   background: var(--sl-color-white);
@@ -212,21 +299,25 @@ h3 { font-size: var(--sl-text-h4); font-weight: var(--sl-weight-medium); margin-
   border-radius: var(--sl-radius-md);
   padding: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 56px; /* Ensure click area */
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  min-height: 64px;
 }
 
 .selection-card:hover {
   border-color: var(--sl-color-gray-400);
+  background-color: var(--sl-color-gray-50);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .selection-card.selected {
-  border: 1px solid var(--sl-color-primary);
-  box-shadow: 0 0 0 1px var(--sl-color-primary); /* Thick border effect */
-  background-color: #F8F8FF; /* Very faint blue tint */
+  border-color: var(--sl-color-primary);
+  background-color: #F0F6FF; /* Clean blue tint */
+  box-shadow: 0 0 0 2px var(--sl-color-primary), 0 4px 12px rgba(91, 91, 249, 0.15);
+  z-index: 1; /* Ensure shadow overlaps siblings */
 }
 
-/* Ensure radio button is completely removed from flow but arguably accessible */
+/* Ensure radio button is completely removed from flow */
 .hidden-input {
   position: absolute;
   width: 1px;
@@ -236,8 +327,6 @@ h3 { font-size: var(--sl-text-h4); font-weight: var(--sl-weight-medium); margin-
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
-  appearance: none;
-  -webkit-appearance: none;
 }
 
 .card-content {
@@ -247,43 +336,52 @@ h3 { font-size: var(--sl-text-h4); font-weight: var(--sl-weight-medium); margin-
   width: 100%;
 }
 
-
 .card-text {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .card-title {
   font-weight: var(--sl-weight-medium);
-  font-size: 14px;
+  font-size: var(--sl-text-sm);
   color: var(--sl-text-primary);
+  line-height: 1.4;
+}
+
+.selection-card.selected .card-title {
+  color: var(--sl-color-primary);
+  font-weight: var(--sl-weight-bold);
 }
 
 .card-desc {
-  font-size: 12px;
+  font-size: var(--sl-text-xs);
   color: var(--sl-text-tertiary);
   margin-top: 2px;
+  line-height: 1.3;
 }
 
 /* Color Swatch Circle */
 .color-swatch {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: block;
   flex-shrink: 0;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08); /* Internal definition ring */
+  border: 2px solid var(--sl-color-white); /* Gap for double-ring effect */
 }
 
 /* Image Card Box (Fabric) */
 .card-image {
-  width: 40px;
-  height: 40px;
-  background-color: #eee;
+  width: 48px;
+  height: 48px;
+  background-color: var(--sl-color-gray-100);
   background-size: cover;
   background-position: center;
-  border-radius: 4px;
+  border-radius: var(--sl-radius-sm);
   flex-shrink: 0;
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
 /* Accordion (Clean Style) */

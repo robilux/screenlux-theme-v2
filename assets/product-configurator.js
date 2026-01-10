@@ -118,10 +118,49 @@ class ProductConfigurator extends HTMLElement {
 
   /* --- Rendering --- */
 
-  render() {
-    // Clear current DOM (Simple re-render strategy for vanilla)
-    this.innerHTML = '';
+  saveFocus() {
+    const active = document.activeElement;
+    if (!active || !this.contains(active)) return null;
+    // Strategy: return a selector string or unique attributes
+    if (active.dataset.field) {
+      // It's a dimension input: which screen?
+      const details = active.closest('details-accordion');
+      // Find index of this details in the list... or simpler: use unique IDs in inputs if possible.
+      // Current code doesn't have unique IDs for dimension inputs.
+      // Let's use data-field + value + proximity to screen title?
+      // Fallback: Store the path or just the value?
+      // Let's rely on the order in the DOM.
+      const allInputs = Array.from(this.querySelectorAll(`input[data-field="${active.dataset.field}"]`));
+      const index = allInputs.indexOf(active);
+      return { type: 'dimension', field: active.dataset.field, index };
+    }
+    return null;
+  }
 
+  restoreFocus(saved) {
+    if (!saved) return;
+    try {
+      if (saved.type === 'dimension') {
+        const allInputs = Array.from(this.querySelectorAll(`input[data-field="${saved.field}"]`));
+        if (allInputs[saved.index]) {
+          const el = allInputs[saved.index];
+          el.focus();
+          // Restore cursor position for text/number inputs
+          if (el.type === 'text' || el.type === 'number') {
+            const len = el.value.length;
+            el.setSelectionRange(len, len);
+          }
+        }
+      }
+    } catch (e) {
+      // Ignore focus errors
+    }
+  }
+
+  render() {
+    const savedFocus = this.saveFocus();
+
+    // Build off-DOM to prevent painting intermediate states
     const container = document.createElement('div');
     container.className = 'configurator-app';
 
@@ -136,20 +175,21 @@ class ProductConfigurator extends HTMLElement {
 
     // 2. Add Screen Button
     const addBtn = document.createElement('button');
-    addBtn.className = 'button button--secondary full-width margin-top';
+    addBtn.className = 'button button--secondary button--outline full-width margin-top';
     addBtn.innerText = 'Add another screen';
     addBtn.onclick = this.handleAddScreen;
     container.appendChild(addBtn);
 
-    // 3. Global Solar Check (Visual Logic)
-    // Only show if ANY screen is NOT solar
+    // 3. Global Solar Check
     if (this.state.screens.some((s) => !s.solar)) {
       const solarTip = document.createElement('div');
       solarTip.className = 'solar-tip section-spacing';
       solarTip.innerHTML = `
-        <div class="tip-box">
-          <p><strong>Go Solar?</strong> Save on wiring costs.</p>
-          <button class="button--link">Switch all to Solar</button>
+        <div class="tip-box info-box">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+             <span><strong>Go Solar?</strong> Save on wiring costs.</span>
+             <button class="button--text">Switch all to Solar</button>
+          </div>
         </div>
       `;
       solarTip.querySelector('button').onclick = this.handleGlobalSolar;
@@ -165,7 +205,11 @@ class ProductConfigurator extends HTMLElement {
     // 6. Order Summary & Cart
     container.appendChild(this.renderOrderSummary());
 
-    this.appendChild(container);
+    // Atomic Swap
+    this.replaceChildren(container);
+
+    // Restore Focus
+    this.restoreFocus(savedFocus);
   }
 
   // New Helper: Render Visual Selection Grid

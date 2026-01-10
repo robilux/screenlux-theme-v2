@@ -8,64 +8,16 @@
 {% render 'screenlux-data' %}
 
 <script src="{{ 'screenlux-engine.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'details-accordion.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'hybrid-quantity-selector.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'product-configurator.js' | asset_url }}&v={{ 'now' | date: '%N' }}" defer="defer"></script>
 
 <div class="page-width screenlux-product-container">
   <!-- Left Column: Sticky Media Gallery -->
-  <div class="sticky-media-col product__media-wrapper">
-    <!--
-      Simplified Media Gallery Implementation
-      In a real scenario, this would loop product.media and use Dawn's component-slider
-    -->
-    <div class="product__media-list">
-      {% if product.featured_image %}
-        <div class="product__media-item">
-          <img
-            src="{{ product.featured_image | image_url: width: 800 }}"
-            alt="{{ product.title }}"
-            loading="eager"
-            width="100%"
-            height="auto"
-          >
-        </div>
-      {% endif %}
-      <!-- Carousel Thumbs Placeholder -->
-      <div class="thumbnail-slider">
-        {% for media in product.media %}
-          <button
-            class="thumbnail"
-            data-target-image="{{ media | image_url: width: 800 }}"
-            {% if forloop.first %}
-              aria-current="true"
-            {% endif %}
-          >
-            <img src="{{ media | image_url: width: 100 }}" alt="{{ media.alt }}">
-          </button>
-        {% endfor %}
-      </div>
-    </div>
+  <div class="sticky-media-col product__media-wrapper screenlux-gallery">
+    {% render 'product-media-gallery', product: product %}
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const mainImage = document.querySelector('.product__media-item img');
-      const thumbnails = document.querySelectorAll('.thumbnail');
-
-      thumbnails.forEach((thumb) => {
-        thumb.addEventListener('click', function () {
-          // 1. Update Main Image
-          const newSrc = this.getAttribute('data-target-image');
-          if (mainImage) mainImage.src = newSrc;
-
-          // 2. Update Active State
-          thumbnails.forEach((t) => t.setAttribute('aria-current', 'false'));
-          this.setAttribute('aria-current', 'true');
-        });
-      });
-    });
-  </script>
 
   <!-- Right Column: Configurator Form -->
   <div class="product__info-wrapper">
