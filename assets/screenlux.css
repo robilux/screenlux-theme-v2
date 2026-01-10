@@ -1,4 +1,5 @@
 /* Screenlux Design System (Figma JSON Implementation) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 :root {
   /* --- Colors (Derived from JSON) --- */
@@ -155,6 +156,7 @@ h3 { font-size: var(--sl-text-h4); font-weight: var(--sl-weight-medium); margin-
 }
 
 /* Selection Cards (Visual Radio Groups) */
+/* Selection Cards (Visual Radio Groups) */
 .selection-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -162,7 +164,8 @@ h3 { font-size: var(--sl-text-h4); font-weight: var(--sl-weight-medium); margin-
 }
 
 .selection-card {
-  display: block;
+  display: flex; /* Changed from block to flex for better centering if needed */
+  align-items: center;
   position: relative;
   background: var(--sl-color-white);
   border: 1px solid var(--sl-border-default);
@@ -170,6 +173,7 @@ h3 { font-size: var(--sl-text-h4); font-weight: var(--sl-weight-medium); margin-
   padding: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: 56px; /* Ensure click area */
 }
 
 .selection-card:hover {
@@ -179,20 +183,30 @@ h3 { font-size: var(--sl-text-h4); font-weight: var(--sl-weight-medium); margin-
 .selection-card.selected {
   border: 1px solid var(--sl-color-primary);
   box-shadow: 0 0 0 1px var(--sl-color-primary); /* Thick border effect */
-  background-color: #f8f8ff; /* Very faint blue tint */
+  background-color: #F8F8FF; /* Very faint blue tint */
 }
 
+/* Ensure radio button is completely removed from flow but arguably accessible */
 .hidden-input {
   position: absolute;
-  opacity: 0;
-  pointer-events: none;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .card-content {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
 }
+
 
 .card-text {
   display: flex;
@@ -271,14 +285,28 @@ details-accordion .accordion__content {
 /* Buttons */
 .button {
   width: 100%;
-  padding: 16px;
+  padding: 0 24px; /* Horizontal padding, height defined by flex/line-height or explicit height */
+  height: 48px;
+  line-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--sl-radius-md);
   font-weight: var(--sl-weight-medium);
   font-size: var(--sl-text-body);
   border: none;
   cursor: pointer;
-  text-align: center;
-  transition: background 0.2s;
+  transition: all 0.2s;
+}
+
+/* Small Add Button overriding default button styles for context */
+hybrid-quantity-selector .button {
+  width: auto;
+  min-width: 80px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 16px;
+  font-size: var(--sl-text-sm);
 }
 
 .button--primary {

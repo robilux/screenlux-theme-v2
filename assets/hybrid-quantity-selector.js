@@ -1,17 +1,29 @@
 class HybridQuantitySelector extends HTMLElement {
   constructor() {
     super();
+    // Elements are not guaranteed to exist in constructor
+  }
+
+  connectedCallback() {
+    // 1. Query Elements
     this.input = this.querySelector('input');
     this.addButton = this.querySelector('.btn-add');
     this.controls = this.querySelector('.qty-controls');
     this.minusBtn = this.querySelector('.qty-minus');
     this.plusBtn = this.querySelector('.qty-plus');
 
-    this.addButton.addEventListener('click', () => this.activate());
-    this.minusBtn.addEventListener('click', () => this.update(-1));
-    this.plusBtn.addEventListener('click', () => this.update(1));
+    if (!this.input || !this.addButton) return; // Safety check
 
-    // Initial State Check
+    // 2. Clear old listeners (idempotency check simpler here: just re-add)
+    // In a production app, we might check if already initialized, but for this simple element replacing innerHTML is rare.
+    // To be safe, we'll assign 'onclick' handlers directly or use AbortController.
+    // For simplicity/robustness here:
+
+    this.addButton.onclick = () => this.activate();
+    this.minusBtn.onclick = () => this.update(-1);
+    this.plusBtn.onclick = () => this.update(1);
+
+    // 3. Initial State Check
     if (this.input.value > 0) {
       this.showControls();
     }
