@@ -1,197 +1,250 @@
-/* Screenlux Design System Tokens (V2) */
+/* Screenlux Design System (Figma JSON Implementation) */
+
 :root {
-  /* Premium Colors (Dark/Lux Theme) */
-  --color-brand-anthracite: #1a1a1a;
-  --color-brand-black: #050505;
-  --color-brand-dark-grey: #2a2a2a;
-  --color-brand-soft-grey: #f5f5f7;
-  --color-brand-text: #333333;
-  --color-brand-text-light: #777777;
+  /* --- Colors (Derived from JSON) --- */
   
-  --color-brand-accent: #007aff; /* System Blue-like */
-  --color-brand-success: #34c759;
-  --color-brand-error: #ff3b30;
+  /* Primitives */
+  --sl-color-white: #ffffff;
+  --sl-color-black: #000000;
   
-  --color-brand-border: rgba(0, 0, 0, 0.1);
-  --color-surface-glass: rgba(255, 255, 255, 0.75);
-  --color-surface-glass-border: rgba(255, 255, 255, 0.5);
+  --sl-color-gray-50: #fafafa;   /* r:0.98 */
+  --sl-color-gray-100: #f5f5f5; /* r:0.96 */
+  --sl-color-gray-200: #e5e5e5; /* r:0.89 */
+  --sl-color-gray-300: #d4d4d4; /* r:0.83 */
+  --sl-color-gray-400: #a3a3a3; /* r:0.63 */
+  --sl-color-gray-500: #737373; /* r:0.45 */
+  --sl-color-gray-600: #525252; /* r:0.32 */
+  --sl-color-gray-700: #404040; /* r:0.25 */
+  --sl-color-gray-800: #262626; /* r:0.14 */
+  --sl-color-gray-900: #171717; /* r:0.09 */
 
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,0.08);
-
-  /* Typography */
-  --font-family-body: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Brand / Semantic */
+  --sl-color-primary: #5b5bf9;       /* r:0.35, g:0.35, b:0.97 */
+  --sl-color-primary-hover: #4a4ae0; /* r:0.29, g:0.29, b:0.87 */
   
-  /* Spacing */
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-24: 24px;
-  --spacing-40: 40px;
+  /* Semantic Aliases (Light Mode) */
+  --sl-bg-root: var(--sl-color-white);
+  --sl-bg-secondary: var(--sl-color-gray-50);
+  --sl-bg-tertiary: var(--sl-color-gray-100);
   
-  /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --sl-text-primary: var(--sl-color-gray-900);
+  --sl-text-secondary: var(--sl-color-gray-600);
+  --sl-text-tertiary: var(--sl-color-gray-400);
+  
+  --sl-border-default: var(--sl-color-gray-200);
+  --sl-border-focus: var(--sl-color-primary);
+  
+  --sl-color-success: #0ea674; /* r:0.05, g:0.65, b:0.45 */
+  --sl-color-warning: #d97706; /* r:0.85, g:0.46, b:0.02 */
+  --sl-color-error: #ef4444;   /* r:0.93, g:0.26, b:0.26 */
 
-  /* Layout */
-  --product-media-gap: 60px;
+  /* --- Radii (from JSON) --- */
+  --sl-radius-xs: 4px;
+  --sl-radius-sm: 6px;
+  --sl-radius-md: 8px; /* Standard VariableID:4:5 */
+  --sl-radius-lg: 12px;
+  --sl-radius-xl: 16px;
+  --sl-radius-full: 9999px;
+
+  /* --- Spacing (from JSON) --- */
+  --sl-spacing-1: 4px;
+  --sl-spacing-2: 8px;
+  --sl-spacing-3: 12px;
+  --sl-spacing-4: 16px;
+  --sl-spacing-5: 20px;
+  --sl-spacing-6: 24px;
+  --sl-spacing-8: 32px;
+  --sl-spacing-10: 40px;
+
+  /* --- Typography --- */
+  --sl-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --sl-text-xs: 12px;
+  --sl-text-sm: 14px;
+  --sl-text-body: 16px;
+  --sl-text-h4: 24px;
+  --sl-text-h3: 30px;
+  --sl-text-h2: 36px;
+  --sl-text-h1: 48px;
+  
+  --sl-weight-regular: 400;
+  --sl-weight-medium: 500;
+  --sl-weight-bold: 700;
 }
 
-/* Glassmorphism Utilities */
-.glass-panel {
-  background: var(--color-surface-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-surface-glass-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+/* --- Layout Structure --- */
+.screenlux-product-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sl-spacing-10);
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: var(--sl-spacing-6);
+  font-family: var(--sl-font-family);
+  color: var(--sl-text-primary);
+  background: var(--sl-bg-root);
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-/* Base Utilities */
-.hidden {
-  display: none !important;
-}
-.full-width {
-  width: 100%;
-}
-.text-link {
-  text-decoration: underline;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-/* Product Page Layout (Desktop) */
-@media screen and (min-width: 990px) {
+@media (min-width: 900px) {
   .screenlux-product-container {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: var(--product-media-gap);
-    margin-top: 40px;
+    grid-template-columns: 1fr 480px; /* Specific Right Column Width based on UI feel */
     align-items: start;
-  }
-
-  .sticky-media-col {
-    position: sticky;
-    top: 20px;
-    height: fit-content;
+    gap: 60px;
   }
 }
 
-.product__info-wrapper {
-  padding: 0 var(--spacing-24);
+/* Left: Gallery */
+.screenlux-gallery {
+  position: sticky;
+  top: 24px;
 }
-/* Component Styling */
-.section-spacing {
-  margin-top: var(--spacing-24);
-  padding: var(--spacing-24);
-  background: #fff;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-brand-border);
-}
-
-.button {
-  transition: all 0.2s ease;
-  border-radius: var(--radius-sm);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
-
-.button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-brand-text-light);
-  margin-bottom: var(--spacing-8);
+.screenlux-gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--sl-radius-lg);
   display: block;
 }
 
-.field input[type="number"],
-.field input[type="text"] {
+/* Right: Configurator */
+.configurator-app {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-spacing-8);
+}
+
+/* --- Components --- */
+
+/* Titles */
+h1 { font-size: var(--sl-text-h2); font-weight: var(--sl-weight-bold); margin-bottom: 8px; }
+h2 { font-size: var(--sl-text-h3); font-weight: var(--sl-weight-bold); }
+h3 { font-size: var(--sl-text-h4); font-weight: var(--sl-weight-medium); margin-bottom: 16px; }
+
+.price-display {
+  font-size: var(--sl-text-h4);
+  font-weight: var(--sl-weight-medium);
+  color: var(--sl-text-secondary);
+}
+
+/* Inputs & Forms */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sl-spacing-4);
+}
+
+.field label {
+  display: block;
+  font-size: var(--sl-text-sm);
+  font-weight: var(--sl-weight-medium);
+  margin-bottom: var(--sl-spacing-1);
+  color: var(--sl-text-secondary);
+}
+
+.field input {
   width: 100%;
   padding: 12px;
-  border: 1px solid var(--color-brand-border);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-family-body);
-  transition: border-color 0.2s;
+  border: 1px solid var(--sl-border-default);
+  border-radius: var(--sl-radius-md);
+  box-sizing: border-box; /* Crucial fix */
+  font-size: var(--sl-text-body);
+  transition: border 0.15s;
 }
 
 .field input:focus {
   outline: none;
-  border-color: var(--color-brand-accent);
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+  border-color: var(--sl-border-focus);
 }
 
-.field input.error {
-  border-color: var(--color-brand-error);
-  background-color: rgba(255, 59, 48, 0.05);
+/* Selection Cards (Radio Groups) */
+/* Assuming standard radio buttons for now, styling wrappers if possible */
+.selection-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sl-spacing-3);
 }
 
-.error-msg {
-  color: var(--color-brand-error);
-  font-size: 0.75rem;
-  margin-top: 4px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* Accordion Premium Styling */
+/* Accordion (Clean Style) */
 details-accordion details {
-  border: 1px solid var(--color-brand-border);
-  border-radius: var(--radius-md);
-  margin-bottom: var(--spacing-12);
-  background: white;
-  overflow: hidden;
-  transition: box-shadow 0.2s;
-}
-
-details-accordion details[open] {
-  box-shadow: var(--shadow-sm);
-  border-color: var(--color-brand-accent);
+  border-bottom: 1px solid var(--sl-border-default);
+  padding: var(--sl-spacing-4) 0;
 }
 
 details-accordion summary {
-  padding: 16px var(--spacing-24);
-  background: rgba(245, 245, 247, 0.5);
-  font-weight: 600;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-weight: var(--sl-weight-medium);
+  cursor: pointer;
+  list-style: none;
 }
+details-accordion summary::-webkit-details-marker { display: none; }
 
 details-accordion .accordion__content {
-  padding: var(--spacing-24);
-  border-top: 1px solid var(--color-brand-border);
+  padding-top: var(--sl-spacing-4);
 }
 
-.section-spacing {
-  margin-top: var(--spacing-40);
-  padding-top: var(--spacing-24);
-  border-top: 1px solid var(--color-brand-border);
+/* Cart / Summary Section */
+.summary-box {
+  background: var(--sl-bg-secondary);
+  padding: var(--sl-spacing-6);
+  border-radius: var(--sl-radius-lg);
+  margin-top: var(--sl-spacing-8);
 }
 
-/* Thumbnail Active State */
-.product__media-list .thumbnail[aria-current='true'] img,
-.product__media-list .thumbnail.is-active img {
-  border: 2px solid var(--thumbnail-active-border) !important;
+.addon-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--sl-color-gray-300);
 }
+
+/* Buttons */
+.button {
+  width: 100%;
+  padding: 16px;
+  border-radius: var(--sl-radius-md);
+  font-weight: var(--sl-weight-medium);
+  font-size: var(--sl-text-body);
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.button--primary {
+  background: var(--sl-color-primary);
+  color: var(--sl-color-white);
+}
+
+.button--primary:hover {
+  background: var(--sl-color-primary-hover);
+}
+
+.button--secondary {
+  background: var(--sl-color-white);
+  border: 1px solid var(--sl-border-default);
+  color: var(--sl-text-primary);
+}
+
+/* "Add another screen" style */
+.button--outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px dashed var(--sl-color-gray-300);
+  color: var(--sl-text-secondary);
+  padding: 12px;
+}
+.button--outline:hover {
+  border-color: var(--sl-color-primary);
+  color: var(--sl-color-primary);
+}
+
+/* Icons */
+.icon-success { color: var(--sl-color-success); }
+
+/* Utilities */
+.hidden { display: none; }
+.text-xs { font-size: var(--sl-text-xs); }
+.text-tertiary { color: var(--sl-text-tertiary); }
