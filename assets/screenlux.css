@@ -112,6 +112,12 @@
   display: block;
 }
 
+/* Ensure the custom element is a positioned container */
+media-gallery {
+  display: block;
+  position: relative;
+}
+
 /* Gallery Controls Overlay */
 .product-gallery__overlay-controls {
   position: absolute;
