@@ -114,6 +114,12 @@ window.ScreenluxEngine = {
   generateCartPayload(state, data) {
     const items = [];
 
+    // Helper to find title by ID
+    const findTitle = (list, id) => {
+      const item = (list || []).find((x) => x.id == id);
+      return item ? item.title : id;
+    };
+
     // 1. Screens
     state.screens.forEach((screen, index) => {
       const rawPrice = this.calculateScreenPrice(screen, data.config);
@@ -132,9 +138,8 @@ window.ScreenluxEngine = {
           Reference: `Screen ${index + 1}`,
           Dimensions: `${screen.width}mm x ${screen.height}mm`,
           Power: screen.solar ? 'Solar' : 'Wired',
-          Cassette: screen.cassette === 'large' ? 'Large' : 'Standard',
-          'Fabric Color': screen.fabricColor || 'Standard',
-          'Frame Color': screen.frameColor || 'Standard',
+          'Fabric Transparency': findTitle(data.fabrics, screen.cassette), // Logic maps "cassette" field to Fabric
+          'Frame Color': findTitle(data.frameColors, screen.frameColor),
           'Calculated Price': `€${(rawPrice / 100).toFixed(2)}`,
         },
       });
