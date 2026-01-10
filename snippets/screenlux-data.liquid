@@ -1,0 +1,78 @@
+{% comment %}
+  Serializes data for the Screenlux Configurator V2.
+  Fetches products from collections defined in conventions:
+  - "Main product" (ZIP-Screen price variants)
+  - "Installation brackets"
+  - "Installation services"
+  - "Add-ons"
+{% endcomment %}
+
+<script>
+  window.ScreenluxData = {
+    // 1. ZIP-Screen Variants (The Price Carriers)
+    // We assume the collection 'Main product' contains the ZIP-Screen product(s).
+    // We grab the first product found and list its variants.
+    screens: [
+      {%- assign main_coll = collections['main-product'] -%}
+      {%- if main_coll.products.size > 0 -%}
+        {%- assign carrier_product = main_coll.products.first -%}
+        {%- for variant in carrier_product.variants -%}
+          {
+            id: {{ variant.id }},
+            title: "{{ variant.title }}",
+            price: {{ variant.price }}, // Raw cents
+            price_float: {{ variant.price | divided_by: 100.0 }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      {%- endif -%}
+    ],
+
+    // 2. Installation Brackets (DIY)
+    brackets: [
+      {%- assign bracket_coll = collections['installation-brackets'] -%}
+      {%- for prod in bracket_coll.products -%}
+        {
+           id: {{ prod.selected_or_first_available_variant.id }},
+           title: "{{ prod.title }}",
+           image: "{{ prod.featured_image | image_url: width: 200 }}",
+           price: {{ prod.price }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ],
+
+    // 3. Installation Services (Professional)
+    // Expecting 1 product with "Wired" and "Solar" variants
+    services: [
+      {%- assign service_coll = collections['installation-services'] -%}
+      {%- if service_coll.products.size > 0 -%}
+        {%- assign service_prod = service_coll.products.first -%}
+        {%- for variant in service_prod.variants -%}
+        {
+          id: {{ variant.id }},
+          title: "{{ variant.title }}", // Expected: "Wired" or "Solar"
+          price: {{ variant.price }}
+        }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      {%- endif -%}
+    ],
+
+    // 4. Add-ons
+    addons: [
+      {%- assign addon_coll = collections['add-ons'] -%}
+      {%- for prod in addon_coll.products -%}
+        {
+          id: {{ prod.selected_or_first_available_variant.id }},
+          title: "{{ prod.title }}",
+          price: {{ prod.price }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ],
+
+    // Configuration Constants
+    config: {
+       base_price: 50000, // 500 Euro cents
+       surcharge_solar: 10000,
+       surcharge_cassette: 5000
+    }
+  };
+</script>
