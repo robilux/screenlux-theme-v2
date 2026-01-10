@@ -338,6 +338,11 @@ class ProductConfigurator extends HTMLElement {
     if (this.state.installationType === 'diy') {
       const bracketsList = document.createElement('div');
       bracketsList.innerHTML = `<h4>Select Brackets</h4>`;
+
+      if (this.data.brackets.length === 0) {
+        bracketsList.innerHTML += `<p class="text-subdued"><em>No brackets found. Create collection "installation-brackets".</em></p>`;
+      }
+
       this.data.brackets.forEach((b) => {
         const row = document.createElement('div');
         row.innerHTML = `<label><input type="radio" name="bracket" value="${b.id}" ${
@@ -358,6 +363,11 @@ class ProductConfigurator extends HTMLElement {
     const section = document.createElement('div');
     section.className = 'section-spacing';
     section.innerHTML = `<h3>Add-ons</h3>`;
+
+    if (this.data.addons.length === 0) {
+      section.innerHTML += `<p class="text-subdued"><em>No add-ons found. Create collection "add-ons".</em></p>`;
+      return section;
+    }
 
     this.data.addons.forEach((addon) => {
       const row = document.createElement('div');
