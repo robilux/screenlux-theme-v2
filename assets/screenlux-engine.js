@@ -5,12 +5,6 @@
 
 window.ScreenluxEngine = {
   /**
-   * Calculates the raw price for a single screen configuration.
-   * @param {object} config - { width, height, solar, cassette }
-   * @param {object} rules - pricing rules/constants
-   * @returns {number} price in Euro cents
-   */
-  /**
    * Validation Rules
    */
   constraints: {
@@ -49,36 +43,41 @@ window.ScreenluxEngine = {
    * @returns {number} price in Euro cents
    */
   calculateScreenPrice(config, rules) {
-    // 0. Base Validation Check (optional, but good for safety)
+    // 0. Base Validation Check
     const validation = this.validateDimensions(config.width, config.height);
-    if (!validation.valid) return 0; // Return 0 if invalid
+    if (!validation.valid) return 0;
 
+    // 2.2.2.3.1 Calculate SQM
     const widthM = config.width / 1000;
     const heightM = config.height / 1000;
     const sqm = widthM * heightM;
 
-    // Pricing Factors (Should ideally come from rules object, using defaults for now)
-    const BASE_PRICE = rules.base_price || 50000; // Starting at €500
-    const PRICE_PER_SQM = 5000; // €50 per sqm (example logic)
+    // 2.2.2.2 Parameters from rules (populated by settings)
+    // Default fallback to 0 or sane defaults if rules missing
+    const PRICE_PER_SQM = rules.price_per_sqm !== undefined ? rules.price_per_sqm : 5000;
+    const MIN_BILLABLE = rules.min_billable_sqm || 0;
+    const BASE_INCLUDES = rules.base_includes_sqm || 0;
+    const BASE_PRICE = rules.base_price || 50000;
 
-    // 1. Base Price
-    let total = BASE_PRICE;
+    // 2.2.2.3.2 Billable SQM
+    const billableSqm = Math.max(sqm, MIN_BILLABLE);
 
-    // 2. Area Surcharge
-    // Simple logic: If area > 2sqm, add cost per extra sqm
-    if (sqm > 2) {
-      const extraSqm = sqm - 2;
-      total += Math.round(extraSqm * PRICE_PER_SQM);
-    }
+    // 2.2.2.3.3 Area Cost
+    // max(0, billable - included) * price
+    const chargeableSqm = Math.max(0, billableSqm - BASE_INCLUDES);
+    const areaCost = Math.round(chargeableSqm * PRICE_PER_SQM);
 
-    // 3. Hardware Surcharges
+    // 1. Base Price accumulator
+    let total = BASE_PRICE + areaCost;
+
+    // 3. Hardware Surcharges (2.2.6)
     if (config.cassette === 'large') {
-      total += rules.surcharge_cassette || 5000;
+      total += rules.surcharge_cassette || 5000; // Default +50€
     }
 
-    // 4. Motor Surcharge
+    // 4. Motor Surcharge (2.2.7)
     if (config.solar) {
-      total += rules.surcharge_solar || 10000;
+      total += rules.surcharge_solar || 10000; // Default +100€
     }
 
     return total;
@@ -95,11 +94,9 @@ window.ScreenluxEngine = {
     const STEP = 5000;
     let target = Math.ceil(rawPrice / STEP) * STEP;
 
-    // 2. Clamp
+    // 2. Clamp (2.3.1.2)
     const MIN_PRICE = 50000; // 500€
     const MAX_PRICE = 300000; // 3000€
-
-    // 2. Clamp (2.3.1.2)
 
     if (target < MIN_PRICE) target = MIN_PRICE;
     if (target > MAX_PRICE) target = MAX_PRICE;
