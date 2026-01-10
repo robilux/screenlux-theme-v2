@@ -95,14 +95,54 @@
 
 /* Left: Gallery */
 .screenlux-gallery {
-  position: sticky;
-  top: 24px;
+  position: relative; /* Context for sticky child */
 }
+
+.sticky-media-col {
+  position: sticky;
+  top: 40px; /* Space from top */
+  align-self: start;
+  z-index: 10;
+}
+
 .screenlux-gallery img {
   width: 100%;
   height: auto;
   border-radius: var(--sl-radius-lg);
   display: block;
+}
+
+.thumbnail-slider {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  overflow-x: auto;
+  padding-bottom: 4px; /* Scrollbar space */
+}
+
+.thumbnail {
+  background: none;
+  border: 2px solid transparent;
+  padding: 2px;
+  border-radius: var(--sl-radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.thumbnail img {
+  border-radius: var(--sl-radius-sm);
+  width: 100%;
+  height: auto;
+}
+
+.thumbnail:hover {
+  border-color: var(--sl-color-gray-300);
+}
+
+.thumbnail[aria-current="true"] {
+  border-color: var(--sl-color-primary);
 }
 
 /* Right: Configurator */

@@ -36,6 +36,7 @@
         {% for media in product.media %}
           <button
             class="thumbnail"
+            data-target-image="{{ media | image_url: width: 800 }}"
             {% if forloop.first %}
               aria-current="true"
             {% endif %}
@@ -46,6 +47,25 @@
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const mainImage = document.querySelector('.product__media-item img');
+      const thumbnails = document.querySelectorAll('.thumbnail');
+
+      thumbnails.forEach((thumb) => {
+        thumb.addEventListener('click', function () {
+          // 1. Update Main Image
+          const newSrc = this.getAttribute('data-target-image');
+          if (mainImage) mainImage.src = newSrc;
+
+          // 2. Update Active State
+          thumbnails.forEach((t) => t.setAttribute('aria-current', 'false'));
+          this.setAttribute('aria-current', 'true');
+        });
+      });
+    });
+  </script>
 
   <!-- Right Column: Configurator Form -->
   <div class="product__info-wrapper">
