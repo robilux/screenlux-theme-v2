@@ -397,18 +397,94 @@ class ProductConfigurator extends HTMLElement {
     return section;
   }
 
+  /**
+   * Calculates current totals for display
+   */
+  calculateTotals() {
+    let screensTotal = 0;
+    this.state.screens.forEach((s) => {
+      screensTotal += window.ScreenluxEngine.calculateScreenPrice(s, this.data.config);
+    });
+
+    let installTotal = 0;
+    if (this.state.installationType === 'diy' && this.state.bracketId) {
+      const b = this.data.brackets.find((x) => x.id == this.state.bracketId);
+      if (b) installTotal += b.price * this.state.screens.length;
+    } else if (this.state.installationType === 'professional') {
+      // Find service price (Wired or Solar)
+      const hasWired = this.state.screens.some((s) => !s.solar);
+      const target = hasWired ? 'Wired' : 'Solar';
+      const svc = this.data.services.find((s) => s.title.includes(target));
+      if (svc) installTotal += svc.price; // Flat fee usually
+    }
+
+    let addonsTotal = 0;
+    Object.entries(this.state.addons).forEach(([id, qty]) => {
+      const product = this.data.addons.find((p) => p.id == id);
+      if (product) addonsTotal += product.price * qty;
+    });
+
+    return { screensTotal, installTotal, addonsTotal, grandTotal: screensTotal + installTotal + addonsTotal };
+  }
+
   renderOrderSummary() {
+    const totals = this.calculateTotals();
+    const fmt = (cents) => `€${(cents / 100).toFixed(2)}`;
+
     const section = document.createElement('div');
     section.className = 'section-spacing summary-box';
     section.innerHTML = `<h3>Order Summary</h3>`;
 
-    section.innerHTML += `<p>Screens: ${this.state.screens.length}</p>`;
+    const summaryList = document.createElement('div');
+    summaryList.className = 'summary-list';
+
+    // Screens Line
+    summaryList.innerHTML += `
+      <div class="summary-row">
+        <span>Screens (${this.state.screens.length})</span>
+        <span>${fmt(totals.screensTotal)}</span>
+      </div>
+    `;
+
+    // Installation Line
+    if (totals.installTotal > 0) {
+      let label =
+        this.state.installationType === 'diy'
+          ? `Brackets (${this.state.screens.length}x)`
+          : 'Professional Installation';
+      summaryList.innerHTML += `
+        <div class="summary-row">
+            <span>${label}</span>
+            <span>${fmt(totals.installTotal)}</span>
+        </div>
+       `;
+    }
+
+    // Addons Line(s)
+    if (totals.addonsTotal > 0) {
+      summaryList.innerHTML += `
+        <div class="summary-row">
+            <span>Add-ons</span>
+            <span>${fmt(totals.addonsTotal)}</span>
+        </div>
+       `;
+    }
+
+    // Grand Total
+    summaryList.innerHTML += `
+      <div class="summary-row summary-total margin-top">
+        <span>Total</span>
+        <span>${fmt(totals.grandTotal)}</span>
+      </div>
+    `;
+
+    section.appendChild(summaryList);
 
     // Validate All before enabling
     const allValid = this.state.screens.every((s) => s.valid);
 
     const cartBtn = document.createElement('button');
-    cartBtn.className = `button button--primary full-width ${!allValid ? 'disabled' : ''}`;
+    cartBtn.className = `button button--primary full-width margin-top ${!allValid ? 'disabled' : ''}`;
     cartBtn.innerText = allValid ? 'Add to Cart' : 'Fix Issues to Checkout';
     cartBtn.onclick = allValid ? this.handleAddToCart : null;
     if (!allValid) cartBtn.disabled = true;
