@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenlux Configurator - Validation Test (Self Contained)</title>
+    <style>
+/* Screenlux Design System Tokens (V2) */
+:root {
+  /* Premium Colors (Dark/Lux Theme) */
+  --color-brand-anthracite: #1a1a1a;
+  --color-brand-black: #050505;
+  --color-brand-dark-grey: #2a2a2a;
+  --color-brand-soft-grey: #f5f5f7;
+  --color-brand-text: #333333;
+  --color-brand-text-light: #777777;
+  
+  --color-brand-accent: #007aff; /* System Blue-like */
+  --color-brand-success: #34c759;
+  --color-brand-error: #ff3b30;
+  
+  --color-brand-border: rgba(0, 0, 0, 0.1);
+  --color-surface-glass: rgba(255, 255, 255, 0.75);
+  --color-surface-glass-border: rgba(255, 255, 255, 0.5);
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.08);
+
+  /* Typography */
+  --font-family-body: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-40: 40px;
+  
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Layout */
+  --product-media-gap: 60px;
+}
+
+body { font-family: var(--font-family-body); padding: 40px; background: #eef; }
+.page-width { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-surface-glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Base Utilities */
+.hidden {
+  display: none !important;
+}
+.full-width {
+  width: 100%;
+}
+.text-link {
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Component Styling */
+.section-spacing {
+  margin-top: var(--spacing-24);
+  padding: var(--spacing-24);
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-brand-border);
+}
+
+.button {
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 12px 24px;
+  cursor: pointer;
+  border: none;
+}
+.button--primary { background: var(--color-brand-anthracite); color: white; }
+.button--primary:hover { opacity: 0.9; }
+.button--primary.disabled { opacity: 0.5; cursor: not-allowed; }
+.button--secondary { background: var(--color-brand-soft-grey); color: var(--color-brand-text); }
+.button--text { background: none; padding: 0; color: var(--color-brand-text-light); text-decoration: underline; font-size: 0.85em; }
+.text-danger { color: var(--color-brand-error); }
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.field { margin-bottom: 12px; }
+.field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-brand-text-light);
+  margin-bottom: var(--spacing-8);
+  display: block;
+}
+
+.field input[type="number"],
+.field input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-brand-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-body);
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--color-brand-accent);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.field input.error {
+  border-color: var(--color-brand-error);
+  background-color: rgba(255, 59, 48, 0.05);
+}
+
+.error-msg {
+  color: var(--color-brand-error);
+  font-size: 0.75rem;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Accordion Premium Styling */
+details-accordion details {
+  border: 1px solid var(--color-brand-border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-12);
+  background: white;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+details-accordion details[open] {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--color-brand-accent);
+}
+
+details-accordion summary {
+  padding: 16px var(--spacing-24);
+  background: rgba(245, 245, 247, 0.5);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none; /* Hide default marker */
+}
+details-accordion summary::-webkit-details-marker { display: none; }
+
+details-accordion .accordion__content {
+  padding: var(--spacing-24);
+  border-top: 1px solid var(--color-brand-border);
+}
+
+/* Grid for Inputs */
+.form-grid .form-row { display: flex; gap: 15px; }
+.form-grid .form-row .field { flex: 1; }
+
+.screen-actions { text-align: right; }
+.margin-top { margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="page-width">
+    <div>
+        <h1>Configurator Test</h1>
+        <p>Test the validation logic and premium UI.</p>
+        <p><small>Self-contained version (No server required)</small></p>
+    </div>
+    
+    <div id="app-root">
+        <product-configurator>
+            <input type="hidden" name="cart-add-url" value="/cart/add">
+        </product-configurator>
+    </div>
+</div>
+
+<!-- Mock Data -->
+<script>
+window.ScreenluxData = {
+    screens: [
+        { id: 111, title: 'Screen 500x500', price: 50000 },
+        { id: 222, title: 'Screen 1000x1000', price: 100000 },
+        { id: 333, title: 'Screen 2000x2000', price: 200000 }
+    ],
+    brackets: [
+        { id: 101, title: 'Wall Bracket', price: 1500 }
+    ],
+    services: [
+        { id: 901, title: 'Installation - Wired', price: 15000 },
+        { id: 902, title: 'Installation - Solar', price: 15000 }
+    ],
+    addons: [
+        { id: 801, title: 'Cleaning Kit', price: 2500 }
+    ],
+    config: {
+       base_price: 50000,
+       surcharge_solar: 10000,
+       surcharge_cassette: 5000
+    }
+};
+
+// Vendor Mocks
+class DetailsAccordion extends HTMLElement {} 
+customElements.define('details-accordion', DetailsAccordion);
+
+class HybridQty extends HTMLElement {}
+customElements.define('hybrid-quantity-selector', HybridQty);
+</script>
+
+<!-- Inlined Engines -->
+<script>
+/**
+ * Screenlux Pricing Engine V2
+ */
+window.ScreenluxEngine = {
+  constraints: {
+    minWidth: 600,
+    maxWidth: 6000,
+    minHeight: 600,
+    maxHeight: 5000,
+  },
+  validateDimensions(width, height) {
+    if (!width || !height) return { valid: false, error: 'Dimensions required' };
+    if (width < this.constraints.minWidth) return { valid: false, error: `Min width is ${this.constraints.minWidth}mm` };
+    if (width > this.constraints.maxWidth) return { valid: false, error: `Max width is ${this.constraints.maxWidth}mm` };
+    if (height < this.constraints.minHeight) return { valid: false, error: `Min height is ${this.constraints.minHeight}mm` };
+    if (height > this.constraints.maxHeight) return { valid: false, error: `Max height is ${this.constraints.maxHeight}mm` };
+    return { valid: true, error: null };
+  },
+  calculateScreenPrice(config, rules) {
+    const validation = this.validateDimensions(config.width, config.height);
+    if (!validation.valid) return 0;
+    const widthM = config.width / 1000;
+    const heightM = config.height / 1000;
+    const sqm = widthM * heightM;
+    const BASE_PRICE = rules.base_price || 50000; 
+    const PRICE_PER_SQM = 5000; 
+    let total = BASE_PRICE;
+    if (sqm > 2) {
+      const extraSqm = sqm - 2;
+      total += Math.round(extraSqm * PRICE_PER_SQM);
+    }
+    if (config.cassette === 'large') total += (rules.surcharge_cassette || 5000);
+    if (config.solar) total += (rules.surcharge_solar || 10000); 
+    return total;
+  },
+  matchVariant(rawPrice, variants) {
+    const STEP = 5000;
+    let target = Math.ceil(rawPrice / STEP) * STEP;
+    const MIN_PRICE = 50000; 
+    const MAX_PRICE = 300000; 
+    if (target < MIN_PRICE) target = MIN_PRICE;
+    if (target > MAX_PRICE) target = MAX_PRICE;
+    return variants.find((v) => v.price === target) || null;
+  },
+  generateCartPayload(state, data) {
+    const items = [];
+    state.screens.forEach((screen, index) => {
+      const rawPrice = this.calculateScreenPrice(screen, data.config);
+      const variant = this.matchVariant(rawPrice, data.screens);
+      if (!variant) { console.error('No matching price:', rawPrice); return; }
+      items.push({
+        id: variant.id,
+        quantity: 1,
+        properties: {
+          '_Screen ID': index + 1,
+          Reference: `Screen ${index + 1}`,
+          Dimensions: `${screen.width}mm x ${screen.height}mm`,
+          Power: screen.solar ? 'Solar' : 'Wired',
+          'Calculated Price': `€${(rawPrice / 100).toFixed(2)}`,
+        },
+      });
+    });
+    // Simplified logic for brevity in verification file
+    if (state.installationType === 'diy' && state.bracketId) {
+        items.push({ id: state.bracketId, quantity: state.screens.length });
+    }
+    Object.entries(state.addons || {}).forEach(([id, qty]) => {
+      if (qty > 0) items.push({ id: parseInt(id), quantity: qty });
+    });
+    return { items };
+  },
+};
+</script>
+
+<script>
+class ProductConfigurator extends HTMLElement {
+  constructor() {
+    super();
+    this.state = {
+      screens: [],
+      installationType: 'diy',
+      addons: {},
+      bracketId: null,
+    };
+    this.handleAddScreen = this.handleAddScreen.bind(this);
+    this.handleGlobalSolar = this.handleGlobalSolar.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
+    this.init();
+  }
+
+  init() {
+    this.data = window.ScreenluxData;
+    if (!this.data) { this.innerHTML = 'Error loading data.'; return; }
+    this.addScreen();
+    this.render();
+  }
+
+  addScreen() {
+    const newId = this.state.screens.length + 1;
+    this.state.screens.push({
+      id: newId,
+      width: 1500,
+      height: 1000,
+      solar: false,
+      cassette: 'standard',
+      expanded: true,
+      valid: true,
+      errors: {}
+    });
+    this.state.screens.forEach((s) => { if (s.id !== newId) s.expanded = false; });
+    this.render();
+  }
+
+  updateScreen(index, field, value) {
+    const screen = this.state.screens[index];
+    if (field === 'width' || field === 'height') value = parseInt(value) || 0;
+    screen[field] = value;
+    const v = window.ScreenluxEngine.validateDimensions(screen.width, screen.height);
+    screen.valid = v.valid;
+    screen.errors = v.valid ? {} : { dimension: v.error };
+    this.render();
+  }
+  
+  removeScreen(index) {
+     if (this.state.screens.length <= 1) return;
+     this.state.screens.splice(index, 1);
+     this.render();
+  }
+
+  toggleScreenAccordion(index) {
+    this.state.screens.forEach((s, i) => { s.expanded = i === index ? !s.expanded : false; });
+    this.render();
+  }
+
+  setInstallationType(type) { this.state.installationType = type; this.render(); }
+  handleGlobalSolar() { this.state.screens.forEach((s) => (s.solar = true)); this.render(); }
+  updateAddon(id, qty) { this.state.addons[id] = qty; this.render(); }
+
+  render() {
+    this.innerHTML = '';
+    const container = document.createElement('div');
+    container.className = 'configurator-app';
+
+    const screensContainer = document.createElement('div');
+    screensContainer.className = 'screens-list';
+    this.state.screens.forEach((screen, index) => {
+      screensContainer.appendChild(this.renderScreenItem(screen, index));
+    });
+    container.appendChild(screensContainer);
+
+    const addBtn = document.createElement('button');
+    addBtn.className = 'button button--secondary full-width margin-top';
+    addBtn.innerText = 'Add another screen';
+    addBtn.onclick = this.handleAddScreen;
+    container.appendChild(addBtn);
+
+    if (this.state.screens.some((s) => !s.solar)) {
+      const solarTip = document.createElement('div');
+      solarTip.className = 'solar-tip section-spacing';
+      solarTip.innerHTML = `<div class="tip-box"><p><strong>Go Solar?</strong> Save on wiring.</p><button class="button--text">Switch all to solar</button></div>`;
+      solarTip.querySelector('button').onclick = this.handleGlobalSolar;
+      container.appendChild(solarTip);
+    }
+    
+    container.appendChild(this.renderOrderSummary());
+    this.appendChild(container);
+  }
+
+  renderScreenItem(screen, index) {
+    const wrapper = document.createElement('details-accordion');
+    const price = window.ScreenluxEngine.calculateScreenPrice(screen, this.data.config);
+    const nicePrice = (price / 100).toFixed(2);
+
+    wrapper.innerHTML = `
+      <details ${screen.expanded ? 'open' : ''} class="${screen.valid ? '' : 'has-error'} animate-fade-in">
+        <summary>
+          <div class="summary-title">
+             <span class="icon-status ${screen.valid ? 'valid' : 'invalid'}">🟢</span>
+             Screen ${index + 1}
+          </div>
+          <div class="summary-meta">
+             <span class="dim-tag">${screen.width} x ${screen.height}</span>
+             <span class="price-tag">€${nicePrice}</span>
+          </div>
+        </summary>
+        <div class="accordion__content form-grid">
+           <div class="form-row"> 
+             <div class="field">
+               <label>Width (mm)</label>
+               <input type="number" value="${screen.width}" data-field="width" class="${screen.errors.dimension && !screen.width ? 'error' : ''}">
+             </div>
+             <div class="field">
+               <label>Height (mm)</label>
+               <input type="number" value="${screen.height}" data-field="height" class="${screen.errors.dimension && !screen.height ? 'error' : ''}">
+             </div>
+           </div>
+           ${!screen.valid ? `<div class="error-msg">⚠️ ${screen.errors.dimension || 'Invalid dimensions'}</div>` : ''}
+           <div class="field margin-top">
+              <label><input type="checkbox" ${screen.solar ? 'checked' : ''} data-field="solar"> Solar Powered (+€100)</label>
+           </div>
+            ${this.state.screens.length > 1 ? `<div class="screen-actions margin-top"><button type="button" class="button--text text-danger remove-screen-btn">Remove Screen</button></div>` : ''}
+        </div>
+      </details>
+    `;
+
+    const removeBtn = wrapper.querySelector('.remove-screen-btn');
+    if (removeBtn) {
+        removeBtn.addEventListener('click', (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if(confirm('Remove this screen?')) this.removeScreen(index);
+        });
+    }
+
+    wrapper.querySelectorAll('input').forEach((input) => {
+      input.addEventListener('change', (e) => {
+        const field = e.target.dataset.field;
+        const val = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        this.updateScreen(index, field, val);
+      });
+    });
+
+    wrapper.querySelector('summary').addEventListener('click', () => {
+      setTimeout(() => this.toggleScreenAccordion(index), 0);
+    });
+
+    return wrapper;
+  }
+
+  renderOrderSummary() {
+    const section = document.createElement('div');
+    section.className = 'section-spacing summary-box';
+    section.innerHTML = `<h3>Order Summary</h3>`;
+    section.innerHTML += `<p>Screens: ${this.state.screens.length}</p>`;
+    const allValid = this.state.screens.every((s) => s.valid);
+    const cartBtn = document.createElement('button');
+    cartBtn.className = `button button--primary full-width ${!allValid ? 'disabled' : ''}`;
+    cartBtn.innerText = allValid ? 'Add to Cart' : 'Fix Issues to Checkout';
+    cartBtn.onclick = allValid ? this.handleAddToCart : null;
+    if (!allValid) cartBtn.disabled = true;
+    section.appendChild(cartBtn);
+    return section;
+  }
+
+  handleAddToCart() {
+    const payload = window.ScreenluxEngine.generateCartPayload(this.state, this.data);
+    alert('Simulation: Cart payload generated!\nCheck console for details.');
+    console.log(payload);
+  }
+}
+customElements.define('product-configurator', ProductConfigurator);
+</script>
+
+</body>
+</html>

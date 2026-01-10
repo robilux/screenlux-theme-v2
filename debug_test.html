@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurator Debug View</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f0f0f0; }
+        .page-width { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        
+        /* Debug Styles */
+        .configurator-app { border: 2px dashed #ccc; padding: 10px; margin-top: 20px; }
+        .screens-list { display: flex; flex-direction: column; gap: 10px; }
+        .debug-accordion { border: 1px solid #ddd; padding: 10px; background: #fafafa; border-radius: 4px; }
+        
+        /* Error Log */
+        #console-log { background: #333; color: #0f0; font-family: monospace; padding: 10px; margin-top: 20px; max-height: 200px; overflow: auto; }
+        .log-error { color: #f55; }
+        .log-info { color: #aaa; }
+    </style>
+</head>
+<body>
+
+<div class="page-width">
+    <h1>Configurator Logic Test</h1>
+    <p>This page simulates the Shopify environment. We use "Mock Data" (fake products) to test the math and logic safely.</p>
+    
+    <!-- App Root -->
+    <product-configurator></product-configurator>
+
+    <div id="console-log"><strong>System Log:</strong><br></div>
+</div>
+
+<script>
+    // Custom Logger to see what happens
+    function log(msg, type='info') {
+        const el = document.getElementById('console-log');
+        el.innerHTML += `<div class="log-${type}">> ${msg}</div>`;
+        console.log(msg);
+    }
+    window.onerror = (msg) => log("ERROR: " + msg, 'error');
+
+    // 1. Mock Data (The "Fake Shopify")
+    window.ScreenluxData = {
+        screens: [{ id: 1, title: 'Test Screen', price: 50000 }],
+        brackets: [{ id: 101, title: 'Wall Bracket', price: 1500 }],
+        services: [{ id: 901, title: 'Install', price: 15000 }],
+        addons: [],
+        config: { base_price: 50000, surcharge_solar: 10000, surcharge_cassette: 5000 }
+    };
+    log("1. Data Mocked");
+
+    // 2. Engine Logic (Copied from screenlux-engine.js)
+    window.ScreenluxEngine = {
+        calculateScreenPrice(config) {
+            let total = 50000; // Base
+            if(config.solar) total += 10000;
+            return total;
+        },
+        validateDimensions(w, h) {
+            if(w < 600 || h < 600) return { valid: false, error: 'Too small' };
+            return { valid: true };
+        },
+        generateCartPayload() { return { items: [] }; }
+    };
+    log("2. Engine Loaded");
+
+    // 3. Component (Simplified for Debugging)
+    class ProductConfigurator extends HTMLElement {
+        constructor() {
+            super();
+            this.state = { screens: [] };
+            log("3. Component Constructed");
+        }
+
+        connectedCallback() {
+            log("4. Component Connected to DOM");
+            this.init();
+        }
+
+        init() {
+            this.addScreen();
+            this.render();
+        }
+
+        addScreen() {
+            this.state.screens.push({ id: Date.now(), width: 1500, height: 1000, solar: false, expanded: true, valid: true, errors: {} });
+        }
+
+        render() {
+            log("5. Rendering...");
+            this.innerHTML = '';
+            
+            const container = document.createElement('div');
+            container.className = 'configurator-app';
+
+            this.state.screens.forEach((screen, i) => {
+                const el = document.createElement('div');
+                el.className = 'debug-accordion';
+                const price = window.ScreenluxEngine.calculateScreenPrice(screen);
+                el.innerHTML = `
+                    <h3>Screen ${i+1} - €${price/100}</h3>
+                    <label>Width: <input type="number" value="${screen.width}" onchange="document.querySelector('product-configurator').updateScreen(${i}, 'width', this.value)"></label>
+                    <label>Solar: <input type="checkbox" ${screen.solar ? 'checked' : ''} onchange="document.querySelector('product-configurator').updateScreen(${i}, 'solar', this.checked)"></label>
+                `;
+                container.appendChild(el);
+            });
+
+            const addBtn = document.createElement('button');
+            addBtn.innerText = "Add Screen";
+            addBtn.onclick = () => { this.addScreen(); this.render(); };
+            container.appendChild(addBtn);
+
+            this.appendChild(container);
+            log("6. Render Complete");
+        }
+
+        updateScreen(index, field, val) {
+            log(`Update [${index}] ${field} = ${val}`);
+            if(field === 'width') val = parseInt(val);
+            if(field === 'solar') val = Boolean(val); // Checkbox passing
+            
+            this.state.screens[index][field] = val;
+            this.render();
+        }
+    }
+    customElements.define('product-configurator', ProductConfigurator);
+
+</script>
+</body>
+</html>

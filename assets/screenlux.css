@@ -1,24 +1,62 @@
 /* Screenlux Design System Tokens (V2) */
 :root {
-  /* Colors */
-  --color-brand-anthracite: #121212;
-  --color-brand-white: #ffffff;
-  --color-brand-success: #28a745;
-  --color-brand-border: #e0e0e0;
-  --thumbnail-active-border: var(--color-brand-anthracite);
+  /* Premium Colors (Dark/Lux Theme) */
+  --color-brand-anthracite: #1a1a1a;
+  --color-brand-black: #050505;
+  --color-brand-dark-grey: #2a2a2a;
+  --color-brand-soft-grey: #f5f5f7;
+  --color-brand-text: #333333;
+  --color-brand-text-light: #777777;
+  
+  --color-brand-accent: #007aff; /* System Blue-like */
+  --color-brand-success: #34c759;
+  --color-brand-error: #ff3b30;
+  
+  --color-brand-border: rgba(0, 0, 0, 0.1);
+  --color-surface-glass: rgba(255, 255, 255, 0.75);
+  --color-surface-glass-border: rgba(255, 255, 255, 0.5);
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.08);
 
   /* Typography */
-  --font-family-body: 'Inter', sans-serif;
-  --font-family-heading: 'Inter', sans-serif;
-
+  --font-family-body: 'Inter', system-ui, -apple-system, sans-serif;
+  
   /* Spacing */
   --spacing-4: 4px;
+  --spacing-8: 8px;
   --spacing-12: 12px;
+  --spacing-16: 16px;
   --spacing-24: 24px;
   --spacing-40: 40px;
+  
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
 
   /* Layout */
-  --product-media-gap: 40px;
+  --product-media-gap: 60px;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-surface-glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 /* Base Utilities */
@@ -56,6 +94,96 @@
 .product__info-wrapper {
   padding: 0 var(--spacing-24);
 }
+/* Component Styling */
+.section-spacing {
+  margin-top: var(--spacing-24);
+  padding: var(--spacing-24);
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-brand-border);
+}
+
+.button {
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-brand-text-light);
+  margin-bottom: var(--spacing-8);
+  display: block;
+}
+
+.field input[type="number"],
+.field input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-brand-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-body);
+  transition: border-color 0.2s;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--color-brand-accent);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.field input.error {
+  border-color: var(--color-brand-error);
+  background-color: rgba(255, 59, 48, 0.05);
+}
+
+.error-msg {
+  color: var(--color-brand-error);
+  font-size: 0.75rem;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Accordion Premium Styling */
+details-accordion details {
+  border: 1px solid var(--color-brand-border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-12);
+  background: white;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+details-accordion details[open] {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--color-brand-accent);
+}
+
+details-accordion summary {
+  padding: 16px var(--spacing-24);
+  background: rgba(245, 245, 247, 0.5);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+details-accordion .accordion__content {
+  padding: var(--spacing-24);
+  border-top: 1px solid var(--color-brand-border);
+}
+
 .section-spacing {
   margin-top: var(--spacing-40);
   padding-top: var(--spacing-24);

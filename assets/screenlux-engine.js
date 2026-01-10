@@ -10,30 +10,75 @@ window.ScreenluxEngine = {
    * @param {object} rules - pricing rules/constants
    * @returns {number} price in Euro cents
    */
+  /**
+   * Validation Rules
+   */
+  constraints: {
+    minWidth: 600,
+    maxWidth: 6000,
+    minHeight: 600,
+    maxHeight: 5000,
+  },
+
+  /**
+   * Validates screen dimensions.
+   * @param {number} width - mm
+   * @param {number} height - mm
+   * @returns {object} { valid: boolean, error: string|null }
+   */
+  validateDimensions(width, height) {
+    if (!width || !height) return { valid: false, error: 'Dimensions required' };
+
+    if (width < this.constraints.minWidth)
+      return { valid: false, error: `Min width is ${this.constraints.minWidth}mm` };
+    if (width > this.constraints.maxWidth)
+      return { valid: false, error: `Max width is ${this.constraints.maxWidth}mm` };
+
+    if (height < this.constraints.minHeight)
+      return { valid: false, error: `Min height is ${this.constraints.minHeight}mm` };
+    if (height > this.constraints.maxHeight)
+      return { valid: false, error: `Max height is ${this.constraints.maxHeight}mm` };
+
+    return { valid: true, error: null };
+  },
+
+  /**
+   * Calculates the raw price for a single screen configuration.
+   * @param {object} config - { width, height, solar, cassette }
+   * @param {object} rules - pricing rules/constants
+   * @returns {number} price in Euro cents
+   */
   calculateScreenPrice(config, rules) {
+    // 0. Base Validation Check (optional, but good for safety)
+    const validation = this.validateDimensions(config.width, config.height);
+    if (!validation.valid) return 0; // Return 0 if invalid
+
     const widthM = config.width / 1000;
     const heightM = config.height / 1000;
     const sqm = widthM * heightM;
 
-    // Placeholder formula parameters - normally would come from a metaobject
-    const MIN_BILLABLE = 0; // sqm
-    const PRICE_PER_SQM = 0; // Assuming 0 for the base example, logic prepared for surcharge
+    // Pricing Factors (Should ideally come from rules object, using defaults for now)
+    const BASE_PRICE = rules.base_price || 50000; // Starting at €500
+    const PRICE_PER_SQM = 5000; // €50 per sqm (example logic)
 
     // 1. Base Price
-    let total = rules.base_price; // 50000 cents (500€)
+    let total = BASE_PRICE;
 
-    // 2. Area Surcharge (if implemented)
-    // const billableSqm = Math.max(sqm, MIN_BILLABLE);
-    // total += (billableSqm * PRICE_PER_SQM);
+    // 2. Area Surcharge
+    // Simple logic: If area > 2sqm, add cost per extra sqm
+    if (sqm > 2) {
+      const extraSqm = sqm - 2;
+      total += Math.round(extraSqm * PRICE_PER_SQM);
+    }
 
     // 3. Hardware Surcharges
     if (config.cassette === 'large') {
-      total += rules.surcharge_cassette;
+      total += rules.surcharge_cassette || 5000;
     }
 
     // 4. Motor Surcharge
     if (config.solar) {
-      total += rules.surcharge_solar; // +100€
+      total += rules.surcharge_solar || 10000;
     }
 
     return total;
@@ -51,6 +96,10 @@ window.ScreenluxEngine = {
     let target = Math.ceil(rawPrice / STEP) * STEP;
 
     // 2. Clamp
+    const MIN_PRICE = 50000; // 500€
+    const MAX_PRICE = 300000; // 3000€
+
+    // 2. Clamp (2.3.1.2)
     const MIN_PRICE = 50000; // 500€
     const MAX_PRICE = 300000; // 3000€
 

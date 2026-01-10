@@ -44,6 +44,8 @@ class ProductConfigurator extends HTMLElement {
       frameColor: 'Anthracite',
       fabricColor: 'Grey',
       expanded: true, // Auto-expand new screen
+      valid: true,
+      errors: {},
     });
 
     // Collapse others
@@ -63,6 +65,18 @@ class ProductConfigurator extends HTMLElement {
     }
 
     screen[field] = value;
+
+    // Run validation logic
+    const v = window.ScreenluxEngine.validateDimensions(screen.width, screen.height);
+    screen.valid = v.valid;
+    screen.errors = v.valid ? {} : { dimension: v.error };
+
+    this.render();
+  }
+
+  removeScreen(index) {
+    if (this.state.screens.length <= 1) return; // Prevent deleting last screen
+    this.state.screens.splice(index, 1);
     this.render();
   }
 
@@ -99,7 +113,7 @@ class ProductConfigurator extends HTMLElement {
 
     // 1. Screens List
     const screensContainer = document.createElement('div');
-    screensContainer.className = 'screens-list section-spacing';
+    screensContainer.className = 'screens-list';
 
     this.state.screens.forEach((screen, index) => {
       screensContainer.appendChild(this.renderScreenItem(screen, index));
@@ -142,37 +156,73 @@ class ProductConfigurator extends HTMLElement {
 
   renderScreenItem(screen, index) {
     const wrapper = document.createElement('details-accordion');
-    // Using string templates for simplicity in this artifact
     const price = window.ScreenluxEngine.calculateScreenPrice(screen, this.data.config);
     const nicePrice = (price / 100).toFixed(2);
 
     wrapper.innerHTML = `
-      <details ${screen.expanded ? 'open' : ''}>
+      <details ${screen.expanded ? 'open' : ''} class="${screen.valid ? '' : 'has-error'} animate-fade-in">
         <summary>
-          <span>Screen ${index + 1} (${screen.width}x${screen.height})</span>
-          <span>€${nicePrice}</span>
+          <div class="summary-title">
+             <span class="icon-status ${screen.valid ? 'valid' : 'invalid'}"></span>
+             Screen ${index + 1}
+          </div>
+          <div class="summary-meta">
+             <span class="dim-tag">${screen.width} x ${screen.height}</span>
+             <span class="price-tag">€${nicePrice}</span>
+          </div>
         </summary>
         <div class="accordion__content form-grid">
            <!-- Dimensions -->
-           <div class="field">
-             <label>Width (mm)</label>
-             <input type="number" value="${screen.width}" data-field="width">
-           </div>
-           <div class="field">
-             <label>Height (mm)</label>
-             <input type="number" value="${screen.height}" data-field="height">
+           <div class="form-row"> 
+             <div class="field">
+               <label>Width (mm)</label>
+               <input type="number" 
+                      value="${screen.width}" 
+                      data-field="width" 
+                      class="${screen.errors.dimension && !screen.width ? 'error' : ''}">
+             </div>
+             <div class="field">
+               <label>Height (mm)</label>
+               <input type="number" 
+                      value="${screen.height}" 
+                      data-field="height"
+                      class="${screen.errors.dimension && !screen.height ? 'error' : ''}">
+             </div>
            </div>
            
+           ${!screen.valid ? `<div class="error-msg">⚠️ ${screen.errors.dimension || 'Invalid dimensions'}</div>` : ''}
+           
            <!-- Toggles -->
-           <div class="field-checkbox">
+           <div class="field-checkbox margin-top">
               <label>
                 <input type="checkbox" ${screen.solar ? 'checked' : ''} data-field="solar">
                 Solar Powered (+€100)
               </label>
            </div>
+           
+           <!-- Actions -->
+            ${
+              this.state.screens.length > 1
+                ? `
+              <div class="screen-actions margin-top">
+                <button type="button" class="button--text text-danger remove-screen-btn">Remove Screen</button>
+              </div>
+            `
+                : ''
+            }
         </div>
       </details>
     `;
+
+    // Remove Listener
+    const removeBtn = wrapper.querySelector('.remove-screen-btn');
+    if (removeBtn) {
+      removeBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Stop detail toggle
+        e.stopPropagation();
+        if (confirm('Remove this screen?')) this.removeScreen(index);
+      });
+    }
 
     // Event Delegation for inputs
     wrapper.querySelectorAll('input').forEach((input) => {
@@ -185,7 +235,6 @@ class ProductConfigurator extends HTMLElement {
 
     // Handle Summary Click manually to update 'expanded' state logic
     wrapper.querySelector('summary').addEventListener('click', () => {
-      // Timeout to allow the native toggle to happen, then correct state
       setTimeout(() => this.toggleScreenAccordion(index), 0);
     });
 
@@ -272,15 +321,16 @@ class ProductConfigurator extends HTMLElement {
     section.className = 'section-spacing summary-box';
     section.innerHTML = `<h3>Order Summary</h3>`;
 
-    // Calculate Breakdown
-    // ... (Aggregation logic similar to generateCartPayload but for display) ...
-    // For brevity, just a total count
     section.innerHTML += `<p>Screens: ${this.state.screens.length}</p>`;
 
+    // Validate All before enabling
+    const allValid = this.state.screens.every((s) => s.valid);
+
     const cartBtn = document.createElement('button');
-    cartBtn.className = 'button button--primary full-width';
-    cartBtn.innerText = 'Add to Cart';
-    cartBtn.onclick = this.handleAddToCart;
+    cartBtn.className = `button button--primary full-width ${!allValid ? 'disabled' : ''}`;
+    cartBtn.innerText = allValid ? 'Add to Cart' : 'Fix Issues to Checkout';
+    cartBtn.onclick = allValid ? this.handleAddToCart : null;
+    if (!allValid) cartBtn.disabled = true;
 
     section.appendChild(cartBtn);
     return section;
@@ -290,7 +340,11 @@ class ProductConfigurator extends HTMLElement {
 
   handleAddToCart() {
     const payload = window.ScreenluxEngine.generateCartPayload(this.state, this.data);
-    const cartUrl = this.querySelector('input[name="cart-add-url"]').value;
+    const cartUrlInput = this.querySelector('input[name="cart-add-url"]');
+    // Fallback for independent testing
+    const cartUrl = cartUrlInput ? cartUrlInput.value : '/cart/add';
+
+    console.log('Adding to cart:', payload);
 
     fetch(cartUrl + '.js', {
       method: 'POST',
@@ -300,10 +354,13 @@ class ProductConfigurator extends HTMLElement {
       .then((r) => r.json())
       .then((data) => {
         alert('Added to cart!');
-        // Optional: Redirect to cart or open drawer
         window.location.href = '/cart';
       })
-      .catch((err) => console.error('Cart Error:', err));
+      .catch((err) => {
+        console.error('Cart Error:', err);
+        // For testing without Shopify
+        if (cartUrl === '/cart/add') alert('Simulation: Added to cart (See console)');
+      });
   }
 }
 
