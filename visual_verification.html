@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Verification - Screenlux</title>
+    <!-- Link to the Real CSS -->
+    <link rel="stylesheet" href="assets/screenlux.css">
+    <link rel="stylesheet" href="assets/component-slider.css">
+    <style>
+        body { background-color: #f5f5f7; padding: 40px; }
+        .page-width { max-width: 1200px; margin: 0 auto; }
+        
+        /* Mocking dependencies usually found in theme.liquid or other assets */
+        details-accordion { display: block; }
+        hybrid-quantity-selector { display: block; }
+    </style>
+</head>
+<body>
+
+<div class="page-width screenlux-product-container">
+    <!-- Left Column: Gallery -->
+    <div class="screenlux-gallery sticky-media-col">
+        <div style="position: relative;"> <!-- Image Container -->
+            <slider-component class="slider-mobile-gutter">
+                <ul class="product__media-list list-unstyled slider slider--mobile grid grid--peek" role="list">
+                    <li class="product__media-item grid__item slider__slide" id="Slide-1">
+                        <div class="product__media media">
+                            <img src="https://placehold.co/600x800" alt="Main Product Image 1" width="600" height="800">
+                        </div>
+                    </li>
+                    <li class="product__media-item grid__item slider__slide" id="Slide-2">
+                        <div class="product__media media">
+                            <img src="https://placehold.co/600x800/FF0000/FFFFFF" alt="Main Product Image 2" width="600" height="800">
+                        </div>
+                    </li>
+                    <li class="product__media-item grid__item slider__slide" id="Slide-3">
+                        <div class="product__media media">
+                            <img src="https://cdn.shopify.com/s/files/1/0849/0968/7069/files/screenlux-product-3.jpg" alt="Screenlux 3" width="800" height="800">
+                        </div>
+                    </li>
+                    <li class="product__media-item grid__item slider__slide" id="Slide-4">
+                        <div class="product__media media">
+                            <img src="https://placehold.co/600x800/0000FF/FFFFFF" alt="Main Product Image 4" width="600" height="800">
+                        </div>
+                    </li>
+                </ul>
+                
+                <div class="product-gallery__overlay-controls">
+                    <div class="slider-buttons">
+                        <button class="slider-button slider-button--prev" aria-label="Previous">
+                            <span class="svg-wrapper">
+                                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret-left" viewBox="0 0 10 16" width="24" height="24">
+                                    <path d="M8 14L2.00003 8.00003L8 2.00003" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <button class="slider-button slider-button--next" aria-label="Next">
+                            <span class="svg-wrapper">
+                                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret-right" viewBox="0 0 10 16" width="24" height="24">
+                                    <path d="M2.00003 2.00003L8 8.00003L2.00003 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="slider-counter caption">
+                        <span class="slider-counter--current">1</span> / <span class="slider-counter--total">4</span>
+                    </div>
+                </div>
+            </slider-component>
+        </div>
+        
+        <!-- Scripts -->
+    <script src="assets/global.js" defer="defer"></script>
+    <script src="assets/media-gallery.js" defer="defer"></script>
+    <script src="assets/details-accordion.js" defer="defer"></script>
+        <!-- Thumbnails -->
+        <div class="thumbnail-slider">
+            <div class="thumbnail" aria-current="true"><img src="https://placehold.co/100" alt=""></div>
+            <div class="thumbnail"><img src="https://placehold.co/100" alt=""></div>
+            <div class="thumbnail"><img src="https://placehold.co/100" alt=""></div>
+            <div class="thumbnail"><img src="https://placehold.co/100" alt=""></div>
+        </div>
+    </div>
+
+    <!-- Right Column: Configurator -->
+    <div class="product__info-wrapper">
+        <h1>Visual Configurator Test</h1>
+        <product-configurator>
+            <div style="padding: 20px;">Loading...</div>
+        </product-configurator>
+    </div>
+</div>
+
+<!-- Mock Data -->
+<script>
+window.ScreenluxData = {
+    screens: [
+        { id: 1, price: 50000 },
+        { id: 2, price: 55000 },
+        { id: 3, price: 60000 }
+    ],
+    brackets: [
+        { id: 101, title: 'Standard Wall Bracket', price: 1500, image: 'https://placehold.co/100' },
+        { id: 102, title: 'Ceiling Bracket', price: 1500, image: 'https://placehold.co/100' }
+    ],
+    services: [
+        { id: 901, title: 'Installation - Wired', price: 15000 },
+        { id: 902, title: 'Installation - Solar', price: 15000 }
+    ],
+    addons: [
+        { id: 801, title: 'Cleaning Kit', price: 2500 }
+    ],
+    frameColors: [
+        { id: 'anthracite', title: 'Anthracite', hex: '#333333' },
+        { id: 'white', title: 'White', hex: '#ffffff' },
+        { id: 'silver', title: 'Silver', hex: '#c0c0c0' }
+    ],
+    fabrics: [
+        { id: 'standard', title: 'Standard (50%)', desc: 'Balances light & privacy', image: 'https://placehold.co/40/grey' },
+        { id: 'blackout', title: 'Blackout', desc: 'Complete darkness', image: 'https://placehold.co/40/black' }
+    ],
+    config: {
+       base_price: 50000,
+       surcharge_solar: 10000,
+       surcharge_cassette: 5000
+    }
+};
+
+// Mock Engine
+window.ScreenluxEngine = {
+    validateDimensions: () => ({ valid: true }),
+    calculateScreenPrice: () => 55000,
+    generateCartPayload: () => ({ items: [] })
+};
+</script>
+
+<!-- Mock Dependencies (Simple versions for visual test) -->
+<script>
+class DetailsAccordion extends HTMLElement {} 
+customElements.define('details-accordion', DetailsAccordion);
+
+class HybridQty extends HTMLElement {}
+customElements.define('hybrid-quantity-selector', HybridQty);
+</script>
+
+<!-- Real Component -->
+<script src="assets/product-configurator-v2.js"></script>
+
+</body>
+</html>

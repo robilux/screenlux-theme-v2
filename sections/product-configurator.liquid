@@ -4,14 +4,16 @@
   media="print"
   onload="this.media='all'"
 >
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
 <noscript>{{ 'screenlux.css' | asset_url | stylesheet_tag }}</noscript>
 {% render 'screenlux-data' %}
 
+<script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'screenlux-engine.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'details-accordion.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'hybrid-quantity-selector.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'product-configurator.js' | asset_url }}&v={{ 'now' | date: '%N' }}" defer="defer"></script>
+<script src="{{ 'product-configurator-v2.js' | asset_url }}&v=DesignV2_{{ 'now' | date: '%N' }}" defer="defer"></script>
 
 <div class="page-width screenlux-product-container">
   <!-- Left Column: Sticky Media Gallery -->
