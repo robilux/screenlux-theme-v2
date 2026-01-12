@@ -57,11 +57,11 @@
   
   /* --- Typography --- */
   --sl-font-family: 'Inter', sans-serif;
-  --sl-text-xs: 12px;
-  --sl-text-sm: 14px;
-  --sl-text-body: 16px;
-  --sl-text-h4: 18px;
-  --sl-text-h3: 24px;
+  --sl-text-xs: 13px;
+  --sl-text-sm: 15px;
+  --sl-text-body: 17px;
+  --sl-text-h4: 20px;
+  --sl-text-h3: 26px;
   --sl-text-h2: 30px;
   --sl-text-h1: 36px;
   
@@ -103,7 +103,7 @@ body {
 
 @media (min-width: 1024px) {
   .screenlux-product-container {
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1fr 1fr;
     align-items: start;
     padding-top: 48px;
   }
@@ -319,7 +319,7 @@ body {
 
 .field-label {
   display: block;
-  font-size: 14px;
+  font-size: var(--sl-text-sm);
   font-weight: 500;
   color: #111827;
   margin-bottom: 12px;
@@ -463,7 +463,7 @@ body {
 }
 
 .ral-code {
-  font-size: 10px;
+  font-size: var(--sl-text-xs);
   color: var(--sl-text-tertiary);
   margin-top: 4px;
 }
@@ -475,7 +475,7 @@ body {
 }
 
 .card-desc {
-  font-size: 13px;
+  font-size: var(--sl-text-sm);
   color: var(--sl-text-secondary);
   line-height: 1.5;
 }
@@ -501,21 +501,21 @@ body {
 }
 
 .product-card__title {
-  font-size: 14px;
+  font-size: var(--sl-text-sm);
   font-weight: 500;
   color: #111827;
   margin-bottom: 4px;
 }
 
 .product-card__desc {
-  font-size: 13px;
+  font-size: var(--sl-text-sm);
   color: #6B7280;
   line-height: 1.4;
   margin-bottom: 8px;
 }
 
 .product-card__price {
-  font-size: 14px;
+  font-size: var(--sl-text-sm);
   font-weight: 600;
   color: #111827;
 }
@@ -614,13 +614,13 @@ details-accordion summary::-webkit-details-marker { display: none; }
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 16px;
+  font-size: var(--sl-text-body);
   font-weight: var(--sl-weight-medium);
   color: var(--sl-text-primary);
 }
 
 .category-price {
-    font-size: 16px;
+    font-size: var(--sl-text-body);
     font-weight: var(--sl-weight-medium);
     color: var(--sl-text-primary);
 }
@@ -644,7 +644,7 @@ details-accordion summary::-webkit-details-marker { display: none; }
 .detail-row {
   display: flex;
   justify-content: space-between;
-  font-size: 15px;
+  font-size: var(--sl-text-sm);
   color: var(--sl-text-secondary);
   padding: 4px 0;
 }
@@ -657,7 +657,7 @@ details-accordion summary::-webkit-details-marker { display: none; }
   justify-content: space-between;
   align-items: center;
   font-weight: var(--sl-weight-medium);
-  font-size: 18px;
+  font-size: var(--sl-text-h4);
   color: var(--sl-text-primary);
 }
 
@@ -670,7 +670,7 @@ details-accordion summary::-webkit-details-marker { display: none; }
 .price-old {
     text-decoration: line-through;
     color: var(--sl-text-tertiary);
-    font-size: 16px;
+    font-size: var(--sl-text-body);
 }
 
 .price-current {
@@ -686,7 +686,7 @@ details-accordion summary::-webkit-details-marker { display: none; }
 }
 
 .shipping-text {
-  font-size: 14px;
+  font-size: var(--sl-text-sm);
   color: var(--sl-text-secondary);
 }
 

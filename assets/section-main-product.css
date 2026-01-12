@@ -19,6 +19,15 @@ product-info {
   padding-left: 0;
 }
 
+/* CRITICAL: Force gallery navigation to be visible at all screen sizes */
+.screenlux-gallery .slider-buttons,
+.product__media-wrapper.screenlux-gallery slider-component .slider-buttons,
+slider-component#GalleryViewer-template--27951228649820__main .slider-buttons {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
 @media screen and (min-width: 750px) {
   .product__column-sticky {
     display: block;
