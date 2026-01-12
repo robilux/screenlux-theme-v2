@@ -4,7 +4,12 @@
 {% endcomment %}
 
 {%- liquid
-  assign media_count = product.media.size
+  assign media_count = 0
+  for media in product.media
+    if media.media_type == 'image'
+      assign media_count = media_count | plus: 1
+    endif
+  endfor
   if media_count == 0
     assign media_count = 1
   endif

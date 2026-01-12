@@ -773,13 +773,49 @@ details-accordion summary::-webkit-details-marker { display: none; }
   display: flex !important;
   visibility: visible !important;
   opacity: 1 !important;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 2;
+  padding: 0 20px;
 }
 
-/* Position counter at bottom-right */
+/* Navigation buttons - positioned at edges */
+.screenlux-gallery .slider-button {
+  pointer-events: all;
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.screenlux-gallery .slider-button:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Make icons 100% bigger (2x size) */
+.screenlux-gallery .slider-button .icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Position counter at bottom-right with better spacing */
 slider-component .slider-counter {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 20px;
+  right: 20px;
   top: auto !important;
   left: auto !important;
   z-index: 2;
@@ -788,4 +824,16 @@ slider-component .slider-counter {
   padding: 4px 12px;
   border-radius: 4px;
   font-size: 14px;
+}
+
+/* Thumbnail active state border */
+.thumbnail-slider .thumbnail.active,
+.thumbnail-slider .thumbnail:focus {
+  border: 2px solid #000;
+  outline: none;
+}
+
+.thumbnail-slider .thumbnail {
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
 }
