@@ -175,14 +175,19 @@ body {
   width: 100%;
   position: relative;
   display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
 }
 
 /* Gallery Images */
 .gallery-image {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* Navigation Buttons */
