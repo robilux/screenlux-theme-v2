@@ -507,6 +507,11 @@ class ProductConfigurator extends HTMLElement {
     const card = document.createElement('div');
     card.className = 'product-card margin-top-sm';
 
+    // Initialize brackets state if it doesn't exist
+    if (!this.state.brackets) {
+      this.state.brackets = {};
+    }
+
     const quantity = this.state.brackets[bracket.id] || 0;
     const price = (bracket.price / 100).toFixed(0);
 
