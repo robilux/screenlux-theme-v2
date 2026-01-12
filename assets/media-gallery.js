@@ -10,50 +10,43 @@ if (!customElements.get('media-gallery')) {
           thumbnails: this.querySelector('[id^="GalleryThumbnails"]'),
         };
         this.mql = window.matchMedia('(min-width: 750px)');
-        if (!this.elements.thumbnails) return;
 
-        this.elements.viewer.addEventListener('slideChanged', debounce(this.onSlideChanged.bind(this), 500));
-        this.elements.thumbnails.querySelectorAll('[data-target]').forEach((mediaToSwitch) => {
-          mediaToSwitch.querySelector('button').addEventListener('click', (event) => {
-            event.preventDefault();
-            this.setActiveMedia(mediaToSwitch.dataset.target, false);
+        if (this.elements.viewer) {
+          this.elements.viewer.addEventListener('slideChanged', debounce(this.onSlideChanged.bind(this), 500));
+        }
 
-            // If we have a slider, we need to scroll it to the correct element
-            // to ensure the counter updates correctly since it's driven by scroll scroll events
-            if (this.elements.viewer.slider) {
-              const targetElement = this.elements.viewer.querySelector(
-                `[data-media-id="${mediaToSwitch.dataset.target}"]`
-              );
-              if (targetElement) {
-                this.elements.viewer.slider.scrollTo({
-                  left: targetElement.offsetLeft,
-                  behavior: 'smooth',
-                });
-              }
+        if (this.elements.thumbnails) {
+          this.elements.thumbnails.querySelectorAll('[data-target]').forEach((mediaToSwitch) => {
+            const button = mediaToSwitch.querySelector('button');
+            if (button) {
+              button.addEventListener('click', (event) => {
+                event.preventDefault();
+                this.setActiveMedia(mediaToSwitch.dataset.target, false);
+              });
             }
           });
-        });
-        if (this.dataset.desktopLayout.includes('thumbnail') && this.mql.matches) this.removeListSemantic();
+        }
+
+        if (this.dataset.desktopLayout && this.dataset.desktopLayout.includes('thumbnail') && this.mql.matches) {
+          this.removeListSemantic();
+        }
       }
 
       onSlideChanged(event) {
-        const thumbnail = this.elements.thumbnails.querySelector(
-          `[data-target="${event.detail.currentElement.dataset.mediaId}"]`
-        );
+        if (!this.elements.thumbnails) return;
+        const mediaId = event.detail.currentElement.dataset.mediaId;
+        const thumbnail = this.elements.thumbnails.querySelector(`[data-target="${mediaId}"]`);
         this.setActiveThumbnail(thumbnail);
       }
 
       setActiveMedia(mediaId, prepend) {
-        const activeMedia =
-          this.elements.viewer.querySelector(`[data-media-id="${mediaId}"]`) ||
-          this.elements.viewer.querySelector('[data-media-id]');
-        if (!activeMedia) {
-          return;
-        }
+        const activeMedia = this.elements.viewer.querySelector(`[data-media-id="${mediaId}"]`);
+        if (!activeMedia) return;
+
         this.elements.viewer.querySelectorAll('[data-media-id]').forEach((element) => {
           element.classList.remove('is-active');
         });
-        activeMedia?.classList?.add('is-active');
+        activeMedia.classList.add('is-active');
 
         if (prepend) {
           activeMedia.parentElement.firstChild !== activeMedia && activeMedia.parentElement.prepend(activeMedia);
@@ -68,22 +61,33 @@ if (!customElements.get('media-gallery')) {
         }
 
         this.preventStickyHeader();
+
         window.setTimeout(() => {
-          if (!this.mql.matches || this.elements.thumbnails) {
+          if (this.elements.viewer.slider) {
+            this.elements.viewer.slider.scrollTo({
+              left: activeMedia.offsetLeft,
+              behavior: 'smooth',
+            });
+          } else if (!this.mql.matches || this.elements.thumbnails) {
             activeMedia.parentElement.scrollTo({ left: activeMedia.offsetLeft });
           }
+
           const activeMediaRect = activeMedia.getBoundingClientRect();
-          // Don't scroll if the image is already in view
-          if (activeMediaRect.top > -0.5) return;
-          const top = activeMediaRect.top + window.scrollY;
-          window.scrollTo({ top: top, behavior: 'smooth' });
+          if (activeMediaRect.top < -0.5) {
+            const top = activeMediaRect.top + window.scrollY;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+          }
         });
+
         this.playActiveMedia(activeMedia);
 
-        if (!this.elements.thumbnails) return;
-        const activeThumbnail = this.elements.thumbnails.querySelector(`[data-target="${mediaId}"]`);
-        this.setActiveThumbnail(activeThumbnail);
-        this.announceLiveRegion(activeMedia, activeThumbnail.dataset.mediaPosition);
+        if (this.elements.thumbnails) {
+          const activeThumbnail = this.elements.thumbnails.querySelector(`[data-target="${mediaId}"]`);
+          if (activeThumbnail) {
+            this.setActiveThumbnail(activeThumbnail);
+            this.announceLiveRegion(activeMedia, activeThumbnail.dataset.mediaPosition);
+          }
+        }
       }
 
       setActiveThumbnail(thumbnail) {
@@ -92,13 +96,18 @@ if (!customElements.get('media-gallery')) {
         this.elements.thumbnails
           .querySelectorAll('button')
           .forEach((element) => element.removeAttribute('aria-current'));
-        thumbnail.querySelector('button').setAttribute('aria-current', true);
-        if (this.elements.thumbnails.isSlideVisible(thumbnail, 10)) return;
 
-        this.elements.thumbnails.slider.scrollTo({ left: thumbnail.offsetLeft });
+        const button = thumbnail.querySelector('button');
+        if (button) {
+          button.setAttribute('aria-current', true);
+          if (this.elements.thumbnails.isSlideVisible && !this.elements.thumbnails.isSlideVisible(thumbnail, 10)) {
+            this.elements.thumbnails.slider.scrollTo({ left: thumbnail.offsetLeft });
+          }
+        }
       }
 
       announceLiveRegion(activeItem, position) {
+        if (!this.elements.liveRegion) return;
         const image = activeItem.querySelector('.product__modal-opener--image img');
         if (!image) return;
         image.onload = () => {
@@ -124,7 +133,7 @@ if (!customElements.get('media-gallery')) {
       }
 
       removeListSemantic() {
-        if (!this.elements.viewer.slider) return;
+        if (!this.elements.viewer || !this.elements.viewer.slider) return;
         this.elements.viewer.slider.setAttribute('role', 'presentation');
         this.elements.viewer.sliderItems.forEach((slide) => slide.setAttribute('role', 'presentation'));
       }
