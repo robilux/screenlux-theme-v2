@@ -103,7 +103,7 @@ body {
 
 @media (min-width: 1024px) {
   .screenlux-product-container {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     align-items: start;
     padding-top: 48px;
   }
