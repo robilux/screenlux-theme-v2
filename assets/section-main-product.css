@@ -53,7 +53,8 @@ product-info {
 
   /* Override default hiding of slider buttons for configurator gallery */
   .screenlux-gallery .slider-buttons,
-  .product__media-wrapper.screenlux-gallery slider-component .slider-buttons {
+  .product__media-wrapper.screenlux-gallery slider-component .slider-buttons,
+  slider-component#GalleryViewer-template--27951228649820__main .slider-buttons {
     display: flex !important;
   }
 
