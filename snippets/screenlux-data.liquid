@@ -34,6 +34,7 @@
         {
            id: {{ prod.selected_or_first_available_variant.id }},
            title: {{ prod.title | json }},
+           description: {{ prod.description | strip_html | truncate: 100 | json }},
            image: {{ prod.featured_image | image_url: width: 200 | json }},
            price: {{ prod.price }}
         }{% unless forloop.last %},{% endunless %}
@@ -63,6 +64,8 @@
         {
           id: {{ prod.selected_or_first_available_variant.id }},
           title: {{ prod.title | json }},
+          description: {{ prod.description | strip_html | truncate: 100 | json }},
+          image: {{ prod.featured_image | image_url: width: 200 | json }},
           price: {{ prod.price }}
         }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
