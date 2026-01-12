@@ -51,8 +51,9 @@ product-info {
     margin-bottom: 2rem;
   }
 
-  .product__media-container .slider-buttons {
-    display: none;
+  /* Gallery buttons should be visible for configurator */
+  .screenlux-gallery .slider-buttons {
+    display: flex !important;
   }
 
   .product--right .product__media-wrapper {
