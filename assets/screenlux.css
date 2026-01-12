@@ -301,6 +301,10 @@ body {
 /* Reusable Components */
 
 /* Labels */
+.field {
+  display: block !important; /* Override Dawn theme's flex layout */
+}
+
 .field-label {
   display: block;
   font-size: 14px;
