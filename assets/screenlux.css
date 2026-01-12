@@ -755,5 +755,18 @@ details-accordion summary::-webkit-details-marker { display: none; }
 .text-subdued { color: var(--sl-text-tertiary); }
 
 /* Animation */
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); }  }
 .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+
+/* === CRITICAL GALLERY FIX === */
+/* Force gallery navigation to be visible - overrides component-slider.css hiding rules */
+.screenlux-gallery .slider-buttons,
+.product__media-wrapper.screenlux-gallery .slider-buttons,
+slider-component .slider-buttons,
+.slider--mobile + .slider-buttons,
+.slider--desktop + .slider-buttons,
+.slider--tablet-up + .slider-buttons {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
