@@ -48,11 +48,11 @@ class ProductConfigurator extends HTMLElement {
       id: newId,
       width: 1500,
       height: 1000,
-      frameColor: 'anthracite',
-      fabricColor: 'charcoal',
-      fabricType: '4-percent',
-      cassetteSize: 'slim',
-      motor: 'solar',
+      frameColor: null,
+      fabricColor: null,
+      fabricType: null,
+      cassetteSize: null,
+      motor: null,
       expanded: true,
       valid: true,
       errors: {},
@@ -171,6 +171,9 @@ class ProductConfigurator extends HTMLElement {
     const screensContainer = document.createElement('div');
     screensContainer.className = 'screens-list';
 
+    // Add Header for Screens Section
+    screensContainer.innerHTML = '<label class="field-label">Configure your screens</label>';
+
     this.state.screens.forEach((screen, index) => {
       screensContainer.appendChild(this.renderScreenItem(screen, index));
     });
@@ -186,12 +189,20 @@ class ProductConfigurator extends HTMLElement {
     // 3. Global Solar Check (Upsell)
     if (this.state.screens.some((s) => s.motor !== 'solar')) {
       const solarTip = document.createElement('div');
-      solarTip.className = 'info-box margin-top-md';
+      solarTip.className = 'info-box';
       solarTip.innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-             <span><strong>Go Solar?</strong> Save on wiring costs and install faster.</span>
-             <button class="btn btn-text" style="color:var(--sl-color-primary);">Switch all to Solar</button>
+        <div class="info-box__header">
+          <strong>TIP:</strong> Switch to <strong>Solar Driven</strong> screens simplify installation and reduces installation costs.
         </div>
+        <ul class="info-box__benefits">
+          <li class="info-box__benefit">No wiring</li>
+          <li class="info-box__benefit">No wall drilling for power</li>
+          <li class="info-box__benefit">No electrician dependency</li>
+        </ul>
+        <div class="info-box__footer">
+          Switch now and save <strong>1200€</strong> on professional assembly.
+        </div>
+        <button class="info-box__button">Switch to Solar</button>
       `;
       solarTip.querySelector('button').onclick = this.handleGlobalSolar;
       container.appendChild(solarTip);
@@ -314,7 +325,7 @@ class ProductConfigurator extends HTMLElement {
              'Frame color',
              'frameColor',
              frameOptions,
-             screen.frameColor || 'anthracite',
+             screen.frameColor,
              index,
              'color',
              'horizontal'
@@ -325,7 +336,7 @@ class ProductConfigurator extends HTMLElement {
              'Fabric color',
              'fabricColor',
              fabricColors,
-             screen.fabricColor || 'charcoal',
+             screen.fabricColor,
              index,
              'color',
              'horizontal'
@@ -336,7 +347,7 @@ class ProductConfigurator extends HTMLElement {
              'Fabric transparency',
              'fabricType',
              fabricTypes,
-             screen.fabricType || '4-percent',
+             screen.fabricType,
              index,
              'image',
              'vertical'
@@ -347,22 +358,14 @@ class ProductConfigurator extends HTMLElement {
              'Cassette size',
              'cassetteSize',
              cassetteSizes,
-             screen.cassetteSize || 'slim',
+             screen.cassetteSize,
              index,
              'image',
              'vertical'
            )}
 
            <!-- Motor Selector -->
-           ${this.renderSelectionGrid(
-             'Motor',
-             'motor',
-             motorOptions,
-             screen.motor || 'solar',
-             index,
-             'image',
-             'vertical'
-           )}
+           ${this.renderSelectionGrid('Motor', 'motor', motorOptions, screen.motor, index, 'image', 'vertical')}
            
            <!-- Actions -->
            <div class="margin-top-md" style="display:flex; justify-content: space-between; align-items: center;">
