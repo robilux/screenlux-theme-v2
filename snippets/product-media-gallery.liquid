@@ -102,14 +102,14 @@
   {%- if media_count > 1 -%}
     <div class="thumbnail-slider" role="list">
       {%- for media in product.media -%}
-        <button
-          class="thumbnail{% if forloop.first %} active{% endif %}"
-          aria-label="{{ 'products.product.media.load_image' | t }}: {{ forloop.index }}"
-          data-target="{{ section.id }}-{{ media.id }}"
-          data-media-id="{{ section.id }}-{{ media.id }}"
-          type="button"
-        >
-          {%- if media.media_type == 'image' -%}
+        {%- if media.media_type == 'image' -%}
+          <button
+            class="thumbnail{% if forloop.first %} active{% endif %}"
+            aria-label="{{ 'products.product.media.load_image' | t }}: {{ forloop.index }}"
+            data-target="{{ section.id }}-{{ media.id }}"
+            data-media-id="{{ section.id }}-{{ media.id }}"
+            type="button"
+          >
             <img
               src="{{ media | image_url: width: 120 }}"
               alt="{{ media.alt | escape }}"
@@ -117,8 +117,8 @@
               height="72"
               loading="lazy"
             >
-          {%- endif -%}
-        </button>
+          </button>
+        {%- endif -%}
       {%- endfor -%}
     </div>
   {%- endif -%}
