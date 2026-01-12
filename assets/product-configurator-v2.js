@@ -420,73 +420,154 @@ class ProductConfigurator extends HTMLElement {
   renderInstallationSection() {
     const section = document.createElement('div');
     section.className = 'margin-top-lg';
-    section.innerHTML = `<h3>Installation</h3>`;
 
-    // Type Switcher
-    const switcher = document.createElement('div');
-    switcher.className = 'segmented-control';
-    switcher.innerHTML = `
-      <label class="${this.state.installationType === 'diy' ? 'active' : ''}">
-        <input type="radio" name="install" value="diy" class="hidden-input" ${
-          this.state.installationType === 'diy' ? 'checked' : ''
-        }> 
-        <span>DIY Installation</span>
-      </label>
-      <label class="${this.state.installationType === 'professional' ? 'active' : ''}">
-        <input type="radio" name="install" value="professional" class="hidden-input" ${
-          this.state.installationType === 'professional' ? 'checked' : ''
-        }> 
-        <span>Professional Service</span>
-      </label>
+    // Installation type options
+    const installationOptions = [
+      {
+        id: 'diy',
+        title: 'Self-installation (DIY)',
+        desc: 'Hassle-free self-assembly using our assembly manual and video guides.\n• Estimated assembly time:\n• 30 minutes per Solar driven screen\n• 5 hours per wired screen',
+        price: 'Free',
+      },
+      {
+        id: 'professional',
+        title: 'Professional Installation',
+        desc: 'Get the screen assembled by one of our professional installation companies.',
+        price: '+ 2350 €',
+        note: 'Save 1200 € by switching to Solar driven screens.',
+      },
+    ];
+
+    // Render installation type selection using vertical cards
+    const html = `
+      <div class="field margin-top-md">
+        <label class="field-label">Installation</label>
+        <div class="selection-grid--vertical">
+          ${installationOptions
+            .map((opt) => {
+              const isSelected = this.state.installationType === opt.id;
+              return `
+              <label class="selection-card selection-card--vertical ${isSelected ? 'selected' : ''}">
+                <input type="radio" name="installationType" value="${opt.id}" ${
+                isSelected ? 'checked' : ''
+              } class="hidden-input">
+                <div class="card-text-wrapper" style="flex: 1;">
+                  <span class="card-title">${opt.title}</span>
+                  <span class="card-desc" style="white-space: pre-line; margin-top: 4px; display: block;">${
+                    opt.desc
+                  }</span>
+                  <span class="card-price" style="font-weight: 600; margin-top: 8px; display: block;">${
+                    opt.price
+                  }</span>
+                  ${
+                    opt.note
+                      ? `<span class="card-note" style="color: #F97316; font-size: 13px; margin-top: 4px; display: block;">${opt.note}</span>`
+                      : ''
+                  }
+                </div>
+              </label>
+            `;
+            })
+            .join('')}
+        </div>
+      </div>
     `;
 
-    switcher.querySelectorAll('input').forEach((radio) => {
-      radio.addEventListener('change', (e) => this.setInstallationType(e.target.value));
-    });
-    section.appendChild(switcher);
+    section.innerHTML = html;
 
-    // DIY Brackets
-    if (this.state.installationType === 'diy') {
-      if (this.data.brackets.length === 0) {
-        section.innerHTML += `<p class="text-subdued margin-top-sm"><em>No brackets found.</em></p>`;
-      } else {
-        const displayOptions = this.data.brackets.map((b) => ({
-          ...b,
-          image: b.image || '',
-          desc: `+€${(b.price / 100).toFixed(2)}`,
-        }));
-
-        section.innerHTML += this.renderSelectionGrid(
-          'Mounting Brackets',
-          'bracketId',
-          displayOptions,
-          this.state.bracketId,
-          0 // Global
-        );
-      }
-    } else {
-      // Professional Info
-      const proInfo = document.createElement('div');
-      proInfo.className = 'info-box margin-top-sm';
-      proInfo.innerHTML = `<p>Our experts will contact you to schedule an installation date after checkout.</p>`;
-      section.appendChild(proInfo);
-    }
-
-    section.querySelectorAll('.segmented-control input').forEach((radio) => {
-      radio.addEventListener('change', (e) => this.setInstallationType(e.target.value));
-    });
-
-    // Attach Bracket listeners
-    if (this.state.installationType === 'diy') {
-      section.querySelectorAll('input[name^="bracketId_"]').forEach((input) => {
-        input.addEventListener('change', (e) => {
-          this.state.bracketId = parseInt(e.target.value);
-          this.render();
-        });
+    // Add event listeners for installation type
+    section.querySelectorAll('input[name="installationType"]').forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        this.setInstallationType(e.target.value);
       });
+    });
+
+    // DIY Brackets Section
+    if (this.state.installationType === 'diy') {
+      const bracketsSection = document.createElement('div');
+      bracketsSection.className = 'margin-top-lg';
+      bracketsSection.innerHTML = '<label class="field-label">Installation brackets</label>';
+
+      if (this.data.brackets.length === 0) {
+        bracketsSection.innerHTML += `<p class="text-subdued margin-top-sm"><em>No brackets found.</em></p>`;
+      } else {
+        this.data.brackets.forEach((bracket) => {
+          const card = this.renderBracketCard(bracket);
+          bracketsSection.appendChild(card);
+        });
+      }
+
+      section.appendChild(bracketsSection);
     }
 
     return section;
+  }
+
+  renderBracketCard(bracket) {
+    const card = document.createElement('div');
+    card.className = 'product-card margin-top-sm';
+
+    const quantity = this.state.brackets[bracket.id] || 0;
+    const price = (bracket.price / 100).toFixed(0);
+
+    card.innerHTML = `
+      <div class="product-card__image">
+        ${
+          bracket.image
+            ? `<img src="${bracket.image}" alt="${bracket.title}" style="width: 64px; height: 64px; object-fit: cover; border-radius: 8px;">`
+            : '<div style="width: 64px; height: 64px; background: #F3F4F6; border-radius: 8px;"></div>'
+        }
+      </div>
+      <div class="product-card__content">
+        <div class="product-card__title">${bracket.title}</div>
+        <div class="product-card__desc">${bracket.description || ''}</div>
+        <div class="product-card__price">${price} €</div>
+      </div>
+      <div class="product-card__actions">
+        ${
+          quantity === 0
+            ? `<button class="btn btn-secondary add-bracket-btn" data-bracket-id="${bracket.id}">Add</button>`
+            : `<div class="qty-controls" style="display: flex; gap: 8px; align-items: center;">
+            <button class="btn btn-secondary qty-minus" data-bracket-id="${bracket.id}" style="width: 32px; height: 32px; padding: 0;">−</button>
+            <span style="min-width: 24px; text-align: center; font-weight: 500;">${quantity}</span>
+            <button class="btn btn-secondary qty-plus" data-bracket-id="${bracket.id}" style="width: 32px; height: 32px; padding: 0;">+</button>
+          </div>`
+        }
+      </div>
+    `;
+
+    // Event listeners for bracket quantity
+    const addBtn = card.querySelector('.add-bracket-btn');
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        if (!this.state.brackets) this.state.brackets = {};
+        this.state.brackets[bracket.id] = 1;
+        this.render();
+      });
+    }
+
+    const minusBtn = card.querySelector('.qty-minus');
+    if (minusBtn) {
+      minusBtn.addEventListener('click', () => {
+        if (this.state.brackets[bracket.id] > 0) {
+          this.state.brackets[bracket.id]--;
+          if (this.state.brackets[bracket.id] === 0) {
+            delete this.state.brackets[bracket.id];
+          }
+          this.render();
+        }
+      });
+    }
+
+    const plusBtn = card.querySelector('.qty-plus');
+    if (plusBtn) {
+      plusBtn.addEventListener('click', () => {
+        this.state.brackets[bracket.id]++;
+        this.render();
+      });
+    }
+
+    return card;
   }
 
   renderAddonsSection() {
