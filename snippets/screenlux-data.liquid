@@ -70,33 +70,34 @@
 
     // 5. Hardcoded Design Options (For Visual Configurator)
     frameColors: [
-      { id: 'anthracite', title: 'Anthracite', hex: '#373F47', selected: true },
-      { id: 'white', title: 'White', hex: '#FFFFFF', selected: false },
-      { id: 'gray', title: 'Gray', hex: '#9CA3AF', selected: false },
-      { id: 'black', title: 'Black', hex: '#111827', selected: false }
+      { id: 'anthracite', title: 'Anthracite', hex: '#373F47', ral: 'RAL 7016', selected: true },
+      { id: 'white', title: 'White', hex: '#FFFFFF', ral: 'RAL 9016', selected: false }
+    ],
+    fabricColors: [
+      { id: 'charcoal', title: 'Charcoal', desc: 'Popular!', hex: '#1F1F1F' },
+      { id: 'gray', title: 'Gray', desc: 'Calm and traditional', hex: '#6B7280' }
     ],
     fabrics: [
       {
-        id: '5-percent',
-        title: '5% Openness',
-        desc: 'Perfect for living rooms.',
-        image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/fabric_5.jpg',
-        colors: ['Grey', 'Charcoal', 'White']
-      },
-      {
-        id: '1-percent',
-        title: '1% Openness',
-        desc: 'Balanced privacy.',
-        image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/fabric_1.jpg',
-        colors: ['Grey', 'Charcoal', 'White']
+        id: '4-percent',
+        title: '4% Openness',
+        desc: 'Perfect for living rooms and open spaces.',
+        image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/fabric_4.jpg'
       },
       {
         id: 'blackout',
         title: 'Blackout',
-        desc: 'Complete darkness.',
-        image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/fabric_blackout.jpg',
-        colors: ['Grey', 'Charcoal']
+        desc: 'Common for bathrooms and bedrooms.',
+        image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/fabric_blackout.jpg'
       }
+    ],
+    cassetteSizes: [
+      { id: 'slim', title: 'Slim (85×85mm)', desc: 'Our slim standard cassette. For screens up to 5m².', image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/cassette_slim.jpg' },
+      { id: 'large', title: 'Large (120×120mm)', desc: 'When the slim cassette no longer fits.', image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/cassette_large.jpg' }
+    ],
+    motorOptions: [
+      { id: 'solar', title: 'Solar-powered screen', desc: 'Hassle-free installation with solar panel.', image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/motor_solar.jpg', surcharge: 10000 },
+      { id: 'wired', title: 'Wired screen', desc: 'Traditional and safe.', image: 'https://cdn.shopify.com/s/files/1/0663/7708/9244/files/motor_wired.jpg', surcharge: 0 }
     ],
 
     // Configuration Constants

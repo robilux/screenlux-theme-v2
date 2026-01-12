@@ -14,9 +14,24 @@ if (!customElements.get('media-gallery')) {
 
         this.elements.viewer.addEventListener('slideChanged', debounce(this.onSlideChanged.bind(this), 500));
         this.elements.thumbnails.querySelectorAll('[data-target]').forEach((mediaToSwitch) => {
-          mediaToSwitch
-            .querySelector('button')
-            .addEventListener('click', this.setActiveMedia.bind(this, mediaToSwitch.dataset.target, false));
+          mediaToSwitch.querySelector('button').addEventListener('click', (event) => {
+            event.preventDefault();
+            this.setActiveMedia(mediaToSwitch.dataset.target, false);
+
+            // If we have a slider, we need to scroll it to the correct element
+            // to ensure the counter updates correctly since it's driven by scroll scroll events
+            if (this.elements.viewer.slider) {
+              const targetElement = this.elements.viewer.querySelector(
+                `[data-media-id="${mediaToSwitch.dataset.target}"]`
+              );
+              if (targetElement) {
+                this.elements.viewer.slider.scrollTo({
+                  left: targetElement.offsetLeft,
+                  behavior: 'smooth',
+                });
+              }
+            }
+          });
         });
         if (this.dataset.desktopLayout.includes('thumbnail') && this.mql.matches) this.removeListSemantic();
       }
@@ -45,7 +60,8 @@ if (!customElements.get('media-gallery')) {
 
           if (this.elements.thumbnails) {
             const activeThumbnail = this.elements.thumbnails.querySelector(`[data-target="${mediaId}"]`);
-            activeThumbnail.parentElement.firstChild !== activeThumbnail && activeThumbnail.parentElement.prepend(activeThumbnail);
+            activeThumbnail.parentElement.firstChild !== activeThumbnail &&
+              activeThumbnail.parentElement.prepend(activeThumbnail);
           }
 
           if (this.elements.viewer.slider) this.elements.viewer.resetPages();

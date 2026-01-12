@@ -53,7 +53,6 @@ window.ScreenluxEngine = {
     const sqm = widthM * heightM;
 
     // 2.2.2.2 Parameters from rules (populated by settings)
-    // Default fallback to 0 or sane defaults if rules missing
     const PRICE_PER_SQM = rules.price_per_sqm !== undefined ? rules.price_per_sqm : 5000;
     const MIN_BILLABLE = rules.min_billable_sqm || 0;
     const BASE_INCLUDES = rules.base_includes_sqm || 0;
@@ -63,21 +62,20 @@ window.ScreenluxEngine = {
     const billableSqm = Math.max(sqm, MIN_BILLABLE);
 
     // 2.2.2.3.3 Area Cost
-    // max(0, billable - included) * price
     const chargeableSqm = Math.max(0, billableSqm - BASE_INCLUDES);
     const areaCost = Math.round(chargeableSqm * PRICE_PER_SQM);
 
     // 1. Base Price accumulator
     let total = BASE_PRICE + areaCost;
 
-    // 3. Hardware Surcharges (2.2.6)
-    if (config.cassette === 'large') {
-      total += rules.surcharge_cassette || 5000; // Default +50€
+    // 3. Cassette Surcharge
+    if (config.cassetteSize === 'large') {
+      total += rules.surcharge_cassette || 5000;
     }
 
-    // 4. Motor Surcharge (2.2.7)
-    if (config.solar) {
-      total += rules.surcharge_solar || 10000; // Default +100€
+    // 4. Motor Surcharge
+    if (config.motor === 'solar') {
+      total += rules.surcharge_solar || 10000;
     }
 
     return total;
@@ -102,7 +100,6 @@ window.ScreenluxEngine = {
     if (target > MAX_PRICE) target = MAX_PRICE;
 
     // 3. Find match
-    // Simple exact price search
     return variants.find((v) => v.price === target) || null;
   },
 
@@ -134,12 +131,14 @@ window.ScreenluxEngine = {
         id: variant.id,
         quantity: 1,
         properties: {
-          '_Screen ID': index + 1, // Hidden property for grouping?
+          '_Screen ID': index + 1,
           Reference: `Screen ${index + 1}`,
           Dimensions: `${screen.width}mm x ${screen.height}mm`,
-          Power: screen.solar ? 'Solar' : 'Wired',
-          'Fabric Transparency': findTitle(data.fabrics, screen.cassette), // Logic maps "cassette" field to Fabric
           'Frame Color': findTitle(data.frameColors, screen.frameColor),
+          'Fabric Color': findTitle(data.fabricColors, screen.fabricColor),
+          'Fabric Transparency': findTitle(data.fabrics, screen.fabricType),
+          'Cassette Size': findTitle(data.cassetteSizes, screen.cassetteSize),
+          Motor: findTitle(data.motorOptions, screen.motor),
           'Calculated Price': `€${(rawPrice / 100).toFixed(2)}`,
         },
       });
