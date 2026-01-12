@@ -34,13 +34,13 @@
       role="list"
     >
       {%- for media in product.media -%}
-        <li
-          id="Slide-{{ section.id }}-{{ media.id }}"
-          class="product__media-item grid__item slider__slide{% if forloop.first %} is-active{% endif %}"
-          data-media-id="{{ section.id }}-{{ media.id }}"
-        >
-          <div class="product__media media media--transparent">
-            {%- if media.media_type == 'image' -%}
+        {%- if media.media_type == 'image' -%}
+          <li
+            id="Slide-{{ section.id }}-{{ media.id }}"
+            class="product__media-item grid__item slider__slide{% if forloop.first %} is-active{% endif %}"
+            data-media-id="{{ section.id }}-{{ media.id }}"
+          >
+            <div class="product__media media media--transparent">
               <img
                 srcset="
                   {%- if media.width >= 165 -%}{{ media | image_url: width: 165 }} 165w,{%- endif -%}
@@ -59,11 +59,9 @@
                 alt="{{ media.alt | escape }}"
                 class="gallery-image"
               >
-            {%- else -%}
-              {{ media | media_tag: image_size: '720x', class: 'gallery-media', loading: 'lazy' }}
-            {%- endif -%}
-          </div>
-        </li>
+            </div>
+          </li>
+        {%- endif -%}
       {%- endfor -%}
     </ul>
 

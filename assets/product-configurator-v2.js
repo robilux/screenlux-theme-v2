@@ -578,40 +578,93 @@ class ProductConfigurator extends HTMLElement {
   renderAddonsSection() {
     const section = document.createElement('div');
     section.className = 'margin-top-lg';
-    section.innerHTML = `<h3>Add-ons</h3>`;
 
     if (this.data.addons.length === 0) {
-      section.innerHTML += `<p class="text-subdued"><em>No add-ons available.</em></p>`;
+      section.innerHTML =
+        '<label class="field-label">Add-ons</label><p class="text-subdued"><em>No add-ons available.</em></p>';
       return section;
     }
 
+    section.innerHTML = '<label class="field-label">Add-ons</label>';
+
     this.data.addons.forEach((addon) => {
-      const row = document.createElement('div');
-      row.className = 'addon-row';
-      row.innerHTML = `<span>${addon.title} (€${addon.price / 100})</span>`;
-
-      const qtySelector = document.createElement('hybrid-quantity-selector');
-      qtySelector.innerHTML = `
-         <button class="btn btn-secondary" style="min-width:60px; height:32px; padding:0;">Add</button>
-         <div class="qty-controls hidden" style="display:flex; gap:8px; align-items:center;">
-           <button class="qty-minus btn btn-secondary" style="width:32px; height:32px; padding:0;">-</button>
-           <input type="number" readonly value="${
-             this.state.addons[addon.id] || 0
-           }" style="width:40px; text-align:center; border:none;">
-           <button class="qty-plus btn btn-secondary" style="width:32px; height:32px; padding:0;">+</button>
-         </div>
-       `;
-
-      qtySelector.addEventListener('change', (e) => {
-        const val = parseInt(e.target.querySelector('input').value);
-        this.updateAddon(addon.id, val);
-      });
-
-      row.appendChild(qtySelector);
-      section.appendChild(row);
+      const card = this.renderAddonCard(addon);
+      section.appendChild(card);
     });
 
     return section;
+  }
+
+  renderAddonCard(addon) {
+    const card = document.createElement('div');
+    card.className = 'product-card margin-top-sm';
+
+    // Initialize addons state if it doesn't exist
+    if (!this.state.addons) {
+      this.state.addons = {};
+    }
+
+    const quantity = this.state.addons[addon.id] || 0;
+    const price = (addon.price / 100).toFixed(0);
+
+    card.innerHTML = `
+      <div class="product-card__image">
+        ${
+          addon.image
+            ? `<img src="${addon.image}" alt="${addon.title}" style="width: 64px; height: 64px; object-fit: cover; border-radius: 8px;">`
+            : '<div style="width: 64px; height: 64px; background: #F3F4F6; border-radius: 8px;"></div>'
+        }
+      </div>
+      <div class="product-card__content">
+        <div class="product-card__title">${addon.title}</div>
+        <div class="product-card__desc">${addon.description || ''}</div>
+        <div class="product-card__price">${price} €</div>
+      </div>
+      <div class="product-card__actions">
+        ${
+          quantity === 0
+            ? `<button class="btn btn-secondary add-addon-btn" data-addon-id="${addon.id}">Add</button>`
+            : `<div class="qty-controls" style="display: flex; gap: 8px; align-items: center;">
+            <button class="btn btn-secondary qty-minus" data-addon-id="${addon.id}" style="width: 32px; height: 32px; padding: 0;">−</button>
+            <span style="min-width: 24px; text-align: center; font-weight: 500;">${quantity}</span>
+            <button class="btn btn-secondary qty-plus" data-addon-id="${addon.id}" style="width: 32px; height: 32px; padding: 0;">+</button>
+          </div>`
+        }
+      </div>
+    `;
+
+    // Event listeners for addon quantity
+    const addBtn = card.querySelector('.add-addon-btn');
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        if (!this.state.addons) this.state.addons = {};
+        this.state.addons[addon.id] = 1;
+        this.render();
+      });
+    }
+
+    const minusBtn = card.querySelector('.qty-minus');
+    if (minusBtn) {
+      minusBtn.addEventListener('click', () => {
+        if (this.state.addons[addon.id] > 0) {
+          this.state.addons[addon.id]--;
+          if (this.state.addons[addon.id] === 0) {
+            delete this.state.addons[addon.id];
+          }
+          this.render();
+        }
+      });
+    }
+
+    const plusBtn = card.querySelector('.qty-plus');
+    if (plusBtn) {
+      plusBtn.addEventListener('click', () => {
+        this.state.addons[addon.id]++;
+        this.render();
+      });
+    }
+
+    return card;
   }
 
   calculateTotals() {
