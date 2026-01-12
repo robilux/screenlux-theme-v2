@@ -146,6 +146,45 @@ body {
   position: absolute; inset: 0; pointer-events: none;
 }
 
+/* === GALLERY LAYOUT === */
+
+/* Gallery Container */
+.product__media-list {
+  display: flex !important;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.product__media-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Gallery Items - CRITICAL: Must be full width */
+.product__media-item {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Media Container */
+.product__media {
+  width: 100%;
+  position: relative;
+  display: block;
+}
+
+/* Gallery Images */
+.gallery-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
 /* Navigation Buttons */
 .slider-buttons {
   position: absolute;
