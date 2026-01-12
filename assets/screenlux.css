@@ -264,12 +264,12 @@ body {
 /* Labels */
 .field-label {
   display: block;
-  font-size: var(--sl-text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: var(--sl-weight-semibold);
-  color: var(--sl-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
   margin-bottom: 12px;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 /* Inputs */
@@ -327,7 +327,7 @@ body {
   text-align: center;
   
   background: var(--sl-color-white);
-  border: 1px solid var(--sl-border-default);
+  border: 1px solid #E5E7EB;
   border-radius: var(--sl-radius-lg);
   padding: 16px;
   cursor: pointer;
@@ -339,7 +339,7 @@ body {
 }
 
 .selection-card:hover {
-  border-color: var(--sl-color-gray-300);
+  border-color: #D1D5DB;
 }
 
 .selection-card--vertical {
@@ -380,9 +380,13 @@ body {
 }
 
 .fabric-swatch {
-  width: 80px; height: 60px; border-radius: 8px;
-  background-size: cover; background-position: center;
-  border: 1px solid rgba(0,0,0,0.05);
+  width: 64px; 
+  height: 64px; 
+  border-radius: 8px;
+  background-size: cover; 
+  background-position: center;
+  border: none;
+  flex-shrink: 0;
 }
 
 .fabric-swatch.small {
