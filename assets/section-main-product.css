@@ -51,8 +51,9 @@ product-info {
     margin-bottom: 2rem;
   }
 
-  /* Gallery buttons should be visible for configurator */
-  .screenlux-gallery .slider-buttons {
+  /* Override default hiding of slider buttons for configurator gallery */
+  .screenlux-gallery .slider-buttons,
+  .product__media-wrapper.screenlux-gallery slider-component .slider-buttons {
     display: flex !important;
   }
 
