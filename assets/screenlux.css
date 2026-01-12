@@ -305,6 +305,13 @@ body {
   display: block !important; /* Override Dawn theme's flex layout */
 }
 
+/* Remove Dawn theme's field borders and shadows */
+.field:before,
+.field:after {
+  content: none !important;
+  box-shadow: none !important;
+}
+
 .field-label {
   display: block;
   font-size: 14px;
@@ -430,6 +437,8 @@ body {
   background-position: center;
   border: none;
   flex-shrink: 0;
+  object-fit: cover; /* For img tags */
+  display: block;
 }
 
 .fabric-swatch.small {

@@ -234,10 +234,11 @@ class ProductConfigurator extends HTMLElement {
       if (opt.hex) {
         visual = `<div class="card-visual"><span class="color-dot" style="background:${opt.hex};"></span></div>`;
       } else if (opt.image) {
-        const visualClass = layout === 'vertical' ? 'fabric-swatch' : 'color-dot'; // Reuse dots for small horizontal icons if needed, but fabrics use swatches
-        visual = `<div class="card-visual"><div class="${
-          layout === 'vertical' ? 'fabric-swatch' : 'fabric-swatch small'
-        }" style="background-image: url('${opt.image}');"></div></div>`;
+        if (layout === 'vertical') {
+          visual = `<div class="card-visual"><img src="${opt.image}" alt="${opt.title}" class="fabric-swatch" /></div>`;
+        } else {
+          visual = `<div class="card-visual"><div class="fabric-swatch small" style="background-image: url('${opt.image}');"></div></div>`;
+        }
       }
 
       html += `
