@@ -170,6 +170,13 @@ body {
   scroll-snap-stop: always;
 }
 
+/* Override grid--peek for product gallery - force full width */
+.product__media-list.grid--peek .product__media-item {
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  margin-inline-start: 0 !important;
+}
+
 /* Media Container */
 .product__media {
   width: 100%;
