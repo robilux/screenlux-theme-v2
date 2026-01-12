@@ -178,8 +178,8 @@ class ProductConfigurator extends HTMLElement {
 
     // 2. Add Screen Button
     const addBtn = document.createElement('button');
-    addBtn.className = 'btn btn-secondary margin-top-sm';
-    addBtn.innerText = '+ Add another screen';
+    addBtn.className = 'btn btn-dashed margin-top-sm';
+    addBtn.innerHTML = `<span>+</span> Add another one`;
     addBtn.onclick = this.handleAddScreen;
     container.appendChild(addBtn);
 
@@ -327,7 +327,7 @@ class ProductConfigurator extends HTMLElement {
              screen.fabricColor || 'charcoal',
              index,
              'color',
-             'grid'
+             'horizontal'
            )}
            
            <!-- Fabric Type Selector -->
@@ -369,7 +369,7 @@ class ProductConfigurator extends HTMLElement {
                 🗑️ Remove screen
               </button>
               <button type="button" class="btn btn-text duplicate-screen-btn" style="padding:0; width:auto; color: var(--sl-text-secondary);">
-                📑 Duplicate screen
+                📄 Duplicate screen
               </button>
            </div>
         </div>
