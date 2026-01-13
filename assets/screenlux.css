@@ -319,7 +319,7 @@ body {
 .developed-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   padding: 6px 12px;
   background: var(--sl-color-gray-50);
   border: 1px solid var(--sl-border-default);
@@ -330,10 +330,10 @@ body {
   width: fit-content;
 }
 
-.developed-badge svg {
-  width: 16px;
-  height: 16px;
-  color: var(--sl-text-tertiary);
+.developed-badge img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 /* Product Description - Expandable */
