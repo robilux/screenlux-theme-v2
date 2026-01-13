@@ -1089,7 +1089,7 @@ slider-component .slider-counter {
   border: 2px solid transparent;
   transition: border-color 0.2s ease;
 }
-/* --- User Feedback Refinements V2 --- */
+/* --- User Feedback Refinements V3 (Final Polish) --- */
 
 /* 1. "Order Now" Button */
 .header__btn-order {
@@ -1101,16 +1101,16 @@ slider-component .slider-counter {
   white-space: nowrap;
 }
 
-/* 2. Overlapping Cart Bubble */
+/* 2. Overlapping Cart Bubble (Lower & Further Left) */
 .cart-count-bubble {
-  top: -4px !important;    /* Move higher up */
-  right: -8px !important;  /* Move further right to overlap */
-  width: 16px;             /* Slightly smaller for tighter look */
+  top: -2px !important;    /* Less negative = lower */
+  right: -4px !important;  /* Less negative = further left */
+  width: 16px;            
   height: 16px;
   min-width: 16px;
   min-height: 16px;
   font-size: 9px;
-  border: 2px solid var(--sl-color-white); /* White border to cut visually */
+  border: 2px solid var(--sl-color-white);
 }
 
 /* 3. Even Slimmer Padding */
@@ -1119,9 +1119,19 @@ slider-component .slider-counter {
   padding-bottom: 8px !important;
 }
 
-/* 4. Enforce White Background (Redundant but safe) */
-.section-header, .header-wrapper, .header {
+/* 4. Enforce White Background & Fix Lateral Gaps */
+.section-header, .header-wrapper {
   background-color: #ffffff !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* Ensure inner header respects page width but wrapper stays full */
+.header.page-width {
+  margin: 0 auto;
 }
 
 /* 5. Adjust Grid for Button inclusion */
