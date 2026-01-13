@@ -223,6 +223,9 @@ class ProductConfigurator extends HTMLElement {
     // 6. Order Summary & Cart
     container.appendChild(this.renderOrderSummary());
 
+    // 7. Award Section
+    container.appendChild(this.renderAwardSection());
+
     // Atomic Swap
     this.replaceChildren(container);
 
@@ -882,7 +885,7 @@ class ProductConfigurator extends HTMLElement {
     shippingInfo.className = 'shipping-info-row';
     shippingInfo.innerHTML = `
       <span class="shipping-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M1 5H13V14H1M13 8H16L19 11V14H13V8ZM4 14C4 15.1046 3.10457 16 2 16C0.89543 16 0 15.1046 0 14C0 12.8954 0.89543 12 2 12C3.10457 12 4 12.8954 4 14ZM18 14C18 15.1046 17.1046 16 16 16C14.8954 16 14 15.1046 14 14C14 12.8954 14.8954 12 16 12C17.1046 12 18 12.8954 18 14Z" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <img src="${this.data.assets.truck_icon}" alt="Delivery" width="24" height="24">
       </span>
       <span class="shipping-text"><strong class="text-success">Free delivery</strong> · Arrives in 5-7 business days</span>
     `;
@@ -897,14 +900,40 @@ class ProductConfigurator extends HTMLElement {
 
     section.appendChild(cartBtn);
 
-    // 7. Designed in Germany Badge
-    if (this.data.assets && this.data.assets.german_badge) {
-      const badgeRow = document.createElement('div');
-      badgeRow.className = 'summary-badge-row margin-top-md';
-      badgeRow.style.textAlign = 'center';
-      badgeRow.innerHTML = `<img src="${this.data.assets.german_badge}" alt="German Design Award Winner 2026" style="height: 60px; width: auto; object-fit: contain;">`;
-      section.appendChild(badgeRow);
-    }
+    // 7. Designed in Germany Badge (Removed from inside Summary)
+    // if (this.data.assets && this.data.assets.german_badge) { ... }
+
+    return section;
+  }
+
+  renderAwardSection() {
+    if (!this.data.assets || !this.data.assets.german_badge) return document.createElement('div');
+
+    const section = document.createElement('div');
+    section.className = 'order-summary-box margin-top-lg animate-fade-in'; // Reuse box style
+    section.style.display = 'flex';
+    section.style.flexDirection = 'column';
+    section.style.gap = '16px';
+
+    // Layout: Image + Text block
+    // Based on user request to match Figma/Image
+    section.innerHTML = `
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+         <div style="flex-shrink: 0;">
+            <img src="${this.data.assets.german_badge}" alt="German Design Award Winner 2026" style="width: 100px; height: auto; object-fit: contain;">
+         </div>
+         <div style="display: flex; flex-direction: column; gap: 8px;">
+            <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #1F2937; line-height: 1.2;">
+              Excellent Product Design 2026 Winner!
+            </h4>
+            <div style="font-size: 14px; color: #4B5563; line-height: 1.5;">
+              <p style="margin: 0;">
+                Die stilsichere Kombination aus schlankem Gehäuse und smarter Technologie schafft einen ästhetisch anspruchsvollen Sonnenschutz, der sich harmonisch in moderne Umgebungen einfügt. Mit dieser charakterstarken Lösung setzt das Projekt einen beeindrauckenden Maßstab für hochwertiges Outdoor-Design auf Gold-Niveau.
+              </p>
+            </div>
+         </div>
+      </div>
+    `;
 
     return section;
   }
