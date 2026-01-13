@@ -22,6 +22,18 @@ class ProductConfigurator extends HTMLElement {
         throw new Error('ScreenluxData is undefined. Check console.');
       }
 
+      // Add "Unsure" option to brackets if not present
+      if (this.data.brackets && !this.data.brackets.find((b) => b.id === 'unsure')) {
+        this.data.brackets.unshift({
+          id: 'unsure',
+          title: 'Unsure – we will help you!',
+          description:
+            'We will get in contact after your order, and help you select the right installation method. You only pay for the brackets later.',
+          price: 0,
+          image: null, // Will be handled in render
+        });
+      }
+
       // 2. Initial State: 1 Screen
       this.handleAddScreen();
 
@@ -508,10 +520,19 @@ class ProductConfigurator extends HTMLElement {
       if (this.data.brackets.length === 0) {
         bracketsSection.innerHTML += `<p class="text-subdued margin-top-sm"><em>No brackets found.</em></p>`;
       } else {
+        const grid = document.createElement('div');
+        grid.className = 'selection-grid--vertical'; // Use vertical layout for brackets as per design
+
+        // Ensure "Unsure" is selected by default if nothing is selected
+        if (!this.state.selectedBracketId) {
+          this.state.selectedBracketId = 'unsure';
+        }
+
         this.data.brackets.forEach((bracket) => {
           const card = this.renderBracketCard(bracket);
-          bracketsSection.appendChild(card);
+          grid.appendChild(card);
         });
+        bracketsSection.appendChild(grid);
       }
 
       section.appendChild(bracketsSection);
@@ -521,75 +542,53 @@ class ProductConfigurator extends HTMLElement {
   }
 
   renderBracketCard(bracket) {
-    const card = document.createElement('div');
-    card.className = 'product-card margin-top-sm';
+    const isSelected = this.state.selectedBracketId === bracket.id;
+    const priceText =
+      bracket.id === 'unsure'
+        ? '<span style="background-color: #A7F3D0; color: #064E3B; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Free</span>'
+        : `${(bracket.price / 100).toFixed(0)} € per screen`;
 
-    // Initialize brackets state if it doesn't exist
-    if (!this.state.brackets) {
-      this.state.brackets = {};
+    // Custom image for Unsure or bracket image
+    let imageHtml = '';
+    if (bracket.id === 'unsure') {
+      // Placeholder for the "Unsure" illustration - using a generic icon if specific asset not found
+      // Using a simple div with an icon or the provided image if we had it.
+      // Since I don't have the exact image, I'll use a placeholder style that looks decent.
+      imageHtml = `<div style="width: 80px; height: 80px; background: #E0F2FE; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px;">❓</div>`;
+    } else if (bracket.image) {
+      imageHtml = `<img src="${bracket.image}" alt="${bracket.title}" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #F9FAFB; padding: 4px;">`;
+    } else {
+      imageHtml = `<div style="width: 80px; height: 80px; background: #F3F4F6; border-radius: 8px;"></div>`;
     }
 
-    const quantity = this.state.brackets[bracket.id] || 0;
-    const price = (bracket.price / 100).toFixed(0);
+    const label = document.createElement('label');
+    label.className = `selection-card selection-card--vertical ${isSelected ? 'selected' : ''}`;
+    label.style.cursor = 'pointer';
 
-    card.innerHTML = `
-      <div class="product-card__image">
-        ${
-          bracket.image
-            ? `<img src="${bracket.image}" alt="${bracket.title}" style="width: 64px; height: 64px; object-fit: cover; border-radius: 8px;">`
-            : '<div style="width: 64px; height: 64px; background: #F3F4F6; border-radius: 8px;"></div>'
-        }
+    label.innerHTML = `
+      <input type="radio" name="bracket_selection" value="${bracket.id}" class="hidden-input" ${
+      isSelected ? 'checked' : ''
+    }>
+      <div class="card-visual" style="margin-right: 16px;">
+        ${imageHtml}
       </div>
-      <div class="product-card__content">
-        <div class="product-card__title">${bracket.title}</div>
-        <div class="product-card__desc">${bracket.description || ''}</div>
-        <div class="product-card__price">${price} €</div>
-      </div>
-      <div class="product-card__actions">
-        ${
-          quantity === 0
-            ? `<button class="btn btn-secondary add-bracket-btn" data-bracket-id="${bracket.id}">Add</button>`
-            : `<div class="qty-controls" style="display: flex; gap: 8px; align-items: center;">
-            <button class="btn btn-secondary qty-minus" data-bracket-id="${bracket.id}" style="width: 32px; height: 32px; padding: 0;">−</button>
-            <span style="min-width: 24px; text-align: center; font-weight: 500;">${quantity}</span>
-            <button class="btn btn-secondary qty-plus" data-bracket-id="${bracket.id}" style="width: 32px; height: 32px; padding: 0;">+</button>
-          </div>`
-        }
+      <div class="card-text-wrapper" style="flex: 1;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+             <span class="card-title" style="font-weight: 600;">${bracket.title}</span>
+        </div>
+        <span class="card-desc" style="white-space: pre-line; margin-top: 4px; display: block; color: #6B7280; font-size: 14px;">${
+          bracket.description || ''
+        }</span>
+        <div style="margin-top: 8px; font-weight: 600; font-size: 14px;">${priceText}</div>
       </div>
     `;
 
-    // Event listeners for bracket quantity
-    const addBtn = card.querySelector('.add-bracket-btn');
-    if (addBtn) {
-      addBtn.addEventListener('click', () => {
-        if (!this.state.brackets) this.state.brackets = {};
-        this.state.brackets[bracket.id] = 1;
-        this.render();
-      });
-    }
+    label.querySelector('input').addEventListener('change', () => {
+      this.state.selectedBracketId = bracket.id;
+      this.render();
+    });
 
-    const minusBtn = card.querySelector('.qty-minus');
-    if (minusBtn) {
-      minusBtn.addEventListener('click', () => {
-        if (this.state.brackets[bracket.id] > 0) {
-          this.state.brackets[bracket.id]--;
-          if (this.state.brackets[bracket.id] === 0) {
-            delete this.state.brackets[bracket.id];
-          }
-          this.render();
-        }
-      });
-    }
-
-    const plusBtn = card.querySelector('.qty-plus');
-    if (plusBtn) {
-      plusBtn.addEventListener('click', () => {
-        this.state.brackets[bracket.id]++;
-        this.render();
-      });
-    }
-
-    return card;
+    return label;
   }
 
   renderAddonsSection() {
@@ -622,7 +621,8 @@ class ProductConfigurator extends HTMLElement {
     }
 
     const quantity = this.state.addons[addon.id] || 0;
-    const price = (addon.price / 100).toFixed(0);
+    // Calculate total price based on quantity (if > 0, otherwise show unit price)
+    const displayPrice = ((addon.price * (quantity > 0 ? quantity : 1)) / 100).toFixed(0);
 
     card.innerHTML = `
       <div class="product-card__image">
@@ -635,7 +635,7 @@ class ProductConfigurator extends HTMLElement {
       <div class="product-card__content">
         <div class="product-card__title">${addon.title}</div>
         <div class="product-card__desc">${addon.description || ''}</div>
-        <div class="product-card__price">${price} €</div>
+        <div class="product-card__price">${displayPrice} €</div>
       </div>
       <div class="product-card__actions">
         ${
@@ -692,11 +692,11 @@ class ProductConfigurator extends HTMLElement {
 
     let installTotal = 0;
     if (this.state.installationType === 'diy') {
-      if (this.state.brackets) {
-        Object.entries(this.state.brackets).forEach(([id, qty]) => {
-          const b = this.data.brackets.find((x) => x.id == id);
-          if (b) installTotal += b.price * qty;
-        });
+      if (this.state.selectedBracketId && this.state.selectedBracketId !== 'unsure') {
+        const b = this.data.brackets.find((x) => x.id == this.state.selectedBracketId);
+        if (b) {
+          installTotal = b.price * this.state.screens.length;
+        }
       }
     } else if (this.state.installationType === 'professional') {
       const hasWired = this.state.screens.some((s) => s.motor !== 'solar');
@@ -805,16 +805,22 @@ class ProductConfigurator extends HTMLElement {
     }
 
     // 3. Installation Category
-    if (totals.installTotal > 0 || this.state.installationType === 'professional') {
+    if (
+      totals.installTotal > 0 ||
+      this.state.installationType === 'professional' ||
+      (this.state.installationType === 'diy' && this.state.selectedBracketId)
+    ) {
       let installCount = 0;
-      if (this.state.installationType === 'professional') installCount = 1;
-      else if (this.state.installationType === 'diy') {
-        installCount = Object.values(this.state.brackets || {}).reduce((a, b) => a + b, 0);
+      if (this.state.installationType === 'professional') {
+        installCount = 1;
+      } else if (this.state.installationType === 'diy') {
+        // Count is equal to number of screens if a bracket is selected
+        installCount = this.state.screens.length;
       }
 
       const installCategory = document.createElement('div');
       installCategory.className = `summary-category ${this.state.installationExpanded ? 'expanded' : ''}`;
-      const label = this.state.installationType === 'diy' ? 'Installation' : 'Professional Installation'; // "Installation" matches user image better for generic, but distinct is good too.
+      const label = this.state.installationType === 'diy' ? 'Installation Brackets' : 'Professional Installation';
 
       const installHeader = document.createElement('div');
       installHeader.className = 'summary-row category-header';
@@ -850,20 +856,18 @@ class ProductConfigurator extends HTMLElement {
           }
         } else {
           // DIY Brackets
-          if (this.state.brackets) {
-            Object.entries(this.state.brackets).forEach(([id, qty]) => {
-              const bracket = this.data.brackets.find((b) => b.id == id);
-              if (bracket) {
-                const bPrice = bracket.price * qty;
-                const detailRow = document.createElement('div');
-                detailRow.className = 'summary-row detail-row';
-                detailRow.innerHTML = `
-                  <span class="detail-label">${qty}x ${bracket.title}</span>
+          if (this.state.selectedBracketId) {
+            const bracket = this.data.brackets.find((b) => b.id == this.state.selectedBracketId);
+            if (bracket) {
+              const bPrice = (bracket.price || 0) * installCount;
+              const detailRow = document.createElement('div');
+              detailRow.className = 'summary-row detail-row';
+              detailRow.innerHTML = `
+                  <span class="detail-label">${installCount}x ${bracket.title}</span>
                   <span class="detail-price">${fmt(bPrice)}</span>
                 `;
-                installDetails.appendChild(detailRow);
-              }
-            });
+              installDetails.appendChild(detailRow);
+            }
           }
         }
         installCategory.appendChild(installDetails);
