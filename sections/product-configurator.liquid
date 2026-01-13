@@ -11,7 +11,7 @@
 <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'screenlux-engine.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'details-accordion.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-description.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'hybrid-quantity-selector.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'product-configurator-v2.js' | asset_url }}&v=DesignV2_{{ 'now' | date: '%N' }}" defer="defer"></script>
 
@@ -23,17 +23,23 @@
 
   <!-- Right Column: Configurator Form -->
   <div class="product__info-wrapper">
-    <h1>{{ product.title }}</h1>
-    <div class="product__description">
-      <details-accordion class="accordion">
-        <details>
-          <summary>Read more</summary>
-          <div class="accordion__content">
-            {{ product.description }}
-          </div>
-        </details>
-      </details-accordion>
+    <div class="product-title-section">
+      <h1 class="product-title">{{ product.title }}</h1>
+      <div class="developed-badge">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 14.5C11.5899 14.5 14.5 11.5899 14.5 8C14.5 4.41015 11.5899 1.5 8 1.5C4.41015 1.5 1.5 4.41015 1.5 8C1.5 11.5899 4.41015 14.5 8 14.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 5V8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Developed in Germany</span>
+      </div>
     </div>
+
+    <product-description class="product__description">
+      <div class="description-content">
+        {{ product.description }}
+      </div>
+      <button type="button" class="description-toggle-btn">Read more</button>
+    </product-description>
 
     <!-- The Custom Application Root -->
     <script>

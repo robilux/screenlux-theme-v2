@@ -128,10 +128,12 @@ body {
 .screenlux-gallery {
   position: relative;
 }
-.sticky-media-col {
-  position: sticky;
-  top: 32px;
-  z-index: 10;
+@media (min-width: 1024px) {
+  .sticky-media-col {
+    position: sticky;
+    top: 32px;
+    z-index: 10;
+  }
 }
 .screenlux-gallery img {
   width: 100%;
