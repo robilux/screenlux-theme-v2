@@ -304,6 +304,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--sl-spacing-3);
+  margin-bottom: var(--sl-spacing-6);
 }
 
 .product-title {

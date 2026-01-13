@@ -909,27 +909,24 @@ class ProductConfigurator extends HTMLElement {
     if (!this.data.assets || !this.data.assets.german_badge) return document.createElement('div');
 
     const section = document.createElement('div');
-    section.className = 'order-summary-box margin-top-lg animate-fade-in'; // Reuse box style
+    section.className = 'margin-top-lg animate-fade-in';
     section.style.display = 'flex';
     section.style.flexDirection = 'column';
     section.style.gap = '16px';
+    section.style.alignItems = 'flex-start';
 
-    // Layout: Image + Text block
-    // Based on user request to match Figma/Image
+    // Layout: Image above Text
+    // No background, image first
     section.innerHTML = `
-      <div style="display: flex; gap: 20px; align-items: flex-start;">
-         <div style="flex-shrink: 0;">
-            <img src="${this.data.assets.german_badge}" alt="German Design Award Winner 2026" style="width: 100px; height: auto; object-fit: contain;">
-         </div>
-         <div style="display: flex; flex-direction: column; gap: 8px;">
-            <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #1F2937; line-height: 1.2;">
-              Excellent Product Design 2026 Winner!
-            </h4>
-            <div style="font-size: 14px; color: #4B5563; line-height: 1.5;">
-              <p style="margin: 0;">
-                Die stilsichere Kombination aus schlankem Gehäuse und smarter Technologie schafft einen ästhetisch anspruchsvollen Sonnenschutz, der sich harmonisch in moderne Umgebungen einfügt. Mit dieser charakterstarken Lösung setzt das Projekt einen beeindrauckenden Maßstab für hochwertiges Outdoor-Design auf Gold-Niveau.
-              </p>
-            </div>
+      <img src="${this.data.assets.german_badge}" alt="German Design Award Winner 2026" style="width: 100px; height: auto; object-fit: contain; margin-bottom: 8px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+         <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #1F2937; line-height: 1.2;">
+           Excellent Product Design 2026 Winner!
+         </h4>
+         <div style="font-size: 14px; color: #4B5563; line-height: 1.5;">
+           <p style="margin: 0;">
+             Die stilsichere Kombination aus schlankem Gehäuse und smarter Technologie schafft einen ästhetisch anspruchsvollen Sonnenschutz, der sich harmonisch in moderne Umgebungen einfügt. Mit dieser charakterstarken Lösung setzt das Projekt einen beeindrauckenden Maßstab für hochwertiges Outdoor-Design auf Gold-Niveau.
+           </p>
          </div>
       </div>
     `;
