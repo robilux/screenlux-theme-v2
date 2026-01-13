@@ -7,7 +7,6 @@ class ProductConfigurator extends HTMLElement {
       screens: [], // Array of screen objects
       installationType: 'diy',
       addons: {}, // { prodId: qty }
-      bracketId: null, // selected bracket variant ID
     };
   }
 
@@ -167,6 +166,10 @@ class ProductConfigurator extends HTMLElement {
     const container = document.createElement('div');
     container.className = 'configurator-app';
 
+    // Create Main Group Container
+    const mainGroup = document.createElement('div');
+    mainGroup.className = 'configurator-main-group';
+
     // 1. Screens List
     const screensContainer = document.createElement('div');
     screensContainer.className = 'screens-list';
@@ -177,14 +180,14 @@ class ProductConfigurator extends HTMLElement {
     this.state.screens.forEach((screen, index) => {
       screensContainer.appendChild(this.renderScreenItem(screen, index));
     });
-    container.appendChild(screensContainer);
+    mainGroup.appendChild(screensContainer);
 
     // 2. Add Screen Button
     const addBtn = document.createElement('button');
     addBtn.className = 'btn btn-dashed margin-top-sm';
     addBtn.innerHTML = `<span>+</span> Add another one`;
     addBtn.onclick = this.handleAddScreen;
-    container.appendChild(addBtn);
+    mainGroup.appendChild(addBtn);
 
     // 3. Global Solar Check (Upsell)
     if (this.state.screens.some((s) => s.motor !== 'solar')) {
@@ -205,14 +208,17 @@ class ProductConfigurator extends HTMLElement {
         <button class="info-box__button">Switch to Solar</button>
       `;
       solarTip.querySelector('button').onclick = this.handleGlobalSolar;
-      container.appendChild(solarTip);
+      mainGroup.appendChild(solarTip);
     }
 
     // 4. Installation Section
-    container.appendChild(this.renderInstallationSection());
+    mainGroup.appendChild(this.renderInstallationSection());
 
     // 5. Add-ons Section
-    container.appendChild(this.renderAddonsSection());
+    mainGroup.appendChild(this.renderAddonsSection());
+
+    // Append Main Group to Container
+    container.appendChild(mainGroup);
 
     // 6. Order Summary & Cart
     container.appendChild(this.renderOrderSummary());
@@ -677,9 +683,13 @@ class ProductConfigurator extends HTMLElement {
     });
 
     let installTotal = 0;
-    if (this.state.installationType === 'diy' && this.state.bracketId) {
-      const b = this.data.brackets.find((x) => x.id == this.state.bracketId);
-      if (b) installTotal += b.price * this.state.screens.length;
+    if (this.state.installationType === 'diy') {
+      if (this.state.brackets) {
+        Object.entries(this.state.brackets).forEach(([id, qty]) => {
+          const b = this.data.brackets.find((x) => x.id == id);
+          if (b) installTotal += b.price * qty;
+        });
+      }
     } else if (this.state.installationType === 'professional') {
       const hasWired = this.state.screens.some((s) => s.motor !== 'solar');
       const targetLabel = hasWired ? 'Wired' : 'Solar';
@@ -748,27 +758,108 @@ class ProductConfigurator extends HTMLElement {
     const addonsCount = Object.values(this.state.addons).reduce((a, b) => a + b, 0);
     if (addonsCount > 0) {
       const addonsCategory = document.createElement('div');
-      addonsCategory.className = 'summary-category';
-      addonsCategory.innerHTML = `
-        <div class="summary-row category-header no-chevron">
+      addonsCategory.className = `summary-category ${this.state.addonsExpanded ? 'expanded' : ''}`;
+
+      const addonsHeader = document.createElement('div');
+      addonsHeader.className = 'summary-row category-header';
+      addonsHeader.innerHTML = `
+        <div class="category-title">
           <span>Add-ons (${addonsCount})</span>
-          <span>${fmt(totals.addonsTotal)}</span>
+          <svg class="chevron-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
+        <span class="category-price">${fmt(totals.addonsTotal)}</span>
       `;
+      addonsHeader.onclick = () => {
+        this.state.addonsExpanded = !this.state.addonsExpanded;
+        this.render();
+      };
+      addonsCategory.appendChild(addonsHeader);
+
+      if (this.state.addonsExpanded) {
+        const addonsDetails = document.createElement('div');
+        addonsDetails.className = 'category-details';
+        Object.entries(this.state.addons).forEach(([id, qty]) => {
+          const product = this.data.addons.find((p) => p.id == id);
+          if (product) {
+            const pPrice = product.price * qty;
+            const detailRow = document.createElement('div');
+            detailRow.className = 'summary-row detail-row';
+            detailRow.innerHTML = `
+              <span class="detail-label">${qty}x ${product.title}</span>
+              <span class="detail-price">${fmt(pPrice)}</span>
+            `;
+            addonsDetails.appendChild(detailRow);
+          }
+        });
+        addonsCategory.appendChild(addonsDetails);
+      }
       list.appendChild(addonsCategory);
     }
 
     // 3. Installation Category
     if (totals.installTotal > 0 || this.state.installationType === 'professional') {
+      let installCount = 0;
+      if (this.state.installationType === 'professional') installCount = 1;
+      else if (this.state.installationType === 'diy') {
+        installCount = Object.values(this.state.brackets || {}).reduce((a, b) => a + b, 0);
+      }
+
       const installCategory = document.createElement('div');
-      installCategory.className = 'summary-category';
-      const label = this.state.installationType === 'diy' ? 'Installation (DIY)' : 'Professional Installation';
-      installCategory.innerHTML = `
-        <div class="summary-row category-header no-chevron">
-          <span>${label}</span>
-          <span>${fmt(totals.installTotal)}</span>
+      installCategory.className = `summary-category ${this.state.installationExpanded ? 'expanded' : ''}`;
+      const label = this.state.installationType === 'diy' ? 'Installation' : 'Professional Installation'; // "Installation" matches user image better for generic, but distinct is good too.
+
+      const installHeader = document.createElement('div');
+      installHeader.className = 'summary-row category-header';
+      installHeader.innerHTML = `
+        <div class="category-title">
+          <span>${label} (${installCount})</span>
+          <svg class="chevron-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
+        <span class="category-price">${fmt(totals.installTotal)}</span>
       `;
+      installHeader.onclick = () => {
+        this.state.installationExpanded = !this.state.installationExpanded;
+        this.render();
+      };
+      installCategory.appendChild(installHeader);
+
+      if (this.state.installationExpanded) {
+        const installDetails = document.createElement('div');
+        installDetails.className = 'category-details';
+
+        if (this.state.installationType === 'professional') {
+          const hasWired = this.state.screens.some((s) => s.motor !== 'solar');
+          const targetLabel = hasWired ? 'Wired' : 'Solar';
+          const svc = this.data.services.find((s) => s.title.includes(targetLabel));
+          if (svc) {
+            const detailRow = document.createElement('div');
+            detailRow.className = 'summary-row detail-row';
+            detailRow.innerHTML = `
+              <span class="detail-label">1x ${svc.title}</span>
+              <span class="detail-price">${fmt(svc.price)}</span>
+            `;
+            installDetails.appendChild(detailRow);
+          }
+        } else {
+          // DIY Brackets
+          if (this.state.brackets) {
+            Object.entries(this.state.brackets).forEach(([id, qty]) => {
+              const bracket = this.data.brackets.find((b) => b.id == id);
+              if (bracket) {
+                const bPrice = bracket.price * qty;
+                const detailRow = document.createElement('div');
+                detailRow.className = 'summary-row detail-row';
+                detailRow.innerHTML = `
+                  <span class="detail-label">${qty}x ${bracket.title}</span>
+                  <span class="detail-price">${fmt(bPrice)}</span>
+                `;
+                installDetails.appendChild(detailRow);
+              }
+            });
+          }
+        }
+        installCategory.appendChild(installDetails);
+      }
       list.appendChild(installCategory);
     }
 
@@ -805,6 +896,16 @@ class ProductConfigurator extends HTMLElement {
     cartBtn.onclick = allValid ? this.handleAddToCart : null;
 
     section.appendChild(cartBtn);
+
+    // 7. Designed in Germany Badge
+    if (this.data.assets && this.data.assets.german_badge) {
+      const badgeRow = document.createElement('div');
+      badgeRow.className = 'summary-badge-row margin-top-md';
+      badgeRow.style.textAlign = 'center';
+      badgeRow.innerHTML = `<img src="${this.data.assets.german_badge}" alt="German Design Award Winner 2026" style="height: 60px; width: auto; object-fit: contain;">`;
+      section.appendChild(badgeRow);
+    }
+
     return section;
   }
 

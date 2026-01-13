@@ -1504,3 +1504,18 @@ a.product__text {
     border: none;
   }
 }
+
+/* Screenlux Configurator Grouping & Design */
+.configurator-main-group {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+@media screen and (max-width: 749px) {
+  .configurator-main-group {
+    padding: 16px;
+  }
+}

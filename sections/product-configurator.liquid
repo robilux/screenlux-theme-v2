@@ -6,6 +6,15 @@
 >
 <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
 <noscript>{{ 'screenlux.css' | asset_url | stylesheet_tag }}</noscript>
+<style>
+  body,
+  .gradient {
+    background-color: #f5f5f5 !important;
+  }
+  .screenlux-product-container {
+    background-color: transparent;
+  }
+</style>
 {% render 'screenlux-data' %}
 
 <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
