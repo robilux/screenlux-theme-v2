@@ -166,11 +166,10 @@ class ProductConfigurator extends HTMLElement {
     const container = document.createElement('div');
     container.className = 'configurator-app';
 
-    // Create Main Group Container
-    const mainGroup = document.createElement('div');
-    mainGroup.className = 'configurator-main-group';
+    // 1. Screens Group
+    const screensGroup = document.createElement('div');
+    screensGroup.className = 'configurator-group-box';
 
-    // 1. Screens List
     const screensContainer = document.createElement('div');
     screensContainer.className = 'screens-list';
 
@@ -180,14 +179,14 @@ class ProductConfigurator extends HTMLElement {
     this.state.screens.forEach((screen, index) => {
       screensContainer.appendChild(this.renderScreenItem(screen, index));
     });
-    mainGroup.appendChild(screensContainer);
+    screensGroup.appendChild(screensContainer);
 
     // 2. Add Screen Button
     const addBtn = document.createElement('button');
     addBtn.className = 'btn btn-dashed margin-top-sm';
     addBtn.innerHTML = `<span>+</span> Add another one`;
     addBtn.onclick = this.handleAddScreen;
-    mainGroup.appendChild(addBtn);
+    screensGroup.appendChild(addBtn);
 
     // 3. Global Solar Check (Upsell)
     if (this.state.screens.some((s) => s.motor !== 'solar')) {
@@ -208,17 +207,17 @@ class ProductConfigurator extends HTMLElement {
         <button class="info-box__button">Switch to Solar</button>
       `;
       solarTip.querySelector('button').onclick = this.handleGlobalSolar;
-      mainGroup.appendChild(solarTip);
+      screensGroup.appendChild(solarTip);
     }
 
+    // Add Screens Group to Main Container
+    container.appendChild(screensGroup);
+
     // 4. Installation Section
-    mainGroup.appendChild(this.renderInstallationSection());
+    container.appendChild(this.renderInstallationSection());
 
     // 5. Add-ons Section
-    mainGroup.appendChild(this.renderAddonsSection());
-
-    // Append Main Group to Container
-    container.appendChild(mainGroup);
+    container.appendChild(this.renderAddonsSection());
 
     // 6. Order Summary & Cart
     container.appendChild(this.renderOrderSummary());
@@ -431,7 +430,7 @@ class ProductConfigurator extends HTMLElement {
 
   renderInstallationSection() {
     const section = document.createElement('div');
-    section.className = 'margin-top-lg';
+    section.className = 'configurator-group-box';
 
     // Installation type options
     const installationOptions = [
@@ -589,7 +588,7 @@ class ProductConfigurator extends HTMLElement {
 
   renderAddonsSection() {
     const section = document.createElement('div');
-    section.className = 'margin-top-lg';
+    section.className = 'configurator-group-box';
 
     if (this.data.addons.length === 0) {
       section.innerHTML =

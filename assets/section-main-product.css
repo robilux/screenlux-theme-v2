@@ -1519,3 +1519,18 @@ a.product__text {
     padding: 16px;
   }
 }
+
+/* Configurator Individual Group Boxes */
+.configurator-group-box {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+@media screen and (max-width: 749px) {
+  .configurator-group-box {
+    padding: 16px;
+  }
+}
