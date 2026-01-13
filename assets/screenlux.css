@@ -823,6 +823,77 @@ details-accordion summary::-webkit-details-marker { display: none; }
   font-size: 15px; /* sl-text-sm */
 }
 
+/* --- User Feedback Refinements V1 --- */
+
+/* 1. White Background & Z-Index Fix */
+.section-header, .header-wrapper {
+  background-color: var(--sl-color-white) !important;
+  z-index: 100 !important; /* Ensure header stays above gallery */
+}
+
+/* 2. Reduce Padding (Global Override) */
+.header {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+/* 3. Centralized Menu Layout */
+/* We force a 3-column grid on desktop to perfectly center the menu */
+@media screen and (min-width: 990px) {
+  .header {
+    display: grid !important; /* Override flex */
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+  
+  .header__heading {
+    justify-self: start;
+    grid-column: 1;
+  }
+  
+  .header__inline-menu {
+    justify-self: center;
+    grid-column: 2;
+  }
+  
+  .header__icons {
+    justify-self: end;
+    grid-column: 3;
+    display: flex; /* Ensure icons inside stay flex */
+  }
+}
+
+/* 4. Cart Quantity Bubble */
+.cart-count-bubble {
+  background-color: var(--sl-color-primary) !important; /* Blue */
+  color: var(--sl-color-white) !important;
+  
+  /* Positioning: Top Right Corner */
+  top: 0 !important;
+  right: -6px !important; /* Shift slight right to overhang */
+  position: absolute !important;
+  
+  /* Size */
+  min-width: 18px;
+  min-height: 18px;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  line-height: 1;
+  border-radius: 50%;
+  padding: 0;
+  
+  /* Flex center text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Remove defaults */
+  bottom: auto !important;
+  left: auto !important;
+}
+
+
 .btn-secondary {
   background: white;
   border: 1px solid var(--sl-border-default);
