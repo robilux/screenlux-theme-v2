@@ -1089,3 +1089,44 @@ slider-component .slider-counter {
   border: 2px solid transparent;
   transition: border-color 0.2s ease;
 }
+/* --- User Feedback Refinements V2 --- */
+
+/* 1. "Order Now" Button */
+.header__btn-order {
+  padding: 8px 16px;
+  font-size: 14px;
+  margin-right: 16px;
+  text-decoration: none;
+  border-radius: var(--sl-radius-sm);
+  white-space: nowrap;
+}
+
+/* 2. Overlapping Cart Bubble */
+.cart-count-bubble {
+  top: -4px !important;    /* Move higher up */
+  right: -8px !important;  /* Move further right to overlap */
+  width: 16px;             /* Slightly smaller for tighter look */
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  font-size: 9px;
+  border: 2px solid var(--sl-color-white); /* White border to cut visually */
+}
+
+/* 3. Even Slimmer Padding */
+.header {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+/* 4. Enforce White Background (Redundant but safe) */
+.section-header, .header-wrapper, .header {
+  background-color: #ffffff !important;
+}
+
+/* 5. Adjust Grid for Button inclusion */
+@media screen and (min-width: 990px) {
+  .header {
+    grid-template-columns: 1fr auto 1fr; /* Keep 3-column */
+  }
+}
