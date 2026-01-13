@@ -158,7 +158,7 @@
             <img
               src="{{ 'Screenlux Logo.png' | asset_url }}"
               class="header__heading-logo motion-reduce"
-              width="{{ settings.logo_width }}"
+              width="{{ section.settings.logo_width | default: settings.logo_width }}"
               height="auto"
               alt="{{ logo_alt }}"
               loading="eager"
@@ -194,7 +194,7 @@
             <img
               src="{{ 'Screenlux Logo.png' | asset_url }}"
               class="header__heading-logo"
-              width="{{ settings.logo_width }}"
+              width="{{ section.settings.logo_width | default: settings.logo_width }}"
               height="auto"
               alt="{{ logo_alt }}"
               loading="eager"
@@ -482,6 +482,16 @@
       "default": "middle-left",
       "label": "t:sections.header.settings.logo_position.label",
       "info": "t:sections.header.settings.logo_help.content"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 5,
+      "default": 140,
+      "unit": "px",
+      "label": "t:sections.header.settings.logo_width.label"
     },
     {
       "type": "select",

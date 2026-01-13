@@ -798,6 +798,31 @@ details-accordion summary::-webkit-details-marker { display: none; }
   background: var(--sl-color-primary-hover);
   box-shadow: 0 6px 8px -1px rgba(91, 91, 249, 0.3);
 }
+
+/* --- Header Refinements --- */
+.header__heading-logo {
+  object-fit: contain;
+}
+
+/* Enforce icon sizing for sleek look */
+.header__icon .icon, 
+.header__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Ensure cart notification aligns */
+.header__icon--cart {
+  position: relative;
+}
+
+/* Refine navigation spacing */
+.list-menu__item {
+  font-family: var(--sl-font-family);
+  font-weight: 500;
+  font-size: 15px; /* sl-text-sm */
+}
+
 .btn-secondary {
   background: white;
   border: 1px solid var(--sl-border-default);
