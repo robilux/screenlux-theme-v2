@@ -4,15 +4,26 @@ if (!customElements.get('details-accordion')) {
     class extends HTMLElement {
       constructor() {
         super();
+        this.animation = null;
+        this.isClosing = false;
+        this.isExpanding = false;
+      }
+
+      connectedCallback() {
         this.details = this.querySelector('details');
         this.summary = this.querySelector('summary');
         this.content = this.querySelector('.accordion__content');
 
-        this.animation = null;
-        this.isClosing = false;
-        this.isExpanding = false;
+        if (this.summary) {
+          this.onSummaryClick = (e) => this.onClick(e);
+          this.summary.addEventListener('click', this.onSummaryClick);
+        }
+      }
 
-        this.summary.addEventListener('click', (e) => this.onClick(e));
+      disconnectedCallback() {
+        if (this.summary && this.onSummaryClick) {
+          this.summary.removeEventListener('click', this.onSummaryClick);
+        }
       }
 
       onClick(e) {
