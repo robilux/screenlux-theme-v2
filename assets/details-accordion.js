@@ -49,7 +49,7 @@ if (!customElements.get('details-accordion')) {
             height: [startHeight, endHeight],
           },
           {
-            duration: 300,
+            duration: 200,
             easing: 'ease-out',
           }
         );
