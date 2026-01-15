@@ -163,19 +163,13 @@ class ProductConfigurator extends HTMLElement {
     screens.forEach((accordion, i) => {
       const details = accordion.querySelector('details');
       if (details) {
-        if (i === index) {
-          // Toggle current
-          if (details.open) {
-            accordion.shrink(); // Call shrink on the custom element if method exists, or triggers logic
-          } else {
-            accordion.open();
-          }
-        } else {
+        if (i !== index) {
           // Close others if open
           if (details.open) {
             accordion.shrink();
           }
         }
+        // For i === index, we let details-accordion handle the toggle itself
       }
     });
 
