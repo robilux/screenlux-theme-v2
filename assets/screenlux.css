@@ -487,7 +487,7 @@ body {
 .selection-card.selected {
   border: 2px solid var(--sl-color-primary);
   background: #FAFAFF;
-  animation: sl-fade-in-scale 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* animation: sl-fade-in-scale 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; */
 }
 
 @keyframes sl-fade-in-scale {
@@ -586,7 +586,7 @@ body {
 .product-card.selected {
   background: #FAFAFF;
   border-color: var(--sl-color-primary);
-  animation: sl-fade-in-scale 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* animation: sl-fade-in-scale 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; */
 }
 
 .product-card__image {
@@ -634,7 +634,7 @@ body {
   background: var(--sl-color-white);
   border: 1px solid var(--sl-border-default);
   border-radius: 8px;
-  padding: 6px 16px;
+  padding: 10px 16px; /* Increased vertical padding */
   font-size: 14px;
   font-weight: 500;
   color: var(--sl-text-primary);
@@ -658,11 +658,12 @@ body {
   border-radius: 8px;
   padding: 2px;
   width: fit-content;
+  height: 42px; /* Match height of bigger add button */
 }
 
 .qty-btn {
-  width: 32px;
-  height: 32px;
+  width: 36px; /* Slightly larger targets */
+  height: 100%; /* Fill container height */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -753,6 +754,34 @@ details-accordion summary::-webkit-details-marker { display: none; }
   color: var(--sl-text-secondary);
 }
 
+.screen-summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 4px;
+}
+
+.screen-summary-list li {
+  position: relative;
+  padding-left: 14px; /* Space for bullet */
+  font-size: var(--sl-text-sm);
+  color: var(--sl-text-secondary);
+  line-height: 1.5;
+}
+
+.screen-summary-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--sl-text-secondary);
+}
+
+.screen-summary-list li.placeholder {
+  color: var(--sl-text-tertiary);
+  font-style: italic;
+  background: transparent !important;
+}
+
 .screen-price-container {
   display: flex;
   align-items: center;
@@ -767,10 +796,115 @@ details-accordion summary::-webkit-details-marker { display: none; }
   width: 44px; /* Fixed width from Figma to ensure alignment */
 }
 
-/* Rotate chevron when open */
+
+/* Toggle Styles - Fix nesting if any */
 details[open] .accordion-chevron {
   transform: rotate(180deg);
 }
+
+/* Info Card Tip Styles */
+
+.info-card-tip {
+  /* Added based on usage but not defined previously */
+  background: white;
+  border: 1px solid var(--sl-border-default);
+  border-radius: var(--sl-radius-lg);
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.info-card-title {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.info-card-message {
+  font-size: 14px;
+  color: var(--sl-text-primary);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.info-card-benefits {
+  list-style: none !important;
+  padding: 0;
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-card-benefit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--sl-text-secondary);
+}
+
+.info-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sl-color-gray-100);
+}
+
+.info-card-footer-text {
+  font-size: 13px;
+  color: var(--sl-text-secondary);
+}
+
+.info-card-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #FFFFFF;
+  color: #171717;
+  border: 1px solid #E5E7EB; /* --sl-border-default */
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: none;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.info-card-btn:hover {
+  background-color: #F9FAFB;
+  border-color: #D1D5DB;
+  color: #171717;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 480px) {
+  .info-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .info-card-btn {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+
 
 .accordion-chevron {
     transition: transform 0.2s ease;

@@ -338,15 +338,77 @@ class ProductConfigurator extends HTMLElement {
     const cassetteSizes = this.data.cassetteSizes || [];
     const motorOptions = this.data.motorOptions || [];
 
+    // --- Summary Data Preparation ---
+    // Helper to get title or null if not selected
+    const getTitle = (currentVal, options) => {
+      if (!currentVal) return null;
+      const found = options.find((o) => o.id === currentVal);
+      return found ? found.title : currentVal;
+    };
+
+    const frameLabel = getTitle(screen.frameColor, frameOptions);
+    const fabricColorLabel = getTitle(screen.fabricColor, fabricColors);
+    const fabricTypeLabel = getTitle(screen.fabricType, fabricTypes);
+
+    let cassetteLabel = getTitle(screen.cassetteSize, cassetteSizes);
+    // Clean up "Slim (85x85mm)" -> "Slim"
+    if (cassetteLabel && cassetteLabel.includes('(')) {
+      cassetteLabel = cassetteLabel.split('(')[0].trim();
+    }
+
+    const motorLabel = getTitle(screen.motor, motorOptions);
+
+    // Build the list items dynamically
+    const summaryItems = [];
+
+    // 1. Dimensions (Always show if they exist, which they should)
+    if (screen.width || screen.height) {
+      summaryItems.push({ text: `${screen.width || 0} × ${screen.height || 0} mm`, class: '' });
+    } else {
+      summaryItems.push({ text: 'Dimensions not set', class: 'placeholder' });
+    }
+
+    // 2. Frame
+    if (frameLabel) {
+      summaryItems.push({ text: frameLabel, class: '' });
+    } else {
+      summaryItems.push({ text: 'No frame color selected', class: 'placeholder' });
+    }
+
+    // 3. Fabric (Color + Type)
+    const fabricParts = [];
+    if (fabricColorLabel) fabricParts.push(fabricColorLabel);
+    if (fabricTypeLabel) fabricParts.push(fabricTypeLabel);
+
+    if (fabricParts.length > 0) {
+      summaryItems.push({ text: fabricParts.join(', '), class: '' });
+    } else {
+      summaryItems.push({ text: 'No fabric selected', class: 'placeholder' });
+    }
+
+    // 4. Cassette
+    if (cassetteLabel) {
+      summaryItems.push({ text: cassetteLabel, class: '' });
+    } else {
+      summaryItems.push({ text: 'No cassette size selected', class: 'placeholder' });
+    }
+
+    // 5. Motor
+    if (motorLabel) {
+      summaryItems.push({ text: motorLabel, class: '' });
+    } else {
+      summaryItems.push({ text: 'No motor selected', class: 'placeholder' });
+    }
+
     wrapper.innerHTML = `
       <details ${screen.expanded ? 'open' : ''} class="${screen.valid ? '' : 'invalid'}">
         <summary>
           <div class="screen-summary-container">
              <div class="screen-info">
                 <span class="screen-title">Screen ${index + 1}</span>
-                <span class="screen-subtitle">
-                   ${screen.width} × ${screen.height} mm • ${screen.frameColor || 'Anthracite'}
-                </span>
+                <ul class="screen-summary-list">
+                   ${summaryItems.map((item) => `<li class="${item.class}">${item.text}</li>`).join('')}
+                </ul>
              </div>
              <div class="screen-price-container">
                  <span class="screen-price">${(price / 100).toFixed(0)} €</span>
@@ -578,6 +640,17 @@ class ProductConfigurator extends HTMLElement {
           ${installationOptions
             .map((opt) => {
               const isSelected = this.state.installationType === opt.id;
+
+              // Standardized price rendering
+              let priceDisplay = '';
+              if (opt.price === 'Free') {
+                priceDisplay =
+                  '<span style="background-color: #A7F3D0; color: #064E3B; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Free</span>';
+              } else {
+                // Ensure standardized look for other prices
+                priceDisplay = `<span style="font-weight: 600; font-size: 14px;">${opt.price}</span>`;
+              }
+
               return `
               <label class="selection-card selection-card--vertical ${isSelected ? 'selected' : ''}">
                 <input type="radio" name="installationType" value="${opt.id}" ${
@@ -588,9 +661,7 @@ class ProductConfigurator extends HTMLElement {
                   <span class="card-desc" style="white-space: pre-line; margin-top: 4px; display: block;">${
                     opt.desc
                   }</span>
-                  <span class="card-price" style="font-weight: 600; margin-top: 8px; display: block;">${
-                    opt.price
-                  }</span>
+                  <div style="margin-top: 8px;">${priceDisplay}</div>
                   ${
                     opt.note
                       ? `<span class="card-note" style="color: #F97316; font-size: 13px; margin-top: 4px; display: block;">${opt.note}</span>`
@@ -832,8 +903,8 @@ class ProductConfigurator extends HTMLElement {
     const fmt = (cents) => `€${(cents / 100).toFixed(2)}`;
 
     const section = document.createElement('div');
-    section.className = 'order-summary-box margin-top-lg animate-fade-in';
-    section.innerHTML = `<h3 class="order-summary-title">Order Summary</h3>`;
+    section.className = 'order-summary-box margin-top-lg';
+    section.innerHTML = `<label class="grouping-title">Order summary</label>`;
 
     const list = document.createElement('div');
     list.className = 'summary-list';
@@ -1032,7 +1103,7 @@ class ProductConfigurator extends HTMLElement {
     if (!this.data.assets || !this.data.assets.german_badge) return document.createElement('div');
 
     const section = document.createElement('div');
-    section.className = 'margin-top-lg animate-fade-in';
+    section.className = 'margin-top-lg';
     section.style.display = 'flex';
     section.style.flexDirection = 'column';
     section.style.gap = '16px';
