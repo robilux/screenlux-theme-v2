@@ -356,7 +356,7 @@ class ProductConfigurator extends HTMLElement {
              </div>
           </div>
         </summary>
-        <div class="accordion-body">
+        <div class="accordion-body accordion__content">
            <!-- Dimensions -->
            <div class="grid-2"> 
              <div class="field">
