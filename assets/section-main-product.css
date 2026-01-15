@@ -1534,3 +1534,111 @@ a.product__text {
     padding: 16px;
   }
 }
+
+/* Info Card Tip Styles */
+.info-card-tip {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  margin-top: 16px;
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.info-card-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #171717;
+}
+
+.info-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card-message {
+  font-size: 14px;
+  color: #171717;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.info-card-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-card-benefit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #4B5563;
+}
+
+.info-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #F3F4F6;
+}
+
+.info-card-footer-text {
+  font-size: 13px;
+  color: #4B5563;
+}
+
+.info-card-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #FFFFFF;
+  color: #171717;
+  border: 1px solid #E5E7EB; /* --sl-border-default */
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif; /* --sl-font-family */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* --sl-shadow-sm */
+  line-height: 1.5;
+  margin: 0;
+}
+
+.info-card-btn:hover {
+  background-color: #F9FAFB; /* --sl-color-gray-50 */
+  border-color: #D1D5DB; /* --sl-color-gray-300 */
+  color: #171717;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* --sl-shadow-md for lift effect */
+}
+
+@media screen and (max-width: 480px) {
+  .info-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .info-card-btn {
+    width: 100%;
+    margin-top: 8px;
+  }
+}

@@ -22,17 +22,7 @@ class ProductConfigurator extends HTMLElement {
         throw new Error('ScreenluxData is undefined. Check console.');
       }
 
-      // Add "Unsure" option to brackets if not present
-      if (this.data.brackets && !this.data.brackets.find((b) => b.id === 'unsure')) {
-        this.data.brackets.unshift({
-          id: 'unsure',
-          title: 'Unsure – we will help you!',
-          description:
-            'We will get in contact after your order, and help you select the right installation method. You only pay for the brackets later.',
-          price: 0,
-          image: null, // Will be handled in render
-        });
-      }
+      // 0. Base Validation Check - "Unsure" injection removed as requested
 
       // 2. Initial State: 1 Screen
       this.handleAddScreen();
@@ -75,6 +65,15 @@ class ProductConfigurator extends HTMLElement {
     });
 
     this.render();
+
+    // Scroll to the new screen (last one)
+    setTimeout(() => {
+      const screens = this.querySelectorAll('details-accordion');
+      const lastScreen = screens[screens.length - 1];
+      if (lastScreen) {
+        lastScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
   };
 
   handleDuplicateScreen = (index) => {
@@ -88,6 +87,15 @@ class ProductConfigurator extends HTMLElement {
 
     this.state.screens.splice(index + 1, 0, newScreen);
     this.render();
+
+    // Scroll to the new screen (index + 1)
+    setTimeout(() => {
+      const screens = this.querySelectorAll('details-accordion');
+      const newScreenEl = screens[index + 1];
+      if (newScreenEl) {
+        newScreenEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
   };
 
   updateScreen(index, field, value) {
@@ -111,14 +119,68 @@ class ProductConfigurator extends HTMLElement {
   removeScreen(index) {
     if (this.state.screens.length <= 1) return;
     this.state.screens.splice(index, 1);
+
+    // Determines which screen to focus after deletion logic
+    // We want to focus the *previous* screen if possible, or the one that took its place (if it was the first one).
+    if (this.state.screens.length > 0) {
+      let newFocusIndex = index - 1;
+      if (newFocusIndex < 0) newFocusIndex = 0;
+
+      // Ensure the screen we fallback to is expanded
+      this.state.screens[newFocusIndex].expanded = true;
+      // Ensure others are collapsed to keep it clean
+      this.state.screens.forEach((s, i) => {
+        if (i !== newFocusIndex) s.expanded = false;
+      });
+    }
+
     this.render();
+
+    // Scroll into view logic
+    if (this.state.screens.length > 0) {
+      setTimeout(() => {
+        let newFocusIndex = index - 1;
+        if (newFocusIndex < 0) newFocusIndex = 0;
+
+        const screens = this.querySelectorAll('details-accordion');
+        const targetScreen = screens[newFocusIndex];
+        if (targetScreen) {
+          targetScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 50);
+    }
   }
 
   toggleScreenAccordion(index) {
+    // 1. Update internal state (for next render)
     this.state.screens.forEach((s, i) => {
       s.expanded = i === index ? !s.expanded : false;
     });
-    this.render();
+
+    // 2. DOM Manipulation directly to avoid re-render killing animation
+    const screens = this.querySelectorAll('details-accordion');
+
+    screens.forEach((accordion, i) => {
+      const details = accordion.querySelector('details');
+      if (details) {
+        if (i === index) {
+          // Toggle current
+          if (details.open) {
+            accordion.shrink(); // Call shrink on the custom element if method exists, or triggers logic
+          } else {
+            accordion.open();
+          }
+        } else {
+          // Close others if open
+          if (details.open) {
+            accordion.shrink();
+          }
+        }
+      }
+    });
+
+    // We do NOT call this.render() here to preserve the DOM for animation.
+    // The state is updated so next time something else triggers render, it will be correct.
   }
 
   setInstallationType(type) {
@@ -186,7 +248,7 @@ class ProductConfigurator extends HTMLElement {
     screensContainer.className = 'screens-list';
 
     // Add Header for Screens Section
-    screensContainer.innerHTML = '<label class="field-label">Configure your screens</label>';
+    screensContainer.innerHTML = '<label class="grouping-title">Configure your screens</label>';
 
     this.state.screens.forEach((screen, index) => {
       screensContainer.appendChild(this.renderScreenItem(screen, index));
@@ -285,12 +347,19 @@ class ProductConfigurator extends HTMLElement {
     wrapper.innerHTML = `
       <details ${screen.expanded ? 'open' : ''} class="${screen.valid ? '' : 'invalid'}">
         <summary>
-          <div class="summary-content">
-             <span class="summary-status ${screen.valid ? 'valid' : 'invalid'}"></span>
-             <span>Screen ${index + 1}</span>
-          </div>
-          <div class="summary-meta">
-             ${screen.width} x ${screen.height} mm · ${screen.frameColor || 'Anthracite'} · €${nicePrice}
+          <div class="screen-summary-container">
+             <div class="screen-info">
+                <span class="screen-title">Screen ${index + 1}</span>
+                <span class="screen-subtitle">
+                   ${screen.width} × ${screen.height} mm • ${screen.frameColor || 'Anthracite'}
+                </span>
+             </div>
+             <div class="screen-price-container">
+                 <span class="screen-price">${(price / 100).toFixed(0)} €</span>
+                 <svg class="accordion-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9L12 15L18 9" stroke="#171717" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                 </svg>
+             </div>
           </div>
         </summary>
         <div class="accordion-body">
@@ -369,11 +438,24 @@ class ProductConfigurator extends HTMLElement {
            
            <!-- Actions -->
            <div class="margin-top-md" style="display:flex; justify-content: space-between; align-items: center;">
-              <button type="button" class="btn btn-text remove-screen-btn" style="color:var(--sl-color-error); padding:0; width:auto;">
-                🗑️ Remove screen
+              <button type="button" class="btn btn-text remove-screen-btn" style="color:var(--sl-color-error); padding:0; width:auto; display: inline-flex; align-items: center;">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 6px;">
+                  <g clip-path="url(#clip0_128_400)">
+                    <path d="M13.5 3H11.25V2.25C11.25 1.78587 11.0656 1.34075 10.7374 1.01256C10.4092 0.684374 9.96413 0.5 9.5 0.5H6.5C6.03587 0.5 5.59075 0.684374 5.26256 1.01256C4.93437 1.34075 4.75 1.78587 4.75 2.25V3H2.5C2.30109 3 2.11032 3.07902 1.96967 3.21967C1.82902 3.36032 1.75 3.55109 1.75 3.75C1.75 3.94891 1.82902 4.13968 1.96967 4.28033C2.11032 4.42098 2.30109 4.5 2.5 4.5H2.75V13C2.75 13.3315 2.8817 13.6495 3.11612 13.8839C3.35054 14.1183 3.66848 14.25 4 14.25H12C12.3315 14.25 12.6495 14.1183 12.8839 13.8839C13.1183 13.6495 13.25 13.3315 13.25 13V4.5H13.5C13.6989 4.5 13.8897 4.42098 14.0303 4.28033C14.171 4.13968 14.25 3.94891 14.25 3.75C14.25 3.55109 14.171 3.36032 14.0303 3.21967C13.8897 3.07902 13.6989 3 13.5 3ZM6.25 2.25C6.25 2.1837 6.27634 2.12011 6.32322 2.07322C6.37011 2.02634 6.4337 2 6.5 2H9.5C9.5663 2 9.62989 2.02634 9.67678 2.07322C9.72366 2.12011 9.75 2.1837 9.75 2.25V3H6.25V2.25ZM11.75 12.75H4.25V4.5H11.75V12.75ZM7.25 6.5V10.5C7.25 10.6989 7.17098 10.8897 7.03033 11.0303C6.88968 11.171 6.69891 11.25 6.5 11.25C6.30109 11.25 6.11032 11.171 5.96967 11.0303C5.82902 10.8897 5.75 10.6989 5.75 10.5V6.5C5.75 6.30109 5.82902 6.11032 5.96967 5.96967C6.11032 5.82902 6.30109 5.75 6.5 5.75C6.69891 5.75 6.88968 5.82902 7.03033 5.96967C7.17098 6.11032 7.25 6.30109 7.25 6.5ZM10.25 6.5V10.5C10.25 10.6989 10.171 10.8897 10.0303 11.0303C9.88968 11.171 9.69891 11.25 9.5 11.25C9.30109 11.25 9.11032 11.171 8.96967 11.0303C8.82902 10.8897 8.75 10.6989 8.75 10.5V6.5C8.75 6.30109 8.82902 6.11032 8.96967 5.96967C9.11032 5.82902 9.30109 5.75 9.5 5.75C9.69891 5.75 9.88968 5.82902 10.0303 5.96967C10.171 6.11032 10.25 6.30109 10.25 6.5Z" fill="#EF4444"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_128_400">
+                      <rect width="16" height="16" fill="white"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+                Remove screen
               </button>
-              <button type="button" class="btn btn-text duplicate-screen-btn" style="padding:0; width:auto; color: var(--sl-text-secondary);">
-                📄 Duplicate screen
+              <button type="button" class="btn btn-text duplicate-screen-btn" style="padding:0; width:auto; color: var(--sl-text-secondary); display: inline-flex; align-items: center;">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 6px;">
+                  <path d="M13.5 1.75H5.5C5.30109 1.75 5.11032 1.82902 4.96967 1.96967C4.82902 2.11032 4.75 2.30109 4.75 2.5V4.75H2.5C2.30109 4.75 2.11032 4.82902 1.96967 4.96967C1.82902 5.11032 1.75 5.30109 1.75 5.5V13.5C1.75 13.6989 1.82902 13.8897 1.96967 14.0303C2.11032 14.171 2.30109 14.25 2.5 14.25H10.5C10.6989 14.25 10.8897 14.171 11.0303 14.0303C11.171 13.8897 11.25 13.6989 11.25 13.5V11.25H13.5C13.6989 11.25 13.8897 11.171 14.0303 11.0303C14.171 10.8897 14.25 10.6989 14.25 10.5V2.5C14.25 2.30109 14.171 2.11032 14.0303 1.96967C13.8897 1.82902 13.6989 1.75 13.5 1.75ZM9.75 12.75H3.25V6.25H9.75V12.75ZM12.75 9.75H11.25V5.5C11.25 5.30109 11.171 5.11032 11.0303 4.96967C10.8897 4.82902 10.6989 4.75 10.5 4.75H6.25V3.25H12.75V9.75Z" fill="#171717"/>
+                </svg>
+                Duplicate screen
               </button>
            </div>
         </div>
@@ -386,7 +468,7 @@ class ProductConfigurator extends HTMLElement {
       removeBtn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (confirm('Remove this screen?')) this.removeScreen(index);
+        this.removeScreen(index);
       });
     }
 
@@ -424,29 +506,56 @@ class ProductConfigurator extends HTMLElement {
     const section = document.createElement('div');
     section.className = 'configurator-group-box';
 
-    // 1. Global Solar Check (Upsell - Moved Here)
+    // 1. Group Title
+    const title = document.createElement('label');
+    title.className = 'grouping-title';
+    title.textContent = 'Installation';
+    section.appendChild(title);
+
+    // 2. Global Solar Check (Upsell / Tip)
+    // Show tip if any screen is NOT solar (i.e. wired or undefined)
     if (this.state.screens.some((s) => s.motor !== 'solar')) {
       const solarTip = document.createElement('div');
-      // Use inline styles to override default info-box styles as requested
-      solarTip.style.cssText = 'background: transparent; border: none; padding: 0; margin-bottom: 24px;';
-
-      const checkIcon = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; flex-shrink: 0;"><path d="M11.0306 5.96938C11.1005 6.03905 11.156 6.12185 11.1939 6.21301C11.2317 6.30417 11.2512 6.40191 11.2512 6.50063C11.2512 6.59934 11.2317 6.69708 11.1939 6.78824C11.156 6.8794 11.1005 6.9622 11.0306 7.03188L7.53063 10.5319C7.46095 10.6018 7.37816 10.6573 7.28699 10.6951C7.19583 10.733 7.09809 10.7525 6.99938 10.7525C6.90067 10.7525 6.80293 10.733 6.71176 10.6951C6.6206 10.6573 6.53781 10.6018 6.46813 10.5319L4.96813 9.03187C4.89836 8.96211 4.84302 8.87929 4.80527 8.78814C4.76751 8.69698 4.74808 8.59929 4.74808 8.50062C4.74808 8.40196 4.76751 8.30427 4.80527 8.21311C4.84302 8.12196 4.89836 8.03914 4.96813 7.96938C5.03789 7.89961 5.12072 7.84427 5.21187 7.80651C5.30302 7.76876 5.40072 7.74932 5.49938 7.74932C5.59804 7.74932 5.69574 7.76876 5.78689 7.80651C5.87804 7.84427 5.96086 7.89961 6.03063 7.96938L7 8.9375L9.96938 5.9675C10.0392 5.89789 10.122 5.84272 10.2131 5.80513C10.3042 5.76755 10.4018 5.7483 10.5004 5.74847C10.599 5.74865 10.6965 5.76825 10.7875 5.80615C10.8785 5.84405 10.9611 5.89952 11.0306 5.96938ZM14.75 8C14.75 9.33502 14.3541 10.6401 13.6124 11.7501C12.8707 12.8601 11.8165 13.7253 10.5831 14.2362C9.34971 14.7471 7.99252 14.8808 6.68314 14.6203C5.37377 14.3598 4.17104 13.717 3.22703 12.773C2.28303 11.829 1.64015 10.6262 1.3797 9.31686C1.11925 8.00749 1.25292 6.65029 1.76382 5.41689C2.27471 4.18349 3.13987 3.12928 4.2499 2.38758C5.35994 1.64588 6.66498 1.25 8 1.25C9.78961 1.25199 11.5053 1.96378 12.7708 3.22922C14.0362 4.49466 14.748 6.2104 14.75 8ZM13.25 8C13.25 6.96165 12.9421 5.94661 12.3652 5.08326C11.7883 4.2199 10.9684 3.54699 10.0091 3.14963C9.04978 2.75227 7.99418 2.6483 6.97578 2.85088C5.95738 3.05345 5.02192 3.55346 4.28769 4.28769C3.55347 5.02191 3.05345 5.95738 2.85088 6.97578C2.64831 7.99418 2.75228 9.04978 3.14964 10.0091C3.547 10.9684 4.2199 11.7883 5.08326 12.3652C5.94662 12.9421 6.96165 13.25 8 13.25C9.39193 13.2485 10.7264 12.6949 11.7107 11.7107C12.6949 10.7264 13.2485 9.39193 13.25 8Z" fill="#0EA674"/></svg>`;
+      solarTip.className = 'info-card-tip';
 
       solarTip.innerHTML = `
-        <div class="info-box__header" style="margin-bottom: 8px;">
-          ${checkIcon} <strong>TIP:</strong> Switch to <strong>Solar Driven</strong> screens simplify installation and reduces installation costs.
+        <div class="info-card-header">
+           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="benefit-check" style="color:var(--sl-color-success)">
+             <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm-2 15l-5-5 1.41-1.41L8 12.17l7.59-7.59L17 6l-9 9z" fill="currentColor"/>
+           </svg>
+           <span class="info-card-title">Tip</span>
         </div>
-        <ul class="info-box__benefits" style="margin-left: 24px;">
-          <li class="info-box__benefit">No wiring</li>
-          <li class="info-box__benefit">No wall drilling for power</li>
-          <li class="info-box__benefit">No electrician dependency</li>
-        </ul>
-        <div class="info-box__footer" style="margin-left: 24px;">
-          Switch now and save <strong>1200€</strong> on professional assembly.
+        <div class="info-card-body">
+           <div class="info-card-message">
+             Switch to <strong>Solar Driven</strong> screens to simplify installation and reduce costs.
+           </div>
+           <ul class="info-card-benefits">
+             <li class="info-card-benefit">
+               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.3333 4L6 11.3333L2.66667 8" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+               No wiring
+             </li>
+             <li class="info-card-benefit">
+               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.3333 4L6 11.3333L2.66667 8" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+               No wall drilling for power
+             </li>
+             <li class="info-card-benefit">
+               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.3333 4L6 11.3333L2.66667 8" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+               No electrician dependency
+             </li>
+           </ul>
+           <div class="info-card-footer">
+             <span class="info-card-footer-text">Switch now and save <strong>1200€</strong> on professional assembly.</span>
+             <button type="button" class="info-card-btn">Switch to Solar</button>
+           </div>
         </div>
-        <button class="info-box__button" style="width: auto; margin-left: 24px;">Switch to Solar</button>
       `;
-      solarTip.querySelector('button').onclick = this.handleGlobalSolar;
+      const btn = solarTip.querySelector('.info-card-btn');
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.handleGlobalSolar();
+        });
+      }
       section.appendChild(solarTip);
     }
 
@@ -468,9 +577,9 @@ class ProductConfigurator extends HTMLElement {
     ];
 
     // Render installation type selection using vertical cards
+    // Note: Removed "grouping-title" from inside html because it is now at the top of the section
     const html = `
       <div class="field margin-top-md">
-        <label class="field-label">Installation</label>
         <div class="selection-grid--vertical">
           ${installationOptions
             .map((opt) => {
@@ -502,7 +611,9 @@ class ProductConfigurator extends HTMLElement {
       </div>
     `;
 
-    section.innerHTML = html;
+    const optionsContainer = document.createElement('div');
+    optionsContainer.innerHTML = html;
+    section.appendChild(optionsContainer);
 
     // Add event listeners for installation type
     section.querySelectorAll('input[name="installationType"]').forEach((radio) => {
@@ -544,20 +655,23 @@ class ProductConfigurator extends HTMLElement {
   renderBracketCard(bracket) {
     const isSelected = this.state.selectedBracketId === bracket.id;
     const priceText =
-      bracket.id === 'unsure'
+      bracket.price === 0
         ? '<span style="background-color: #A7F3D0; color: #064E3B; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Free</span>'
         : `${(bracket.price / 100).toFixed(0)} € per screen`;
 
     // Custom image for Unsure or bracket image
     let imageHtml = '';
-    if (bracket.id === 'unsure') {
-      // Placeholder for the "Unsure" illustration - using a generic icon if specific asset not found
-      // Using a simple div with an icon or the provided image if we had it.
-      // Since I don't have the exact image, I'll use a placeholder style that looks decent.
-      imageHtml = `<div style="width: 80px; height: 80px; background: #E0F2FE; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px;">❓</div>`;
-    } else if (bracket.image) {
+    // Special handling for the "Unsure" item if it comes from Shopify data or has id 'unsure'
+    // But user requested to use price logic mainly. We will keep ID check just for specific image placeholder if needed,
+    // or if the product coming from Shopify is likely to be the "Unsure" one.
+    // Ideally we should use the product image from Shopify.
+    // If bracket.image exists, use it.
+
+    if (bracket.image) {
       imageHtml = `<img src="${bracket.image}" alt="${bracket.title}" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #F9FAFB; padding: 4px;">`;
     } else {
+      // Fallback or specific placeholder if we want to detect "unsure" by title or id
+      // For now, standard fallback
       imageHtml = `<div style="width: 80px; height: 80px; background: #F3F4F6; border-radius: 8px;"></div>`;
     }
 
@@ -597,11 +711,11 @@ class ProductConfigurator extends HTMLElement {
 
     if (this.data.addons.length === 0) {
       section.innerHTML =
-        '<label class="field-label">Add-ons</label><p class="text-subdued"><em>No add-ons available.</em></p>';
+        '<label class="grouping-title">Add-ons</label><p class="text-subdued"><em>No add-ons available.</em></p>';
       return section;
     }
 
-    section.innerHTML = '<label class="field-label">Add-ons</label>';
+    section.innerHTML = '<label class="grouping-title">Add-ons</label>';
 
     this.data.addons.forEach((addon) => {
       const card = this.renderAddonCard(addon);
@@ -612,46 +726,51 @@ class ProductConfigurator extends HTMLElement {
   }
 
   renderAddonCard(addon) {
-    const card = document.createElement('div');
-    card.className = 'product-card margin-top-sm';
-
     // Initialize addons state if it doesn't exist
     if (!this.state.addons) {
       this.state.addons = {};
     }
 
     const quantity = this.state.addons[addon.id] || 0;
+
+    const card = document.createElement('div');
+    // Add selected class if quantity > 0
+    card.className = `product-card margin-top-sm ${quantity > 0 ? 'selected' : ''}`;
+
     // Calculate total price based on quantity (if > 0, otherwise show unit price)
     const displayPrice = ((addon.price * (quantity > 0 ? quantity : 1)) / 100).toFixed(0);
 
+    // New Structure: Image | Body (Title, Desc, Price, Actions)
     card.innerHTML = `
       <div class="product-card__image">
         ${
           addon.image
-            ? `<img src="${addon.image}" alt="${addon.title}" style="width: 64px; height: 64px; object-fit: cover; border-radius: 8px;">`
-            : '<div style="width: 64px; height: 64px; background: #F3F4F6; border-radius: 8px;"></div>'
+            ? `<img src="${addon.image}" alt="${addon.title}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`
+            : '<div style="width: 80px; height: 80px; background: #F3F4F6; border-radius: 8px;"></div>'
         }
       </div>
-      <div class="product-card__content">
+      <div class="product-card__body">
         <div class="product-card__title">${addon.title}</div>
         <div class="product-card__desc">${addon.description || ''}</div>
         <div class="product-card__price">${displayPrice} €</div>
-      </div>
-      <div class="product-card__actions">
+        
+        <div class="product-card__actions">
         ${
           quantity === 0
-            ? `<button class="btn btn-secondary add-addon-btn" data-addon-id="${addon.id}">Add</button>`
-            : `<div class="qty-controls" style="display: flex; gap: 8px; align-items: center;">
-            <button class="btn btn-secondary qty-minus" data-addon-id="${addon.id}" style="width: 32px; height: 32px; padding: 0;">−</button>
-            <span style="min-width: 24px; text-align: center; font-weight: 500;">${quantity}</span>
-            <button class="btn btn-secondary qty-plus" data-addon-id="${addon.id}" style="width: 32px; height: 32px; padding: 0;">+</button>
+            ? `<button class="btn-add-addon" data-addon-id="${addon.id}">Add</button>`
+            : `<div class="qty-control-group">
+            <button class="qty-btn qty-minus" data-addon-id="${addon.id}">−</button>
+            <span class="qty-value">${quantity}</span>
+            <button class="qty-btn qty-plus" data-addon-id="${addon.id}">+</button>
           </div>`
         }
+        </div>
       </div>
     `;
 
     // Event listeners for addon quantity
-    const addBtn = card.querySelector('.add-addon-btn');
+    // Note: Selector classes updated to match new HTML
+    const addBtn = card.querySelector('.btn-add-addon');
     if (addBtn) {
       addBtn.addEventListener('click', () => {
         if (!this.state.addons) this.state.addons = {};
@@ -958,13 +1077,11 @@ class ProductConfigurator extends HTMLElement {
     })
       .then((r) => r.json())
       .then((data) => {
-        alert('Items added to cart.');
         window.location.href = '/cart';
       })
       .catch((err) => {
         console.error('Cart Error:', err);
         // Fallback for simulation
-        // alert('Simulated Add to Cart');
       });
   };
 }

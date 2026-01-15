@@ -30,7 +30,8 @@
     // 2. Installation Brackets (DIY)
     brackets: [
       {%- assign bracket_coll = collections['installation-brackets'] -%}
-      {%- for prod in bracket_coll.products -%}
+      {%- assign sorted_brackets = bracket_coll.products | sort: 'price' -%}
+      {%- for prod in sorted_brackets -%}
         {
            id: {{ prod.selected_or_first_available_variant.id }},
            title: {{ prod.title | json }},

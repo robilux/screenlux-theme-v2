@@ -27,6 +27,23 @@
       padding: 16px;
     }
   }
+  .de-badge-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .de-badge-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .de-badge-text {
+    font-size: 16px;
+    color: #171717;
+  }
 </style>
 {% render 'screenlux-data' %}
 
@@ -49,7 +66,19 @@
       <h1 class="product-title">{{ product.title }}</h1>
     </div>
 
-    <product-description class="product__description">
+    <div class="de-badge-container">
+      <img
+        src="{{ 'de-badge.png' | asset_url }}"
+        alt="Developed in Germany"
+        class="de-badge-icon"
+        width="22"
+        height="22"
+        loading="lazy"
+      >
+      <span class="de-badge-text">Developed in Germany</span>
+    </div>
+
+    <product-description class="product__description" data-limit="180">
       <div class="description-content">
         {{ product.description }}
       </div>
