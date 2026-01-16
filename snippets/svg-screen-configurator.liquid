@@ -1,15 +1,12 @@
 {% comment %}
-  SVG Screen Configurator - Accurate Figma Design
+  SVG Screen Configurator - Fixed Proportions
 
-  Structure (node 151:891):
-  - Cassette (64px): Left End + Container + Container Fixed (Solar) + Right End
-  - Rails: 26px each side
-  - Fabric: Fills center
-  - Bottom Plate: 16px
+  Structure:
+  - Cassette with container background (rounded TOP corners only)
+  - Left/Right ends: Square with single-corner radius (NO bottom circles)
+  - Proportions reduced by ~1.5x for proper mm/visual ratio
 
-  Default: 1500mm x 1000mm at 0.3 scale
-
-  JavaScript handles dynamic rendering.
+  Default: 1500mm x 1000mm at 0.3 scale = 450 x 300 units
 {% endcomment %}
 
 <div
@@ -24,14 +21,13 @@
   aria-label="Interactive screen configurator preview"
 >
   <svg
-    viewBox="0 0 490 340"
+    viewBox="0 0 480 315"
     preserveAspectRatio="xMidYMid meet"
     class="configurator-svg"
     role="img"
     aria-label="Screen preview showing current configuration"
   >
     <defs>
-      <!-- Corner gradients -->
       <radialGradient id="cornerTL" cx="100%" cy="100%" r="100%">
         <stop offset="50%" stop-color="#454545" />
         <stop offset="75%" stop-color="#353535" />
@@ -42,18 +38,6 @@
         <stop offset="75%" stop-color="#353535" />
         <stop offset="100%" stop-color="#242424" />
       </radialGradient>
-      <radialGradient id="cornerBL" cx="100%" cy="0%" r="100%">
-        <stop offset="50%" stop-color="#454545" />
-        <stop offset="75%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
-      </radialGradient>
-      <radialGradient id="cornerBR" cx="0%" cy="0%" r="100%">
-        <stop offset="50%" stop-color="#454545" />
-        <stop offset="75%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
-      </radialGradient>
-
-      <!-- Band gradients -->
       <linearGradient id="topBand" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#242424" />
         <stop offset="100%" stop-color="#353535" />
@@ -62,8 +46,6 @@
         <stop offset="0%" stop-color="#353535" />
         <stop offset="100%" stop-color="#242424" />
       </linearGradient>
-
-      <!-- End cap side gradients -->
       <linearGradient id="leftSide" x1="100%" y1="0%" x2="0%" y2="0%">
         <stop offset="50%" stop-color="#454545" />
         <stop offset="100%" stop-color="#242424" />
@@ -74,62 +56,57 @@
       </linearGradient>
     </defs>
 
-    <!-- Default static render: 1500x1000mm = 450x300 units -->
-    <g transform="translate(20, 20)">
+    <!-- 1500x1000mm = 450x300 units, padding 15 -->
+    <g transform="translate(15, 15)">
 
-      <!-- CASSETTE -->
+      <!-- Cassette container background (rounded top corners) -->
+      <rect x="0" y="0" width="450" height="42" rx="7" fill="#454545" />
+      <rect x="0" y="35" width="450" height="7" fill="#454545" />
+
+      <!-- CASSETTE PARTS -->
       <g class="cassette">
 
-        <!-- LEFT END (10px) -->
+        <!-- LEFT END -->
         <g class="left-end">
-          <rect x="0" y="0" width="10" height="10" rx="10" fill="url(#cornerTL)" />
-          <rect x="0" y="10" width="10" height="44" fill="url(#leftSide)" />
-          <rect x="0" y="54" width="10" height="10" rx="10" fill="url(#cornerBL)" />
+          <rect x="0" y="0" width="7" height="7" rx="7" fill="url(#cornerTL)" />
+          <rect x="0" y="0" width="7" height="7" fill="url(#cornerTL)" />
+          <rect x="0" y="7" width="7" height="35" fill="url(#leftSide)" />
         </g>
 
-        <!-- CONTAINER (flexible: 450 - 10 - 135 - 10 = 295) -->
-        <g class="container" transform="translate(10, 0)">
-          <rect x="0" y="0" width="295" height="10" fill="url(#topBand)" />
-          <rect x="0" y="10" width="295" height="44" fill="#454545" />
-          <rect x="0" y="54" width="295" height="10" fill="url(#bottomBand)" />
+        <!-- CONTAINER (450 - 7 - 135 - 7 = 301) -->
+        <g class="container" transform="translate(7, 0)">
+          <rect x="0" y="0" width="301" height="7" fill="url(#topBand)" />
+          <rect x="0" y="7" width="301" height="28" fill="#454545" />
+          <rect x="0" y="35" width="301" height="7" fill="url(#bottomBand)" />
         </g>
 
-        <!-- CONTAINER FIXED / SOLAR PANEL (135px scaled) -->
-        <g class="container-fixed" transform="translate(305, 0)">
-          <rect x="0" y="0" width="135" height="10" fill="url(#topBand)" />
-          <rect x="0" y="10" width="135" height="44" fill="#454545" class="solar-panel" />
-          <rect x="0" y="54" width="135" height="10" fill="url(#bottomBand)" />
+        <!-- SOLAR PANEL (135px) -->
+        <g class="container-fixed" transform="translate(308, 0)">
+          <rect x="0" y="0" width="135" height="7" fill="url(#topBand)" />
+          <rect x="0" y="7" width="135" height="28" fill="#454545" class="solar-panel" />
+          <rect x="0" y="35" width="135" height="7" fill="url(#bottomBand)" />
         </g>
 
-        <!-- RIGHT END (10px) -->
-        <g class="right-end" transform="translate(440, 0)">
-          <rect x="0" y="0" width="10" height="10" rx="10" fill="url(#cornerTR)" />
-          <rect x="0" y="10" width="10" height="44" fill="url(#rightSide)" />
-          <rect x="0" y="54" width="10" height="10" rx="10" fill="url(#cornerBR)" />
+        <!-- RIGHT END -->
+        <g class="right-end" transform="translate(443, 0)">
+          <rect x="0" y="0" width="7" height="7" rx="7" fill="url(#cornerTR)" />
+          <rect x="0" y="0" width="7" height="7" fill="url(#cornerTR)" />
+          <rect x="0" y="7" width="7" height="35" fill="url(#rightSide)" />
         </g>
 
       </g>
 
       <!-- RAILS & FABRIC -->
-      <g class="rails-fabric" transform="translate(0, 64)">
-
-        <!-- Left Rail -->
-        <rect x="0" y="0" width="26" height="236" fill="#454545" />
-
-        <!-- Fabric (450 - 52 = 398, height 236 - 16 = 220) -->
-        <rect x="26" y="0" width="398" height="220" fill="#707070" opacity="0.92" class="fabric-rect" />
-
-        <!-- Bottom Plate -->
-        <rect x="26" y="220" width="398" height="16" fill="#454545" />
-
-        <!-- Right Rail -->
-        <rect x="424" y="0" width="26" height="236" fill="#454545" />
-
+      <g class="rails-fabric" transform="translate(0, 42)">
+        <rect x="0" y="0" width="17" height="258" fill="#454545" />
+        <rect x="17" y="0" width="416" height="248" fill="#707070" opacity="0.92" class="fabric-rect" />
+        <rect x="17" y="248" width="416" height="10" fill="#454545" />
+        <rect x="433" y="0" width="17" height="258" fill="#454545" />
       </g>
     </g>
   </svg>
 
-  <!-- Dimension Labels Overlay -->
+  <!-- Dimension Labels -->
   <div class="dimension-labels">
     <span class="dimension-label dimension-width">
       <span class="dimension-value" data-dimension="width">1500</span> mm
