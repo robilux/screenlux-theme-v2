@@ -1,69 +1,124 @@
 {% comment %}
   SVG Screen Configurator
-  Dynamic SVG representation matching Figma node 151:891.
+  Renders a dynamic SVG representation of the ZIP-Screen that updates based on user selections.
 
-  Structure:
-  - Cassette: 64px height, 10px radius on top corners only
-  - Rails: 26px width left/right
-  - Fabric: Fills the center area
-  - Bottom Plate: 16px height
+  Structure (from Figma design):
+  - Cassette (top bar): Fixed 64px height, flexible width
+  - Side rails: Fixed 26px width each, flexible height
+  - Fabric: Flexible width/height
+  - Bottom plate: Fixed 16px height
 
-  Default: 1500mm x 1000mm at 0.3 scale = 450 x 300 visual units
-
-  The JavaScript (svg-screen-configurator.js) re-renders this dynamically.
+  Colors update based on frame color selection.
+  The JavaScript (svg-screen-configurator.js) handles dynamic rendering based on dimensions.
 {% endcomment %}
 
 <div
   id="svg-screen-configurator"
   class="svg-screen-configurator"
-  data-frame-color="anthracite"
-  data-fabric-color="charcoal"
+  data-frame-color="#454545"
+  data-fabric-color="#707070"
   data-fabric-type="4-percent"
   data-width="1500"
   data-height="1000"
   aria-label="Interactive screen configurator preview"
 >
   <svg
-    viewBox="0 0 490 340"
+    viewBox="0 0 340 240"
     preserveAspectRatio="xMidYMid meet"
     class="configurator-svg"
     role="img"
     aria-label="Screen preview showing current configuration"
   >
-    <!-- Default static render: 1500x1000mm = 450x300 units -->
-    <!-- Padding 20 on all sides -->
+    <defs>
+      <!-- Gradients for realistic shading -->
+      <linearGradient id="cassetteGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="var(--frame-dark, #353535)" />
+        <stop offset="30%" stop-color="var(--frame-color, #454545)" />
+        <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+      </linearGradient>
+
+      <linearGradient id="leftRailGradient" x1="100%" y1="0%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+        <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+      </linearGradient>
+
+      <linearGradient id="rightRailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+        <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+      </linearGradient>
+
+      <linearGradient id="bottomPlateGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+        <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+      </linearGradient>
+    </defs>
+
+    <!-- Initial static SVG - JavaScript will re-render dynamically -->
     <g transform="translate(20, 20)">
-
-      <!-- CASSETTE: 450w x 64h, top corners rounded 10px -->
-      <rect x="0" y="0" width="450" height="64" rx="10" ry="10" fill="#454545" />
-      <!-- Square off bottom corners -->
-      <rect x="0" y="54" width="450" height="10" fill="#454545" />
-
-      <!-- RAILS AND FABRIC: starts at y=64 -->
-      <g transform="translate(0, 64)">
-
-        <!-- Rails height: 300 - 64 = 236 -->
-
-        <!-- LEFT RAIL: 26w -->
-        <rect x="0" y="0" width="26" height="236" fill="#454545" />
-
-        <!-- RIGHT RAIL: at x=424, 26w -->
-        <rect x="424" y="0" width="26" height="236" fill="#454545" />
-
-        <!-- FABRIC: 398w, 220h (236 - 16 bottom plate) -->
+      <!-- Cassette (Top Bar) - Fixed Height, Flexible Width -->
+      <g class="cassette-group">
+        <!-- Main cassette body with rounded top corners -->
         <rect
-          x="26"
+          x="0"
           y="0"
-          width="398"
-          height="220"
-          fill="#707070"
-          opacity="0.92"
-          class="fabric-rect"
+          width="300"
+          height="12.8"
+          rx="2"
+          fill="url(#cassetteGradient)"
+          class="cassette-main"
+        />
+        <!-- Cut off bottom corners -->
+        <rect
+          x="0"
+          y="10.8"
+          width="300"
+          height="2"
+          fill="var(--frame-color, #454545)"
+          class="cassette-bottom-fill"
+        />
+      </g>
+
+      <!-- Rails and Fabric Container -->
+      <g class="rails-fabric-group" transform="translate(0, 12.8)">
+        <!-- Left Rail -->
+        <rect
+          x="0"
+          y="0"
+          width="5.2"
+          height="187.2"
+          fill="url(#leftRailGradient)"
+          class="rail-left"
         />
 
-        <!-- BOTTOM PLATE: 398w, 16h -->
-        <rect x="26" y="220" width="398" height="16" fill="#454545" />
+        <!-- Right Rail -->
+        <rect
+          x="294.8"
+          y="0"
+          width="5.2"
+          height="187.2"
+          fill="url(#rightRailGradient)"
+          class="rail-right"
+        />
 
+        <!-- Fabric Area -->
+        <rect
+          x="5.2"
+          y="0"
+          width="289.6"
+          height="184"
+          fill="var(--fabric-color, #707070)"
+          class="fabric"
+        />
+
+        <!-- Bottom Plate -->
+        <rect
+          x="5.2"
+          y="184"
+          width="289.6"
+          height="3.2"
+          fill="url(#bottomPlateGradient)"
+          class="bottom-plate"
+        />
       </g>
     </g>
   </svg>

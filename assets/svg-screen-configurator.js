@@ -1,15 +1,12 @@
 /**
  * SVG Screen Configurator
- * Dynamic SVG screen preview matching exact Figma structure.
+ * Handles dynamic updates to the SVG screen preview based on configurator state.
  *
- * Structure (from Figma node 151:891):
- * - Cassette: #454545, 64px height, 10px top-left/top-right radius
- * - Left Rail: #454545, 26px width, full height
- * - Right Rail: #454545, 26px width, full height
- * - Fabric: #707070 (dynamic color)
- * - Bottom Plate: #454545, 16px height
- *
- * Scale: 1mm = 0.3 visual units
+ * Features:
+ * - Updates SVG viewBox proportionally based on width/height
+ * - Changes colors based on frame and fabric color selections
+ * - Syncs with product-configurator-v2.js via custom events
+ * - Smooth CSS transitions for all changes
  */
 
 (function () {
@@ -21,19 +18,26 @@
       this.svg = null;
       this.initialized = false;
 
-      // Fixed dimensions from Figma (in visual units, not mm)
+      // Fixed dimensions from Figma (in visual units for SVG)
       this.CASSETTE_HEIGHT = 64;
-      this.CORNER_RADIUS = 10;
       this.RAIL_WIDTH = 26;
       this.BOTTOM_PLATE_HEIGHT = 16;
+      this.CORNER_RADIUS = 10;
+      this.TOP_BAR_HEIGHT = 8;
 
-      // Scale: mm to visual units
-      this.PX_PER_MM = 0.3;
+      // Scale factor: mm to SVG units (we'll scale down for reasonable viewBox)
+      // A 1500mm screen becomes 300 SVG units (divide by 5)
+      this.SCALE_FACTOR = 5;
+
+      // Minimum visual dimensions to prevent too-small SVG
+      this.MIN_SVG_WIDTH = 200;
+      this.MIN_SVG_HEIGHT = 150;
 
       this.init();
     }
 
     init() {
+      // Wait for DOM to be ready
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => this.setup());
       } else {
@@ -44,23 +48,24 @@
     setup() {
       this.container = document.getElementById('svg-screen-configurator');
       if (!this.container) {
+        console.log('SVG Screen Configurator: Container not found, will retry on mutation');
         this.observeForContainer();
         return;
       }
 
       this.svg = this.container.querySelector('.configurator-svg');
-      if (!this.svg) return;
+      if (!this.svg) {
+        console.error('SVG Screen Configurator: SVG element not found');
+        return;
+      }
 
       this.initialized = true;
       this.bindEvents();
-      this.syncWithConfigurator();
 
-      const current = this.getCurrentState();
-      if (!current.width) {
-        this.updateFromState(this.getDefaultState());
-      }
+      // Initial render with default values
+      this.updateFromState(this.getDefaultState());
 
-      console.log('SVG Screen Configurator: Initialized (Clean Figma Structure)');
+      console.log('SVG Screen Configurator: Initialized');
     }
 
     observeForContainer() {
@@ -71,7 +76,11 @@
           this.setup();
         }
       });
-      observer.observe(document.body, { childList: true, subtree: true });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
     }
 
     getDefaultState() {
@@ -85,23 +94,47 @@
     }
 
     bindEvents() {
+      // Listen for configurator state changes
       document.addEventListener('screenlux:screen-updated', (event) => {
-        if (event.detail) this.updateFromState(event.detail);
+        if (event.detail) {
+          this.updateFromState(event.detail);
+        }
       });
 
+      // Also listen for dimension input changes directly (backup method)
+      document.addEventListener('change', (event) => {
+        if (event.target.matches('[data-field="width"], [data-field="height"]')) {
+          this.handleDimensionChange(event);
+        }
+        if (event.target.matches('[data-field="frameColor"], [data-field="fabricColor"], [data-field="fabricType"]')) {
+          this.handleColorChange(event);
+        }
+      });
+
+      // Listen for the configurator to fully initialize
       document.addEventListener('screenlux:configurator-ready', () => {
         this.syncWithConfigurator();
       });
+    }
 
-      document.addEventListener('change', (event) => {
-        const field = event.target.dataset?.field;
-        if (['width', 'height', 'frameColor', 'fabricColor', 'fabricType'].includes(field)) {
-          const state = this.getCurrentState();
-          state[field] =
-            field === 'width' || field === 'height' ? parseInt(event.target.value) || 0 : event.target.value;
-          this.updateFromState(state);
-        }
-      });
+    handleDimensionChange(event) {
+      const field = event.target.dataset.field;
+      const value = parseInt(event.target.value) || 0;
+
+      const currentState = this.getCurrentState();
+      currentState[field] = value;
+
+      this.updateFromState(currentState);
+    }
+
+    handleColorChange(event) {
+      const field = event.target.dataset.field;
+      const value = event.target.value;
+
+      const currentState = this.getCurrentState();
+      currentState[field] = value;
+
+      this.updateFromState(currentState);
     }
 
     getCurrentState() {
@@ -115,21 +148,22 @@
     }
 
     syncWithConfigurator() {
+      // Try to get state from the configurator
       const configurator = document.querySelector('product-configurator');
-      if (configurator?.state?.screens?.length > 0) {
-        const s = configurator.state.screens[0];
+      if (configurator && configurator.state && configurator.state.screens && configurator.state.screens.length > 0) {
+        const firstScreen = configurator.state.screens[0];
         this.updateFromState({
-          width: s.width || 1500,
-          height: s.height || 1000,
-          frameColor: s.frameColor || 'anthracite',
-          fabricColor: s.fabricColor || 'charcoal',
-          fabricType: s.fabricType || '4-percent',
+          width: firstScreen.width || 1500,
+          height: firstScreen.height || 1000,
+          frameColor: firstScreen.frameColor || 'anthracite',
+          fabricColor: firstScreen.fabricColor || 'charcoal',
+          fabricType: firstScreen.fabricType || '4-percent',
         });
       }
     }
 
     updateFromState(state) {
-      if (!this.initialized) return;
+      if (!this.initialized || !this.container || !this.svg) return;
 
       const { width, height, frameColor, fabricColor, fabricType } = state;
 
@@ -140,140 +174,215 @@
       this.container.dataset.fabricColor = fabricColor;
       this.container.dataset.fabricType = fabricType;
 
-      // Get actual hex colors
-      const frameHex = this.getFrameHex(frameColor);
-      const fabricHex = this.getFabricHex(fabricColor);
+      // Update SVG viewBox
+      this.updateViewBox(width, height);
 
-      // Update CSS custom properties
-      this.container.style.setProperty('--frame-color', frameHex);
-      this.container.style.setProperty('--fabric-color', fabricHex);
-
-      // Render SVG and labels
-      this.renderSVG(width, height, frameHex, fabricHex, fabricType);
+      // Update dimension labels
       this.updateDimensionLabels(width, height);
+
+      // Update colors via CSS custom properties
+      this.updateColors(frameColor, fabricColor, fabricType);
+
+      // Re-render SVG elements with new dimensions
+      this.renderSVG(width, height);
     }
 
-    getFrameHex(frameColor) {
-      const data = window.ScreenluxData;
-      if (data?.frameColors) {
-        const fc = data.frameColors.find((f) => f.id === frameColor);
-        if (fc?.hex) return fc.hex;
-      }
-      // Fallback
-      return frameColor === 'white' ? '#F5F5F5' : '#454545';
-    }
+    updateViewBox(widthMM, heightMM) {
+      // Convert mm to SVG units
+      let svgWidth = Math.max(widthMM / this.SCALE_FACTOR, this.MIN_SVG_WIDTH);
+      let svgHeight = Math.max(heightMM / this.SCALE_FACTOR, this.MIN_SVG_HEIGHT);
 
-    getFabricHex(fabricColor) {
-      const data = window.ScreenluxData;
-      if (data?.fabricColors) {
-        const fc = data.fabricColors.find((f) => f.id === fabricColor);
-        if (fc?.hex) return fc.hex;
-      }
-      return '#707070';
+      // Add padding for visual breathing room
+      const padding = 20;
+      const totalWidth = svgWidth + padding * 2;
+      const totalHeight = svgHeight + padding * 2;
+
+      this.svg.setAttribute('viewBox', `0 0 ${totalWidth} ${totalHeight}`);
     }
 
     updateDimensionLabels(width, height) {
-      const wl = this.container.querySelector('[data-dimension="width"]');
-      const hl = this.container.querySelector('[data-dimension="height"]');
-      if (wl) wl.textContent = width;
-      if (hl) hl.textContent = height;
+      const widthLabel = this.container.querySelector('[data-dimension="width"]');
+      const heightLabel = this.container.querySelector('[data-dimension="height"]');
+
+      if (widthLabel) widthLabel.textContent = width;
+      if (heightLabel) heightLabel.textContent = height;
     }
 
-    renderSVG(widthMM, heightMM, frameHex, fabricHex, fabricType) {
-      // Convert mm to visual units
-      const W = Math.max(widthMM * this.PX_PER_MM, 200);
-      const H = Math.max(heightMM * this.PX_PER_MM, 150);
+    updateColors(frameColor, fabricColor, fabricType) {
+      // Get color values from ScreenluxData if available
+      const data = window.ScreenluxData;
 
-      // Fixed dimensions
-      const CASSETTE_H = this.CASSETTE_HEIGHT;
-      const CORNER_R = this.CORNER_RADIUS;
-      const RAIL_W = this.RAIL_WIDTH;
-      const BOTTOM_H = this.BOTTOM_PLATE_HEIGHT;
+      // Frame color
+      if (data && data.frameColors) {
+        const frame = data.frameColors.find((f) => f.id === frameColor);
+        if (frame && frame.hex) {
+          this.container.style.setProperty('--frame-color', frame.hex);
+          // Generate darker shades
+          this.container.style.setProperty('--frame-dark', this.darkenColor(frame.hex, 20));
+          this.container.style.setProperty('--frame-darker', this.darkenColor(frame.hex, 40));
+        }
+      }
 
-      // Calculate derived dimensions
-      const railsAndFabricH = H - CASSETTE_H;
-      const fabricW = W - RAIL_W * 2;
-      const fabricH = railsAndFabricH - BOTTOM_H;
+      // Fabric color
+      if (data && data.fabricColors) {
+        const fabric = data.fabricColors.find((f) => f.id === fabricColor);
+        if (fabric && fabric.hex) {
+          this.container.style.setProperty('--fabric-color', fabric.hex);
+        }
+      }
 
-      // Fabric opacity based on type
-      const fabricOpacity = fabricType === 'blackout' ? 1 : 0.92;
+      // Fabric type affects opacity
+      const fabricElement = this.svg.querySelector('.fabric');
+      if (fabricElement) {
+        if (fabricType === 'blackout') {
+          fabricElement.style.opacity = '1';
+        } else {
+          // 4% openness - slightly transparent
+          fabricElement.style.opacity = '0.92';
+        }
+      }
+    }
 
-      // Padding around SVG
-      const PAD = 20;
-      const viewW = W + PAD * 2;
-      const viewH = H + PAD * 2;
+    darkenColor(hex, percent) {
+      // Remove # if present
+      hex = hex.replace('#', '');
 
-      this.svg.setAttribute('viewBox', `0 0 ${viewW} ${viewH}`);
+      // Convert to RGB
+      let r = parseInt(hex.substr(0, 2), 16);
+      let g = parseInt(hex.substr(2, 2), 16);
+      let b = parseInt(hex.substr(4, 2), 16);
 
-      // Build SVG content - SIMPLE RECTANGLES matching Figma exactly
+      // Darken
+      r = Math.max(0, Math.floor((r * (100 - percent)) / 100));
+      g = Math.max(0, Math.floor((g * (100 - percent)) / 100));
+      b = Math.max(0, Math.floor((b * (100 - percent)) / 100));
+
+      // Convert back to hex
+      return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    }
+
+    renderSVG(widthMM, heightMM) {
+      // Convert dimensions to SVG units
+      const svgWidth = Math.max(widthMM / this.SCALE_FACTOR, this.MIN_SVG_WIDTH);
+      const svgHeight = Math.max(heightMM / this.SCALE_FACTOR, this.MIN_SVG_HEIGHT);
+
+      const padding = 20;
+
+      // Scale fixed dimensions proportionally
+      // The ratio determines how much of the total height is cassette vs fabric
+      const cassetteHeightScaled = this.CASSETTE_HEIGHT / this.SCALE_FACTOR;
+      const railWidthScaled = this.RAIL_WIDTH / this.SCALE_FACTOR;
+      const bottomPlateScaled = this.BOTTOM_PLATE_HEIGHT / this.SCALE_FACTOR;
+      const topBarScaled = this.TOP_BAR_HEIGHT / this.SCALE_FACTOR;
+      const cornerRadiusScaled = this.CORNER_RADIUS / this.SCALE_FACTOR;
+
+      // Build the SVG content
+      const fabricWidth = svgWidth - railWidthScaled * 2;
+      const fabricHeight = svgHeight - cassetteHeightScaled - bottomPlateScaled;
+      const railHeight = svgHeight - cassetteHeightScaled;
+
       this.svg.innerHTML = `
-        <g transform="translate(${PAD}, ${PAD})">
+        <defs>
+          <!-- Gradients for realistic shading -->
+          <linearGradient id="cassetteGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="var(--frame-dark, #353535)" />
+            <stop offset="30%" stop-color="var(--frame-color, #454545)" />
+            <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+          </linearGradient>
           
-          <!-- CASSETTE: Rounded top corners only -->
-          <rect 
-            x="0" 
-            y="0" 
-            width="${W}" 
-            height="${CASSETTE_H}" 
-            rx="${CORNER_R}" 
-            ry="${CORNER_R}" 
-            fill="${frameHex}"
-          />
-          <!-- Square off bottom corners of cassette -->
-          <rect 
-            x="0" 
-            y="${CASSETTE_H - CORNER_R}" 
-            width="${W}" 
-            height="${CORNER_R}" 
-            fill="${frameHex}"
-          />
-
-          <!-- RAILS AND FABRIC AREA -->
-          <g transform="translate(0, ${CASSETTE_H})">
-            
-            <!-- LEFT RAIL -->
+          <linearGradient id="leftRailGradient" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+            <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+          </linearGradient>
+          
+          <linearGradient id="rightRailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+            <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+          </linearGradient>
+          
+          <linearGradient id="bottomPlateGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+            <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+          </linearGradient>
+        </defs>
+        
+        <g transform="translate(${padding}, ${padding})">
+          <!-- Cassette (Top Bar) - Fixed Height, Flexible Width -->
+          <g class="cassette-group">
+            <!-- Main cassette body with rounded top corners -->
             <rect 
               x="0" 
               y="0" 
-              width="${RAIL_W}" 
-              height="${railsAndFabricH}" 
-              fill="${frameHex}"
+              width="${svgWidth}" 
+              height="${cassetteHeightScaled}"
+              rx="${cornerRadiusScaled}"
+              ry="${cornerRadiusScaled}"
+              fill="url(#cassetteGradient)"
+              class="cassette-main"
             />
-            
-            <!-- RIGHT RAIL -->
+            <!-- Cut off bottom corners (make them square) -->
             <rect 
-              x="${W - RAIL_W}" 
+              x="0" 
+              y="${cassetteHeightScaled - cornerRadiusScaled}" 
+              width="${svgWidth}" 
+              height="${cornerRadiusScaled}"
+              fill="var(--frame-color, #454545)"
+              class="cassette-bottom-fill"
+            />
+          </g>
+          
+          <!-- Rails and Fabric Container -->
+          <g class="rails-fabric-group" transform="translate(0, ${cassetteHeightScaled})">
+            <!-- Left Rail - Fixed Width, Flexible Height -->
+            <rect 
+              x="0" 
               y="0" 
-              width="${RAIL_W}" 
-              height="${railsAndFabricH}" 
-              fill="${frameHex}"
+              width="${railWidthScaled}" 
+              height="${railHeight}"
+              fill="url(#leftRailGradient)"
+              class="rail-left"
             />
             
-            <!-- FABRIC -->
+            <!-- Right Rail - Fixed Width, Flexible Height -->
             <rect 
-              x="${RAIL_W}" 
+              x="${svgWidth - railWidthScaled}" 
               y="0" 
-              width="${fabricW}" 
-              height="${fabricH}" 
-              fill="${fabricHex}"
-              opacity="${fabricOpacity}"
-              class="fabric-rect"
+              width="${railWidthScaled}" 
+              height="${railHeight}"
+              fill="url(#rightRailGradient)"
+              class="rail-right"
             />
             
-            <!-- BOTTOM PLATE -->
+            <!-- Fabric Area - Flexible Width & Height -->
             <rect 
-              x="${RAIL_W}" 
-              y="${fabricH}" 
-              width="${fabricW}" 
-              height="${BOTTOM_H}" 
-              fill="${frameHex}"
+              x="${railWidthScaled}" 
+              y="0" 
+              width="${fabricWidth}" 
+              height="${fabricHeight}"
+              fill="var(--fabric-color, #707070)"
+              class="fabric"
             />
             
+            <!-- Bottom Plate - Fixed Height, Flexible Width -->
+            <rect 
+              x="${railWidthScaled}" 
+              y="${fabricHeight}" 
+              width="${fabricWidth}" 
+              height="${bottomPlateScaled}"
+              fill="url(#bottomPlateGradient)"
+              class="bottom-plate"
+            />
           </g>
         </g>
       `;
     }
   }
 
+  // Initialize when script loads
   window.SVGScreenConfigurator = new SVGScreenConfigurator();
+
+  // Export for potential external use
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = SVGScreenConfigurator;
+  }
 })();
