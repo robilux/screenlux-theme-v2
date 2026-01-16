@@ -1,8 +1,8 @@
 {% comment %}
-  SVG Screen Configurator - Path-based Corners
+  SVG Screen Configurator
 
-  Uses SVG paths to achieve single-corner radius on each corner square.
-  Radial gradients with matrix transforms matching Figma node 151:840.
+  Corner gradients: bottom corners mirror top corners
+  Edge rectangles: dark on edges, reach correct color by 50%
 
   Default: 1500mm x 1000mm at 0.3 scale
 {% endcomment %}
@@ -26,7 +26,7 @@
     aria-label="Screen preview showing current configuration"
   >
     <defs>
-      <!-- Radial gradients for corners (from Figma) -->
+      <!-- Corner gradients -->
       <radialGradient id="gradTL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(-0.7 -0.75 0.75 -0.7 7 7)">
         <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
@@ -37,12 +37,12 @@
         <stop offset="0.75" stop-color="#353535" />
         <stop offset="1" stop-color="#242424" />
       </radialGradient>
-      <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(-0.7 0.75 -0.75 -0.7 7 0)">
+      <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(-0.7 0.75 -0.75 -0.7 7 7)">
         <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
         <stop offset="1" stop-color="#242424" />
       </radialGradient>
-      <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(0.7 0.75 -0.75 0.7 0 0)">
+      <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(0.7 0.75 0.75 -0.7 0 0)">
         <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
         <stop offset="1" stop-color="#242424" />
@@ -77,11 +77,11 @@
 
         <!-- LEFT END -->
         <g class="left-end">
-          <!-- Top-left (only top-left corner rounded) -->
+          <!-- Top-left corner -->
           <path d="M 7 0 L 7 0 L 7 7 L 0 7 L 0 7 A 7 7 0 0 1 7 0 Z" fill="url(#gradTL)" />
           <!-- Middle -->
           <rect x="0" y="7" width="7" height="28" fill="url(#leftSide)" />
-          <!-- Bottom-left (only bottom-left corner rounded) -->
+          <!-- Bottom-left corner (mirrored) -->
           <path d="M 0 35 L 7 35 L 7 42 L 7 42 A 7 7 0 0 1 0 35 L 0 35 Z" fill="url(#gradBL)" />
         </g>
 
@@ -101,11 +101,11 @@
 
         <!-- RIGHT END -->
         <g class="right-end" transform="translate(443, 0)">
-          <!-- Top-right (only top-right corner rounded) -->
+          <!-- Top-right corner -->
           <path d="M 0 0 L 0 0 A 7 7 0 0 1 7 7 L 7 7 L 0 7 Z" fill="url(#gradTR)" />
           <!-- Middle -->
           <rect x="0" y="7" width="7" height="28" fill="url(#rightSide)" />
-          <!-- Bottom-right (only bottom-right corner rounded) -->
+          <!-- Bottom-right corner (mirrored) -->
           <path d="M 0 35 L 0 35 L 0 42 L 0 42 A 7 7 0 0 1 7 35 L 7 35 Z" fill="url(#gradBR)" />
         </g>
 
