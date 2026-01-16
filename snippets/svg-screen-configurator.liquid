@@ -2,14 +2,16 @@
   SVG Screen Configurator
   Renders a dynamic SVG representation of the ZIP-Screen that updates based on user selections.
 
-  Structure (from Figma design):
-  - Cassette (top bar): Fixed 64px height, flexible width
-  - Side rails: Fixed 26px width each, flexible height
-  - Fabric: Flexible width/height
-  - Bottom plate: Fixed 16px height
+  Structure (Matches Figma Design):
+  - Cassette Height: 64px (Fixed)
+  - Corner Radius: 10px (Fixed)
+  - End Cap Width: 10px (Fixed)
+  - Rail Width: 26px (Fixed)
+  - Bottom Plate: 16px (Fixed)
+  - Scale: 1mm = 0.3px Visual Units
 
-  Colors update based on frame color selection.
-  The JavaScript (svg-screen-configurator.js) handles dynamic rendering based on dimensions.
+  The JavaScript (svg-screen-configurator.js) re-renders this dynamically.
+  This snippet provides the initial state (Default: 1500mm x 1000mm).
 {% endcomment %}
 
 <div
@@ -23,26 +25,51 @@
   aria-label="Interactive screen configurator preview"
 >
   <svg
-    viewBox="0 0 340 240"
+    viewBox="0 0 490 340"
     preserveAspectRatio="xMidYMid meet"
     class="configurator-svg"
     role="img"
     aria-label="Screen preview showing current configuration"
   >
     <defs>
-      <!-- Gradients for realistic shading -->
-      <linearGradient id="cassetteGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <!-- 1. Corner Gradients (Radial) - Metallic Look -->
+      <radialGradient id="cornerGradientLeft" cx="100%" cy="100%" r="100%" fx="100%" fy="100%">
+        <stop offset="50%" stop-color="var(--frame-color, #454545)" />
+        <stop offset="75%" stop-color="var(--frame-dark, #353535)" />
+        <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
+      </radialGradient>
+
+      <radialGradient id="cornerGradientRight" cx="0%" cy="100%" r="100%" fx="0%" fy="100%">
+        <stop offset="50%" stop-color="var(--frame-color, #454545)" />
+        <stop offset="75%" stop-color="var(--frame-dark, #353535)" />
+        <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
+      </radialGradient>
+
+      <!-- 2. End Cap Body Gradients (Linear) - Side shading -->
+      <linearGradient id="cassetteSolidGradientLeft" x1="100%" y1="0%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+        <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+      </linearGradient>
+
+      <linearGradient id="cassetteSolidGradientRight" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+        <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+      </linearGradient>
+
+      <!-- 3. Middle Body Gradient (Vertical Linear) - Roundness -->
+      <linearGradient id="cassetteMiddleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="var(--frame-dark, #353535)" />
         <stop offset="30%" stop-color="var(--frame-color, #454545)" />
         <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
       </linearGradient>
 
-      <linearGradient id="leftRailGradient" x1="100%" y1="0%" x2="0%" y2="0%">
+      <!-- 4. Rail Gradients -->
+      <linearGradient id="railLeftGradient" x1="100%" y1="0%" x2="0%" y2="0%">
         <stop offset="0%" stop-color="var(--frame-color, #454545)" />
         <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
       </linearGradient>
 
-      <linearGradient id="rightRailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <linearGradient id="railRightGradient" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stop-color="var(--frame-color, #454545)" />
         <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
       </linearGradient>
@@ -53,71 +80,64 @@
       </linearGradient>
     </defs>
 
-    <!-- Initial static SVG - JavaScript will re-render dynamically -->
+    <!-- Groups with Padding (20px) -->
     <g transform="translate(20, 20)">
-      <!-- Cassette (Top Bar) - Fixed Height, Flexible Width -->
+
+      <!-- ================= C A S S E T T E ================= -->
       <g class="cassette-group">
-        <!-- Main cassette body with rounded top corners -->
-        <rect
-          x="0"
-          y="0"
-          width="300"
-          height="12.8"
-          rx="2"
-          fill="url(#cassetteGradient)"
-          class="cassette-main"
-        />
-        <!-- Cut off bottom corners -->
-        <rect
-          x="0"
-          y="10.8"
-          width="300"
-          height="2"
-          fill="var(--frame-color, #454545)"
-          class="cassette-bottom-fill"
-        />
+         <!-- 1. Left End Cap Group -->
+         <g class="cassette-end-left">
+            <path d="M 0 10 A 10 10 0 0 1 10 0 L 10 10 L 0 10 Z" fill="url(#cornerGradientLeft)" />
+            <rect x="0" y="10" width="10" height="54" fill="url(#cassetteSolidGradientLeft)" />
+         </g>
+
+         <!-- 2. Right End Cap Group (Width 450 - 10 = 440 translation) -->
+         <g class="cassette-end-right" transform="translate(440, 0)">
+            <path d="M 0 0 L 10 0 A 10 10 0 0 1 10 10 L 0 10 Z" fill="url(#cornerGradientRight)" />
+            <rect x="0" y="10" width="10" height="54" fill="url(#cassetteSolidGradientRight)" />
+         </g>
+
+         <!-- 3. Middle Section (Width 450 - 20 = 430) -->
+         <rect
+            x="10"
+            y="0"
+            width="430"
+            height="64"
+            fill="url(#cassetteMiddleGradient)"
+         />
+         <!-- Highlight -->
+         <rect x="0" y="0" width="450" height="1" fill="rgba(255,255,255,0.1)" />
       </g>
 
-      <!-- Rails and Fabric Container -->
-      <g class="rails-fabric-group" transform="translate(0, 12.8)">
+      <!-- ================= R A I L S  &  F A B R I C ================= -->
+      <!-- Translated down 64px (Cassette Height) -->
+      <g transform="translate(0, 64)">
+        <!-- Rail Height for 1000mm (300px) total - 64 = 236 -->
+
         <!-- Left Rail -->
-        <rect
-          x="0"
-          y="0"
-          width="5.2"
-          height="187.2"
-          fill="url(#leftRailGradient)"
-          class="rail-left"
-        />
+        <rect x="0" y="0" width="26" height="236" fill="url(#railLeftGradient)" />
 
-        <!-- Right Rail -->
-        <rect
-          x="294.8"
-          y="0"
-          width="5.2"
-          height="187.2"
-          fill="url(#rightRailGradient)"
-          class="rail-right"
-        />
+        <!-- Right Rail (450 - 26 = 424) -->
+        <rect x="424" y="0" width="26" height="236" fill="url(#railRightGradient)" />
 
-        <!-- Fabric Area -->
+        <!-- Fabric (Width 450 - 52 = 398, Height 236 - 16 = 220) -->
         <rect
-          x="5.2"
+          x="26"
           y="0"
-          width="289.6"
-          height="184"
+          width="398"
+          height="220"
           fill="var(--fabric-color, #707070)"
-          class="fabric"
+          class="fabric-rect"
+          style="opacity: 0.92"
         />
 
-        <!-- Bottom Plate -->
+        <!-- Bottom Plate (Width 398, Height 16) -->
         <rect
-          x="5.2"
-          y="184"
-          width="289.6"
-          height="3.2"
+          x="26"
+          y="220"
+          width="398"
+          height="16"
           fill="url(#bottomPlateGradient)"
-          class="bottom-plate"
         />
       </g>
     </g>

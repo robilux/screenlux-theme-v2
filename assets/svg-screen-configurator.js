@@ -7,6 +7,7 @@
  * - Changes colors based on frame and fabric color selections
  * - Syncs with product-configurator-v2.js via custom events
  * - Smooth CSS transitions for all changes
+ * - Draws Cassette with distinct End Caps to preserve corner gradients (Figma accuracy)
  */
 
 (function () {
@@ -18,26 +19,23 @@
       this.svg = null;
       this.initialized = false;
 
-      // Fixed dimensions from Figma (in visual units for SVG)
+      // FIXED FIGMA DIMENSIONS (Pixels)
       this.CASSETTE_HEIGHT = 64;
+      this.CORNER_RADIUS = 10;
+      this.END_CAP_WIDTH = 10; // Left/Right container width
       this.RAIL_WIDTH = 26;
       this.BOTTOM_PLATE_HEIGHT = 16;
-      this.CORNER_RADIUS = 10;
-      this.TOP_BAR_HEIGHT = 8;
+      this.TOP_BAR_HEIGHT = 8; // Decorative top bar height
 
-      // Scale factor: mm to SVG units (we'll scale down for reasonable viewBox)
-      // A 1500mm screen becomes 300 SVG units (divide by 5)
-      this.SCALE_FACTOR = 5;
-
-      // Minimum visual dimensions to prevent too-small SVG
-      this.MIN_SVG_WIDTH = 200;
-      this.MIN_SVG_HEIGHT = 150;
+      // Conversion: 1mm = 0.3px (Visual Scale)
+      // 1500mm -> 450px width.
+      // This ensures the fixed components (64px height) look proportional to the screen size
+      this.PX_PER_MM = 0.3;
 
       this.init();
     }
 
     init() {
-      // Wait for DOM to be ready
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => this.setup());
       } else {
@@ -48,24 +46,26 @@
     setup() {
       this.container = document.getElementById('svg-screen-configurator');
       if (!this.container) {
-        console.log('SVG Screen Configurator: Container not found, will retry on mutation');
         this.observeForContainer();
         return;
       }
 
       this.svg = this.container.querySelector('.configurator-svg');
-      if (!this.svg) {
-        console.error('SVG Screen Configurator: SVG element not found');
-        return;
-      }
+      if (!this.svg) return;
 
       this.initialized = true;
       this.bindEvents();
 
-      // Initial render with default values
-      this.updateFromState(this.getDefaultState());
+      // Initial sync
+      this.syncWithConfigurator();
 
-      console.log('SVG Screen Configurator: Initialized');
+      // If sync didn't find data (empty state), render default
+      const current = this.getCurrentState();
+      if (!current.width) {
+        this.updateFromState(this.getDefaultState());
+      }
+
+      console.log('SVG Screen Configurator: Initialized with Accurate Shapes');
     }
 
     observeForContainer() {
@@ -76,11 +76,7 @@
           this.setup();
         }
       });
-
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-      });
+      observer.observe(document.body, { childList: true, subtree: true });
     }
 
     getDefaultState() {
@@ -94,14 +90,15 @@
     }
 
     bindEvents() {
-      // Listen for configurator state changes
       document.addEventListener('screenlux:screen-updated', (event) => {
-        if (event.detail) {
-          this.updateFromState(event.detail);
-        }
+        if (event.detail) this.updateFromState(event.detail);
       });
 
-      // Also listen for dimension input changes directly (backup method)
+      document.addEventListener('screenlux:configurator-ready', () => {
+        this.syncWithConfigurator();
+      });
+
+      // Direct input monitoring as backup
       document.addEventListener('change', (event) => {
         if (event.target.matches('[data-field="width"], [data-field="height"]')) {
           this.handleDimensionChange(event);
@@ -110,31 +107,22 @@
           this.handleColorChange(event);
         }
       });
-
-      // Listen for the configurator to fully initialize
-      document.addEventListener('screenlux:configurator-ready', () => {
-        this.syncWithConfigurator();
-      });
     }
 
     handleDimensionChange(event) {
       const field = event.target.dataset.field;
       const value = parseInt(event.target.value) || 0;
-
-      const currentState = this.getCurrentState();
-      currentState[field] = value;
-
-      this.updateFromState(currentState);
+      const state = this.getCurrentState();
+      state[field] = value;
+      this.updateFromState(state);
     }
 
     handleColorChange(event) {
       const field = event.target.dataset.field;
       const value = event.target.value;
-
-      const currentState = this.getCurrentState();
-      currentState[field] = value;
-
-      this.updateFromState(currentState);
+      const state = this.getCurrentState();
+      state[field] = value;
+      this.updateFromState(state);
     }
 
     getCurrentState() {
@@ -148,7 +136,6 @@
     }
 
     syncWithConfigurator() {
-      // Try to get state from the configurator
       const configurator = document.querySelector('product-configurator');
       if (configurator && configurator.state && configurator.state.screens && configurator.state.screens.length > 0) {
         const firstScreen = configurator.state.screens[0];
@@ -163,67 +150,43 @@
     }
 
     updateFromState(state) {
-      if (!this.initialized || !this.container || !this.svg) return;
+      if (!this.initialized) return;
 
       const { width, height, frameColor, fabricColor, fabricType } = state;
 
-      // Update data attributes
       this.container.dataset.width = width;
       this.container.dataset.height = height;
       this.container.dataset.frameColor = frameColor;
       this.container.dataset.fabricColor = fabricColor;
       this.container.dataset.fabricType = fabricType;
 
-      // Update SVG viewBox
-      this.updateViewBox(width, height);
-
-      // Update dimension labels
-      this.updateDimensionLabels(width, height);
-
-      // Update colors via CSS custom properties
       this.updateColors(frameColor, fabricColor, fabricType);
-
-      // Re-render SVG elements with new dimensions
       this.renderSVG(width, height);
-    }
-
-    updateViewBox(widthMM, heightMM) {
-      // Convert mm to SVG units
-      let svgWidth = Math.max(widthMM / this.SCALE_FACTOR, this.MIN_SVG_WIDTH);
-      let svgHeight = Math.max(heightMM / this.SCALE_FACTOR, this.MIN_SVG_HEIGHT);
-
-      // Add padding for visual breathing room
-      const padding = 20;
-      const totalWidth = svgWidth + padding * 2;
-      const totalHeight = svgHeight + padding * 2;
-
-      this.svg.setAttribute('viewBox', `0 0 ${totalWidth} ${totalHeight}`);
+      this.updateDimensionLabels(width, height);
     }
 
     updateDimensionLabels(width, height) {
       const widthLabel = this.container.querySelector('[data-dimension="width"]');
       const heightLabel = this.container.querySelector('[data-dimension="height"]');
-
       if (widthLabel) widthLabel.textContent = width;
       if (heightLabel) heightLabel.textContent = height;
     }
 
     updateColors(frameColor, fabricColor, fabricType) {
-      // Get color values from ScreenluxData if available
       const data = window.ScreenluxData;
 
-      // Frame color
+      // Update Frame Color Vars
       if (data && data.frameColors) {
         const frame = data.frameColors.find((f) => f.id === frameColor);
         if (frame && frame.hex) {
           this.container.style.setProperty('--frame-color', frame.hex);
-          // Generate darker shades
-          this.container.style.setProperty('--frame-dark', this.darkenColor(frame.hex, 20));
-          this.container.style.setProperty('--frame-darker', this.darkenColor(frame.hex, 40));
+          this.container.style.setProperty('--frame-dark', this.shiftColor(frame.hex, -20));
+          this.container.style.setProperty('--frame-darker', this.shiftColor(frame.hex, -40));
+          this.container.style.setProperty('--frame-light', this.shiftColor(frame.hex, 20));
         }
       }
 
-      // Fabric color
+      // Update Fabric Color Vars
       if (data && data.fabricColors) {
         const fabric = data.fabricColors.find((f) => f.id === fabricColor);
         if (fabric && fabric.hex) {
@@ -231,158 +194,184 @@
         }
       }
 
-      // Fabric type affects opacity
-      const fabricElement = this.svg.querySelector('.fabric');
+      // Opacity for openness
+      const fabricElement = this.svg.querySelector('.fabric-rect');
       if (fabricElement) {
-        if (fabricType === 'blackout') {
-          fabricElement.style.opacity = '1';
-        } else {
-          // 4% openness - slightly transparent
-          fabricElement.style.opacity = '0.92';
-        }
+        fabricElement.style.opacity = fabricType === 'blackout' ? '1' : '0.92';
       }
     }
 
-    darkenColor(hex, percent) {
-      // Remove # if present
+    // Helper to darken/lighten hex
+    shiftColor(hex, percent) {
       hex = hex.replace('#', '');
+      let r = parseInt(hex.substring(0, 2), 16);
+      let g = parseInt(hex.substring(2, 4), 16);
+      let b = parseInt(hex.substring(4, 6), 16);
 
-      // Convert to RGB
-      let r = parseInt(hex.substr(0, 2), 16);
-      let g = parseInt(hex.substr(2, 2), 16);
-      let b = parseInt(hex.substr(4, 2), 16);
+      if (percent > 0) {
+        // Lighten
+        r = Math.min(255, Math.floor(r + (255 - r) * (percent / 100)));
+        g = Math.min(255, Math.floor(g + (255 - g) * (percent / 100)));
+        b = Math.min(255, Math.floor(b + (255 - b) * (percent / 100)));
+      } else {
+        // Darken
+        const p = Math.abs(percent);
+        r = Math.max(0, Math.floor((r * (100 - p)) / 100));
+        g = Math.max(0, Math.floor((g * (100 - p)) / 100));
+        b = Math.max(0, Math.floor((b * (100 - p)) / 100));
+      }
 
-      // Darken
-      r = Math.max(0, Math.floor((r * (100 - percent)) / 100));
-      g = Math.max(0, Math.floor((g * (100 - percent)) / 100));
-      b = Math.max(0, Math.floor((b * (100 - percent)) / 100));
-
-      // Convert back to hex
       return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
     }
 
     renderSVG(widthMM, heightMM) {
-      // Convert dimensions to SVG units
-      const svgWidth = Math.max(widthMM / this.SCALE_FACTOR, this.MIN_SVG_WIDTH);
-      const svgHeight = Math.max(heightMM / this.SCALE_FACTOR, this.MIN_SVG_HEIGHT);
+      // 1. Calculate SVG Visual Dimensions (Pixels)
+      const svgWidth = Math.max(widthMM * this.PX_PER_MM, 240); // Min width to prevent collapse
+      const svgHeight = Math.max(heightMM * this.PX_PER_MM, 200);
 
+      // 2. Fixed Component Dimensions (Pixels)
+      const H_CASSETTE = this.CASSETTE_HEIGHT;
+      const W_RAIL = this.RAIL_WIDTH;
+      const H_BOTTOM = this.BOTTOM_PLATE_HEIGHT;
+      const R_CORNER = this.CORNER_RADIUS;
+      const W_ENDCAP = this.END_CAP_WIDTH;
+
+      // 3. Derived Dimensions
+      const fabricWidth = svgWidth - W_RAIL * 2;
+      const railHeight = svgHeight - H_CASSETTE;
+      const fabricHeight = railHeight - H_BOTTOM;
+      const middleWidth = svgWidth - W_ENDCAP * 2; // For cassette middle section
+
+      // 4. Update ViewBox to fit new geometry + padding
       const padding = 20;
+      this.svg.setAttribute('viewBox', `0 0 ${svgWidth + padding * 2} ${svgHeight + padding * 2}`);
 
-      // Scale fixed dimensions proportionally
-      // The ratio determines how much of the total height is cassette vs fabric
-      const cassetteHeightScaled = this.CASSETTE_HEIGHT / this.SCALE_FACTOR;
-      const railWidthScaled = this.RAIL_WIDTH / this.SCALE_FACTOR;
-      const bottomPlateScaled = this.BOTTOM_PLATE_HEIGHT / this.SCALE_FACTOR;
-      const topBarScaled = this.TOP_BAR_HEIGHT / this.SCALE_FACTOR;
-      const cornerRadiusScaled = this.CORNER_RADIUS / this.SCALE_FACTOR;
-
-      // Build the SVG content
-      const fabricWidth = svgWidth - railWidthScaled * 2;
-      const fabricHeight = svgHeight - cassetteHeightScaled - bottomPlateScaled;
-      const railHeight = svgHeight - cassetteHeightScaled;
-
+      // 5. Construct Groups
+      // We use a group transform to handle padding
       this.svg.innerHTML = `
         <defs>
-          <!-- Gradients for realistic shading -->
-          <linearGradient id="cassetteGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="var(--frame-dark, #353535)" />
-            <stop offset="30%" stop-color="var(--frame-color, #454545)" />
-            <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
-          </linearGradient>
-          
-          <linearGradient id="leftRailGradient" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-            <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
-          </linearGradient>
-          
-          <linearGradient id="rightRailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-            <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
-          </linearGradient>
-          
-          <linearGradient id="bottomPlateGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-            <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
-          </linearGradient>
+           <!-- 1. Corner Gradients (Radial) - Metallic Look -->
+           <radialGradient id="cornerGradientLeft" cx="100%" cy="100%" r="100%" fx="100%" fy="100%">
+             <stop offset="50%" stop-color="var(--frame-color, #454545)" />
+             <stop offset="75%" stop-color="var(--frame-dark, #353535)" />
+             <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
+           </radialGradient>
+
+           <radialGradient id="cornerGradientRight" cx="0%" cy="100%" r="100%" fx="0%" fy="100%">
+             <stop offset="50%" stop-color="var(--frame-color, #454545)" />
+             <stop offset="75%" stop-color="var(--frame-dark, #353535)" />
+             <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
+           </radialGradient>
+
+           <!-- 2. End Cap Body Gradients (Linear) - Side shading -->
+           <linearGradient id="cassetteSolidGradientLeft" x1="100%" y1="0%" x2="0%" y2="0%">
+             <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+             <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+           </linearGradient>
+
+           <linearGradient id="cassetteSolidGradientRight" x1="0%" y1="0%" x2="100%" y2="0%">
+             <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+             <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+           </linearGradient>
+
+           <!-- 3. Middle Body Gradient (Vertical Linear) - Roundness -->
+           <linearGradient id="cassetteMiddleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="var(--frame-dark, #353535)" />
+              <stop offset="30%" stop-color="var(--frame-color, #454545)" /> 
+              <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+           </linearGradient>
+
+           <!-- 4. Rail Gradients -->
+           <linearGradient id="railLeftGradient" x1="100%" y1="0%" x2="0%" y2="0%">
+             <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+             <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
+           </linearGradient>
+
+           <linearGradient id="railRightGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+             <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+             <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
+           </linearGradient>
+
+           <linearGradient id="bottomPlateGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+              <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+           </linearGradient>
         </defs>
-        
+
         <g transform="translate(${padding}, ${padding})">
-          <!-- Cassette (Top Bar) - Fixed Height, Flexible Width -->
-          <g class="cassette-group">
-            <!-- Main cassette body with rounded top corners -->
-            <rect 
-              x="0" 
-              y="0" 
-              width="${svgWidth}" 
-              height="${cassetteHeightScaled}"
-              rx="${cornerRadiusScaled}"
-              ry="${cornerRadiusScaled}"
-              fill="url(#cassetteGradient)"
-              class="cassette-main"
-            />
-            <!-- Cut off bottom corners (make them square) -->
-            <rect 
-              x="0" 
-              y="${cassetteHeightScaled - cornerRadiusScaled}" 
-              width="${svgWidth}" 
-              height="${cornerRadiusScaled}"
-              fill="var(--frame-color, #454545)"
-              class="cassette-bottom-fill"
-            />
-          </g>
           
-          <!-- Rails and Fabric Container -->
-          <g class="rails-fabric-group" transform="translate(0, ${cassetteHeightScaled})">
-            <!-- Left Rail - Fixed Width, Flexible Height -->
-            <rect 
-              x="0" 
-              y="0" 
-              width="${railWidthScaled}" 
-              height="${railHeight}"
-              fill="url(#leftRailGradient)"
-              class="rail-left"
-            />
-            
-            <!-- Right Rail - Fixed Width, Flexible Height -->
-            <rect 
-              x="${svgWidth - railWidthScaled}" 
-              y="0" 
-              width="${railWidthScaled}" 
-              height="${railHeight}"
-              fill="url(#rightRailGradient)"
-              class="rail-right"
-            />
-            
-            <!-- Fabric Area - Flexible Width & Height -->
-            <rect 
-              x="${railWidthScaled}" 
-              y="0" 
-              width="${fabricWidth}" 
-              height="${fabricHeight}"
-              fill="var(--fabric-color, #707070)"
-              class="fabric"
-            />
-            
-            <!-- Bottom Plate - Fixed Height, Flexible Width -->
-            <rect 
-              x="${railWidthScaled}" 
-              y="${fabricHeight}" 
-              width="${fabricWidth}" 
-              height="${bottomPlateScaled}"
-              fill="url(#bottomPlateGradient)"
-              class="bottom-plate"
-            />
+          <!-- ================= C A S S E T T E ================= -->
+          <g class="cassette-group">
+             
+             <!-- 1. Left End Cap Group -->
+             <g class="cassette-end-left">
+                <!-- Top-Left Rounded Corner (10x10) -->
+                <path d="M 0 10 A 10 10 0 0 1 10 0 L 10 10 L 0 10 Z" fill="url(#cornerGradientLeft)" />
+                <!-- Vertical strip below corner -->
+                <rect x="0" y="10" width="${W_ENDCAP}" height="${
+        H_CASSETTE - 10
+      }" fill="url(#cassetteSolidGradientLeft)" />
+             </g>
+
+             <!-- 2. Right End Cap Group -->
+             <g class="cassette-end-right" transform="translate(${svgWidth - W_ENDCAP}, 0)">
+                <!-- Top-Right Rounded Corner -->
+                <path d="M 0 0 L 10 10 L 0 10 L 0 0 A 10 10 0 0 1 10 10 Z" fill="none" /> <!-- Helper -->
+                <path d="M 0 0 L 10 0 A 10 10 0 0 1 10 10 L 0 10 Z" fill="url(#cornerGradientRight)" />
+                <!-- Vertical strip below corner -->
+                <rect x="0" y="10" width="${W_ENDCAP}" height="${
+        H_CASSETTE - 10
+      }" fill="url(#cassetteSolidGradientRight)" />
+             </g>
+
+             <!-- 3. Middle Section -->
+             <rect 
+                x="${W_ENDCAP}" 
+                y="0" 
+                width="${middleWidth}" 
+                height="${H_CASSETTE}" 
+                fill="url(#cassetteMiddleGradient)" 
+             />
+
+             <!-- Optional: Top Edge Highlight Bar (Figma style) -->
+             <rect x="0" y="0" width="${svgWidth}" height="1" fill="rgba(255,255,255,0.1)" />
           </g>
+
+          <!-- ================= R A I L S  &  F A B R I C ================= -->
+          <g transform="translate(0, ${H_CASSETTE})">
+             
+             <!-- Left Rail -->
+             <rect x="0" y="0" width="${W_RAIL}" height="${railHeight}" fill="url(#railLeftGradient)" />
+
+             <!-- Right Rail -->
+             <rect x="${
+               svgWidth - W_RAIL
+             }" y="0" width="${W_RAIL}" height="${railHeight}" fill="url(#railRightGradient)" />
+
+             <!-- Fabric -->
+             <rect 
+               x="${W_RAIL}" 
+               y="0" 
+               width="${fabricWidth}" 
+               height="${fabricHeight}" 
+               fill="var(--fabric-color, #707070)"
+               class="fabric-rect"
+             />
+
+             <!-- Bottom Plate -->
+             <rect 
+               x="${W_RAIL}" 
+               y="${fabricHeight}" 
+               width="${fabricWidth}" 
+               height="${H_BOTTOM}" 
+               fill="url(#bottomPlateGradient)" 
+             />
+          </g>
+
         </g>
       `;
     }
   }
 
-  // Initialize when script loads
   window.SVGScreenConfigurator = new SVGScreenConfigurator();
-
-  // Export for potential external use
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = SVGScreenConfigurator;
-  }
 })();
