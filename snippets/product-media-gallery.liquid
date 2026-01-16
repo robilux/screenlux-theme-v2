@@ -13,6 +13,10 @@
   if media_count == 0
     assign media_count = 1
   endif
+  comment
+    Add 1 for the SVG configurator slide
+  endcomment
+  assign media_count = media_count | plus: 1
 -%}
 
 <media-gallery
@@ -33,8 +37,10 @@
       class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile slider--tablet-up slider--desktop"
       role="list"
     >
+      {%- assign slide_index = 0 -%}
       {%- for media in product.media -%}
         {%- if media.media_type == 'image' -%}
+          {%- assign slide_index = slide_index | plus: 1 -%}
           <li
             id="Slide-{{ section.id }}-{{ media.id }}"
             class="product__media-item grid__item slider__slide{% if forloop.first %} is-active{% endif %}"
@@ -61,6 +67,20 @@
               >
             </div>
           </li>
+
+          {%- comment -%} Insert SVG Configurator after the first image {%- endcomment -%}
+          {%- if forloop.first -%}
+            <li
+              id="Slide-{{ section.id }}-svg-configurator"
+              class="product__media-item grid__item slider__slide"
+              data-media-id="{{ section.id }}-svg-configurator"
+              data-svg-configurator="true"
+            >
+              <div class="product__media media media--transparent">
+                {% render 'svg-screen-configurator' %}
+              </div>
+            </li>
+          {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
     </ul>
@@ -118,6 +138,27 @@
               loading="lazy"
             >
           </button>
+
+          {%- comment -%} SVG Configurator Thumbnail after first image {%- endcomment -%}
+          {%- if forloop.first -%}
+            <button
+              class="thumbnail thumbnail--configurator"
+              aria-label="Screen Configurator Preview"
+              data-target="{{ section.id }}-svg-configurator"
+              data-media-id="{{ section.id }}-svg-configurator"
+              type="button"
+            >
+              <div class="thumbnail-configurator-icon">
+                <svg width="40" height="30" viewBox="0 0 40 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0" y="0" width="40" height="6" rx="2" fill="#454545"/>
+                  <rect x="0" y="6" width="3" height="24" fill="#454545"/>
+                  <rect x="37" y="6" width="3" height="24" fill="#454545"/>
+                  <rect x="3" y="6" width="34" height="22" fill="#707070"/>
+                  <rect x="3" y="28" width="34" height="2" fill="#454545"/>
+                </svg>
+              </div>
+            </button>
+          {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
     </div>

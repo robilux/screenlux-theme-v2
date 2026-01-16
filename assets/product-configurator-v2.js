@@ -29,6 +29,23 @@ class ProductConfigurator extends HTMLElement {
 
       // 3. Initial Render
       this.render();
+
+      // 4. Dispatch initial state for SVG configurator
+      if (this.state.screens.length > 0) {
+        const firstScreen = this.state.screens[0];
+        document.dispatchEvent(
+          new CustomEvent('screenlux:screen-updated', {
+            detail: {
+              width: firstScreen.width,
+              height: firstScreen.height,
+              frameColor: firstScreen.frameColor,
+              fabricColor: firstScreen.fabricColor,
+              fabricType: firstScreen.fabricType,
+            },
+          })
+        );
+        document.dispatchEvent(new CustomEvent('screenlux:configurator-ready'));
+      }
     } catch (err) {
       console.error('Configurator Init Error:', err);
       this.innerHTML = `
@@ -112,6 +129,22 @@ class ProductConfigurator extends HTMLElement {
     const v = window.ScreenluxEngine.validateDimensions(screen.width, screen.height);
     screen.valid = v.valid;
     screen.errors = v.valid ? {} : { dimension: v.error };
+
+    // Dispatch event for SVG configurator (always use first screen for preview)
+    if (this.state.screens.length > 0) {
+      const firstScreen = this.state.screens[0];
+      document.dispatchEvent(
+        new CustomEvent('screenlux:screen-updated', {
+          detail: {
+            width: firstScreen.width,
+            height: firstScreen.height,
+            frameColor: firstScreen.frameColor,
+            fabricColor: firstScreen.fabricColor,
+            fabricType: firstScreen.fabricType,
+          },
+        })
+      );
+    }
 
     this.render();
   }
