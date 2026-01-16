@@ -1,124 +1,130 @@
 {% comment %}
-  SVG Screen Configurator
-  Renders a dynamic SVG representation of the ZIP-Screen that updates based on user selections.
+  SVG Screen Configurator - Accurate Figma Design
 
-  Structure (from Figma design):
-  - Cassette (top bar): Fixed 64px height, flexible width
-  - Side rails: Fixed 26px width each, flexible height
-  - Fabric: Flexible width/height
-  - Bottom plate: Fixed 16px height
+  Structure (node 151:891):
+  - Cassette (64px): Left End + Container + Container Fixed (Solar) + Right End
+  - Rails: 26px each side
+  - Fabric: Fills center
+  - Bottom Plate: 16px
 
-  Colors update based on frame color selection.
-  The JavaScript (svg-screen-configurator.js) handles dynamic rendering based on dimensions.
+  Default: 1500mm x 1000mm at 0.3 scale
+
+  JavaScript handles dynamic rendering.
 {% endcomment %}
 
 <div
   id="svg-screen-configurator"
   class="svg-screen-configurator"
-  data-frame-color="#454545"
-  data-fabric-color="#707070"
+  data-frame-color="anthracite"
+  data-fabric-color="charcoal"
   data-fabric-type="4-percent"
+  data-motor="wired"
   data-width="1500"
   data-height="1000"
   aria-label="Interactive screen configurator preview"
 >
   <svg
-    viewBox="0 0 340 240"
+    viewBox="0 0 490 340"
     preserveAspectRatio="xMidYMid meet"
     class="configurator-svg"
     role="img"
     aria-label="Screen preview showing current configuration"
   >
     <defs>
-      <!-- Gradients for realistic shading -->
-      <linearGradient id="cassetteGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="var(--frame-dark, #353535)" />
-        <stop offset="30%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+      <!-- Corner gradients -->
+      <radialGradient id="cornerTL" cx="100%" cy="100%" r="100%">
+        <stop offset="50%" stop-color="#454545" />
+        <stop offset="75%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
+      </radialGradient>
+      <radialGradient id="cornerTR" cx="0%" cy="100%" r="100%">
+        <stop offset="50%" stop-color="#454545" />
+        <stop offset="75%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
+      </radialGradient>
+      <radialGradient id="cornerBL" cx="100%" cy="0%" r="100%">
+        <stop offset="50%" stop-color="#454545" />
+        <stop offset="75%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
+      </radialGradient>
+      <radialGradient id="cornerBR" cx="0%" cy="0%" r="100%">
+        <stop offset="50%" stop-color="#454545" />
+        <stop offset="75%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
+      </radialGradient>
+
+      <!-- Band gradients -->
+      <linearGradient id="topBand" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#242424" />
+        <stop offset="100%" stop-color="#353535" />
+      </linearGradient>
+      <linearGradient id="bottomBand" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
       </linearGradient>
 
-      <linearGradient id="leftRailGradient" x1="100%" y1="0%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+      <!-- End cap side gradients -->
+      <linearGradient id="leftSide" x1="100%" y1="0%" x2="0%" y2="0%">
+        <stop offset="50%" stop-color="#454545" />
+        <stop offset="100%" stop-color="#242424" />
       </linearGradient>
-
-      <linearGradient id="rightRailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
-      </linearGradient>
-
-      <linearGradient id="bottomPlateGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+      <linearGradient id="rightSide" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="50%" stop-color="#454545" />
+        <stop offset="100%" stop-color="#242424" />
       </linearGradient>
     </defs>
 
-    <!-- Initial static SVG - JavaScript will re-render dynamically -->
+    <!-- Default static render: 1500x1000mm = 450x300 units -->
     <g transform="translate(20, 20)">
-      <!-- Cassette (Top Bar) - Fixed Height, Flexible Width -->
-      <g class="cassette-group">
-        <!-- Main cassette body with rounded top corners -->
-        <rect
-          x="0"
-          y="0"
-          width="300"
-          height="12.8"
-          rx="2"
-          fill="url(#cassetteGradient)"
-          class="cassette-main"
-        />
-        <!-- Cut off bottom corners -->
-        <rect
-          x="0"
-          y="10.8"
-          width="300"
-          height="2"
-          fill="var(--frame-color, #454545)"
-          class="cassette-bottom-fill"
-        />
+
+      <!-- CASSETTE -->
+      <g class="cassette">
+
+        <!-- LEFT END (10px) -->
+        <g class="left-end">
+          <rect x="0" y="0" width="10" height="10" rx="10" fill="url(#cornerTL)" />
+          <rect x="0" y="10" width="10" height="44" fill="url(#leftSide)" />
+          <rect x="0" y="54" width="10" height="10" rx="10" fill="url(#cornerBL)" />
+        </g>
+
+        <!-- CONTAINER (flexible: 450 - 10 - 135 - 10 = 295) -->
+        <g class="container" transform="translate(10, 0)">
+          <rect x="0" y="0" width="295" height="10" fill="url(#topBand)" />
+          <rect x="0" y="10" width="295" height="44" fill="#454545" />
+          <rect x="0" y="54" width="295" height="10" fill="url(#bottomBand)" />
+        </g>
+
+        <!-- CONTAINER FIXED / SOLAR PANEL (135px scaled) -->
+        <g class="container-fixed" transform="translate(305, 0)">
+          <rect x="0" y="0" width="135" height="10" fill="url(#topBand)" />
+          <rect x="0" y="10" width="135" height="44" fill="#454545" class="solar-panel" />
+          <rect x="0" y="54" width="135" height="10" fill="url(#bottomBand)" />
+        </g>
+
+        <!-- RIGHT END (10px) -->
+        <g class="right-end" transform="translate(440, 0)">
+          <rect x="0" y="0" width="10" height="10" rx="10" fill="url(#cornerTR)" />
+          <rect x="0" y="10" width="10" height="44" fill="url(#rightSide)" />
+          <rect x="0" y="54" width="10" height="10" rx="10" fill="url(#cornerBR)" />
+        </g>
+
       </g>
 
-      <!-- Rails and Fabric Container -->
-      <g class="rails-fabric-group" transform="translate(0, 12.8)">
+      <!-- RAILS & FABRIC -->
+      <g class="rails-fabric" transform="translate(0, 64)">
+
         <!-- Left Rail -->
-        <rect
-          x="0"
-          y="0"
-          width="5.2"
-          height="187.2"
-          fill="url(#leftRailGradient)"
-          class="rail-left"
-        />
+        <rect x="0" y="0" width="26" height="236" fill="#454545" />
 
-        <!-- Right Rail -->
-        <rect
-          x="294.8"
-          y="0"
-          width="5.2"
-          height="187.2"
-          fill="url(#rightRailGradient)"
-          class="rail-right"
-        />
-
-        <!-- Fabric Area -->
-        <rect
-          x="5.2"
-          y="0"
-          width="289.6"
-          height="184"
-          fill="var(--fabric-color, #707070)"
-          class="fabric"
-        />
+        <!-- Fabric (450 - 52 = 398, height 236 - 16 = 220) -->
+        <rect x="26" y="0" width="398" height="220" fill="#707070" opacity="0.92" class="fabric-rect" />
 
         <!-- Bottom Plate -->
-        <rect
-          x="5.2"
-          y="184"
-          width="289.6"
-          height="3.2"
-          fill="url(#bottomPlateGradient)"
-          class="bottom-plate"
-        />
+        <rect x="26" y="220" width="398" height="16" fill="#454545" />
+
+        <!-- Right Rail -->
+        <rect x="424" y="0" width="26" height="236" fill="#454545" />
+
       </g>
     </g>
   </svg>

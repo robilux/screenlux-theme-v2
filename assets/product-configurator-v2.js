@@ -41,6 +41,7 @@ class ProductConfigurator extends HTMLElement {
               frameColor: firstScreen.frameColor,
               fabricColor: firstScreen.fabricColor,
               fabricType: firstScreen.fabricType,
+              motor: firstScreen.motor,
             },
           })
         );
@@ -141,6 +142,7 @@ class ProductConfigurator extends HTMLElement {
             frameColor: firstScreen.frameColor,
             fabricColor: firstScreen.fabricColor,
             fabricType: firstScreen.fabricType,
+            motor: firstScreen.motor,
           },
         })
       );

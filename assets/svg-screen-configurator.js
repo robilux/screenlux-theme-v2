@@ -1,12 +1,26 @@
 /**
- * SVG Screen Configurator
- * Handles dynamic updates to the SVG screen preview based on configurator state.
+ * SVG Screen Configurator - Accurate Figma Implementation
  *
- * Features:
- * - Updates SVG viewBox proportionally based on width/height
- * - Changes colors based on frame and fabric color selections
- * - Syncs with product-configurator-v2.js via custom events
- * - Smooth CSS transitions for all changes
+ * Structure from Figma (node 151:891):
+ *
+ * CASSETTE (64px height):
+ * ┌─────┬──────────────────┬─────────────┬─────┐
+ * │Left │    Container     │  Container  │Right│
+ * │End  │    (flexible)    │   Fixed     │End  │
+ * │10px │                  │  (Solar)    │10px │
+ * │     │                  │   450px     │     │
+ * └─────┴──────────────────┴─────────────┴─────┘
+ *
+ * Each section has 3 horizontal bands:
+ * - Top band: 10px (darker groove)
+ * - Middle: 44px (main body / solar panel)
+ * - Bottom band: 10px (darker groove)
+ *
+ * RAILS & FABRIC:
+ * - Left Rail: 26px
+ * - Fabric: flexible
+ * - Right Rail: 26px
+ * - Bottom Plate: 16px
  */
 
 (function () {
@@ -18,26 +32,38 @@
       this.svg = null;
       this.initialized = false;
 
-      // Fixed dimensions from Figma (in visual units for SVG)
-      this.CASSETTE_HEIGHT = 64;
-      this.RAIL_WIDTH = 26;
-      this.BOTTOM_PLATE_HEIGHT = 16;
-      this.CORNER_RADIUS = 10;
-      this.TOP_BAR_HEIGHT = 8;
+      // Fixed dimensions from Figma (in visual units)
+      this.FIXED = {
+        CASSETTE_HEIGHT: 64,
+        TOP_BAND: 10,
+        MIDDLE_BAND: 44,
+        BOTTOM_BAND: 10,
+        END_CAP_WIDTH: 10,
+        SOLAR_PANEL_WIDTH: 450, // "Container fixed" width
+        RAIL_WIDTH: 26,
+        BOTTOM_PLATE_HEIGHT: 16,
+        CORNER_RADIUS: 10,
+      };
 
-      // Scale factor: mm to SVG units (we'll scale down for reasonable viewBox)
-      // A 1500mm screen becomes 300 SVG units (divide by 5)
-      this.SCALE_FACTOR = 5;
+      // Colors from Figma
+      this.COLORS = {
+        FRAME_ANTHRACITE: '#454545',
+        FRAME_ANTHRACITE_DARK: '#353535',
+        FRAME_ANTHRACITE_DARKER: '#242424',
+        FRAME_WHITE: '#F5F5F5',
+        FRAME_WHITE_DARK: '#E8E8E8',
+        FRAME_WHITE_DARKER: '#D5D5D5',
+        FABRIC_DEFAULT: '#707070',
+        SOLAR_PANEL_ACTIVE: '#373F47', // Darker blue-gray when solar selected
+      };
 
-      // Minimum visual dimensions to prevent too-small SVG
-      this.MIN_SVG_WIDTH = 200;
-      this.MIN_SVG_HEIGHT = 150;
+      // Scale: mm to visual units
+      this.PX_PER_MM = 0.3;
 
       this.init();
     }
 
     init() {
-      // Wait for DOM to be ready
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => this.setup());
       } else {
@@ -48,24 +74,23 @@
     setup() {
       this.container = document.getElementById('svg-screen-configurator');
       if (!this.container) {
-        console.log('SVG Screen Configurator: Container not found, will retry on mutation');
         this.observeForContainer();
         return;
       }
 
       this.svg = this.container.querySelector('.configurator-svg');
-      if (!this.svg) {
-        console.error('SVG Screen Configurator: SVG element not found');
-        return;
-      }
+      if (!this.svg) return;
 
       this.initialized = true;
       this.bindEvents();
+      this.syncWithConfigurator();
 
-      // Initial render with default values
-      this.updateFromState(this.getDefaultState());
+      const current = this.getCurrentState();
+      if (!current.width) {
+        this.updateFromState(this.getDefaultState());
+      }
 
-      console.log('SVG Screen Configurator: Initialized');
+      console.log('SVG Screen Configurator: Initialized (Accurate Figma Structure)');
     }
 
     observeForContainer() {
@@ -76,11 +101,7 @@
           this.setup();
         }
       });
-
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-      });
+      observer.observe(document.body, { childList: true, subtree: true });
     }
 
     getDefaultState() {
@@ -90,51 +111,28 @@
         frameColor: 'anthracite',
         fabricColor: 'charcoal',
         fabricType: '4-percent',
+        motor: 'wired',
       };
     }
 
     bindEvents() {
-      // Listen for configurator state changes
       document.addEventListener('screenlux:screen-updated', (event) => {
-        if (event.detail) {
-          this.updateFromState(event.detail);
-        }
+        if (event.detail) this.updateFromState(event.detail);
       });
 
-      // Also listen for dimension input changes directly (backup method)
-      document.addEventListener('change', (event) => {
-        if (event.target.matches('[data-field="width"], [data-field="height"]')) {
-          this.handleDimensionChange(event);
-        }
-        if (event.target.matches('[data-field="frameColor"], [data-field="fabricColor"], [data-field="fabricType"]')) {
-          this.handleColorChange(event);
-        }
-      });
-
-      // Listen for the configurator to fully initialize
       document.addEventListener('screenlux:configurator-ready', () => {
         this.syncWithConfigurator();
       });
-    }
 
-    handleDimensionChange(event) {
-      const field = event.target.dataset.field;
-      const value = parseInt(event.target.value) || 0;
-
-      const currentState = this.getCurrentState();
-      currentState[field] = value;
-
-      this.updateFromState(currentState);
-    }
-
-    handleColorChange(event) {
-      const field = event.target.dataset.field;
-      const value = event.target.value;
-
-      const currentState = this.getCurrentState();
-      currentState[field] = value;
-
-      this.updateFromState(currentState);
+      document.addEventListener('change', (event) => {
+        const field = event.target.dataset?.field;
+        if (['width', 'height', 'frameColor', 'fabricColor', 'fabricType', 'motor'].includes(field)) {
+          const state = this.getCurrentState();
+          state[field] =
+            field === 'width' || field === 'height' ? parseInt(event.target.value) || 0 : event.target.value;
+          this.updateFromState(state);
+        }
+      });
     }
 
     getCurrentState() {
@@ -144,245 +142,254 @@
         frameColor: this.container.dataset.frameColor || 'anthracite',
         fabricColor: this.container.dataset.fabricColor || 'charcoal',
         fabricType: this.container.dataset.fabricType || '4-percent',
+        motor: this.container.dataset.motor || 'wired',
       };
     }
 
     syncWithConfigurator() {
-      // Try to get state from the configurator
       const configurator = document.querySelector('product-configurator');
-      if (configurator && configurator.state && configurator.state.screens && configurator.state.screens.length > 0) {
-        const firstScreen = configurator.state.screens[0];
+      if (configurator?.state?.screens?.length > 0) {
+        const s = configurator.state.screens[0];
         this.updateFromState({
-          width: firstScreen.width || 1500,
-          height: firstScreen.height || 1000,
-          frameColor: firstScreen.frameColor || 'anthracite',
-          fabricColor: firstScreen.fabricColor || 'charcoal',
-          fabricType: firstScreen.fabricType || '4-percent',
+          width: s.width || 1500,
+          height: s.height || 1000,
+          frameColor: s.frameColor || 'anthracite',
+          fabricColor: s.fabricColor || 'charcoal',
+          fabricType: s.fabricType || '4-percent',
+          motor: s.motor || 'wired',
         });
       }
     }
 
     updateFromState(state) {
-      if (!this.initialized || !this.container || !this.svg) return;
+      if (!this.initialized) return;
 
-      const { width, height, frameColor, fabricColor, fabricType } = state;
+      const { width, height, frameColor, fabricColor, fabricType, motor } = state;
 
       // Update data attributes
-      this.container.dataset.width = width;
-      this.container.dataset.height = height;
-      this.container.dataset.frameColor = frameColor;
-      this.container.dataset.fabricColor = fabricColor;
-      this.container.dataset.fabricType = fabricType;
+      Object.assign(this.container.dataset, {
+        width,
+        height,
+        frameColor,
+        fabricColor,
+        fabricType,
+        motor,
+      });
 
-      // Update SVG viewBox
-      this.updateViewBox(width, height);
+      // Get colors
+      const colors = this.getColors(frameColor, fabricColor, motor);
 
-      // Update dimension labels
+      // Render
+      this.renderSVG(width, height, colors, fabricType);
       this.updateDimensionLabels(width, height);
-
-      // Update colors via CSS custom properties
-      this.updateColors(frameColor, fabricColor, fabricType);
-
-      // Re-render SVG elements with new dimensions
-      this.renderSVG(width, height);
     }
 
-    updateViewBox(widthMM, heightMM) {
-      // Convert mm to SVG units
-      let svgWidth = Math.max(widthMM / this.SCALE_FACTOR, this.MIN_SVG_WIDTH);
-      let svgHeight = Math.max(heightMM / this.SCALE_FACTOR, this.MIN_SVG_HEIGHT);
+    getColors(frameColor, fabricColor, motor) {
+      const isWhite = frameColor === 'white';
+      const isSolar = motor === 'solar';
 
-      // Add padding for visual breathing room
-      const padding = 20;
-      const totalWidth = svgWidth + padding * 2;
-      const totalHeight = svgHeight + padding * 2;
+      // Base frame colors
+      const frame = isWhite ? this.COLORS.FRAME_WHITE : this.COLORS.FRAME_ANTHRACITE;
+      const frameDark = isWhite ? this.COLORS.FRAME_WHITE_DARK : this.COLORS.FRAME_ANTHRACITE_DARK;
+      const frameDarker = isWhite ? this.COLORS.FRAME_WHITE_DARKER : this.COLORS.FRAME_ANTHRACITE_DARKER;
 
-      this.svg.setAttribute('viewBox', `0 0 ${totalWidth} ${totalHeight}`);
+      // Solar panel color: same as frame when not solar, special color when solar
+      const solarPanel = isSolar ? this.COLORS.SOLAR_PANEL_ACTIVE : frame;
+
+      // Fabric color from data
+      let fabric = this.COLORS.FABRIC_DEFAULT;
+      const data = window.ScreenluxData;
+      if (data?.fabricColors) {
+        const fc = data.fabricColors.find((f) => f.id === fabricColor);
+        if (fc?.hex) fabric = fc.hex;
+      }
+
+      return { frame, frameDark, frameDarker, solarPanel, fabric };
     }
 
     updateDimensionLabels(width, height) {
-      const widthLabel = this.container.querySelector('[data-dimension="width"]');
-      const heightLabel = this.container.querySelector('[data-dimension="height"]');
-
-      if (widthLabel) widthLabel.textContent = width;
-      if (heightLabel) heightLabel.textContent = height;
+      const wl = this.container.querySelector('[data-dimension="width"]');
+      const hl = this.container.querySelector('[data-dimension="height"]');
+      if (wl) wl.textContent = width;
+      if (hl) hl.textContent = height;
     }
 
-    updateColors(frameColor, fabricColor, fabricType) {
-      // Get color values from ScreenluxData if available
-      const data = window.ScreenluxData;
+    renderSVG(widthMM, heightMM, colors, fabricType) {
+      const F = this.FIXED;
 
-      // Frame color
-      if (data && data.frameColors) {
-        const frame = data.frameColors.find((f) => f.id === frameColor);
-        if (frame && frame.hex) {
-          this.container.style.setProperty('--frame-color', frame.hex);
-          // Generate darker shades
-          this.container.style.setProperty('--frame-dark', this.darkenColor(frame.hex, 20));
-          this.container.style.setProperty('--frame-darker', this.darkenColor(frame.hex, 40));
-        }
-      }
+      // Convert mm to visual units
+      const totalW = Math.max(widthMM * this.PX_PER_MM, 300);
+      const totalH = Math.max(heightMM * this.PX_PER_MM, 200);
 
-      // Fabric color
-      if (data && data.fabricColors) {
-        const fabric = data.fabricColors.find((f) => f.id === fabricColor);
-        if (fabric && fabric.hex) {
-          this.container.style.setProperty('--fabric-color', fabric.hex);
-        }
-      }
+      // Calculate cassette sections
+      // Total width = LeftEnd(10) + Container(flex) + SolarPanel(450 scaled) + RightEnd(10)
+      // For proper proportions, scale solar panel width relative to total
+      const solarPanelW = Math.min(F.SOLAR_PANEL_WIDTH * (totalW / 1480), totalW * 0.3);
+      const containerW = totalW - F.END_CAP_WIDTH * 2 - solarPanelW;
 
-      // Fabric type affects opacity
-      const fabricElement = this.svg.querySelector('.fabric');
-      if (fabricElement) {
-        if (fabricType === 'blackout') {
-          fabricElement.style.opacity = '1';
-        } else {
-          // 4% openness - slightly transparent
-          fabricElement.style.opacity = '0.92';
-        }
-      }
-    }
+      // Rails and fabric dimensions
+      const railsH = totalH - F.CASSETTE_HEIGHT;
+      const fabricW = totalW - F.RAIL_WIDTH * 2;
+      const fabricH = railsH - F.BOTTOM_PLATE_HEIGHT;
 
-    darkenColor(hex, percent) {
-      // Remove # if present
-      hex = hex.replace('#', '');
+      // Fabric opacity
+      const fabricOpacity = fabricType === 'blackout' ? 1 : 0.92;
 
-      // Convert to RGB
-      let r = parseInt(hex.substr(0, 2), 16);
-      let g = parseInt(hex.substr(2, 2), 16);
-      let b = parseInt(hex.substr(4, 2), 16);
+      // Padding
+      const PAD = 20;
+      const viewW = totalW + PAD * 2;
+      const viewH = totalH + PAD * 2;
 
-      // Darken
-      r = Math.max(0, Math.floor((r * (100 - percent)) / 100));
-      g = Math.max(0, Math.floor((g * (100 - percent)) / 100));
-      b = Math.max(0, Math.floor((b * (100 - percent)) / 100));
+      this.svg.setAttribute('viewBox', `0 0 ${viewW} ${viewH}`);
 
-      // Convert back to hex
-      return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-    }
-
-    renderSVG(widthMM, heightMM) {
-      // Convert dimensions to SVG units
-      const svgWidth = Math.max(widthMM / this.SCALE_FACTOR, this.MIN_SVG_WIDTH);
-      const svgHeight = Math.max(heightMM / this.SCALE_FACTOR, this.MIN_SVG_HEIGHT);
-
-      const padding = 20;
-
-      // Scale fixed dimensions proportionally
-      // The ratio determines how much of the total height is cassette vs fabric
-      const cassetteHeightScaled = this.CASSETTE_HEIGHT / this.SCALE_FACTOR;
-      const railWidthScaled = this.RAIL_WIDTH / this.SCALE_FACTOR;
-      const bottomPlateScaled = this.BOTTOM_PLATE_HEIGHT / this.SCALE_FACTOR;
-      const topBarScaled = this.TOP_BAR_HEIGHT / this.SCALE_FACTOR;
-      const cornerRadiusScaled = this.CORNER_RADIUS / this.SCALE_FACTOR;
-
-      // Build the SVG content
-      const fabricWidth = svgWidth - railWidthScaled * 2;
-      const fabricHeight = svgHeight - cassetteHeightScaled - bottomPlateScaled;
-      const railHeight = svgHeight - cassetteHeightScaled;
-
+      // Build SVG
       this.svg.innerHTML = `
         <defs>
-          <!-- Gradients for realistic shading -->
-          <linearGradient id="cassetteGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="var(--frame-dark, #353535)" />
-            <stop offset="30%" stop-color="var(--frame-color, #454545)" />
-            <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+          <!-- Corner gradients (radial) for end caps -->
+          <radialGradient id="cornerTL" cx="100%" cy="100%" r="100%">
+            <stop offset="50%" stop-color="${colors.frame}" />
+            <stop offset="75%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
+          </radialGradient>
+          <radialGradient id="cornerTR" cx="0%" cy="100%" r="100%">
+            <stop offset="50%" stop-color="${colors.frame}" />
+            <stop offset="75%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
+          </radialGradient>
+          <radialGradient id="cornerBL" cx="100%" cy="0%" r="100%">
+            <stop offset="50%" stop-color="${colors.frame}" />
+            <stop offset="75%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
+          </radialGradient>
+          <radialGradient id="cornerBR" cx="0%" cy="0%" r="100%">
+            <stop offset="50%" stop-color="${colors.frame}" />
+            <stop offset="75%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
+          </radialGradient>
+          
+          <!-- Horizontal band gradients -->
+          <linearGradient id="topBand" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="${colors.frameDarker}" />
+            <stop offset="100%" stop-color="${colors.frameDark}" />
+          </linearGradient>
+          <linearGradient id="bottomBand" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
           </linearGradient>
           
-          <linearGradient id="leftRailGradient" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-            <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+          <!-- End cap side gradient -->
+          <linearGradient id="leftSide" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="50%" stop-color="${colors.frame}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
           </linearGradient>
-          
-          <linearGradient id="rightRailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-            <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
-          </linearGradient>
-          
-          <linearGradient id="bottomPlateGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-            <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+          <linearGradient id="rightSide" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="50%" stop-color="${colors.frame}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
           </linearGradient>
         </defs>
-        
-        <g transform="translate(${padding}, ${padding})">
-          <!-- Cassette (Top Bar) - Fixed Height, Flexible Width -->
-          <g class="cassette-group">
-            <!-- Main cassette body with rounded top corners -->
-            <rect 
-              x="0" 
-              y="0" 
-              width="${svgWidth}" 
-              height="${cassetteHeightScaled}"
-              rx="${cornerRadiusScaled}"
-              ry="${cornerRadiusScaled}"
-              fill="url(#cassetteGradient)"
-              class="cassette-main"
-            />
-            <!-- Cut off bottom corners (make them square) -->
-            <rect 
-              x="0" 
-              y="${cassetteHeightScaled - cornerRadiusScaled}" 
-              width="${svgWidth}" 
-              height="${cornerRadiusScaled}"
-              fill="var(--frame-color, #454545)"
-              class="cassette-bottom-fill"
-            />
+
+        <g transform="translate(${PAD}, ${PAD})">
+          
+          <!-- ═══════════════ CASSETTE ═══════════════ -->
+          <g class="cassette">
+            
+            <!-- LEFT END (10px wide) -->
+            <g class="left-end">
+              <!-- Top-left corner (10×10) with radial gradient -->
+              <rect x="0" y="0" width="${F.END_CAP_WIDTH}" height="${F.TOP_BAND}" rx="${
+        F.CORNER_RADIUS
+      }" fill="url(#cornerTL)" />
+              <!-- Middle band (10×44) with side gradient -->
+              <rect x="0" y="${F.TOP_BAND}" width="${F.END_CAP_WIDTH}" height="${
+        F.MIDDLE_BAND
+      }" fill="url(#leftSide)" />
+              <!-- Bottom-left corner (10×10) with radial gradient -->
+              <rect x="0" y="${F.TOP_BAND + F.MIDDLE_BAND}" width="${F.END_CAP_WIDTH}" height="${F.BOTTOM_BAND}" rx="${
+        F.CORNER_RADIUS
+      }" fill="url(#cornerBL)" />
+            </g>
+            
+            <!-- CONTAINER (flexible width) -->
+            <g class="container" transform="translate(${F.END_CAP_WIDTH}, 0)">
+              <!-- Top band -->
+              <rect x="0" y="0" width="${containerW}" height="${F.TOP_BAND}" fill="url(#topBand)" />
+              <!-- Middle (main body) -->
+              <rect x="0" y="${F.TOP_BAND}" width="${containerW}" height="${F.MIDDLE_BAND}" fill="${colors.frame}" />
+              <!-- Bottom band -->
+              <rect x="0" y="${F.TOP_BAND + F.MIDDLE_BAND}" width="${containerW}" height="${
+        F.BOTTOM_BAND
+      }" fill="url(#bottomBand)" />
+            </g>
+            
+            <!-- CONTAINER FIXED / SOLAR PANEL (450px in Figma) -->
+            <g class="container-fixed" transform="translate(${F.END_CAP_WIDTH + containerW}, 0)">
+              <!-- Top band -->
+              <rect x="0" y="0" width="${solarPanelW}" height="${F.TOP_BAND}" fill="url(#topBand)" />
+              <!-- Solar Panel (middle) - Changes color when solar selected -->
+              <rect x="0" y="${F.TOP_BAND}" width="${solarPanelW}" height="${F.MIDDLE_BAND}" fill="${
+        colors.solarPanel
+      }" class="solar-panel" />
+              <!-- Bottom band -->
+              <rect x="0" y="${F.TOP_BAND + F.MIDDLE_BAND}" width="${solarPanelW}" height="${
+        F.BOTTOM_BAND
+      }" fill="url(#bottomBand)" />
+            </g>
+            
+            <!-- RIGHT END (10px wide) -->
+            <g class="right-end" transform="translate(${totalW - F.END_CAP_WIDTH}, 0)">
+              <!-- Top-right corner -->
+              <rect x="0" y="0" width="${F.END_CAP_WIDTH}" height="${F.TOP_BAND}" rx="${
+        F.CORNER_RADIUS
+      }" fill="url(#cornerTR)" />
+              <!-- Middle band with side gradient -->
+              <rect x="0" y="${F.TOP_BAND}" width="${F.END_CAP_WIDTH}" height="${
+        F.MIDDLE_BAND
+      }" fill="url(#rightSide)" />
+              <!-- Bottom-right corner -->
+              <rect x="0" y="${F.TOP_BAND + F.MIDDLE_BAND}" width="${F.END_CAP_WIDTH}" height="${F.BOTTOM_BAND}" rx="${
+        F.CORNER_RADIUS
+      }" fill="url(#cornerBR)" />
+            </g>
+            
           </g>
           
-          <!-- Rails and Fabric Container -->
-          <g class="rails-fabric-group" transform="translate(0, ${cassetteHeightScaled})">
-            <!-- Left Rail - Fixed Width, Flexible Height -->
+          <!-- ═══════════════ RAILS & FABRIC ═══════════════ -->
+          <g class="rails-fabric" transform="translate(0, ${F.CASSETTE_HEIGHT})">
+            
+            <!-- LEFT RAIL -->
+            <rect x="0" y="0" width="${F.RAIL_WIDTH}" height="${railsH}" fill="${colors.frame}" />
+            
+            <!-- FABRIC -->
             <rect 
-              x="0" 
+              x="${F.RAIL_WIDTH}" 
               y="0" 
-              width="${railWidthScaled}" 
-              height="${railHeight}"
-              fill="url(#leftRailGradient)"
-              class="rail-left"
+              width="${fabricW}" 
+              height="${fabricH}" 
+              fill="${colors.fabric}"
+              opacity="${fabricOpacity}"
+              class="fabric-rect"
             />
             
-            <!-- Right Rail - Fixed Width, Flexible Height -->
+            <!-- BOTTOM PLATE -->
             <rect 
-              x="${svgWidth - railWidthScaled}" 
-              y="0" 
-              width="${railWidthScaled}" 
-              height="${railHeight}"
-              fill="url(#rightRailGradient)"
-              class="rail-right"
+              x="${F.RAIL_WIDTH}" 
+              y="${fabricH}" 
+              width="${fabricW}" 
+              height="${F.BOTTOM_PLATE_HEIGHT}" 
+              fill="${colors.frame}"
             />
             
-            <!-- Fabric Area - Flexible Width & Height -->
-            <rect 
-              x="${railWidthScaled}" 
-              y="0" 
-              width="${fabricWidth}" 
-              height="${fabricHeight}"
-              fill="var(--fabric-color, #707070)"
-              class="fabric"
-            />
+            <!-- RIGHT RAIL -->
+            <rect x="${totalW - F.RAIL_WIDTH}" y="0" width="${F.RAIL_WIDTH}" height="${railsH}" fill="${
+        colors.frame
+      }" />
             
-            <!-- Bottom Plate - Fixed Height, Flexible Width -->
-            <rect 
-              x="${railWidthScaled}" 
-              y="${fabricHeight}" 
-              width="${fabricWidth}" 
-              height="${bottomPlateScaled}"
-              fill="url(#bottomPlateGradient)"
-              class="bottom-plate"
-            />
           </g>
+          
         </g>
       `;
     }
   }
 
-  // Initialize when script loads
   window.SVGScreenConfigurator = new SVGScreenConfigurator();
-
-  // Export for potential external use
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = SVGScreenConfigurator;
-  }
 })();
