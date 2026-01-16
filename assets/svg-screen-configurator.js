@@ -266,18 +266,18 @@
           <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="${
             H + F.MIDDLE_BAND + F.BOTTOM_BAND
           }" r="${W * 1.5}">
-            <stop offset="0.50" stop-color="${colors.frame}" />
+            <stop offset="0.50" stop-color="${colors.frameDarker}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
-            <stop offset="1" stop-color="${colors.frameDarker}" />
+            <stop offset="1" stop-color="${colors.frame}" />
           </radialGradient>
           
           <!-- Bottom-right: gradient center at bottom-right corner of the path -->
           <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="${W}" cy="${
         H + F.MIDDLE_BAND + F.BOTTOM_BAND
       }" r="${W * 1.5}">
-            <stop offset="0.50" stop-color="${colors.frame}" />
+            <stop offset="0.50" stop-color="${colors.frameDarker}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
-            <stop offset="1" stop-color="${colors.frameDarker}" />
+            <stop offset="1" stop-color="${colors.frame}" />
           </radialGradient>
           
           <!-- EDGE RECTANGLE GRADIENTS (dark at edges, correct color by 50%) -->
