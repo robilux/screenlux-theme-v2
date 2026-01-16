@@ -1,17 +1,15 @@
 {% comment %}
   SVG Screen Configurator
-  Renders a dynamic SVG representation of the ZIP-Screen that updates based on user selections.
+  Renders a dynamic SVG representation of the ZIP-Screen.
 
-  Structure (Matches Figma Design):
-  - Cassette Height: 64px (Fixed)
-  - Corner Radius: 10px (Fixed)
-  - End Cap Width: 10px (Fixed)
-  - Rail Width: 26px (Fixed)
-  - Bottom Plate: 16px (Fixed)
-  - Scale: 1mm = 0.3px Visual Units
+  Refined Design (v2):
+  - Unified Cassette Shape (No seams)
+  - Vertical Metallic Gradient
+  - Transparent End Cap Overlays
+  - Depth Shadows
+  - Matches 1500mm x 1000mm default state (0.3 scale)
 
   The JavaScript (svg-screen-configurator.js) re-renders this dynamically.
-  This snippet provides the initial state (Default: 1500mm x 1000mm).
 {% endcomment %}
 
 <div
@@ -32,111 +30,114 @@
     aria-label="Screen preview showing current configuration"
   >
     <defs>
-      <!-- 1. Corner Gradients (Radial) - Metallic Look -->
-      <radialGradient id="cornerGradientLeft" cx="100%" cy="100%" r="100%" fx="100%" fy="100%">
-        <stop offset="50%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="75%" stop-color="var(--frame-dark, #353535)" />
-        <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
-      </radialGradient>
-
-      <radialGradient id="cornerGradientRight" cx="0%" cy="100%" r="100%" fx="0%" fy="100%">
-        <stop offset="50%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="75%" stop-color="var(--frame-dark, #353535)" />
-        <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
-      </radialGradient>
-
-      <!-- 2. End Cap Body Gradients (Linear) - Side shading -->
-      <linearGradient id="cassetteSolidGradientLeft" x1="100%" y1="0%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+      <!-- 1. Main Metallic Gradient (Vertical) -->
+      <linearGradient id="metalVerticalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+         <stop offset="0%" stop-color="var(--frame-dark, #353535)" />
+         <stop offset="30%" stop-color="var(--frame-color, #454545)" />
+         <stop offset="60%" stop-color="var(--frame-dark, #353535)" />
+         <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
       </linearGradient>
 
-      <linearGradient id="cassetteSolidGradientRight" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+      <!-- 2. End Cap Overlays (Shading) -->
+      <linearGradient id="capOverlayLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="var(--frame-darker, #000)" stop-opacity="0.5" />
+        <stop offset="100%" stop-color="var(--frame-color, #454545)" stop-opacity="0" />
       </linearGradient>
 
-      <!-- 3. Middle Body Gradient (Vertical Linear) - Roundness -->
-      <linearGradient id="cassetteMiddleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="var(--frame-dark, #353535)" />
-        <stop offset="30%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+      <linearGradient id="capOverlayRight" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="var(--frame-color, #454545)" stop-opacity="0" />
+        <stop offset="100%" stop-color="var(--frame-darker, #000)" stop-opacity="0.5" />
       </linearGradient>
 
-      <!-- 4. Rail Gradients -->
+      <!-- 3. Rail Gradients (Horizontal) -->
       <linearGradient id="railLeftGradient" x1="100%" y1="0%" x2="0%" y2="0%">
         <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+        <stop offset="15%" stop-color="#555" />
+        <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
       </linearGradient>
 
       <linearGradient id="railRightGradient" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="100%" stop-color="var(--frame-darker, #2f2f2f)" />
+        <stop offset="15%" stop-color="#555" />
+        <stop offset="100%" stop-color="var(--frame-darker, #242424)" />
       </linearGradient>
 
+      <!-- 4. Bottom Plate -->
       <linearGradient id="bottomPlateGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="var(--frame-color, #454545)" />
-        <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
+         <stop offset="0%" stop-color="var(--frame-color, #454545)" />
+         <stop offset="100%" stop-color="var(--frame-dark, #353535)" />
       </linearGradient>
+
+      <!-- 5. Dropshadow for depth -->
+      <filter id="shadowDepth" x="-10%" y="-10%" width="120%" height="120%">
+         <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+         <feOffset dx="0" dy="2" result="offsetblur"/>
+         <feComponentTransfer>
+           <feFuncA type="linear" slope="0.3"/>
+         </feComponentTransfer>
+         <feMerge>
+           <feMergeNode/>
+           <feMergeNode in="SourceGraphic"/>
+         </feMerge>
+      </filter>
     </defs>
 
     <!-- Groups with Padding (20px) -->
     <g transform="translate(20, 20)">
 
       <!-- ================= C A S S E T T E ================= -->
-      <g class="cassette-group">
-         <!-- 1. Left End Cap Group -->
-         <g class="cassette-end-left">
-            <path d="M 0 10 A 10 10 0 0 1 10 0 L 10 10 L 0 10 Z" fill="url(#cornerGradientLeft)" />
-            <rect x="0" y="10" width="10" height="54" fill="url(#cassetteSolidGradientLeft)" />
-         </g>
-
-         <!-- 2. Right End Cap Group (Width 450 - 10 = 440 translation) -->
-         <g class="cassette-end-right" transform="translate(440, 0)">
-            <path d="M 0 0 L 10 0 A 10 10 0 0 1 10 10 L 0 10 Z" fill="url(#cornerGradientRight)" />
-            <rect x="0" y="10" width="10" height="54" fill="url(#cassetteSolidGradientRight)" />
-         </g>
-
-         <!-- 3. Middle Section (Width 450 - 20 = 430) -->
-         <rect
-            x="10"
-            y="0"
-            width="430"
-            height="64"
-            fill="url(#cassetteMiddleGradient)"
+      <!-- Width 450, Height 64 -->
+      <g class="cassette-group" filter="url(#shadowDepth)">
+         <!-- Unified Body -->
+         <path
+           d="M 0 64 L 0 10 A 10 10 0 0 1 10 0 L 440 0 A 10 10 0 0 1 450 10 L 450 64 Z"
+           fill="url(#metalVerticalGradient)"
          />
-         <!-- Highlight -->
-         <rect x="0" y="0" width="450" height="1" fill="rgba(255,255,255,0.1)" />
+
+         <!-- Left Overlay (Width 10) -->
+         <path
+           d="M 0 64 L 0 10 A 10 10 0 0 1 10 0 L 10 0 L 10 64 Z"
+           fill="url(#capOverlayLeft)"
+         />
+
+         <!-- Right Overlay (Width 10, Start X 440) -->
+         <path
+           d="M 440 0 L 440 0 A 10 10 0 0 1 450 10 L 450 64 L 440 64 Z"
+           fill="url(#capOverlayRight)"
+         />
+
+         <!-- Top Highlight -->
+         <path d="M 10 1 L 440 1" stroke="rgba(255,255,255,0.3)" stroke-width="1" />
       </g>
 
       <!-- ================= R A I L S  &  F A B R I C ================= -->
-      <!-- Translated down 64px (Cassette Height) -->
-      <g transform="translate(0, 64)">
-        <!-- Rail Height for 1000mm (300px) total - 64 = 236 -->
+      <!-- Translated down 63px (Overlap by 1px) -->
+      <g transform="translate(0, 63)">
 
         <!-- Left Rail -->
-        <rect x="0" y="0" width="26" height="236" fill="url(#railLeftGradient)" />
+        <rect x="0" y="0" width="26" height="237" fill="url(#railLeftGradient)" />
 
         <!-- Right Rail (450 - 26 = 424) -->
-        <rect x="424" y="0" width="26" height="236" fill="url(#railRightGradient)" />
+        <rect x="424" y="0" width="26" height="237" fill="url(#railRightGradient)" />
 
-        <!-- Fabric (Width 450 - 52 = 398, Height 236 - 16 = 220) -->
+        <!-- Fabric (Width 398, Height 237) -->
         <rect
           x="26"
           y="0"
           width="398"
-          height="220"
+          height="237"
           fill="var(--fabric-color, #707070)"
           class="fabric-rect"
           style="opacity: 0.92"
         />
 
-        <!-- Bottom Plate (Width 398, Height 16) -->
+        <!-- Bottom Plate (Width 398 - 8 = 390, Centered relative to fabric) -->
         <rect
-          x="26"
+          x="30"
           y="220"
-          width="398"
+          width="390"
           height="16"
+          rx="2"
           fill="url(#bottomPlateGradient)"
         />
       </g>
