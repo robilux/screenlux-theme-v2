@@ -1,10 +1,8 @@
 {% comment %}
-  SVG Screen Configurator - With Corner Squares
+  SVG Screen Configurator - Path-based Corners
 
-  Structure:
-  - Cassette with container background (rounded TOP corners only)
-  - Left/Right ends: 3 squares each (top with top-corner radius, middle, bottom with bottom-corner radius)
-  - All edge boxes have gradients similar to side gradients
+  Uses SVG paths to achieve single-corner radius on each corner square.
+  Radial gradients with matrix transforms matching Figma node 151:840.
 
   Default: 1500mm x 1000mm at 0.3 scale
 {% endcomment %}
@@ -28,47 +26,29 @@
     aria-label="Screen preview showing current configuration"
   >
     <defs>
-      <!-- Corner gradients -->
-      <radialGradient id="cornerTL" cx="100%" cy="100%" r="100%">
-        <stop offset="50%" stop-color="#454545" />
-        <stop offset="75%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
+      <!-- Radial gradients for corners (from Figma) -->
+      <radialGradient id="gradTL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(-0.7 -0.75 0.75 -0.7 7 7)">
+        <stop offset="0.50" stop-color="#454545" />
+        <stop offset="0.75" stop-color="#353535" />
+        <stop offset="1" stop-color="#242424" />
       </radialGradient>
-      <radialGradient id="cornerTR" cx="0%" cy="100%" r="100%">
-        <stop offset="50%" stop-color="#454545" />
-        <stop offset="75%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
+      <radialGradient id="gradTR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(0.7 -0.75 0.75 0.7 0 7)">
+        <stop offset="0.50" stop-color="#454545" />
+        <stop offset="0.75" stop-color="#353535" />
+        <stop offset="1" stop-color="#242424" />
       </radialGradient>
-      <radialGradient id="cornerBL" cx="100%" cy="0%" r="100%">
-        <stop offset="50%" stop-color="#454545" />
-        <stop offset="75%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
+      <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(-0.7 0.75 -0.75 -0.7 7 0)">
+        <stop offset="0.50" stop-color="#454545" />
+        <stop offset="0.75" stop-color="#353535" />
+        <stop offset="1" stop-color="#242424" />
       </radialGradient>
-      <radialGradient id="cornerBR" cx="0%" cy="0%" r="100%">
-        <stop offset="50%" stop-color="#454545" />
-        <stop offset="75%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
+      <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(0.7 0.75 -0.75 0.7 0 0)">
+        <stop offset="0.50" stop-color="#454545" />
+        <stop offset="0.75" stop-color="#353535" />
+        <stop offset="1" stop-color="#242424" />
       </radialGradient>
 
-      <!-- Edge box gradients (horizontal) -->
-      <linearGradient id="topBandLeft" x1="100%" y1="0%" x2="0%" y2="0%">
-        <stop offset="50%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
-      </linearGradient>
-      <linearGradient id="topBandRight" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="50%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
-      </linearGradient>
-      <linearGradient id="bottomBandLeft" x1="100%" y1="0%" x2="0%" y2="0%">
-        <stop offset="50%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
-      </linearGradient>
-      <linearGradient id="bottomBandRight" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="50%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
-      </linearGradient>
-
-      <!-- Container band gradients (vertical) -->
+      <!-- Band gradients -->
       <linearGradient id="topBand" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#242424" />
         <stop offset="100%" stop-color="#353535" />
@@ -77,8 +57,6 @@
         <stop offset="0%" stop-color="#353535" />
         <stop offset="100%" stop-color="#242424" />
       </linearGradient>
-
-      <!-- Side gradients -->
       <linearGradient id="leftSide" x1="100%" y1="0%" x2="0%" y2="0%">
         <stop offset="50%" stop-color="#454545" />
         <stop offset="100%" stop-color="#242424" />
@@ -99,11 +77,12 @@
 
         <!-- LEFT END -->
         <g class="left-end">
-          <rect x="0" y="0" width="7" height="7" rx="7" fill="url(#cornerTL)" />
-          <rect x="0" y="0" width="7" height="7" fill="url(#topBandLeft)" />
+          <!-- Top-left (only top-left corner rounded) -->
+          <path d="M 7 0 L 7 0 L 7 7 L 0 7 L 0 7 A 7 7 0 0 1 7 0 Z" fill="url(#gradTL)" />
+          <!-- Middle -->
           <rect x="0" y="7" width="7" height="28" fill="url(#leftSide)" />
-          <rect x="0" y="35" width="7" height="7" rx="7" fill="url(#cornerBL)" />
-          <rect x="0" y="35" width="7" height="7" fill="url(#bottomBandLeft)" />
+          <!-- Bottom-left (only bottom-left corner rounded) -->
+          <path d="M 0 35 L 7 35 L 7 42 L 7 42 A 7 7 0 0 1 0 35 L 0 35 Z" fill="url(#gradBL)" />
         </g>
 
         <!-- CONTAINER -->
@@ -122,11 +101,12 @@
 
         <!-- RIGHT END -->
         <g class="right-end" transform="translate(443, 0)">
-          <rect x="0" y="0" width="7" height="7" rx="7" fill="url(#cornerTR)" />
-          <rect x="0" y="0" width="7" height="7" fill="url(#topBandRight)" />
+          <!-- Top-right (only top-right corner rounded) -->
+          <path d="M 0 0 L 0 0 A 7 7 0 0 1 7 7 L 7 7 L 0 7 Z" fill="url(#gradTR)" />
+          <!-- Middle -->
           <rect x="0" y="7" width="7" height="28" fill="url(#rightSide)" />
-          <rect x="0" y="35" width="7" height="7" rx="7" fill="url(#cornerBR)" />
-          <rect x="0" y="35" width="7" height="7" fill="url(#bottomBandRight)" />
+          <!-- Bottom-right (only bottom-right corner rounded) -->
+          <path d="M 0 35 L 0 35 L 0 42 L 0 42 A 7 7 0 0 1 7 35 L 7 35 Z" fill="url(#gradBR)" />
         </g>
 
       </g>
