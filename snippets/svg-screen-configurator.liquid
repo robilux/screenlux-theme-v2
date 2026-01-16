@@ -1,9 +1,7 @@
 {% comment %}
   SVG Screen Configurator
 
-  Corner gradients: bottom corners mirror top corners
-  Edge rectangles: dark on edges, reach correct color by 50%
-
+  Corner gradients with proper center positions for mirrored effect.
   Default: 1500mm x 1000mm at 0.3 scale
 {% endcomment %}
 
@@ -26,7 +24,7 @@
     aria-label="Screen preview showing current configuration"
   >
     <defs>
-      <!-- Corner gradients -->
+      <!-- Top corner gradients (from Figma) -->
       <radialGradient id="gradTL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(-0.7 -0.75 0.75 -0.7 7 7)">
         <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
@@ -37,12 +35,14 @@
         <stop offset="0.75" stop-color="#353535" />
         <stop offset="1" stop-color="#242424" />
       </radialGradient>
-      <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(-0.7 0.75 -0.75 -0.7 7 7)">
+
+      <!-- Bottom corner gradients (mirrored - center at bottom) -->
+      <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="42" r="10.5">
         <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
         <stop offset="1" stop-color="#242424" />
       </radialGradient>
-      <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(0.7 0.75 0.75 -0.7 0 0)">
+      <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="7" cy="42" r="10.5">
         <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
         <stop offset="1" stop-color="#242424" />

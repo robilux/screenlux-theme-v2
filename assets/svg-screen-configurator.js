@@ -259,15 +259,22 @@
             <stop offset="1" stop-color="${colors.frameDarker}" />
           </radialGradient>
           
-          <!-- Bottom-left: MIRROR of top-left (gradient radiates from top-right corner) -->
-          <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(-0.7 0.75 -0.75 -0.7 ${W} ${H})">
+          <!-- Bottom-left: gradient center at bottom-left corner of the path -->
+          <!-- Path is at y = H + MIDDLE_BAND = ${H} + ${F.MIDDLE_BAND}, bottom of path is at y = ${H} + ${
+        F.MIDDLE_BAND
+      } + ${F.BOTTOM_BAND} -->
+          <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="${
+            H + F.MIDDLE_BAND + F.BOTTOM_BAND
+          }" r="${W * 1.5}">
             <stop offset="0.50" stop-color="${colors.frame}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
             <stop offset="1" stop-color="${colors.frameDarker}" />
           </radialGradient>
           
-          <!-- Bottom-right: MIRROR of top-right (gradient radiates from top-left corner) -->
-          <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(0.7 0.75 0.75 -0.7 0 0)">
+          <!-- Bottom-right: gradient center at bottom-right corner of the path -->
+          <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="${W}" cy="${
+        H + F.MIDDLE_BAND + F.BOTTOM_BAND
+      }" r="${W * 1.5}">
             <stop offset="0.50" stop-color="${colors.frame}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
             <stop offset="1" stop-color="${colors.frameDarker}" />
