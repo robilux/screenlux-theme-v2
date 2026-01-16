@@ -1,12 +1,12 @@
 {% comment %}
-  SVG Screen Configurator - Fixed Proportions
+  SVG Screen Configurator - With Corner Squares
 
   Structure:
   - Cassette with container background (rounded TOP corners only)
-  - Left/Right ends: Square with single-corner radius (NO bottom circles)
-  - Proportions reduced by ~1.5x for proper mm/visual ratio
+  - Left/Right ends: 3 squares each (top with top-corner radius, middle, bottom with bottom-corner radius)
+  - All edge boxes have gradients similar to side gradients
 
-  Default: 1500mm x 1000mm at 0.3 scale = 450 x 300 units
+  Default: 1500mm x 1000mm at 0.3 scale
 {% endcomment %}
 
 <div
@@ -28,6 +28,7 @@
     aria-label="Screen preview showing current configuration"
   >
     <defs>
+      <!-- Corner gradients -->
       <radialGradient id="cornerTL" cx="100%" cy="100%" r="100%">
         <stop offset="50%" stop-color="#454545" />
         <stop offset="75%" stop-color="#353535" />
@@ -38,6 +39,36 @@
         <stop offset="75%" stop-color="#353535" />
         <stop offset="100%" stop-color="#242424" />
       </radialGradient>
+      <radialGradient id="cornerBL" cx="100%" cy="0%" r="100%">
+        <stop offset="50%" stop-color="#454545" />
+        <stop offset="75%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
+      </radialGradient>
+      <radialGradient id="cornerBR" cx="0%" cy="0%" r="100%">
+        <stop offset="50%" stop-color="#454545" />
+        <stop offset="75%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
+      </radialGradient>
+
+      <!-- Edge box gradients (horizontal) -->
+      <linearGradient id="topBandLeft" x1="100%" y1="0%" x2="0%" y2="0%">
+        <stop offset="50%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
+      </linearGradient>
+      <linearGradient id="topBandRight" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="50%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
+      </linearGradient>
+      <linearGradient id="bottomBandLeft" x1="100%" y1="0%" x2="0%" y2="0%">
+        <stop offset="50%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
+      </linearGradient>
+      <linearGradient id="bottomBandRight" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="50%" stop-color="#353535" />
+        <stop offset="100%" stop-color="#242424" />
+      </linearGradient>
+
+      <!-- Container band gradients (vertical) -->
       <linearGradient id="topBand" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#242424" />
         <stop offset="100%" stop-color="#353535" />
@@ -46,6 +77,8 @@
         <stop offset="0%" stop-color="#353535" />
         <stop offset="100%" stop-color="#242424" />
       </linearGradient>
+
+      <!-- Side gradients -->
       <linearGradient id="leftSide" x1="100%" y1="0%" x2="0%" y2="0%">
         <stop offset="50%" stop-color="#454545" />
         <stop offset="100%" stop-color="#242424" />
@@ -56,31 +89,31 @@
       </linearGradient>
     </defs>
 
-    <!-- 1500x1000mm = 450x300 units, padding 15 -->
     <g transform="translate(15, 15)">
 
-      <!-- Cassette container background (rounded top corners) -->
+      <!-- Cassette background -->
       <rect x="0" y="0" width="450" height="42" rx="7" fill="#454545" />
       <rect x="0" y="35" width="450" height="7" fill="#454545" />
 
-      <!-- CASSETTE PARTS -->
       <g class="cassette">
 
         <!-- LEFT END -->
         <g class="left-end">
           <rect x="0" y="0" width="7" height="7" rx="7" fill="url(#cornerTL)" />
-          <rect x="0" y="0" width="7" height="7" fill="url(#cornerTL)" />
-          <rect x="0" y="7" width="7" height="35" fill="url(#leftSide)" />
+          <rect x="0" y="0" width="7" height="7" fill="url(#topBandLeft)" />
+          <rect x="0" y="7" width="7" height="28" fill="url(#leftSide)" />
+          <rect x="0" y="35" width="7" height="7" rx="7" fill="url(#cornerBL)" />
+          <rect x="0" y="35" width="7" height="7" fill="url(#bottomBandLeft)" />
         </g>
 
-        <!-- CONTAINER (450 - 7 - 135 - 7 = 301) -->
+        <!-- CONTAINER -->
         <g class="container" transform="translate(7, 0)">
           <rect x="0" y="0" width="301" height="7" fill="url(#topBand)" />
           <rect x="0" y="7" width="301" height="28" fill="#454545" />
           <rect x="0" y="35" width="301" height="7" fill="url(#bottomBand)" />
         </g>
 
-        <!-- SOLAR PANEL (135px) -->
+        <!-- SOLAR PANEL -->
         <g class="container-fixed" transform="translate(308, 0)">
           <rect x="0" y="0" width="135" height="7" fill="url(#topBand)" />
           <rect x="0" y="7" width="135" height="28" fill="#454545" class="solar-panel" />
@@ -90,8 +123,10 @@
         <!-- RIGHT END -->
         <g class="right-end" transform="translate(443, 0)">
           <rect x="0" y="0" width="7" height="7" rx="7" fill="url(#cornerTR)" />
-          <rect x="0" y="0" width="7" height="7" fill="url(#cornerTR)" />
-          <rect x="0" y="7" width="7" height="35" fill="url(#rightSide)" />
+          <rect x="0" y="0" width="7" height="7" fill="url(#topBandRight)" />
+          <rect x="0" y="7" width="7" height="28" fill="url(#rightSide)" />
+          <rect x="0" y="35" width="7" height="7" rx="7" fill="url(#cornerBR)" />
+          <rect x="0" y="35" width="7" height="7" fill="url(#bottomBandRight)" />
         </g>
 
       </g>
@@ -106,7 +141,6 @@
     </g>
   </svg>
 
-  <!-- Dimension Labels -->
   <div class="dimension-labels">
     <span class="dimension-label dimension-width">
       <span class="dimension-value" data-dimension="width">1500</span> mm

@@ -3,14 +3,15 @@
  *
  * Structure from Figma (node 151:891):
  *
- * CASSETTE (height ~43px visual, 64px Figma scaled down):
+ * CASSETTE (height ~42px visual):
  * - Container background with rounded TOP corners only
- * - Left End: Top-left rounded square + side band (NO bottom circle)
- * - Container: Flexible width main body
+ * - Left End: 3 squares stacked vertically
+ *   - Top: square with top-left radius
+ *   - Middle: side gradient
+ *   - Bottom: square with bottom-left radius
+ * - Container: Flexible width (top/middle/bottom bands with gradients)
  * - Container Fixed: Solar panel section
- * - Right End: Top-right rounded square + side band (NO bottom circle)
- *
- * Fixed dimensions scaled down by ~1.5x for proper proportions.
+ * - Right End: 3 squares (top-right, middle, bottom-right radius)
  */
 
 (function () {
@@ -24,15 +25,15 @@
 
       // Fixed dimensions - REDUCED by ~1.5x for proper proportions
       this.FIXED = {
-        CASSETTE_HEIGHT: 42, // Was 64
-        TOP_BAND: 7, // Was 10
-        MIDDLE_BAND: 28, // Was 44
-        BOTTOM_BAND: 7, // Was 10
-        END_CAP_WIDTH: 7, // Was 10
-        SOLAR_PANEL_WIDTH: 300, // Was 450 (proportionally)
-        RAIL_WIDTH: 17, // Was 26
-        BOTTOM_PLATE_HEIGHT: 10, // Was 16
-        CORNER_RADIUS: 7, // Was 10
+        CASSETTE_HEIGHT: 42,
+        TOP_BAND: 7,
+        MIDDLE_BAND: 28,
+        BOTTOM_BAND: 7,
+        END_CAP_WIDTH: 7,
+        SOLAR_PANEL_WIDTH: 300,
+        RAIL_WIDTH: 17,
+        BOTTOM_PLATE_HEIGHT: 10,
+        CORNER_RADIUS: 7,
       };
 
       // Colors from Figma
@@ -47,7 +48,6 @@
         SOLAR_PANEL_ACTIVE: '#373F47',
       };
 
-      // Scale: mm to visual units
       this.PX_PER_MM = 0.3;
 
       this.init();
@@ -80,7 +80,7 @@
         this.updateFromState(this.getDefaultState());
       }
 
-      console.log('SVG Screen Configurator: Initialized (Fixed Proportions)');
+      console.log('SVG Screen Configurator: Initialized (With Corner Squares)');
     }
 
     observeForContainer() {
@@ -200,15 +200,12 @@
     renderSVG(widthMM, heightMM, colors, fabricType) {
       const F = this.FIXED;
 
-      // Convert mm to visual units
       const totalW = Math.max(widthMM * this.PX_PER_MM, 200);
       const totalH = Math.max(heightMM * this.PX_PER_MM, 150);
 
-      // Calculate cassette sections
       const solarPanelW = Math.min(F.SOLAR_PANEL_WIDTH * (totalW / 1000), totalW * 0.3);
       const containerW = totalW - F.END_CAP_WIDTH * 2 - solarPanelW;
 
-      // Rails and fabric dimensions
       const railsH = totalH - F.CASSETTE_HEIGHT;
       const fabricW = totalW - F.RAIL_WIDTH * 2;
       const fabricH = railsH - F.BOTTOM_PLATE_HEIGHT;
@@ -223,7 +220,7 @@
 
       this.svg.innerHTML = `
         <defs>
-          <!-- Top corner gradients (radial) -->
+          <!-- Corner gradients (radial) for all 4 corners -->
           <radialGradient id="cornerTL" cx="100%" cy="100%" r="100%">
             <stop offset="50%" stop-color="${colors.frame}" />
             <stop offset="75%" stop-color="${colors.frameDark}" />
@@ -234,8 +231,36 @@
             <stop offset="75%" stop-color="${colors.frameDark}" />
             <stop offset="100%" stop-color="${colors.frameDarker}" />
           </radialGradient>
+          <radialGradient id="cornerBL" cx="100%" cy="0%" r="100%">
+            <stop offset="50%" stop-color="${colors.frame}" />
+            <stop offset="75%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
+          </radialGradient>
+          <radialGradient id="cornerBR" cx="0%" cy="0%" r="100%">
+            <stop offset="50%" stop-color="${colors.frame}" />
+            <stop offset="75%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
+          </radialGradient>
           
-          <!-- Band gradients -->
+          <!-- Top/Bottom band gradients (similar to left/right side gradients) -->
+          <linearGradient id="topBandLeft" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="50%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
+          </linearGradient>
+          <linearGradient id="topBandRight" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="50%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
+          </linearGradient>
+          <linearGradient id="bottomBandLeft" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="50%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
+          </linearGradient>
+          <linearGradient id="bottomBandRight" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="50%" stop-color="${colors.frameDark}" />
+            <stop offset="100%" stop-color="${colors.frameDarker}" />
+          </linearGradient>
+          
+          <!-- Container band gradients (vertical) -->
           <linearGradient id="topBand" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="${colors.frameDarker}" />
             <stop offset="100%" stop-color="${colors.frameDark}" />
@@ -245,7 +270,7 @@
             <stop offset="100%" stop-color="${colors.frameDarker}" />
           </linearGradient>
           
-          <!-- End cap side gradients -->
+          <!-- End cap side gradients (horizontal) -->
           <linearGradient id="leftSide" x1="100%" y1="0%" x2="0%" y2="0%">
             <stop offset="50%" stop-color="${colors.frame}" />
             <stop offset="100%" stop-color="${colors.frameDarker}" />
@@ -280,27 +305,37 @@
           
           <g class="cassette">
             
-            <!-- LEFT END (square with top-left radius only, NO bottom circle) -->
+            <!-- ═══ LEFT END ═══ -->
             <g class="left-end">
-              <!-- Top-left corner square with border-radius on top-left -->
-              <rect x="0" y="0" width="${F.END_CAP_WIDTH}" height="${F.TOP_BAND}" rx="${F.CORNER_RADIUS}" ry="${
+              <!-- Top square with top-left radius -->
+              <rect x="0" y="0" width="${F.END_CAP_WIDTH}" height="${F.TOP_BAND}" rx="${
         F.CORNER_RADIUS
       }" fill="url(#cornerTL)" />
-              <!-- Square off right and bottom corners -->
               <rect x="${F.END_CAP_WIDTH - F.CORNER_RADIUS}" y="0" width="${F.CORNER_RADIUS}" height="${
         F.TOP_BAND
-      }" fill="url(#cornerTL)" />
+      }" fill="url(#topBandLeft)" />
               <rect x="0" y="${F.TOP_BAND - F.CORNER_RADIUS}" width="${F.END_CAP_WIDTH}" height="${
         F.CORNER_RADIUS
-      }" fill="url(#cornerTL)" />
+      }" fill="url(#topBandLeft)" />
               
-              <!-- Side band (middle section) -->
+              <!-- Middle band with side gradient -->
               <rect x="0" y="${F.TOP_BAND}" width="${F.END_CAP_WIDTH}" height="${
-        F.MIDDLE_BAND + F.BOTTOM_BAND
+        F.MIDDLE_BAND
       }" fill="url(#leftSide)" />
+              
+              <!-- Bottom square with bottom-left radius -->
+              <rect x="0" y="${F.TOP_BAND + F.MIDDLE_BAND}" width="${F.END_CAP_WIDTH}" height="${F.BOTTOM_BAND}" rx="${
+        F.CORNER_RADIUS
+      }" fill="url(#cornerBL)" />
+              <rect x="${F.END_CAP_WIDTH - F.CORNER_RADIUS}" y="${F.TOP_BAND + F.MIDDLE_BAND}" width="${
+        F.CORNER_RADIUS
+      }" height="${F.BOTTOM_BAND}" fill="url(#bottomBandLeft)" />
+              <rect x="0" y="${F.TOP_BAND + F.MIDDLE_BAND}" width="${F.END_CAP_WIDTH}" height="${
+        F.CORNER_RADIUS
+      }" fill="url(#bottomBandLeft)" />
             </g>
             
-            <!-- CONTAINER (flexible width) -->
+            <!-- ═══ CONTAINER (flexible width) ═══ -->
             <g class="container" transform="translate(${F.END_CAP_WIDTH}, 0)">
               <rect x="0" y="0" width="${containerW}" height="${F.TOP_BAND}" fill="url(#topBand)" />
               <rect x="0" y="${F.TOP_BAND}" width="${containerW}" height="${F.MIDDLE_BAND}" fill="${colors.frame}" />
@@ -309,7 +344,7 @@
       }" fill="url(#bottomBand)" />
             </g>
             
-            <!-- CONTAINER FIXED / SOLAR PANEL -->
+            <!-- ═══ CONTAINER FIXED / SOLAR PANEL ═══ -->
             <g class="container-fixed" transform="translate(${F.END_CAP_WIDTH + containerW}, 0)">
               <rect x="0" y="0" width="${solarPanelW}" height="${F.TOP_BAND}" fill="url(#topBand)" />
               <rect x="0" y="${F.TOP_BAND}" width="${solarPanelW}" height="${F.MIDDLE_BAND}" fill="${
@@ -320,22 +355,32 @@
       }" fill="url(#bottomBand)" />
             </g>
             
-            <!-- RIGHT END (square with top-right radius only, NO bottom circle) -->
+            <!-- ═══ RIGHT END ═══ -->
             <g class="right-end" transform="translate(${totalW - F.END_CAP_WIDTH}, 0)">
-              <!-- Top-right corner square with border-radius on top-right -->
-              <rect x="0" y="0" width="${F.END_CAP_WIDTH}" height="${F.TOP_BAND}" rx="${F.CORNER_RADIUS}" ry="${
+              <!-- Top square with top-right radius -->
+              <rect x="0" y="0" width="${F.END_CAP_WIDTH}" height="${F.TOP_BAND}" rx="${
         F.CORNER_RADIUS
       }" fill="url(#cornerTR)" />
-              <!-- Square off left and bottom corners -->
-              <rect x="0" y="0" width="${F.CORNER_RADIUS}" height="${F.TOP_BAND}" fill="url(#cornerTR)" />
+              <rect x="0" y="0" width="${F.CORNER_RADIUS}" height="${F.TOP_BAND}" fill="url(#topBandRight)" />
               <rect x="0" y="${F.TOP_BAND - F.CORNER_RADIUS}" width="${F.END_CAP_WIDTH}" height="${
         F.CORNER_RADIUS
-      }" fill="url(#cornerTR)" />
+      }" fill="url(#topBandRight)" />
               
-              <!-- Side band (middle section) -->
+              <!-- Middle band with side gradient -->
               <rect x="0" y="${F.TOP_BAND}" width="${F.END_CAP_WIDTH}" height="${
-        F.MIDDLE_BAND + F.BOTTOM_BAND
+        F.MIDDLE_BAND
       }" fill="url(#rightSide)" />
+              
+              <!-- Bottom square with bottom-right radius -->
+              <rect x="0" y="${F.TOP_BAND + F.MIDDLE_BAND}" width="${F.END_CAP_WIDTH}" height="${F.BOTTOM_BAND}" rx="${
+        F.CORNER_RADIUS
+      }" fill="url(#cornerBR)" />
+              <rect x="0" y="${F.TOP_BAND + F.MIDDLE_BAND}" width="${F.CORNER_RADIUS}" height="${
+        F.BOTTOM_BAND
+      }" fill="url(#bottomBandRight)" />
+              <rect x="0" y="${F.TOP_BAND + F.MIDDLE_BAND}" width="${F.END_CAP_WIDTH}" height="${
+        F.CORNER_RADIUS
+      }" fill="url(#bottomBandRight)" />
             </g>
             
           </g>
