@@ -1450,3 +1450,151 @@ slider-component .slider-counter {
     grid-template-columns: 1fr auto 1fr; /* Keep 3-column */
   }
 }
+
+/* =============================================
+   SVG Screen Configurator Styles
+   ============================================= */
+
+/* Configurator Thumbnail in Gallery */
+.thumbnail--configurator {
+  width: 72px;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #F8F9FA 0%, #E9ECEF 100%);
+  border-radius: var(--sl-radius-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease;
+}
+
+.thumbnail--configurator:hover {
+  border-color: var(--sl-color-gray-300);
+}
+
+.thumbnail--configurator.active {
+  border-color: var(--sl-color-primary);
+}
+
+.thumbnail-configurator-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.thumbnail-configurator-icon svg {
+  width: 40px;
+  height: auto;
+}
+
+/* SVG Screen Configurator Slide */
+.svg-screen-configurator {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #F8F9FA 0%, #E9ECEF 100%);
+  border-radius: var(--sl-radius-lg);
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.configurator-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  transition: all 0.3s ease-out;
+}
+
+/* CSS Custom Properties for dynamic colors */
+.svg-screen-configurator {
+  --frame-color: #454545;
+  --frame-dark: #353535;
+  --frame-darker: #242424;
+  --fabric-color: #707070;
+}
+
+/* Frame color variations */
+.svg-screen-configurator[data-frame-color="white"],
+.svg-screen-configurator[data-frame-color="#FFFFFF"] {
+  --frame-color: #F5F5F5;
+  --frame-dark: #E8E8E8;
+  --frame-darker: #D5D5D5;
+}
+
+.svg-screen-configurator[data-frame-color="anthracite"],
+.svg-screen-configurator[data-frame-color="#373F47"] {
+  --frame-color: #373F47;
+  --frame-dark: #2A3138;
+  --frame-darker: #1D2329;
+}
+
+/* Fabric color variations */
+.svg-screen-configurator[data-fabric-color="charcoal"],
+.svg-screen-configurator[data-fabric-color="#1F1F1F"] {
+  --fabric-color: #1F1F1F;
+}
+
+.svg-screen-configurator[data-fabric-color="gray"],
+.svg-screen-configurator[data-fabric-color="#6B7280"] {
+  --fabric-color: #6B7280;
+}
+
+/* Dimension labels */
+.dimension-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dimension-label {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+.dimension-width {
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dimension-height {
+  right: 36px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center center;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .svg-screen-configurator {
+    padding: 16px;
+  }
+  
+  .dimension-label {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+  
+  .dimension-width {
+    bottom: 24px;
+  }
+  
+  .dimension-height {
+    right: 24px;
+  }
+}
