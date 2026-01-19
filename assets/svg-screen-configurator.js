@@ -17,15 +17,15 @@
       this.initialized = false;
 
       this.FIXED = {
-        CASSETTE_HEIGHT: 42,
-        TOP_BAND: 7,
-        MIDDLE_BAND: 28,
-        BOTTOM_BAND: 7,
-        END_CAP_WIDTH: 7,
+        CASSETTE_HEIGHT: 25, // Was 42, now 60%
+        TOP_BAND: 4, // Was 7, now 60%
+        MIDDLE_BAND: 17, // Was 28, now 60%
+        BOTTOM_BAND: 4, // Was 7, now 60%
+        END_CAP_WIDTH: 4, // Was 7, now 60%
         SOLAR_PANEL_WIDTH: 300,
-        RAIL_WIDTH: 17,
-        BOTTOM_PLATE_HEIGHT: 10,
-        CORNER_RADIUS: 7,
+        RAIL_WIDTH: 12, // Was 17, now 70%
+        BOTTOM_PLATE_HEIGHT: 6, // Was 10, now 60%
+        CORNER_RADIUS: 4, // Was 7, now 60%
       };
 
       this.COLORS = {
@@ -261,8 +261,8 @@
           
           <!-- Bottom-left: gradient center at bottom-left corner of the path -->
           <!-- Path is at y = H + MIDDLE_BAND = ${H} + ${F.MIDDLE_BAND}, bottom of path is at y = ${H} + ${
-        F.MIDDLE_BAND
-      } + ${F.BOTTOM_BAND} -->
+            F.MIDDLE_BAND
+          } + ${F.BOTTOM_BAND} -->
           <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="${
             H + F.MIDDLE_BAND + F.BOTTOM_BAND
           }" r="${W * 1.5}">
@@ -273,8 +273,8 @@
           
           <!-- Bottom-right: gradient center at bottom-right corner of the path -->
           <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="${W}" cy="${
-        H + F.MIDDLE_BAND + F.BOTTOM_BAND
-      }" r="${W * 1.5}">
+            H + F.MIDDLE_BAND + F.BOTTOM_BAND
+          }" r="${W * 1.5}">
             <stop offset="0.50" stop-color="${colors.frameDarker}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
             <stop offset="1" stop-color="${colors.frame}" />
@@ -327,8 +327,8 @@
           
           <!-- ═══════════════ CASSETTE BACKGROUND ═══════════════ -->
           <rect x="0" y="0" width="${totalW}" height="${F.CASSETTE_HEIGHT}" rx="${R}" ry="${R}" fill="${
-        colors.frame
-      }" />
+            colors.frame
+          }" />
           <rect x="0" y="${F.CASSETTE_HEIGHT - R}" width="${totalW}" height="${R}" fill="${colors.frame}" />
           
           <g class="cassette">
@@ -356,19 +356,19 @@
               <rect x="0" y="0" width="${containerW}" height="${H}" fill="url(#topBand)" />
               <rect x="0" y="${H}" width="${containerW}" height="${F.MIDDLE_BAND}" fill="${colors.frame}" />
               <rect x="0" y="${H + F.MIDDLE_BAND}" width="${containerW}" height="${
-        F.BOTTOM_BAND
-      }" fill="url(#bottomBand)" />
+                F.BOTTOM_BAND
+              }" fill="url(#bottomBand)" />
             </g>
             
             <!-- ═══ SOLAR PANEL ═══ -->
             <g class="container-fixed" transform="translate(${W + containerW}, 0)">
               <rect x="0" y="0" width="${solarPanelW}" height="${H}" fill="url(#topBand)" />
               <rect x="0" y="${H}" width="${solarPanelW}" height="${F.MIDDLE_BAND}" fill="${
-        colors.solarPanel
-      }" class="solar-panel" />
+                colors.solarPanel
+              }" class="solar-panel" />
               <rect x="0" y="${H + F.MIDDLE_BAND}" width="${solarPanelW}" height="${
-        F.BOTTOM_BAND
-      }" fill="url(#bottomBand)" />
+                F.BOTTOM_BAND
+              }" fill="url(#bottomBand)" />
             </g>
             
             <!-- ═══ RIGHT END ═══ -->
@@ -389,14 +389,14 @@
           <g class="rails-fabric" transform="translate(0, ${F.CASSETTE_HEIGHT})">
             <rect x="0" y="0" width="${F.RAIL_WIDTH}" height="${railsH}" fill="${colors.frame}" />
             <rect x="${F.RAIL_WIDTH}" y="0" width="${fabricW}" height="${fabricH}" fill="${
-        colors.fabric
-      }" opacity="${fabricOpacity}" class="fabric-rect" />
+              colors.fabric
+            }" opacity="${fabricOpacity}" class="fabric-rect" />
             <rect x="${F.RAIL_WIDTH}" y="${fabricH}" width="${fabricW}" height="${F.BOTTOM_PLATE_HEIGHT}" fill="${
-        colors.frame
-      }" />
+              colors.frame
+            }" />
             <rect x="${totalW - F.RAIL_WIDTH}" y="0" width="${F.RAIL_WIDTH}" height="${railsH}" fill="${
-        colors.frame
-      }" />
+              colors.frame
+            }" />
           </g>
           
         </g>
