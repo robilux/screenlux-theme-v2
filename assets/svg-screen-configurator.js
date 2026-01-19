@@ -249,15 +249,15 @@
             <stop offset="1" stop-color="${colors.frameDarker}" />
           </radialGradient>
           
-          <!-- Bottom-left corner (gradient at bottom of cassette) -->
-          <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(-0.7 -0.75 0.75 -0.7 ${W} ${H + F.MIDDLE_BAND + F.BOTTOM_BAND})">
+          <!-- Bottom-left corner (gradient angle flipped from top-left) -->
+          <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(-0.7 0.75 0.75 0.7 ${W} ${H + F.MIDDLE_BAND})">
             <stop offset="0.50" stop-color="${colors.frame}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
             <stop offset="1" stop-color="${colors.frameDarker}" />
           </radialGradient>
           
-          <!-- Bottom-right corner (gradient at bottom of cassette) -->
-          <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(0.7 -0.75 0.75 0.7 0 ${H + F.MIDDLE_BAND + F.BOTTOM_BAND})">
+          <!-- Bottom-right corner (gradient angle flipped from top-right) -->
+          <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(0.7 0.75 0.75 -0.7 0 ${H + F.MIDDLE_BAND})">
             <stop offset="0.50" stop-color="${colors.frame}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
             <stop offset="1" stop-color="${colors.frameDarker}" />
