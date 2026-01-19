@@ -249,15 +249,15 @@
             <stop offset="1" stop-color="${colors.frameDarker}" />
           </radialGradient>
           
-          <!-- Bottom-left corner (MIRRORED top-left) -->
-          <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(-0.7 0.75 -0.75 -0.7 ${W} 0)">
+          <!-- Bottom-left corner (SAME gradient style as top-left) -->
+          <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(-0.7 -0.75 0.75 -0.7 ${W} ${F.BOTTOM_BAND})">
             <stop offset="0.50" stop-color="${colors.frame}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
             <stop offset="1" stop-color="${colors.frameDarker}" />
           </radialGradient>
           
-          <!-- Bottom-right corner (MIRRORED top-right) -->
-          <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(0.7 0.75 -0.75 0.7 0 ${F.BOTTOM_BAND})">
+          <!-- Bottom-right corner (SAME gradient style as top-right) -->
+          <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(0.7 -0.75 0.75 0.7 0 ${F.BOTTOM_BAND})">
             <stop offset="0.50" stop-color="${colors.frame}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
             <stop offset="1" stop-color="${colors.frameDarker}" />
