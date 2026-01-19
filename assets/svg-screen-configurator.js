@@ -1,10 +1,8 @@
 /**
  * SVG Screen Configurator - Accurate Figma Implementation
  *
- * Corner gradients from Figma node 151:840:
- * - Radial gradient with matrix transform
- * - Bottom corners mirror top corners (opposite direction)
- * - Edge rectangles: dark on edges, reach correct color by 50%
+ * Top/Bottom bands: Same gradient style as side bands but vertical
+ * Bottom corners: Mirrored versions of top corners
  */
 
 (function () {
@@ -17,15 +15,15 @@
       this.initialized = false;
 
       this.FIXED = {
-        CASSETTE_HEIGHT: 25, // Was 42, now 60%
-        TOP_BAND: 4, // Was 7, now 60%
-        MIDDLE_BAND: 17, // Was 28, now 60%
-        BOTTOM_BAND: 4, // Was 7, now 60%
-        END_CAP_WIDTH: 4, // Was 7, now 60%
+        CASSETTE_HEIGHT: 25,
+        TOP_BAND: 4,
+        MIDDLE_BAND: 17,
+        BOTTOM_BAND: 4,
+        END_CAP_WIDTH: 4,
         SOLAR_PANEL_WIDTH: 300,
-        RAIL_WIDTH: 12, // Was 17, now 70%
-        BOTTOM_PLATE_HEIGHT: 6, // Was 10, now 60%
-        CORNER_RADIUS: 4, // Was 7, now 60%
+        RAIL_WIDTH: 12,
+        BOTTOM_PLATE_HEIGHT: 6,
+        CORNER_RADIUS: 4,
       };
 
       this.COLORS = {
@@ -190,30 +188,22 @@
 
     // Path for square with only TOP-LEFT rounded corner
     pathTopLeft(x, y, w, h, r) {
-      return `M ${x + r} ${y} L ${x + w} ${y} L ${x + w} ${y + h} L ${x} ${y + h} L ${x} ${y + r} A ${r} ${r} 0 0 1 ${
-        x + r
-      } ${y} Z`;
+      return `M ${x + r} ${y} L ${x + w} ${y} L ${x + w} ${y + h} L ${x} ${y + h} L ${x} ${y + r} A ${r} ${r} 0 0 1 ${x + r} ${y} Z`;
     }
 
     // Path for square with only TOP-RIGHT rounded corner
     pathTopRight(x, y, w, h, r) {
-      return `M ${x} ${y} L ${x + w - r} ${y} A ${r} ${r} 0 0 1 ${x + w} ${y + r} L ${x + w} ${y + h} L ${x} ${
-        y + h
-      } Z`;
+      return `M ${x} ${y} L ${x + w - r} ${y} A ${r} ${r} 0 0 1 ${x + w} ${y + r} L ${x + w} ${y + h} L ${x} ${y + h} Z`;
     }
 
-    // Path for square with only BOTTOM-LEFT rounded corner
+    // Path for square with only BOTTOM-LEFT rounded corner (mirrored top-left)
     pathBottomLeft(x, y, w, h, r) {
-      return `M ${x} ${y} L ${x + w} ${y} L ${x + w} ${y + h} L ${x + r} ${y + h} A ${r} ${r} 0 0 1 ${x} ${
-        y + h - r
-      } L ${x} ${y} Z`;
+      return `M ${x} ${y} L ${x + w} ${y} L ${x + w} ${y + h} L ${x + r} ${y + h} A ${r} ${r} 0 0 1 ${x} ${y + h - r} L ${x} ${y} Z`;
     }
 
-    // Path for square with only BOTTOM-RIGHT rounded corner
+    // Path for square with only BOTTOM-RIGHT rounded corner (mirrored top-right)
     pathBottomRight(x, y, w, h, r) {
-      return `M ${x} ${y} L ${x + w} ${y} L ${x + w} ${y + h - r} A ${r} ${r} 0 0 1 ${x + w - r} ${y + h} L ${x} ${
-        y + h
-      } Z`;
+      return `M ${x} ${y} L ${x + w} ${y} L ${x + w} ${y + h - r} A ${r} ${r} 0 0 1 ${x + w - r} ${y + h} L ${x} ${y + h} Z`;
     }
 
     renderSVG(widthMM, heightMM, colors, fabricType) {
@@ -243,80 +233,55 @@
 
       this.svg.innerHTML = `
         <defs>
-          <!-- CORNER RADIAL GRADIENTS (Figma matrix transform) -->
+          <!-- CORNER RADIAL GRADIENTS -->
           
-          <!-- Top-left: gradient radiates from bottom-right corner -->
+          <!-- Top-left corner -->
           <radialGradient id="gradTL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(-0.7 -0.75 0.75 -0.7 ${W} ${H})">
             <stop offset="0.50" stop-color="${colors.frame}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
             <stop offset="1" stop-color="${colors.frameDarker}" />
           </radialGradient>
           
-          <!-- Top-right: gradient radiates from bottom-left corner -->
+          <!-- Top-right corner -->
           <radialGradient id="gradTR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(0.7 -0.75 0.75 0.7 0 ${H})">
             <stop offset="0.50" stop-color="${colors.frame}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
             <stop offset="1" stop-color="${colors.frameDarker}" />
           </radialGradient>
           
-          <!-- Bottom-left: gradient center at bottom-left corner of the path -->
-          <!-- Path is at y = H + MIDDLE_BAND = ${H} + ${F.MIDDLE_BAND}, bottom of path is at y = ${H} + ${
-            F.MIDDLE_BAND
-          } + ${F.BOTTOM_BAND} -->
-          <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="${
-            H + F.MIDDLE_BAND + F.BOTTOM_BAND
-          }" r="${W * 1.5}">
-            <stop offset="0.50" stop-color="${colors.frameDarker}" />
+          <!-- Bottom-left corner (MIRRORED top-left) -->
+          <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(-0.7 0.75 -0.75 -0.7 ${W} 0)">
+            <stop offset="0.50" stop-color="${colors.frame}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
-            <stop offset="1" stop-color="${colors.frame}" />
+            <stop offset="1" stop-color="${colors.frameDarker}" />
           </radialGradient>
           
-          <!-- Bottom-right: gradient center at bottom-right corner of the path -->
-          <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="${W}" cy="${
-            H + F.MIDDLE_BAND + F.BOTTOM_BAND
-          }" r="${W * 1.5}">
-            <stop offset="0.50" stop-color="${colors.frameDarker}" />
+          <!-- Bottom-right corner (MIRRORED top-right) -->
+          <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${W}" gradientTransform="matrix(0.7 0.75 -0.75 0.7 0 ${F.BOTTOM_BAND})">
+            <stop offset="0.50" stop-color="${colors.frame}" />
             <stop offset="0.75" stop-color="${colors.frameDark}" />
-            <stop offset="1" stop-color="${colors.frame}" />
+            <stop offset="1" stop-color="${colors.frameDarker}" />
           </radialGradient>
           
-          <!-- EDGE RECTANGLE GRADIENTS (dark at edges, correct color by 50%) -->
-          
-          <!-- Left edge top/bottom rectangles: dark on left edge -->
-          <linearGradient id="edgeLeftTop" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="${colors.frameDarker}" />
-            <stop offset="50%" stop-color="${colors.frame}" />
-          </linearGradient>
-          <linearGradient id="edgeLeftBottom" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="${colors.frameDarker}" />
-            <stop offset="50%" stop-color="${colors.frame}" />
-          </linearGradient>
-          
-          <!-- Right edge top/bottom rectangles: dark on right edge -->
-          <linearGradient id="edgeRightTop" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%" stop-color="${colors.frameDarker}" />
-            <stop offset="50%" stop-color="${colors.frame}" />
-          </linearGradient>
-          <linearGradient id="edgeRightBottom" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%" stop-color="${colors.frameDarker}" />
-            <stop offset="50%" stop-color="${colors.frame}" />
-          </linearGradient>
-          
-          <!-- Container band gradients (vertical) -->
+          <!-- TOP BAND: vertical gradient, dark at TOP edge, light at 50% -->
           <linearGradient id="topBand" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="${colors.frameDarker}" />
-            <stop offset="100%" stop-color="${colors.frameDark}" />
-          </linearGradient>
-          <linearGradient id="bottomBand" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="${colors.frameDark}" />
-            <stop offset="100%" stop-color="${colors.frameDarker}" />
+            <stop offset="50%" stop-color="${colors.frame}" />
           </linearGradient>
           
-          <!-- End cap side gradients (horizontal) -->
-          <linearGradient id="leftSide" x1="100%" y1="0%" x2="0%" y2="0%">
+          <!-- BOTTOM BAND: vertical gradient, light at 50%, dark at BOTTOM edge -->
+          <linearGradient id="bottomBand" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="50%" stop-color="${colors.frame}" />
             <stop offset="100%" stop-color="${colors.frameDarker}" />
           </linearGradient>
+          
+          <!-- LEFT SIDE: horizontal gradient, dark at LEFT edge, light at 50% -->
+          <linearGradient id="leftSide" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="${colors.frameDarker}" />
+            <stop offset="50%" stop-color="${colors.frame}" />
+          </linearGradient>
+          
+          <!-- RIGHT SIDE: horizontal gradient, light at 50%, dark at RIGHT edge -->
           <linearGradient id="rightSide" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="50%" stop-color="${colors.frame}" />
             <stop offset="100%" stop-color="${colors.frameDarker}" />
@@ -326,60 +291,46 @@
         <g transform="translate(${PAD}, ${PAD})">
           
           <!-- ═══════════════ CASSETTE BACKGROUND ═══════════════ -->
-          <rect x="0" y="0" width="${totalW}" height="${F.CASSETTE_HEIGHT}" rx="${R}" ry="${R}" fill="${
-            colors.frame
-          }" />
+          <rect x="0" y="0" width="${totalW}" height="${F.CASSETTE_HEIGHT}" rx="${R}" ry="${R}" fill="${colors.frame}" />
           <rect x="0" y="${F.CASSETTE_HEIGHT - R}" width="${totalW}" height="${R}" fill="${colors.frame}" />
           
           <g class="cassette">
             
             <!-- ═══ LEFT END ═══ -->
             <g class="left-end">
-              <!-- Top-left corner (single corner radius) -->
+              <!-- Top-left corner -->
               <path d="${this.pathTopLeft(0, 0, W, H, R)}" fill="url(#gradTL)" />
               
               <!-- Middle band -->
               <rect x="0" y="${H}" width="${W}" height="${F.MIDDLE_BAND}" fill="url(#leftSide)" />
               
-              <!-- Bottom-left corner (single corner radius, mirrored gradient) -->
+              <!-- Bottom-left corner (mirrored) -->
               <path d="${this.pathBottomLeft(0, H + F.MIDDLE_BAND, W, F.BOTTOM_BAND, R)}" fill="url(#gradBL)" />
-            </g>
-            
-            <!-- ═══ LEFT EDGE TOP/BOTTOM RECTANGLES ═══ -->
-            <g class="left-edge-bands" transform="translate(${W}, 0)">
-              <!-- These are the rectangles connecting corner to container -->
-              <!-- They're part of the container, handled by container group -->
             </g>
             
             <!-- ═══ CONTAINER ═══ -->
             <g class="container" transform="translate(${W}, 0)">
               <rect x="0" y="0" width="${containerW}" height="${H}" fill="url(#topBand)" />
               <rect x="0" y="${H}" width="${containerW}" height="${F.MIDDLE_BAND}" fill="${colors.frame}" />
-              <rect x="0" y="${H + F.MIDDLE_BAND}" width="${containerW}" height="${
-                F.BOTTOM_BAND
-              }" fill="url(#bottomBand)" />
+              <rect x="0" y="${H + F.MIDDLE_BAND}" width="${containerW}" height="${F.BOTTOM_BAND}" fill="url(#bottomBand)" />
             </g>
             
             <!-- ═══ SOLAR PANEL ═══ -->
             <g class="container-fixed" transform="translate(${W + containerW}, 0)">
               <rect x="0" y="0" width="${solarPanelW}" height="${H}" fill="url(#topBand)" />
-              <rect x="0" y="${H}" width="${solarPanelW}" height="${F.MIDDLE_BAND}" fill="${
-                colors.solarPanel
-              }" class="solar-panel" />
-              <rect x="0" y="${H + F.MIDDLE_BAND}" width="${solarPanelW}" height="${
-                F.BOTTOM_BAND
-              }" fill="url(#bottomBand)" />
+              <rect x="0" y="${H}" width="${solarPanelW}" height="${F.MIDDLE_BAND}" fill="${colors.solarPanel}" class="solar-panel" />
+              <rect x="0" y="${H + F.MIDDLE_BAND}" width="${solarPanelW}" height="${F.BOTTOM_BAND}" fill="url(#bottomBand)" />
             </g>
             
             <!-- ═══ RIGHT END ═══ -->
             <g class="right-end" transform="translate(${totalW - W}, 0)">
-              <!-- Top-right corner (single corner radius) -->
+              <!-- Top-right corner -->
               <path d="${this.pathTopRight(0, 0, W, H, R)}" fill="url(#gradTR)" />
               
               <!-- Middle band -->
               <rect x="0" y="${H}" width="${W}" height="${F.MIDDLE_BAND}" fill="url(#rightSide)" />
               
-              <!-- Bottom-right corner (single corner radius, mirrored gradient) -->
+              <!-- Bottom-right corner (mirrored) -->
               <path d="${this.pathBottomRight(0, H + F.MIDDLE_BAND, W, F.BOTTOM_BAND, R)}" fill="url(#gradBR)" />
             </g>
             
@@ -388,15 +339,9 @@
           <!-- ═══════════════ RAILS & FABRIC ═══════════════ -->
           <g class="rails-fabric" transform="translate(0, ${F.CASSETTE_HEIGHT})">
             <rect x="0" y="0" width="${F.RAIL_WIDTH}" height="${railsH}" fill="${colors.frame}" />
-            <rect x="${F.RAIL_WIDTH}" y="0" width="${fabricW}" height="${fabricH}" fill="${
-              colors.fabric
-            }" opacity="${fabricOpacity}" class="fabric-rect" />
-            <rect x="${F.RAIL_WIDTH}" y="${fabricH}" width="${fabricW}" height="${F.BOTTOM_PLATE_HEIGHT}" fill="${
-              colors.frame
-            }" />
-            <rect x="${totalW - F.RAIL_WIDTH}" y="0" width="${F.RAIL_WIDTH}" height="${railsH}" fill="${
-              colors.frame
-            }" />
+            <rect x="${F.RAIL_WIDTH}" y="0" width="${fabricW}" height="${fabricH}" fill="${colors.fabric}" opacity="${fabricOpacity}" class="fabric-rect" />
+            <rect x="${F.RAIL_WIDTH}" y="${fabricH}" width="${fabricW}" height="${F.BOTTOM_PLATE_HEIGHT}" fill="${colors.frame}" />
+            <rect x="${totalW - F.RAIL_WIDTH}" y="0" width="${F.RAIL_WIDTH}" height="${railsH}" fill="${colors.frame}" />
           </g>
           
         </g>

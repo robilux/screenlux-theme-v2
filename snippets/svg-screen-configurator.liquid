@@ -1,10 +1,10 @@
 {% comment %}
   SVG Screen Configurator
 
-  Proportions adjusted:
-  - Cassette: 60% of original
-  - Bottom rail: 60% of original
-  - Side rails: 70% of original
+  Gradients:
+  - Top/bottom bands: dark at edge, light at 50%
+  - Side bands: dark at edge, light at 50%
+  - Bottom corners: mirrored versions of top corners
 
   Default: 1500mm x 1000mm at 0.3 scale
 {% endcomment %}
@@ -28,7 +28,7 @@
     aria-label="Screen preview showing current configuration"
   >
     <defs>
-      <!-- Top corner gradients -->
+      <!-- Corner gradients -->
       <radialGradient id="gradTL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="4" gradientTransform="matrix(-0.7 -0.75 0.75 -0.7 4 4)">
         <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
@@ -39,32 +39,36 @@
         <stop offset="0.75" stop-color="#353535" />
         <stop offset="1" stop-color="#242424" />
       </radialGradient>
-
-      <!-- Bottom corner gradients (inverted) -->
-      <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="25" r="6">
-        <stop offset="0.50" stop-color="#242424" />
+      <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="4" gradientTransform="matrix(-0.7 0.75 -0.75 -0.7 4 0)">
+        <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
-        <stop offset="1" stop-color="#454545" />
+        <stop offset="1" stop-color="#242424" />
       </radialGradient>
-      <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="4" cy="25" r="6">
-        <stop offset="0.50" stop-color="#242424" />
+      <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="4" gradientTransform="matrix(0.7 0.75 -0.75 0.7 0 4)">
+        <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
-        <stop offset="1" stop-color="#454545" />
+        <stop offset="1" stop-color="#242424" />
       </radialGradient>
 
-      <!-- Band gradients -->
+      <!-- Top band: dark at top, light at 50% -->
       <linearGradient id="topBand" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#242424" />
-        <stop offset="100%" stop-color="#353535" />
+        <stop offset="50%" stop-color="#454545" />
       </linearGradient>
+
+      <!-- Bottom band: light at 50%, dark at bottom -->
       <linearGradient id="bottomBand" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
-      </linearGradient>
-      <linearGradient id="leftSide" x1="100%" y1="0%" x2="0%" y2="0%">
         <stop offset="50%" stop-color="#454545" />
         <stop offset="100%" stop-color="#242424" />
       </linearGradient>
+
+      <!-- Left side: dark at left, light at 50% -->
+      <linearGradient id="leftSide" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#242424" />
+        <stop offset="50%" stop-color="#454545" />
+      </linearGradient>
+
+      <!-- Right side: light at 50%, dark at right -->
       <linearGradient id="rightSide" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="50%" stop-color="#454545" />
         <stop offset="100%" stop-color="#242424" />
@@ -73,19 +77,19 @@
 
     <g transform="translate(15, 15)">
 
-      <!-- Cassette background (height 25) -->
+      <!-- Cassette background -->
       <rect x="0" y="0" width="450" height="25" rx="4" fill="#454545" />
       <rect x="0" y="21" width="450" height="4" fill="#454545" />
 
       <g class="cassette">
 
-        <!-- LEFT END (width 4) -->
+        <!-- LEFT END -->
         <g class="left-end">
           <!-- Top-left corner -->
           <path d="M 4 0 L 4 0 L 4 4 L 0 4 L 0 4 A 4 4 0 0 1 4 0 Z" fill="url(#gradTL)" />
           <!-- Middle -->
           <rect x="0" y="4" width="4" height="17" fill="url(#leftSide)" />
-          <!-- Bottom-left corner -->
+          <!-- Bottom-left corner (mirrored) -->
           <path d="M 0 21 L 4 21 L 4 25 L 4 25 A 4 4 0 0 1 0 21 L 0 21 Z" fill="url(#gradBL)" />
         </g>
 
@@ -103,19 +107,19 @@
           <rect x="0" y="21" width="135" height="4" fill="url(#bottomBand)" />
         </g>
 
-        <!-- RIGHT END (width 4) -->
+        <!-- RIGHT END -->
         <g class="right-end" transform="translate(446, 0)">
           <!-- Top-right corner -->
           <path d="M 0 0 L 0 0 A 4 4 0 0 1 4 4 L 4 4 L 0 4 Z" fill="url(#gradTR)" />
           <!-- Middle -->
           <rect x="0" y="4" width="4" height="17" fill="url(#rightSide)" />
-          <!-- Bottom-right corner -->
-          <path d="M 0 21 L 0 21 L 0 25 L 0 25 A 4 4 0 0 1 4 21 L 4 21 Z" fill="url(#gradBR)" />
+          <!-- Bottom-right corner (mirrored) -->
+          <path d="M 0 21 L 4 21 L 4 21 A 4 4 0 0 1 0 25 L 0 25 Z" fill="url(#gradBR)" />
         </g>
 
       </g>
 
-      <!-- RAILS & FABRIC (rail width 12, bottom plate 6) -->
+      <!-- RAILS & FABRIC -->
       <g class="rails-fabric" transform="translate(0, 25)">
         <rect x="0" y="0" width="12" height="275" fill="#454545" />
         <rect x="12" y="0" width="426" height="269" fill="#707070" opacity="0.92" class="fabric-rect" />
