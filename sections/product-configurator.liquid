@@ -69,7 +69,7 @@
 
     <div class="de-badge-container">
       <img
-        src="{{ 'de-badge.png' | asset_url }}"
+        src="{{ 'img-sl-de-badge.png' | asset_url }}"
         alt="Developed in Germany"
         class="de-badge-icon"
         width="22"
@@ -79,12 +79,14 @@
       <span class="de-badge-text">Developed in Germany</span>
     </div>
 
-    <product-description class="product__description" data-limit="180">
-      <div class="description-content">
-        {{ product.description }}
-      </div>
-      <button type="button" class="description-toggle-btn">Read more</button>
-    </product-description>
+    {%- comment -%}
+      <product-description class="product__description" data-limit="180">
+        <div class="description-content">
+          {{ product.description }}
+        </div>
+        <button type="button" class="description-toggle-btn">Read more</button>
+      </product-description>
+    {%- endcomment -%}
 
     <!-- The Custom Application Root -->
     <script>

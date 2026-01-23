@@ -152,7 +152,7 @@
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
             <img
-              src="{{ 'Screenlux Logo.png' | asset_url }}"
+              src="{{ 'logo-screenlux.png' | asset_url }}"
               class="header__heading-logo motion-reduce"
               width="{{ section.settings.logo_width | default: settings.logo_width }}"
               height="auto"
@@ -188,7 +188,7 @@
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
             <img
-              src="{{ 'Screenlux Logo.png' | asset_url }}"
+              src="{{ 'logo-screenlux.png' | asset_url }}"
               class="header__heading-logo"
               width="{{ section.settings.logo_width | default: settings.logo_width }}"
               height="auto"
@@ -241,7 +241,7 @@
 
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
         <span class="svg-wrapper">
-          {{ 'ShoppingCart.svg' | inline_asset_content }}
+          {{ 'icon-sl-shopping-cart.svg' | inline_asset_content }}
         </span>
         <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
         <div class="cart-count-bubble">
