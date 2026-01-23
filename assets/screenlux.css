@@ -127,6 +127,7 @@ body {
 /* --- Gallery (Left) --- */
 .screenlux-gallery {
   position: relative;
+  overflow: hidden !important; /* Clip any peeking adjacent slides */
 }
 @media (min-width: 1024px) {
   .sticky-media-col {
@@ -139,8 +140,7 @@ body {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: var(--sl-radius-lg);
-  box-shadow: var(--sl-shadow-sm);
+  /* border-radius removed - moving to container */
 }
 
 /* Controls Overlay */
@@ -155,13 +155,14 @@ body {
   display: flex !important;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth !important; /* Restore native smooth scroll */
+  scroll-behavior: smooth !important;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  gap: 16px !important;
+  gap: 16px !important; /* Restore 16px gap between slides */
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
+  scroll-padding-inline-start: 0 !important; /* Ensure snap position starts at container edge */
 }
 
 .product__media-list::-webkit-scrollbar {
@@ -175,9 +176,10 @@ body {
   max-width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
-  scroll-snap-align: center;
+  scroll-snap-align: start !important; /* Change to start for clean snapping */
   scroll-snap-stop: always;
   border: none !important;
+  box-sizing: border-box !important;
 }
 
 /* Override grid--peek for product gallery - force full width */
@@ -188,24 +190,42 @@ body {
   margin-inline-start: 0 !important;
 }
 
-/* Media Container */
-.product__media {
+/* Media Container - Force rounded corners */
+.product__media,
+.product__media-item .product__media,
+.slider__slide .product__media {
   width: 100%;
   position: relative;
   display: block;
   aspect-ratio: 4 / 3;
-  overflow: hidden;
+  overflow: hidden !important;
+  border-radius: var(--sl-radius-lg) !important;
+  box-shadow: var(--sl-shadow-sm);
 }
 
-/* Gallery Images */
-.gallery-image {
-  width: 100%;
-  height: 100%;
+/* Gallery Images - Force proper fit */
+.gallery-image,
+.product__media .gallery-image,
+.product__media img.gallery-image {
+  width: 100% !important;
+  height: 100% !important;
   display: block;
-  object-fit: contain; /* Revert to contain for main images */
+  object-fit: cover !important;
   position: absolute;
   top: 0;
   left: 0;
+  border-radius: 0 !important; /* Remove any border-radius from image - container handles it */
+}
+
+/* Dynamic image transition for configurator */
+.gallery-image.dynamic-image-transition {
+  transition: opacity 0.2s ease-out;
+}
+
+/* Ensure slider items don't overflow */
+.product__media-item {
+  overflow: hidden !important;
+  border-radius: var(--sl-radius-lg) !important;
 }
 
 /* Navigation Buttons */
@@ -288,6 +308,13 @@ body {
 /* Thumbnail Strip */
 .thumbnail-slider {
   display: flex; gap: 12px; margin-top: 16px; overflow-x: auto; padding-bottom: 4px;
+}
+
+@media screen and (max-width: 749px) {
+  .thumbnail-slider {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 .thumbnail {
   width: 72px;
@@ -1045,6 +1072,17 @@ details[open] .accordion-chevron {
   padding-top: 0px;
 }
 
+.shipping-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.shipping-icon img {
+  display: block;
+}
+
 .shipping-text {
   font-size: var(--sl-text-sm);
   color: var(--sl-text-secondary);
@@ -1306,7 +1344,7 @@ details[open] .accordion-chevron {
 .animate-fade-in { animation: fadeIn 0.3s ease-out; }
 
 /* === GALLERY NAVIGATION OVERRIDES === */
-/* Critical override to force gallery navigation buttons visible */
+/* Gallery navigation buttons - always present but transparent, visible on hover (desktop only) */
 .screenlux-gallery .slider-buttons,
 .product__media-wrapper.screenlux-gallery slider-component .slider-buttons {
   display: flex !important;
@@ -1323,10 +1361,36 @@ details[open] .accordion-chevron {
   padding: 0 20px;
 }
 
-/* Navigation buttons - positioned at edges */
+/* Hide arrows completely on mobile - touch users can swipe */
+@media screen and (max-width: 749px) {
+  .screenlux-gallery .slider-buttons,
+  .product__media-wrapper.screenlux-gallery slider-component .slider-buttons {
+    display: none !important;
+  }
+  
+  /* Full width gallery on mobile - break out of container padding */
+  .screenlux-gallery,
+  .product__media-wrapper.screenlux-gallery {
+    margin-left: -24px;
+    margin-right: -24px;
+    width: calc(100% + 48px);
+  }
+  
+  /* Remove all border radius on mobile */
+  .screenlux-gallery .product__media,
+  .screenlux-gallery .product__media-item,
+  .product__media-wrapper.screenlux-gallery .product__media,
+  .product__media-wrapper.screenlux-gallery .product__media-item,
+  .screenlux-gallery slider-component,
+  .screenlux-gallery img {
+    border-radius: 0 !important;
+  }
+}
+
+/* Navigation buttons - always have blur, but transparent background by default */
 .screenlux-gallery .slider-button {
   pointer-events: all;
-  background: rgba(255, 255, 255, 0.6) !important;
+  background: rgba(255, 255, 255, 0) !important;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: none;
@@ -1337,7 +1401,15 @@ details[open] .accordion-chevron {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+}
+
+/* Show buttons with white background on gallery hover */
+.screenlux-gallery:hover .slider-button,
+.product__media-wrapper.screenlux-gallery:hover .slider-button {
+  background: rgba(255, 255, 255, 0.6) !important;
+  opacity: 1;
 }
 
 .screenlux-gallery .slider-button:hover {
@@ -1500,7 +1572,7 @@ slider-component .slider-counter {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, #F8F9FA 0%, #E9ECEF 100%);
+  background: linear-gradient(to bottom, #E0E5EA, #C0C9D1);
   border-radius: var(--sl-radius-lg);
   padding: 24px;
   box-sizing: border-box;
@@ -1510,6 +1582,22 @@ slider-component .slider-counter {
   width: 100%;
   height: 100%;
   max-height: 100%;
+  transition: all 0.3s ease-out;
+}
+
+/* Smooth transitions for SVG elements when dimensions change */
+.configurator-svg rect,
+.configurator-svg path,
+.configurator-svg g {
+  transition: all 0.3s ease-out;
+}
+
+.configurator-svg .measurement-lines {
+  transition: opacity 0.2s ease;
+}
+
+.configurator-svg .measurement-lines line,
+.configurator-svg .measurement-lines path {
   transition: all 0.3s ease-out;
 }
 
@@ -1598,3 +1686,182 @@ slider-component .slider-counter {
     right: 24px;
   }
 }
+
+/* Screen Controls Container */
+.screen-controls {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+
+/* Base button styling for both buttons */
+.screen-toggle-btn,
+.measurements-toggle-btn {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+.screen-toggle-btn:hover,
+.measurements-toggle-btn:hover {
+  background: #ffffff;
+  border-color: #D1D5DB;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.screen-toggle-btn:active,
+.measurements-toggle-btn:active {
+  transform: scale(0.98);
+}
+
+@media screen and (max-width: 749px) {
+  .screen-controls {
+    bottom: 16px;
+    gap: 8px;
+  }
+  
+  .screen-toggle-btn,
+  .measurements-toggle-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Measurement Lines Styling */
+.measurement-lines {
+  pointer-events: none;
+}
+
+.measurement-line {
+  stroke-dasharray: 6, 4;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.measurement-line--outside {
+  stroke: #E67E22; /* Orange */
+}
+
+.measurement-line--inside {
+  stroke: #3498DB; /* Blue */
+}
+
+/* Arrow markers for measurement lines */
+.measurement-arrow {
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.measurement-arrow--outside {
+  stroke: #E67E22;
+}
+
+.measurement-arrow--inside {
+  stroke: #3498DB;
+}
+
+/* Measurement dimension labels positioned on the lines */
+.measurement-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  fill: #374151;
+  background: white;
+}
+
+.measurement-label-bg {
+  fill: rgba(255, 255, 255, 0.95);
+  rx: 4;
+  ry: 4;
+}
+
+/* === MOBILE STICKY GALLERY === */
+/* On mobile, fix the main image slider at top during screen configuration */
+@media screen and (max-width: 749px) {
+  /* When sticky is active, use position:fixed to keep slider at top */
+  .screenlux-gallery.mobile-sticky slider-component {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--sl-bg-root);
+  }
+  
+  /* Add placeholder space when slider is fixed to prevent content jump */
+  .screenlux-gallery.mobile-sticky::before {
+    content: '';
+    display: block;
+    height: var(--mobile-slider-height, 300px);
+  }
+  
+  /* Light gradient effect under the fixed slider - placed on gallery wrapper */
+  .screenlux-gallery.mobile-sticky::after {
+    content: '';
+    position: fixed;
+    top: calc(var(--mobile-slider-height, 300px) - 1px);
+    left: 0;
+    right: 0;
+    height: 24px;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.5) 40%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 99;
+    transition: opacity 0.3s ease-out;
+  }
+  
+  /* Fade out animation only - no fade in to prevent flash */
+  .screenlux-gallery slider-component {
+    transition: opacity 0.3s ease-out;
+  }
+  
+  /* Fade out both the slider and the light effect together */
+  .screenlux-gallery.mobile-sticky.fading-out slider-component,
+  .screenlux-gallery.mobile-sticky.fading-out::after {
+    opacity: 0;
+  }
+  
+  /* Fade in animation when re-appearing after dismissal */
+  .screenlux-gallery.mobile-sticky.fading-in slider-component,
+  .screenlux-gallery.mobile-sticky.fading-in::after {
+    animation: fadeInGallery 0.3s ease-out forwards;
+  }
+  
+  @keyframes fadeInGallery {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Remove rounded edges from main image when sticky */
+  .screenlux-gallery.mobile-sticky .product__media,
+  .screenlux-gallery.mobile-sticky .product__media-item {
+    border-radius: 0 !important;
+  }
+  
+  /* Remove rounded edges from SVG configurator on mobile */
+  .svg-screen-configurator {
+    border-radius: 0 !important;
+  }
+}
+

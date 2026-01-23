@@ -10,6 +10,319 @@ class ProductConfigurator extends HTMLElement {
     };
   }
 
+  /* --- Slider Navigation Helpers --- */
+
+  /**
+   * Jump to a specific slide by its ID fragment (e.g., 'svg-configurator' or media ID)
+   */
+  jumpToSlide(slideIdFragment) {
+    const slide = document.querySelector(`[id*="${slideIdFragment}"]`);
+    if (slide) {
+      slide.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+
+      // Update thumbnail active state
+      const gallery = document.querySelector('media-gallery');
+      if (gallery) {
+        const thumbnails = gallery.querySelectorAll('.thumbnail');
+        thumbnails.forEach((thumb) => {
+          if (thumb.dataset.target && thumb.dataset.target.includes(slideIdFragment)) {
+            thumbnails.forEach((t) => t.classList.remove('active'));
+            thumb.classList.add('active');
+          }
+        });
+      }
+    }
+  }
+
+  /**
+   * Jump to the SVG configurator slide
+   */
+  jumpToSVGConfigurator() {
+    this.jumpToSlide('svg-configurator');
+  }
+
+  /**
+   * Get the currently active/expanded screen, or the first screen as fallback
+   */
+  getActiveScreen() {
+    const activeScreen = this.state.screens.find((s) => s.expanded);
+    return activeScreen || this.state.screens[0] || null;
+  }
+
+  /**
+   * Jump to the first product image slide and update it with the dynamic image
+   * Uses the currently active/expanded screen's options
+   */
+  jumpToFirstSlideWithImage() {
+    const activeScreen = this.getActiveScreen();
+    if (!activeScreen) return;
+
+    // Build the dynamic image URL based on active screen's selections
+    const imageUrl = this.buildDynamicImageUrl(activeScreen);
+
+    if (imageUrl) {
+      // Find and update the first product image
+      this.updateFirstProductImage(imageUrl);
+    }
+
+    // Jump to the first slide (not SVG configurator)
+    const slider = document.querySelector('[id*="Slider-Gallery-"]');
+    if (slider) {
+      const firstSlide = slider.querySelector('.slider__slide:first-child');
+      if (firstSlide) {
+        firstSlide.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+
+        // Update thumbnail active state - find the first non-configurator thumbnail
+        const gallery = document.querySelector('media-gallery');
+        if (gallery) {
+          const thumbnails = gallery.querySelectorAll('.thumbnail');
+          thumbnails.forEach((t) => t.classList.remove('active'));
+          const firstThumb = gallery.querySelector('.thumbnail:not(.thumbnail--configurator)');
+          if (firstThumb) {
+            firstThumb.classList.add('active');
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Build the dynamic product image URL based on selected options
+   * Uses pre-generated Shopify CDN URLs from ScreenluxData.assets.productImages
+   */
+  buildDynamicImageUrl(screen) {
+    // Map option IDs to 3-letter codes
+    const frameCodeMap = {
+      anthracite: 'ant',
+      white: 'whi',
+    };
+
+    const fabricColorCodeMap = {
+      charcoal: 'cha',
+      gray: 'gra',
+    };
+
+    const fabricTypeCodeMap = {
+      '4-percent': '4tr',
+      blackout: '0tr',
+    };
+
+    const motorCodeMap = {
+      solar: 'sol',
+      wired: 'wir',
+    };
+
+    // Get codes with defaults
+    const frameCode = frameCodeMap[screen.frameColor] || 'ant';
+    const fabricColorCode = fabricColorCodeMap[screen.fabricColor] || 'cha';
+    const fabricTypeCode = fabricTypeCodeMap[screen.fabricType] || '0tr';
+    const motorCode = motorCodeMap[screen.motor] || 'sol';
+
+    // Build the key to look up in productImages
+    const imageKey = `${frameCode}-${fabricColorCode}-${fabricTypeCode}-${motorCode}`;
+
+    // Get the URL from ScreenluxData.assets.productImages
+    if (this.data && this.data.assets && this.data.assets.productImages) {
+      const imageUrl = this.data.assets.productImages[imageKey];
+      if (imageUrl) {
+        return imageUrl;
+      }
+    }
+
+    // Fallback - return null if image not found
+    console.warn(`Product image not found for key: ${imageKey}`);
+    return null;
+  }
+
+  /**
+   * Preload all product images for faster switching
+   */
+  preloadProductImages() {
+    if (this.data && this.data.assets && this.data.assets.productImages) {
+      Object.values(this.data.assets.productImages).forEach((url) => {
+        const img = new Image();
+        img.src = url;
+      });
+    }
+  }
+
+  /**
+   * Setup mobile sticky gallery behavior
+   * Gallery image stays fixed at top on mobile once user scrolls past it,
+   * until reaching the installation section where it fades out.
+   */
+  setupMobileStickyGallery() {
+    // Only apply on mobile
+    const isMobile = () => window.innerWidth <= 749;
+
+    const gallery = document.querySelector('.screenlux-gallery');
+    if (!gallery) return;
+
+    const sliderComponent = gallery.querySelector('slider-component');
+    if (!sliderComponent) return;
+
+    let isCurrentlySticky = false;
+    let isFading = false;
+    let galleryOriginalTop = null;
+    let wasDismissedAtInstallation = false;
+
+    // Set the CSS variable for placeholder height
+    const updateSliderHeight = () => {
+      if (sliderComponent) {
+        const height = sliderComponent.offsetHeight;
+        gallery.style.setProperty('--mobile-slider-height', `${height}px`);
+      }
+    };
+
+    // Get gallery's original position (call before making it sticky)
+    const getGalleryTop = () => {
+      if (galleryOriginalTop === null) {
+        // Store the original top position relative to document
+        galleryOriginalTop = gallery.getBoundingClientRect().top + window.scrollY;
+      }
+      return galleryOriginalTop;
+    };
+
+    // Function to update sticky state based on scroll position
+    const updateStickyState = () => {
+      if (!isMobile()) {
+        gallery.classList.remove('mobile-sticky', 'fading-out', 'fading-in');
+        isCurrentlySticky = false;
+        galleryOriginalTop = null; // Reset for recalculation
+        return;
+      }
+
+      const installationSection = document.getElementById('installation-section');
+      const scrollY = window.scrollY;
+      const originalTop = getGalleryTop();
+      const sliderHeight = sliderComponent ? sliderComponent.offsetHeight : 300;
+
+      // Check if we should stop being sticky (approaching installation section)
+      if (installationSection) {
+        const installRect = installationSection.getBoundingClientRect();
+        if (installRect.top <= sliderHeight + 50) {
+          if (isCurrentlySticky && !isFading) {
+            // Start fade out - mark as dismissed so we fade in when returning
+            isFading = true;
+            wasDismissedAtInstallation = true;
+            gallery.classList.add('fading-out');
+
+            // After fade animation, remove sticky class
+            setTimeout(() => {
+              gallery.classList.remove('mobile-sticky', 'fading-out');
+              isCurrentlySticky = false;
+              isFading = false;
+            }, 300);
+          }
+          return;
+        }
+      }
+
+      // Check if we should become sticky (scrolled past gallery's original position)
+      if (scrollY > originalTop) {
+        if (!isCurrentlySticky && !isFading) {
+          updateSliderHeight();
+
+          // If we were dismissed at installation, fade in when re-appearing
+          if (wasDismissedAtInstallation) {
+            gallery.classList.add('mobile-sticky', 'fading-in');
+            gallery.classList.remove('fading-out');
+            isCurrentlySticky = true;
+
+            // Remove fading-in class after animation completes
+            setTimeout(() => {
+              gallery.classList.remove('fading-in');
+              wasDismissedAtInstallation = false;
+            }, 300);
+          } else {
+            // First time becoming sticky - no animation
+            gallery.classList.add('mobile-sticky');
+            gallery.classList.remove('fading-out');
+            isCurrentlySticky = true;
+          }
+        }
+      } else {
+        // Should NOT be sticky - gallery is still in view
+        if (isCurrentlySticky && !isFading) {
+          gallery.classList.remove('mobile-sticky', 'fading-out', 'fading-in');
+          isCurrentlySticky = false;
+        }
+      }
+    };
+
+    // Listen to scroll events with throttling
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateStickyState();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Also listen to resize in case viewport changes
+    window.addEventListener('resize', () => {
+      galleryOriginalTop = null; // Reset for recalculation
+      if (!isMobile()) {
+        gallery.classList.remove('mobile-sticky', 'fading-out');
+        isCurrentlySticky = false;
+        isFading = false;
+      } else {
+        updateSliderHeight();
+        updateStickyState();
+      }
+    });
+
+    // Initial check (in case page loads already scrolled)
+    if (isMobile()) {
+      setTimeout(() => {
+        updateSliderHeight();
+        updateStickyState();
+      }, 100);
+    }
+  }
+
+  /**
+   * Update the first product image in the gallery with the dynamic URL
+   * Includes a smooth fade transition
+   */
+  updateFirstProductImage(imageUrl) {
+    if (!imageUrl) return;
+
+    const slider = document.querySelector('[id*="Slider-Gallery-"]');
+    if (!slider) return;
+
+    const firstSlide = slider.querySelector('.slider__slide:first-child');
+    if (!firstSlide) return;
+
+    const img = firstSlide.querySelector('img.gallery-image');
+    if (img) {
+      // Add transition class if not already present
+      if (!img.classList.contains('dynamic-image-transition')) {
+        img.classList.add('dynamic-image-transition');
+      }
+
+      // Fade out, change image, fade in
+      img.style.opacity = '0';
+
+      setTimeout(() => {
+        img.src = imageUrl;
+        img.srcset = `${imageUrl} 1066w`;
+
+        // Wait for image to load then fade in
+        if (img.complete) {
+          img.style.opacity = '1';
+        } else {
+          img.onload = () => {
+            img.style.opacity = '1';
+          };
+        }
+      }, 150);
+    }
+  }
+
   connectedCallback() {
     this.init();
   }
@@ -24,8 +337,8 @@ class ProductConfigurator extends HTMLElement {
 
       // 0. Base Validation Check - "Unsure" injection removed as requested
 
-      // 2. Initial State: 1 Screen
-      this.handleAddScreen();
+      // 2. Initial State: 1 Screen (skip scroll on init)
+      this.handleAddScreen(true);
 
       // 3. Initial Render
       this.render();
@@ -41,12 +354,19 @@ class ProductConfigurator extends HTMLElement {
               frameColor: firstScreen.frameColor,
               fabricColor: firstScreen.fabricColor,
               fabricType: firstScreen.fabricType,
+              cassetteSize: firstScreen.cassetteSize,
               motor: firstScreen.motor,
             },
-          })
+          }),
         );
         document.dispatchEvent(new CustomEvent('screenlux:configurator-ready'));
       }
+
+      // 5. Preload all product images for faster switching
+      this.preloadProductImages();
+
+      // 6. Setup mobile sticky gallery behavior
+      this.setupMobileStickyGallery();
     } catch (err) {
       console.error('Configurator Init Error:', err);
       this.innerHTML = `
@@ -61,7 +381,7 @@ class ProductConfigurator extends HTMLElement {
 
   /* --- State Modifiers --- */
 
-  handleAddScreen = () => {
+  handleAddScreen = (skipScroll = false) => {
     const newId = Date.now();
     this.state.screens.push({
       id: newId,
@@ -84,14 +404,16 @@ class ProductConfigurator extends HTMLElement {
 
     this.render();
 
-    // Scroll to the new screen (last one)
-    setTimeout(() => {
-      const screens = this.querySelectorAll('details-accordion');
-      const lastScreen = screens[screens.length - 1];
-      if (lastScreen) {
-        lastScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 50);
+    // Scroll to the new screen (last one) - unless skipScroll is true
+    if (!skipScroll) {
+      setTimeout(() => {
+        const screens = this.querySelectorAll('details-accordion');
+        const lastScreen = screens[screens.length - 1];
+        if (lastScreen) {
+          lastScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 50);
+    }
   };
 
   handleDuplicateScreen = (index) => {
@@ -142,10 +464,23 @@ class ProductConfigurator extends HTMLElement {
             frameColor: firstScreen.frameColor,
             fabricColor: firstScreen.fabricColor,
             fabricType: firstScreen.fabricType,
+            cassetteSize: firstScreen.cassetteSize,
             motor: firstScreen.motor,
           },
-        })
+        }),
       );
+    }
+
+    // Handle slider navigation based on what field changed
+    const optionFields = ['frameColor', 'fabricColor', 'fabricType', 'motor'];
+    const measurementFields = ['width', 'height'];
+
+    if (measurementFields.includes(field)) {
+      // Jump to SVG configurator when measurements change
+      this.jumpToSVGConfigurator();
+    } else if (optionFields.includes(field)) {
+      // Jump to first slide and update the dynamic product image
+      this.jumpToFirstSlideWithImage();
     }
 
     this.render();
@@ -188,6 +523,7 @@ class ProductConfigurator extends HTMLElement {
 
   toggleScreenAccordion(index) {
     // 1. Update internal state (for next render)
+    const wasExpanded = this.state.screens[index].expanded;
     this.state.screens.forEach((s, i) => {
       s.expanded = i === index ? !s.expanded : false;
     });
@@ -207,6 +543,16 @@ class ProductConfigurator extends HTMLElement {
         // For i === index, we let details-accordion handle the toggle itself
       }
     });
+
+    // 3. Update the product image to reflect the newly expanded screen's options
+    if (!wasExpanded && this.state.screens[index].expanded) {
+      // Screen was just opened - update the product image
+      const openedScreen = this.state.screens[index];
+      const imageUrl = this.buildDynamicImageUrl(openedScreen);
+      if (imageUrl) {
+        this.updateFirstProductImage(imageUrl);
+      }
+    }
 
     // We do NOT call this.render() here to preserve the DOM for animation.
     // The state is updated so next time something else triggers render, it will be correct.
@@ -346,8 +692,8 @@ class ProductConfigurator extends HTMLElement {
       html += `
         <label class="${cardClass} ${isSelected ? 'selected' : ''}">
           <input type="radio" name="${fieldName}_${index}" value="${opt.id}" data-field="${fieldName}" ${
-        isSelected ? 'checked' : ''
-      } class="hidden-input">
+            isSelected ? 'checked' : ''
+          } class="hidden-input">
           ${visual}
           <div class="card-text-wrapper">
             <span class="card-title">${opt.title}</span>
@@ -488,7 +834,7 @@ class ProductConfigurator extends HTMLElement {
              screen.frameColor,
              index,
              'color',
-             'horizontal'
+             'horizontal',
            )}
 
            <!-- Fabric Color Selector -->
@@ -499,7 +845,7 @@ class ProductConfigurator extends HTMLElement {
              screen.fabricColor,
              index,
              'color',
-             'horizontal'
+             'horizontal',
            )}
            
            <!-- Fabric Type Selector -->
@@ -510,7 +856,7 @@ class ProductConfigurator extends HTMLElement {
              screen.fabricType,
              index,
              'image',
-             'vertical'
+             'vertical',
            )}
 
            <!-- Cassette Size Selector -->
@@ -521,7 +867,7 @@ class ProductConfigurator extends HTMLElement {
              screen.cassetteSize,
              index,
              'image',
-             'vertical'
+             'vertical',
            )}
 
            <!-- Motor Selector -->
@@ -582,6 +928,13 @@ class ProductConfigurator extends HTMLElement {
           this.updateScreen(index, field, val);
         }
       });
+
+      // Jump to SVG configurator when measurement inputs are focused
+      if (input.dataset.field === 'width' || input.dataset.field === 'height') {
+        input.addEventListener('focus', () => {
+          this.jumpToSVGConfigurator();
+        });
+      }
     });
 
     // Handle Summary Click manually for Accordion State
@@ -596,6 +949,7 @@ class ProductConfigurator extends HTMLElement {
   renderInstallationSection() {
     const section = document.createElement('div');
     section.className = 'configurator-group-box';
+    section.id = 'installation-section';
 
     // 1. Group Title
     const title = document.createElement('label');
@@ -689,8 +1043,8 @@ class ProductConfigurator extends HTMLElement {
               return `
               <label class="selection-card selection-card--vertical ${isSelected ? 'selected' : ''}">
                 <input type="radio" name="installationType" value="${opt.id}" ${
-                isSelected ? 'checked' : ''
-              } class="hidden-input">
+                  isSelected ? 'checked' : ''
+                } class="hidden-input">
                 <div class="card-text-wrapper" style="flex: 1;">
                   <span class="card-title">${opt.title}</span>
                   <span class="card-desc" style="white-space: pre-line; margin-top: 4px; display: block;">${
@@ -781,8 +1135,8 @@ class ProductConfigurator extends HTMLElement {
 
     label.innerHTML = `
       <input type="radio" name="bracket_selection" value="${bracket.id}" class="hidden-input" ${
-      isSelected ? 'checked' : ''
-    }>
+        isSelected ? 'checked' : ''
+      }>
       <div class="card-visual" style="margin-right: 16px;">
         ${imageHtml}
       </div>

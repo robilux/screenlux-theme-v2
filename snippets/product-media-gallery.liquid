@@ -149,12 +149,20 @@
               type="button"
             >
               <div class="thumbnail-configurator-icon">
-                <svg width="40" height="30" viewBox="0 0 40 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="0" y="0" width="40" height="6" rx="2" fill="#454545"/>
-                  <rect x="0" y="6" width="3" height="24" fill="#454545"/>
-                  <rect x="37" y="6" width="3" height="24" fill="#454545"/>
-                  <rect x="3" y="6" width="34" height="22" fill="#707070"/>
-                  <rect x="3" y="28" width="34" height="2" fill="#454545"/>
+                <svg
+                  id="configurator-thumbnail-svg"
+                  width="40"
+                  height="30"
+                  viewBox="0 0 40 30"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect data-thumb-part="cassette" x="0.5" y="0.5" width="39" height="5" rx="2" fill="#FFFFFF" stroke="#E6E6E6" stroke-width="1"/>
+                  <rect data-thumb-part="solar-panel" x="25.5" y="1.5" width="10" height="3" rx="0.5" fill="#373F47" style="display:none;"/>
+                  <rect data-thumb-part="rail-left" x="0.5" y="5.5" width="3" height="24" fill="#FFFFFF" stroke="#E6E6E6" stroke-width="1"/>
+                  <rect data-thumb-part="rail-right" x="36.5" y="5.5" width="3" height="24" fill="#FFFFFF" stroke="#E6E6E6" stroke-width="1"/>
+                  <rect data-thumb-part="fabric" x="3.5" y="5.5" width="33" height="22" fill="#E6E6E6"/>
+                  <rect data-thumb-part="bottom-bar" x="3.5" y="27.5" width="33" height="2" fill="#FFFFFF" stroke="#E6E6E6" stroke-width="1"/>
                 </svg>
               </div>
             </button>

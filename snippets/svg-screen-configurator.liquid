@@ -1,7 +1,11 @@
 {% comment %}
   SVG Screen Configurator
 
-  Corner gradients with proper center positions for mirrored effect.
+  Gradients:
+  - Top/bottom bands: dark at edge, light at 50%
+  - Side bands: dark at edge, light at 50%
+  - Bottom corners: mirrored versions of top corners
+
   Default: 1500mm x 1000mm at 0.3 scale
 {% endcomment %}
 
@@ -24,43 +28,47 @@
     aria-label="Screen preview showing current configuration"
   >
     <defs>
-      <!-- Top corner gradients (from Figma) -->
-      <radialGradient id="gradTL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(-0.7 -0.75 0.75 -0.7 7 7)">
+      <!-- Corner gradients -->
+      <radialGradient id="gradTL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="4" gradientTransform="matrix(-0.7 -0.75 0.75 -0.7 4 4)">
         <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
         <stop offset="1" stop-color="#242424" />
       </radialGradient>
-      <radialGradient id="gradTR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="7" gradientTransform="matrix(0.7 -0.75 0.75 0.7 0 7)">
+      <radialGradient id="gradTR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="4" gradientTransform="matrix(0.7 -0.75 0.75 0.7 0 4)">
+        <stop offset="0.50" stop-color="#454545" />
+        <stop offset="0.75" stop-color="#353535" />
+        <stop offset="1" stop-color="#242424" />
+      </radialGradient>
+      <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="4" gradientTransform="matrix(-0.7 0.75 0.75 0.7 4 21)">
+        <stop offset="0.50" stop-color="#454545" />
+        <stop offset="0.75" stop-color="#353535" />
+        <stop offset="1" stop-color="#242424" />
+      </radialGradient>
+      <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="4" gradientTransform="matrix(0.7 0.75 0.75 -0.7 0 21)">
         <stop offset="0.50" stop-color="#454545" />
         <stop offset="0.75" stop-color="#353535" />
         <stop offset="1" stop-color="#242424" />
       </radialGradient>
 
-      <!-- Bottom corner gradients (mirrored - INVERTED: dark at center, light at edge) -->
-      <radialGradient id="gradBL" gradientUnits="userSpaceOnUse" cx="0" cy="42" r="10.5">
-        <stop offset="0.50" stop-color="#242424" />
-        <stop offset="0.75" stop-color="#353535" />
-        <stop offset="1" stop-color="#454545" />
-      </radialGradient>
-      <radialGradient id="gradBR" gradientUnits="userSpaceOnUse" cx="7" cy="42" r="10.5">
-        <stop offset="0.50" stop-color="#242424" />
-        <stop offset="0.75" stop-color="#353535" />
-        <stop offset="1" stop-color="#454545" />
-      </radialGradient>
-
-      <!-- Band gradients -->
+      <!-- Top band: dark at top, light at 50% -->
       <linearGradient id="topBand" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#242424" />
-        <stop offset="100%" stop-color="#353535" />
+        <stop offset="50%" stop-color="#454545" />
       </linearGradient>
+
+      <!-- Bottom band: light at 50%, dark at bottom -->
       <linearGradient id="bottomBand" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#353535" />
-        <stop offset="100%" stop-color="#242424" />
-      </linearGradient>
-      <linearGradient id="leftSide" x1="100%" y1="0%" x2="0%" y2="0%">
         <stop offset="50%" stop-color="#454545" />
         <stop offset="100%" stop-color="#242424" />
       </linearGradient>
+
+      <!-- Left side: dark at left, light at 50% -->
+      <linearGradient id="leftSide" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#242424" />
+        <stop offset="50%" stop-color="#454545" />
+      </linearGradient>
+
+      <!-- Right side: light at 50%, dark at right -->
       <linearGradient id="rightSide" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="50%" stop-color="#454545" />
         <stop offset="100%" stop-color="#242424" />
@@ -70,63 +78,68 @@
     <g transform="translate(15, 15)">
 
       <!-- Cassette background -->
-      <rect x="0" y="0" width="450" height="42" rx="7" fill="#454545" />
-      <rect x="0" y="35" width="450" height="7" fill="#454545" />
+      <rect x="0" y="0" width="450" height="25" rx="4" fill="#454545" />
+      <rect x="0" y="21" width="450" height="4" fill="#454545" />
 
       <g class="cassette">
 
         <!-- LEFT END -->
         <g class="left-end">
           <!-- Top-left corner -->
-          <path d="M 7 0 L 7 0 L 7 7 L 0 7 L 0 7 A 7 7 0 0 1 7 0 Z" fill="url(#gradTL)" />
+          <path d="M 4 0 L 4 0 L 4 4 L 0 4 L 0 4 A 4 4 0 0 1 4 0 Z" fill="url(#gradTL)" />
           <!-- Middle -->
-          <rect x="0" y="7" width="7" height="28" fill="url(#leftSide)" />
+          <rect x="0" y="4" width="4" height="17" fill="url(#leftSide)" />
           <!-- Bottom-left corner (mirrored) -->
-          <path d="M 0 35 L 7 35 L 7 42 L 7 42 A 7 7 0 0 1 0 35 L 0 35 Z" fill="url(#gradBL)" />
+          <path d="M 0 21 L 4 21 L 4 25 L 4 25 A 4 4 0 0 1 0 21 L 0 21 Z" fill="url(#gradBL)" />
         </g>
 
         <!-- CONTAINER -->
-        <g class="container" transform="translate(7, 0)">
-          <rect x="0" y="0" width="301" height="7" fill="url(#topBand)" />
-          <rect x="0" y="7" width="301" height="28" fill="#454545" />
-          <rect x="0" y="35" width="301" height="7" fill="url(#bottomBand)" />
+        <g class="container" transform="translate(4, 0)">
+          <rect x="0" y="0" width="307" height="4" fill="url(#topBand)" />
+          <rect x="0" y="4" width="307" height="17" fill="#454545" />
+          <rect x="0" y="21" width="307" height="4" fill="url(#bottomBand)" />
         </g>
 
         <!-- SOLAR PANEL -->
-        <g class="container-fixed" transform="translate(308, 0)">
-          <rect x="0" y="0" width="135" height="7" fill="url(#topBand)" />
-          <rect x="0" y="7" width="135" height="28" fill="#454545" class="solar-panel" />
-          <rect x="0" y="35" width="135" height="7" fill="url(#bottomBand)" />
+        <g class="container-fixed" transform="translate(311, 0)">
+          <rect x="0" y="0" width="135" height="4" fill="url(#topBand)" />
+          <rect x="0" y="4" width="135" height="17" fill="#454545" class="solar-panel" />
+          <rect x="0" y="21" width="135" height="4" fill="url(#bottomBand)" />
         </g>
 
         <!-- RIGHT END -->
-        <g class="right-end" transform="translate(443, 0)">
+        <g class="right-end" transform="translate(446, 0)">
           <!-- Top-right corner -->
-          <path d="M 0 0 L 0 0 A 7 7 0 0 1 7 7 L 7 7 L 0 7 Z" fill="url(#gradTR)" />
+          <path d="M 0 0 L 0 0 A 4 4 0 0 1 4 4 L 4 4 L 0 4 Z" fill="url(#gradTR)" />
           <!-- Middle -->
-          <rect x="0" y="7" width="7" height="28" fill="url(#rightSide)" />
+          <rect x="0" y="4" width="4" height="17" fill="url(#rightSide)" />
           <!-- Bottom-right corner (mirrored) -->
-          <path d="M 0 35 L 0 35 L 0 42 L 0 42 A 7 7 0 0 1 7 35 L 7 35 Z" fill="url(#gradBR)" />
+          <path d="M 0 21 L 4 21 L 4 21 A 4 4 0 0 1 0 25 L 0 25 Z" fill="url(#gradBR)" />
         </g>
 
       </g>
 
       <!-- RAILS & FABRIC -->
-      <g class="rails-fabric" transform="translate(0, 42)">
-        <rect x="0" y="0" width="17" height="258" fill="#454545" />
-        <rect x="17" y="0" width="416" height="248" fill="#707070" opacity="0.92" class="fabric-rect" />
-        <rect x="17" y="248" width="416" height="10" fill="#454545" />
-        <rect x="433" y="0" width="17" height="258" fill="#454545" />
+      <g class="rails-fabric" transform="translate(0, 25)">
+        <rect x="0" y="0" width="12" height="275" fill="#454545" />
+        <rect x="12" y="0" width="426" height="269" fill="#707070" opacity="0.92" class="fabric-rect" />
+        <rect x="12" y="269" width="426" height="6" fill="#454545" />
+        <rect x="438" y="0" width="12" height="275" fill="#454545" />
       </g>
     </g>
   </svg>
 
-  <div class="dimension-labels">
-    <span class="dimension-label dimension-width">
-      <span class="dimension-value" data-dimension="width">1500</span> mm
-    </span>
-    <span class="dimension-label dimension-height">
-      <span class="dimension-value" data-dimension="height">1000</span> mm
-    </span>
+  <div class="screen-controls">
+    <button type="button" class="screen-toggle-btn" data-screen-state="closed" aria-label="Open or close screen">
+      <span class="screen-toggle-text">Open screen</span>
+    </button>
+    <button
+      type="button"
+      class="measurements-toggle-btn"
+      data-measurements-visible="true"
+      aria-label="Show or hide measurements"
+    >
+      <span class="measurements-toggle-text">Hide measurements</span>
+    </button>
   </div>
 </div>
