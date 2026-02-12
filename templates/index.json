@@ -478,6 +478,88 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "reviews_EndBfQ": {
+      "type": "reviews",
+      "blocks": {
+        "review_card_y7Dcge": {
+          "type": "review_card",
+          "settings": {
+            "initials": "LW",
+            "author_name": "Lukas Weber",
+            "date": "11 Feb. 2026",
+            "avatar_color": "#ddf9e3",
+            "stars": 5,
+            "review_title": "Hält auch im grauen Winter.",
+            "review_body": "Ich war skeptisch wegen der Solarfunktion im Norden, aber die 30 Tage Laufzeit ohne Sonne sind kein Marketing-Gag. Selbst im tiefsten Grau laufen die Screens einwandfrei. Es hält auch im grauen Winter absolut, was es verspricht."
+          }
+        },
+        "review_card_ERfWpL": {
+          "type": "review_card",
+          "settings": {
+            "initials": "AS",
+            "author_name": "Anja Schneider",
+            "date": "19 Feb. 2026",
+            "avatar_color": "#ddf4f9",
+            "stars": 5,
+            "review_title": "Ästhetik pur.",
+            "review_body": "Die 85mm Kassette ist wahnsinnig schlank. Dass Technik, die einen Monat ohne Licht auskommt, in so ein flaches Design passt, hat mich echt beeindruckt. Für mich ist das Ästhetik pur kombiniert mit High-Tech."
+          }
+        },
+        "review_card_zjhqNc": {
+          "type": "review_card",
+          "settings": {
+            "initials": "MK",
+            "author_name": "Matthias Koch",
+            "date": "21 Feb. 2026",
+            "avatar_color": "#ddf4f9",
+            "stars": 5,
+            "review_title": "Einfache Montage, starke Leistung.",
+            "review_body": "Selbst montiert und direkt begeistert. Das ist einfache Montage und starke Leistung in einem: Die Akku-Leistung für einen ganzen Monat Dunkelheit gibt einem ein extrem sicheres Gefühl. Top System!"
+          }
+        },
+        "review_card_d7arg9": {
+          "type": "review_card",
+          "settings": {
+            "initials": "CS",
+            "author_name": "Christian Schmidt",
+            "date": "26 Feb. 2026",
+            "avatar_color": "#f9dde1",
+            "stars": 5,
+            "review_title": "Profis am Werk.",
+            "review_body": "Montageservice genutzt und alles perfekt. Da waren echte Profis am Werk. Die Screens laufen seit Wochen ohne einen einzigen Sonnenstrahl – genau wie versprochen."
+          }
+        },
+        "review_card_fBJAA9": {
+          "type": "review_card",
+          "settings": {
+            "initials": "EF",
+            "author_name": "Elena Fischer",
+            "date": "27 Feb. 2026",
+            "avatar_color": "#ddf9e3",
+            "stars": 5,
+            "review_title": "Zuverlässig und robust.",
+            "review_body": "Zuverlässig und robust: Nach diesem Winter im Schwarzwald kann ich das bestätigen. Der 5200 mAh Akku ist ein echtes Kraftpaket."
+          }
+        }
+      },
+      "block_order": [
+        "review_card_y7Dcge",
+        "review_card_ERfWpL",
+        "review_card_zjhqNc",
+        "review_card_d7arg9",
+        "review_card_fBJAA9"
+      ],
+      "name": "Reviews",
+      "settings": {
+        "heading": "What people are saying",
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#171717",
+        "body_text_color": "#525252",
+        "card_bg_color": "#ffffff",
+        "card_border_color": "#e5e5e5"
+      }
     }
   },
   "order": [
@@ -490,6 +572,7 @@
     "featured_collection",
     "collage",
     "video",
-    "multicolumn"
+    "multicolumn",
+    "reviews_EndBfQ"
   ]
 }
