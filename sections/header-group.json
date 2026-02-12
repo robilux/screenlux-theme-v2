@@ -11,22 +11,6 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "blocks": {
-        "announcement-bar-0": {
-          "type": "announcement",
-          "settings": {
-            "text": "Welcome to our store",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "announcement-bar-0"
-      ],
-      "settings": {}
-    },
     "header": {
       "type": "header",
       "settings": {
@@ -38,8 +22,10 @@
         "sticky_header_type": "none",
         "show_line_separator": true,
         "color_scheme": "scheme-1",
+        "menu_color_scheme": "",
         "enable_country_selector": true,
         "enable_language_selector": true,
+        "enable_customer_avatar": true,
         "margin_bottom": 0,
         "padding_top": 24,
         "padding_bottom": 24
@@ -47,7 +33,6 @@
     }
   },
   "order": [
-    "announcement-bar",
     "header"
   ]
 }
