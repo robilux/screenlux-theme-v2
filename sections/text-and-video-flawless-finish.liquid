@@ -1,0 +1,379 @@
+{% comment %} Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=285-1204&t=HET5jBT7j25OVNe6-4 {% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .tv-flawless {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+    padding: 80px 64px;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  /* --- Headline --- */
+  #shopify-section-{{ section.id }} .tv-flawless__headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    max-width: 1312px;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+  }
+
+  /* --- Video Container --- */
+  #shopify-section-{{ section.id }} .tv-flawless__media-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__media {
+    position: relative;
+    width: 100%;
+    height: 641px;
+    border-radius: 32px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 40px;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__media video,
+  #shopify-section-{{ section.id }} .tv-flawless__media img.tv-flawless__poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__media-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 32px;
+    background: linear-gradient(191.645deg, rgba(0, 0, 0, 0) 69.682%, rgba(0, 0, 0, 0.5) 95.782%);
+    pointer-events: none;
+  }
+
+  /* --- Play/Pause Button --- */
+  #shopify-section-{{ section.id }} .tv-flawless__play-btn {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 51px;
+    height: 51px;
+    padding: 0;
+    border: none;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6.857px);
+    -webkit-backdrop-filter: blur(6.857px);
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__play-btn:hover {
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__play-btn img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__play-btn .tv-flawless__icon--pause {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__play-btn.is-playing .tv-flawless__icon--play {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__play-btn.is-playing .tv-flawless__icon--pause {
+    display: block;
+  }
+
+  /* --- CTA Button --- */
+  #shopify-section-{{ section.id }} .tv-flawless__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 24px;
+    min-width: 180px;
+    height: 48px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__button:hover {
+    opacity: 0.9;
+  }
+
+  /* ===== MOBILE ===== */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .tv-flawless {
+      padding: 64px 16px;
+      gap: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .tv-flawless__title {
+      font-size: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .tv-flawless__media {
+      height: 400px;
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .tv-flawless__media video,
+    #shopify-section-{{ section.id }} .tv-flawless__media img.tv-flawless__poster {
+      border-radius: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .tv-flawless__media-gradient {
+      border-radius: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .tv-flawless__play-btn {
+      width: 44px;
+      height: 44px;
+    }
+
+    #shopify-section-{{ section.id }} .tv-flawless__play-btn img {
+      width: 20px;
+      height: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .tv-flawless__cta {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .tv-flawless__button {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="tv-flawless" aria-label="{{ section.settings.heading }}">
+  {%- comment -%} Headline {%- endcomment -%}
+  <div class="tv-flawless__headline">
+    <h2 class="tv-flawless__title">{{ section.settings.heading }}</h2>
+  </div>
+
+  {%- comment -%} Video / Image Container {%- endcomment -%}
+  <div class="tv-flawless__media-wrapper">
+    <div class="tv-flawless__media" id="tv-flawless-media-{{ section.id }}">
+      {%- if section.settings.video_url != blank -%}
+        <video
+          id="tv-flawless-video-{{ section.id }}"
+          playsinline
+          muted
+          loop
+          autoplay
+          {% if section.settings.fallback_image != blank %}
+            poster="{{ section.settings.fallback_image | image_url: width: 1920 }}"
+          {% endif %}
+        >
+          <source src="{{ section.settings.video_url | asset_url }}" type="video/mp4">
+        </video>
+      {%- elsif section.settings.fallback_image != blank -%}
+        <img
+          class="tv-flawless__poster"
+          src="{{ section.settings.fallback_image | image_url: width: 1920 }}"
+          alt="{{ section.settings.fallback_image.alt | default: section.settings.heading }}"
+          loading="lazy"
+          width="{{ section.settings.fallback_image.width }}"
+          height="{{ section.settings.fallback_image.height }}"
+        >
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'tv-flawless__poster' }}
+      {%- endif -%}
+
+      {%- comment -%} Gradient overlay {%- endcomment -%}
+      <div class="tv-flawless__media-gradient" aria-hidden="true"></div>
+
+      {%- comment -%} Play / Pause button {%- endcomment -%}
+      {%- if section.settings.video_url != blank -%}
+        <button
+          class="tv-flawless__play-btn is-playing"
+          id="tv-flawless-toggle-{{ section.id }}"
+          type="button"
+          aria-label="Play or pause video"
+        >
+          <img
+            class="tv-flawless__icon--play"
+            src="{{ 'svg-play.svg' | asset_url }}"
+            alt=""
+            width="24"
+            height="24"
+            loading="lazy"
+          >
+          <img
+            class="tv-flawless__icon--pause"
+            src="{{ 'svg-pause.svg' | asset_url }}"
+            alt=""
+            width="24"
+            height="24"
+            loading="lazy"
+          >
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} CTA Button {%- endcomment -%}
+  {%- if section.settings.button_label != blank -%}
+    <div class="tv-flawless__cta">
+      <a class="tv-flawless__button" href="{{ section.settings.button_link }}">
+        {{ section.settings.button_label }}
+      </a>
+    </div>
+  {%- endif -%}
+</section>
+
+{%- if section.settings.video_url != blank -%}
+  <script>
+    (function () {
+      var sectionId = '{{ section.id }}';
+      var video = document.getElementById('tv-flawless-video-' + sectionId);
+      var toggleBtn = document.getElementById('tv-flawless-toggle-' + sectionId);
+
+      if (!video || !toggleBtn) return;
+
+      toggleBtn.addEventListener('click', function () {
+        if (video.paused) {
+          video.play();
+          toggleBtn.classList.add('is-playing');
+        } else {
+          video.pause();
+          toggleBtn.classList.remove('is-playing');
+        }
+      });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Flawless Finish Video",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Flawless Finish. No visible screws."
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL (MP4)",
+      "info": "Filename of an MP4 video in your theme assets folder (e.g. video-text-and-video-flawless-finish.mp4). Leave blank to show only the fallback image."
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "Fallback image / poster",
+      "info": "Shown while the video loads, or when no video URL is set."
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Configure"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#5b5bf9"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Flawless Finish Video"
+    }
+  ]
+}
+{% endschema %}

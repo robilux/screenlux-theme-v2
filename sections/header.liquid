@@ -237,7 +237,12 @@
         {%- endcase -%}
       {%- endfor -%}
 
-      <a href="#product-configurator" class="header__btn-order btn btn-primary small-hide medium-hide"> Order now </a>
+      <a
+        href="#product-configurator"
+        class="header__btn-order button button--primary button--small small-hide medium-hide"
+      >
+        Order now
+      </a>
 
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
         <span class="svg-wrapper">

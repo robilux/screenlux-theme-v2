@@ -55,8 +55,21 @@
   id="Banner-{{ section.id }}"
   class="banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
-  {%- if section.settings.image != blank -%}
-    <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+  {%- if section.settings.video != blank -%}
+    <div class="banner__media media{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      {{
+        section.settings.video
+        | video_tag:
+          image_size: '1100x',
+          loop: true,
+          controls: false,
+          muted: true,
+          autoplay: true,
+          class: 'banner__media-image'
+      }}
+    </div>
+  {%- elsif section.settings.image != blank -%}
+    <div class="banner__media media{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {%- liquid
         assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
         if section.settings.image_2 != blank
@@ -84,7 +97,15 @@
     </div>
   {%- elsif section.settings.image_2 == blank -%}
     <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      <video
+        src="{{ 'video-hero-placeholder-video.mp4' | asset_url }}"
+        class="banner__media-image"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="{{ 'img-hero-image-placeholder1.png' | asset_url }}"
+      ></video>
     </div>
   {%- endif -%}
   {%- if section.settings.image_2 != blank -%}
@@ -160,9 +181,34 @@
                 </a>
               {%- endif -%}
             </div>
+            {%- if block.settings.text_below_button != blank -%}
+              <div class="banner__text-below-button">{{ block.settings.text_below_button }}</div>
+            {%- endif -%}
         {%- endcase -%}
       {%- endfor -%}
     </div>
+  </div>
+  <div class="banner__badge">
+    {%- if section.settings.badge_image != blank -%}
+      {{
+        section.settings.badge_image
+        | image_url: width: 300
+        | image_tag:
+          loading: 'lazy',
+          width: section.settings.badge_image.width,
+          height: section.settings.badge_image.height,
+          class: 'banner__badge-image'
+      }}
+    {%- else -%}
+      <img
+        src="{{ 'img-gda26-winner-screenlux-text-white.png' | asset_url }}"
+        loading="lazy"
+        width="168"
+        height="auto"
+        class="banner__badge-image"
+        alt="German Design Award Winner"
+      >
+    {%- endif -%}
   </div>
 </div>
 
@@ -181,9 +227,19 @@
       "label": "t:sections.image-banner.settings.image.label"
     },
     {
+      "type": "video",
+      "id": "video",
+      "label": "t:sections.video.settings.video.label"
+    },
+    {
       "type": "image_picker",
       "id": "image_2",
       "label": "t:sections.image-banner.settings.image_2.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge Image"
     },
     {
       "type": "range",
@@ -193,7 +249,7 @@
       "step": 10,
       "unit": "%",
       "label": "t:sections.image-banner.settings.image_overlay_opacity.label",
-      "default": 0
+      "default": 30
     },
     {
       "type": "select",
@@ -332,7 +388,7 @@
       "id": "stack_images_on_mobile",
       "default": true,
       "label": "t:sections.image-banner.settings.stack_images_on_mobile.label"
-    },    
+    },
     {
       "type": "select",
       "id": "mobile_content_alignment",
@@ -358,6 +414,30 @@
       "id": "show_text_below",
       "default": true,
       "label": "t:sections.image-banner.settings.show_text_below.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
     }
   ],
   "blocks": [
@@ -369,7 +449,7 @@
         {
           "type": "inline_richtext",
           "id": "heading",
-          "default": "t:sections.image-banner.blocks.heading.settings.heading.default",
+          "default": "German Quality. Factory Direct Prices.",
           "label": "t:sections.image-banner.blocks.heading.settings.heading.label"
         },
         {
@@ -410,7 +490,7 @@
         {
           "type": "inline_richtext",
           "id": "text",
-          "default": "t:sections.image-banner.blocks.text.settings.text.default",
+          "default": "We cut out the middlemen, not the quality. Get premium screens for 30% less than the competition.",
           "label": "t:sections.image-banner.blocks.text.settings.text.label"
         },
         {
@@ -441,13 +521,13 @@
       "limit": 1,
       "settings": [
         {
-        "type": "header",
-        "content": "t:sections.image-banner.blocks.buttons.settings.header_1.content"
+          "type": "header",
+          "content": "t:sections.image-banner.blocks.buttons.settings.header_1.content"
         },
         {
           "type": "text",
           "id": "button_label_1",
-          "default": "t:sections.image-banner.blocks.buttons.settings.button_label_1.default",
+          "default": "Configure",
           "label": "t:sections.image-banner.blocks.buttons.settings.button_label_1.label",
           "info": "t:sections.image-banner.blocks.buttons.settings.button_label_1.info"
         },
@@ -463,8 +543,8 @@
           "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_1.label"
         },
         {
-        "type": "header",
-        "content": "t:sections.image-banner.blocks.buttons.settings.header_2.content"
+          "type": "header",
+          "content": "t:sections.image-banner.blocks.buttons.settings.header_2.content"
         },
         {
           "type": "text",
@@ -483,6 +563,11 @@
           "id": "button_style_secondary_2",
           "default": false,
           "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_2.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text_below_button",
+          "label": "Text below button"
         }
       ]
     }

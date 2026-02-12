@@ -1,0 +1,353 @@
+{% comment %} Figma Source: Desktop 243:1242, Mobile 297:2621 {% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .cards-section {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    padding: 80px 64px;
+  }
+
+  /* --- Headline --- */
+  .cards-section__headline {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 1312px;
+    width: 100%;
+  }
+
+  .cards-section__title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+  }
+
+  .cards-section__subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+    color: {{ section.settings.subheading_color }};
+    max-width: 900px;
+    margin: 0;
+  }
+
+  /* --- Cards Container --- */
+  .cards-section__cards {
+    display: flex;
+    gap: 32px;
+    width: 100%;
+    max-width: 1312px;
+  }
+
+  /* --- Individual Card --- */
+  .cards-section__card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cards-section__card-image-wrap {
+    position: relative;
+    width: 100%;
+    height: 262px;
+    border-radius: 10.5px;
+    overflow: hidden;
+  }
+
+  .cards-section__card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10.5px;
+  }
+
+  .cards-section__card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 12px;
+    color: {{ section.settings.subheading_color }};
+  }
+
+  .cards-section__card-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .cards-section__card-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* --- Navigation Arrows --- */
+  .cards-section__nav {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    max-width: 1312px;
+    width: 100%;
+  }
+
+  .cards-section__nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 9999px;
+    border: 1px solid #e5e5e5;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.2s;
+  }
+
+  .cards-section__nav-btn:hover {
+    opacity: 0.8;
+  }
+
+  .cards-section__nav-btn--prev {
+    opacity: 0.4;
+  }
+
+  .cards-section__nav-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #000;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ===== MOBILE ===== */
+  @media screen and (max-width: 749px) {
+    .cards-section {
+      padding: 64px 16px;
+      gap: 40px;
+    }
+
+    .cards-section__title {
+      font-size: 32px;
+    }
+
+    .cards-section__subtitle {
+      font-size: 16px;
+    }
+
+    .cards-section__cards {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      gap: 16px;
+      padding-bottom: 8px;
+    }
+
+    .cards-section__cards::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cards-section__card {
+      flex: 0 0 300px;
+      scroll-snap-align: start;
+    }
+
+    .cards-section__card-image-wrap {
+      height: 262px;
+      border-radius: 9px;
+    }
+
+    .cards-section__card-img {
+      border-radius: 9px;
+    }
+
+    .cards-section__nav {
+      display: none;
+    }
+  }
+{%- endstyle -%}
+
+<section class="cards-section" aria-label="{{ section.settings.heading }}">
+  {%- comment -%} Headline {%- endcomment -%}
+  <div class="cards-section__headline">
+    <h2 class="cards-section__title">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="cards-section__subtitle">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Cards {%- endcomment -%}
+  <div class="cards-section__cards">
+    {%- for block in section.blocks -%}
+      <div class="cards-section__card" {{ block.shopify_attributes }}>
+        <div class="cards-section__card-image-wrap">
+          {%- if block.settings.image != blank -%}
+            <img
+              class="cards-section__card-img"
+              src="{{ block.settings.image | image_url: width: 700 }}"
+              alt="{{ block.settings.image.alt | default: block.settings.title }}"
+              width="700"
+              height="525"
+              loading="lazy"
+            >
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'cards-section__card-img' }}
+          {%- endif -%}
+        </div>
+        <div class="cards-section__card-text">
+          {%- if block.settings.title != blank -%}
+            <h3 class="cards-section__card-title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          {%- if block.settings.description != blank -%}
+            <p class="cards-section__card-desc">{{ block.settings.description }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- comment -%} Navigation Arrows {%- endcomment -%}
+  <div class="cards-section__nav">
+    <button class="cards-section__nav-btn cards-section__nav-btn--prev" aria-label="Previous" type="button">
+      <svg viewBox="0 0 24 24">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button class="cards-section__nav-btn cards-section__nav-btn--next" aria-label="Next" type="button">
+      <svg viewBox="0 0 24 24">
+        <polyline points="9 6 15 12 9 18"></polyline>
+      </svg>
+    </button>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cards Section",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Engineered for the Darkest Winters."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "While others fail in the shade, the Screenlux Zip 2 thrives. Featuring IBC-solar technology and a high-capacity battery, it's designed to stay powered through Germany's grayest months."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#525252"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Feature description text goes here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cards Section",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Superior Low-Light Tech.",
+            "description": "High-efficiency IBC solar panels harvest energy even on heavily overcast days."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Massive 5200mAh Battery.",
+            "description": "A single charge provides enough power to keep your screens running for 30 days of total darkness."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Emergency Charger.",
+            "description": "If you ever run low, the integrated charging port lets you power up manually in minutes."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Wired options available.",
+            "description": "Under a porch or deep in the shade? Opt for our hardwired version for permanent power."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

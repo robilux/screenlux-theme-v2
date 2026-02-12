@@ -1,0 +1,528 @@
+{% comment %} Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=243-1197&t=HET5jBT7j25OVNe6-4 {% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .worlds-slimmest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+    padding: 80px 64px;
+  }
+
+  /* --- Headline --- */
+  .worlds-slimmest__headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    max-width: 1312px;
+    width: 100%;
+  }
+
+  .worlds-slimmest__title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+  }
+
+  .worlds-slimmest__subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+    color: {{ section.settings.subheading_color }};
+    max-width: 800px;
+    margin: 0;
+  }
+
+  /* --- Image Container --- */
+  .worlds-slimmest__images {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-width: 1312px;
+  }
+
+  /* --- Hero Image (Image 1) --- */
+  .worlds-slimmest__hero {
+    position: relative;
+    width: 100%;
+    height: 641px;
+    border-radius: 32px;
+    overflow: hidden;
+  }
+
+  .worlds-slimmest__hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .worlds-slimmest__hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(192deg, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.5) 96%);
+    pointer-events: none;
+  }
+
+  .worlds-slimmest__badges {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    z-index: 1;
+  }
+
+  .worlds-slimmest__badge {
+    display: block;
+    height: auto;
+  }
+
+  .worlds-slimmest__badge--gda {
+    width: 168px;
+  }
+
+  .worlds-slimmest__badge--dmp {
+    width: 85px;
+  }
+
+  .worlds-slimmest__badge--ida {
+    width: 119px;
+  }
+
+  /* --- Feature Image Group --- */
+  .worlds-slimmest__features {
+    display: flex;
+    gap: 32px;
+    width: 100%;
+    height: 486px;
+  }
+
+  /* --- Feature Card --- */
+  .worlds-slimmest__feature {
+    flex: 1;
+    position: relative;
+    border-radius: 32px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+  }
+
+  .worlds-slimmest__feature-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .worlds-slimmest__feature-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 56%, rgba(0, 0, 0, 0.5) 100%);
+    pointer-events: none;
+  }
+
+  .worlds-slimmest__feature-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1;
+    color: #ffffff;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .worlds-slimmest__feature-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1;
+    color: #ffffff;
+    margin: 4px 0 0 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* --- CTA Button --- */
+  .worlds-slimmest__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .worlds-slimmest__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 24px;
+    min-width: 180px;
+    height: 48px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .worlds-slimmest__button:hover {
+    opacity: 0.9;
+  }
+
+  /* ===== MOBILE ===== */
+  @media screen and (max-width: 749px) {
+    .worlds-slimmest {
+      padding: 80px 20px;
+      gap: 64px;
+    }
+
+    .worlds-slimmest__title {
+      font-size: 32px;
+    }
+
+    .worlds-slimmest__subtitle {
+      font-size: 16px;
+    }
+
+    .worlds-slimmest__hero {
+      height: 361px;
+      border-radius: 32px;
+    }
+
+    .worlds-slimmest__badges {
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      gap: 8px;
+    }
+
+    .worlds-slimmest__badge--gda {
+      width: 93px;
+    }
+
+    .worlds-slimmest__badge--dmp {
+      width: 47px;
+    }
+
+    .worlds-slimmest__badge--ida {
+      width: 66px;
+    }
+
+    .worlds-slimmest__hero-gradient {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 68%, rgba(0, 0, 0, 0.4) 100%);
+    }
+
+    .worlds-slimmest__features {
+      flex-direction: column;
+      height: auto;
+      gap: 32px;
+    }
+
+    .worlds-slimmest__feature {
+      height: 240px;
+      border-radius: 32px;
+    }
+
+    .worlds-slimmest__feature-title {
+      font-size: 24px;
+    }
+
+    .worlds-slimmest__feature-desc {
+      font-size: 16px;
+    }
+
+    .worlds-slimmest__button {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="worlds-slimmest" aria-label="{{ section.settings.heading }}">
+  {%- comment -%} Headline {%- endcomment -%}
+  <div class="worlds-slimmest__headline">
+    <h2 class="worlds-slimmest__title">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="worlds-slimmest__subtitle">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Image Container {%- endcomment -%}
+  <div class="worlds-slimmest__images">
+    {%- comment -%} Hero Image {%- endcomment -%}
+    <div class="worlds-slimmest__hero">
+      {%- if section.settings.hero_image != blank -%}
+        <img
+          class="worlds-slimmest__hero-img"
+          src="{{ section.settings.hero_image | image_url: width: 1600 }}"
+          alt="{{ section.settings.hero_image.alt | default: section.settings.heading }}"
+          width="1600"
+          height="641"
+          loading="lazy"
+        >
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'worlds-slimmest__hero-img' }}
+      {%- endif -%}
+      <div class="worlds-slimmest__hero-gradient"></div>
+
+      {%- comment -%} Award Badges {%- endcomment -%}
+      <div class="worlds-slimmest__badges">
+        {%- if section.settings.badge_1 != blank -%}
+          <img
+            class="worlds-slimmest__badge worlds-slimmest__badge--gda"
+            src="{{ section.settings.badge_1 | image_url: width: 336 }}"
+            alt="{{ section.settings.badge_1.alt | default: 'Award badge' }}"
+            width="168"
+            height="101"
+            loading="lazy"
+          >
+        {%- endif -%}
+        {%- if section.settings.badge_2 != blank -%}
+          <img
+            class="worlds-slimmest__badge worlds-slimmest__badge--dmp"
+            src="{{ section.settings.badge_2 | image_url: width: 170 }}"
+            alt="{{ section.settings.badge_2.alt | default: 'Award badge' }}"
+            width="85"
+            height="109"
+            loading="lazy"
+          >
+        {%- endif -%}
+        {%- if section.settings.badge_3 != blank -%}
+          <img
+            class="worlds-slimmest__badge worlds-slimmest__badge--ida"
+            src="{{ section.settings.badge_3 | image_url: width: 238 }}"
+            alt="{{ section.settings.badge_3.alt | default: 'Award badge' }}"
+            width="119"
+            height="109"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} Feature Cards {%- endcomment -%}
+    <div class="worlds-slimmest__features">
+      {%- comment -%} Feature Card 1 {%- endcomment -%}
+      <div class="worlds-slimmest__feature">
+        {%- if section.settings.feature_1_image != blank -%}
+          <img
+            class="worlds-slimmest__feature-img"
+            src="{{ section.settings.feature_1_image | image_url: width: 800 }}"
+            alt="{{ section.settings.feature_1_image.alt | default: section.settings.feature_1_title }}"
+            width="800"
+            height="486"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'worlds-slimmest__feature-img' }}
+        {%- endif -%}
+        <div class="worlds-slimmest__feature-gradient"></div>
+        <h3 class="worlds-slimmest__feature-title">{{ section.settings.feature_1_title }}</h3>
+        <p class="worlds-slimmest__feature-desc">{{ section.settings.feature_1_desc }}</p>
+      </div>
+
+      {%- comment -%} Feature Card 2 {%- endcomment -%}
+      <div class="worlds-slimmest__feature">
+        {%- if section.settings.feature_2_image != blank -%}
+          <img
+            class="worlds-slimmest__feature-img"
+            src="{{ section.settings.feature_2_image | image_url: width: 800 }}"
+            alt="{{ section.settings.feature_2_image.alt | default: section.settings.feature_2_title }}"
+            width="800"
+            height="486"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'worlds-slimmest__feature-img' }}
+        {%- endif -%}
+        <div class="worlds-slimmest__feature-gradient"></div>
+        <h3 class="worlds-slimmest__feature-title">{{ section.settings.feature_2_title }}</h3>
+        <p class="worlds-slimmest__feature-desc">{{ section.settings.feature_2_desc }}</p>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} CTA Button {%- endcomment -%}
+  {%- if section.settings.button_label != blank -%}
+    <div class="worlds-slimmest__cta">
+      <a
+        class="worlds-slimmest__button"
+        href="{{ section.settings.button_link }}"
+      >
+        {{ section.settings.button_label }}
+      </a>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Worlds Slimmest",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Worlds slimmest. Designed to Disappear."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "At just 85mm, the world's slimmest cassette integrates seamlessly into your facade to preserve your view. Our click-fit system ensures a flawless, screw-free finish."
+    },
+    {
+      "type": "header",
+      "content": "Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "header",
+      "content": "Award Badges"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_1",
+      "label": "Badge 1 (GDA)"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_2",
+      "label": "Badge 2 (DMP)"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_3",
+      "label": "Badge 3 (IDA)"
+    },
+    {
+      "type": "header",
+      "content": "Feature Card 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_1_image",
+      "label": "Feature 1 image"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_title",
+      "label": "Feature 1 title",
+      "default": "Ultra-Slim 85mm"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_desc",
+      "label": "Feature 1 description",
+      "default": "Maximum light, minimum profile."
+    },
+    {
+      "type": "header",
+      "content": "Feature Card 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_2_image",
+      "label": "Feature 2 image"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_title",
+      "label": "Feature 2 title",
+      "default": "Screenlux ClickFit™"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_desc",
+      "label": "Feature 2 description",
+      "default": "Flawless Finish. No visible screws."
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Configure"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#525252"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#5b5bf9"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Worlds Slimmest"
+    }
+  ]
+}
+{% endschema %}

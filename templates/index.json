@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -6,26 +15,27 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Image banner",
-            "heading_size": "h0"
+            "heading": "German Quality. Factory Direct Prices.",
+            "heading_size": "h1"
           }
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
+            "text": "We cut out the middlemen, not the quality. Get premium screens for 30% less than the competition.",
             "text_style": "body"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop all",
+            "button_label_1": "Configure",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
             "button_link_2": "",
-            "button_style_secondary_2": false
+            "button_style_secondary_2": false,
+            "text_below_button": "From only 395€"
           }
         }
       },
@@ -35,15 +45,115 @@
         "button"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
+        "image_overlay_opacity": 30,
+        "image_height": "medium",
+        "desktop_content_position": "middle-center",
         "show_text_box": false,
         "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-1",
         "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "stack_images_on_mobile": true,
+        "show_text_below": true
+      }
+    },
+    "logo_bar": {
+      "type": "logo-bar",
+      "settings": {
+      }
+    },
+    "no_middlemen": {
+      "type": "no-middlemen",
+      "blocks": {
+        "left_mid_1": {
+          "type": "left_middleman_line",
+          "settings": { "label": "Sales Commission", "value": "€€€" }
+        },
+        "left_mid_2": {
+          "type": "left_middleman_line",
+          "settings": { "label": "Mandatory Home Visit", "value": "€€" }
+        },
+        "left_mid_3": {
+          "type": "left_middleman_line",
+          "settings": { "label": "Showroom Rental", "value": "€€" }
+        },
+        "left_fac_1": {
+          "type": "left_factory_line",
+          "settings": { "label": "Order Processing", "value": "€", "bold": false }
+        },
+        "left_fac_2": {
+          "type": "left_factory_line",
+          "settings": { "label": "Product Manufacturing", "value": "€€€", "bold": true }
+        },
+        "left_fac_3": {
+          "type": "left_factory_line",
+          "settings": { "label": "Shipping to Distributor", "value": "€", "bold": false }
+        },
+        "left_del_1": {
+          "type": "left_delivery_line",
+          "settings": { "label": "Distributor Warehousing", "value": "€" }
+        },
+        "left_del_2": {
+          "type": "left_delivery_line",
+          "settings": { "label": "Home Delivery", "value": "€" }
+        },
+        "left_del_3": {
+          "type": "left_delivery_line",
+          "settings": { "label": "Installation Service", "value": "€€€" }
+        },
+        "left_del_4": {
+          "type": "left_delivery_line",
+          "settings": { "label": "Electrician Fees", "value": "€€" }
+        },
+        "right_sal_1": {
+          "type": "right_sales_line",
+          "settings": { "label": "Sales Commission", "value": "", "badge": "", "struck": true }
+        },
+        "right_sal_2": {
+          "type": "right_sales_line",
+          "settings": { "label": "Configure online", "value": "", "badge": "Free", "struck": false }
+        },
+        "right_sal_3": {
+          "type": "right_sales_line",
+          "settings": { "label": "Showroom Rental", "value": "", "badge": "", "struck": true }
+        },
+        "right_fac_1": {
+          "type": "right_factory_line",
+          "settings": { "label": "Auto-Processing", "value": "", "badge": "Free", "bold": false, "struck": false }
+        },
+        "right_fac_2": {
+          "type": "right_factory_line",
+          "settings": { "label": "Product Manufacturing", "value": "€€€", "badge": "", "bold": true, "struck": false }
+        },
+        "right_fac_3": {
+          "type": "right_factory_line",
+          "settings": { "label": "Shipping to Distributor", "value": "", "badge": "", "bold": false, "struck": true }
+        },
+        "right_del_1": {
+          "type": "right_delivery_line",
+          "settings": { "label": "Warehousing fees", "value": "", "badge": "", "struck": true }
+        },
+        "right_del_2": {
+          "type": "right_delivery_line",
+          "settings": { "label": "Direct Home Delivery", "value": "", "badge": "Free", "struck": false }
+        },
+        "right_del_3": {
+          "type": "right_delivery_line",
+          "settings": { "label": "Simple Self-Install", "value": "", "badge": "Free", "struck": false }
+        },
+        "right_del_4": {
+          "type": "right_delivery_line",
+          "settings": { "label": "Electrician Fees", "value": "", "badge": "", "struck": true }
+        }
+      },
+      "block_order": [
+        "left_mid_1", "left_mid_2", "left_mid_3",
+        "left_fac_1", "left_fac_2", "left_fac_3",
+        "left_del_1", "left_del_2", "left_del_3", "left_del_4",
+        "right_sal_1", "right_sal_2", "right_sal_3",
+        "right_fac_1", "right_fac_2", "right_fac_3",
+        "right_del_1", "right_del_2", "right_del_3", "right_del_4"
+      ],
+      "settings": {
       }
     },
     "rich_text": {
@@ -197,11 +307,47 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "compare_slider": {
+      "type": "compare-slider",
+      "settings": {
+        "heading": "Keep the heat out, not the light.",
+        "subheading": "<p>Traditional roller shutters require total darkness to be effective. Screenlux ZIP blocks <strong>95% of heat</strong> and <strong>98% of UV rays</strong> before it hits the glass – keeping you cool without losing the light.</p>",
+        "cta_text": "Configure",
+        "cta_url": "",
+        "cta_subtext": "<p>From only <em>395€</em></p>",
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "worlds_slimmest": {
+      "type": "worlds-slimmest",
+      "settings": {
+      }
+    },
+    "flawless_finish_video": {
+      "type": "text-and-video-flawless-finish",
+      "settings": {
+        "heading": "Flawless Finish. No visible screws.",
+        "video_url": "video-text-and-video-flawless-finish.mp4",
+        "button_label": "Configure",
+        "button_link": "",
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff"
+      }
     }
   },
   "order": [
     "image_banner",
+    "logo_bar",
+    "no_middlemen",
     "rich_text",
+    "compare_slider",
+    "worlds_slimmest",
+    "flawless_finish_video",
     "featured_collection",
     "collage",
     "video",

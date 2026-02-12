@@ -1452,13 +1452,24 @@ slider-component .slider-counter {
 
 /* 1. "Order Now" Button */
 .header__btn-order {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   padding: 10px 20px;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1;
   margin-right: 20px;
   text-decoration: none;
-  border-radius: var(--sl-radius-md); /* Match rounded look */
+  border-radius: 6px; 
   white-space: nowrap;
+  background-color: var(--sl-color-primary);
+  color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+.header__btn-order:hover {
+  background-color: var(--sl-color-primary-hover);
 }
 
 /* 2. Cart Icon & Bubble - Figma Perfect Match */

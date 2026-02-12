@@ -1,0 +1,924 @@
+{% comment %} Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=258-1447&t=HET5jBT7j25OVNe6-4 {% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .no-middlemen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+    padding: 80px 20px;
+  }
+
+  /* --- Headline --- */
+  .no-middlemen__headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    max-width: 1312px;
+    width: 100%;
+  }
+
+  .no-middlemen__title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+  }
+
+  .no-middlemen__subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+    color: {{ section.settings.subheading_color }};
+    max-width: 800px;
+    margin: 0;
+  }
+
+  /* --- Receipt Group --- */
+  .no-middlemen__receipts {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 780px;
+  }
+
+  /* --- Single Receipt Card --- */
+  .receipt {
+    flex: 1;
+    border-radius: 24px 24px 0 0;
+    overflow: hidden;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .receipt__main {
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 16px 40px;
+  }
+
+  .receipt__title {
+    font-family: 'Geist Mono', 'Courier New', monospace;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    color: #171717;
+    padding: 8px 12px 8px 20px;
+    margin: 0;
+  }
+
+  .receipt__title--brand {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  /* --- Order Line Groups --- */
+  .receipt__group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px 4px;
+    border-radius: 8px;
+  }
+
+  .receipt__group--highlighted {
+    background-color: #ffebeb;
+    border-radius: 12px;
+  }
+
+  .receipt__group-title {
+    font-family: 'Geist', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #171717;
+    padding: 8px 12px 8px 20px;
+    margin: 0;
+  }
+
+  /* --- Order Line --- */
+  .receipt__line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 12px 8px 20px;
+    height: 42px;
+    box-sizing: border-box;
+  }
+
+  .receipt__line-label {
+    font-family: 'Geist Mono', 'Courier New', monospace;
+    font-weight: 400;
+    font-size: 16px;
+    color: #171717;
+    white-space: nowrap;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .receipt__line-label--bold {
+    font-weight: 700;
+  }
+
+  .receipt__line-label--struck {
+    text-decoration: line-through;
+    color: #737373;
+  }
+
+  .receipt__line-dots {
+    flex: 1;
+    min-width: 10px;
+  }
+
+  .receipt__line-value {
+    font-family: 'Geist Mono', 'Courier New', monospace;
+    font-weight: 400;
+    font-size: 16px;
+    color: #171717;
+    letter-spacing: 1.6px;
+    white-space: nowrap;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .receipt__line-value--bold {
+    font-weight: 700;
+  }
+
+  /* --- Free / Save Label --- */
+  .receipt__label {
+    font-family: 'Geist', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    color: #0ea674;
+    background-color: #b3f7e1;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* --- Divider --- */
+  .receipt__divider {
+    width: 100%;
+    height: 1px;
+    background-color: #e5e5e5;
+    margin: 0;
+    border: none;
+  }
+
+  /* --- Total Line --- */
+  .receipt__total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 12px 8px 20px;
+    height: 48px;
+    box-sizing: border-box;
+  }
+
+  .receipt__total-label {
+    font-family: 'Geist Mono', 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 20px;
+    color: #171717;
+    line-height: 32px;
+    white-space: nowrap;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .receipt__total-value {
+    font-family: 'Geist', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #171717;
+    letter-spacing: 1px;
+    line-height: 32px;
+    white-space: nowrap;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  /* --- Zig-Zag Bottom Edge --- */
+  .receipt__edge {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    font-size: 0;
+  }
+
+  .receipt__edge svg {
+    display: block;
+    width: 100%;
+    height: 15px;
+  }
+
+  /* --- CTA Buttons --- */
+  .no-middlemen__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .no-middlemen__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 24px;
+    min-width: 180px;
+    height: 48px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .no-middlemen__button:hover {
+    opacity: 0.9;
+  }
+
+  .no-middlemen__price-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    font-style: italic;
+    color: {{ section.settings.price_label_color }};
+    margin: 0;
+  }
+
+  .no-middlemen__price-label strong {
+    font-weight: 700;
+  }
+
+  /* ===== MOBILE ===== */
+  @media screen and (max-width: 749px) {
+    .no-middlemen {
+      padding: 60px 16px;
+      gap: 48px;
+    }
+
+    .no-middlemen__title {
+      font-size: 32px;
+    }
+
+    .no-middlemen__subtitle {
+      font-size: 16px;
+    }
+
+    .no-middlemen__receipts {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 20px;
+      padding-bottom: 4px;
+    }
+
+    .no-middlemen__receipts::-webkit-scrollbar {
+      display: none;
+    }
+
+    .receipt {
+      flex: 0 0 270px;
+      scroll-snap-align: center;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .receipt__main {
+      gap: 12px;
+      padding: 18px 12px 30px;
+    }
+
+    .receipt__title {
+      font-size: 15px;
+    }
+
+    .receipt__group {
+      padding: 9px 3px;
+      gap: 3px;
+    }
+
+    .receipt__group--highlighted {
+      border-radius: 9px;
+    }
+
+    .receipt__group-title {
+      font-size: 12px;
+      padding: 6px 9px 6px 15px;
+    }
+
+    .receipt__line {
+      gap: 7px;
+      padding: 6px 9px 6px 15px;
+      height: 31px;
+    }
+
+    .receipt__line-label {
+      font-size: 12px;
+    }
+
+    .receipt__line-value {
+      font-size: 12px;
+      letter-spacing: 1.17px;
+    }
+
+    .receipt__label {
+      font-size: 12px;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    .receipt__total {
+      padding: 6px 9px 6px 15px;
+      height: 35px;
+    }
+
+    .receipt__total-label {
+      font-size: 13px;
+      line-height: 23px;
+    }
+
+    .receipt__total-value {
+      font-size: 13px;
+      line-height: 23px;
+      letter-spacing: 0.66px;
+    }
+
+    .receipt__edge svg {
+      height: 11px;
+    }
+
+    .no-middlemen__cta {
+      width: 100%;
+    }
+
+    .no-middlemen__button {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="no-middlemen" aria-label="{{ section.settings.heading }}">
+  {%- comment -%} Headline {%- endcomment -%}
+  <div class="no-middlemen__headline">
+    <h2 class="no-middlemen__title">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="no-middlemen__subtitle">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Receipt Cards {%- endcomment -%}
+  <div class="no-middlemen__receipts">
+    {%- comment -%} LEFT RECEIPT: Industry Standard {%- endcomment -%}
+    <div class="receipt">
+      <div class="receipt__main">
+        <h3 class="receipt__title">{{ section.settings.receipt_left_title }}</h3>
+
+        {%- comment -%} Group: Middleman (highlighted) {%- endcomment -%}
+        <div class="receipt__group receipt__group--highlighted">
+          <p class="receipt__group-title">{{ section.settings.left_group1_title }}</p>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'left_middleman_line' -%}
+              <div class="receipt__line" {{ block.shopify_attributes }}>
+                <p class="receipt__line-label">{{ block.settings.label }}</p>
+                <span class="receipt__line-dots"></span>
+                <p class="receipt__line-value">{{ block.settings.value }}</p>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} Group: Factory Costs {%- endcomment -%}
+        <div class="receipt__group">
+          <p class="receipt__group-title">{{ section.settings.left_group2_title }}</p>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'left_factory_line' -%}
+              <div class="receipt__line" {{ block.shopify_attributes }}>
+                <p class="receipt__line-label{% if block.settings.bold %} receipt__line-label--bold{% endif %}">
+                  {{ block.settings.label }}
+                </p>
+                <span class="receipt__line-dots"></span>
+                <p class="receipt__line-value{% if block.settings.bold %} receipt__line-value--bold{% endif %}">
+                  {{ block.settings.value }}
+                </p>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} Group: Middleman delivery (highlighted) {%- endcomment -%}
+        <div class="receipt__group receipt__group--highlighted">
+          <p class="receipt__group-title">{{ section.settings.left_group3_title }}</p>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'left_delivery_line' -%}
+              <div class="receipt__line" {{ block.shopify_attributes }}>
+                <p class="receipt__line-label">{{ block.settings.label }}</p>
+                <span class="receipt__line-dots"></span>
+                <p class="receipt__line-value">{{ block.settings.value }}</p>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} Divider + Total {%- endcomment -%}
+        <hr class="receipt__divider">
+        <div class="receipt__total">
+          <p class="receipt__total-label">{{ section.settings.left_total_label }}</p>
+          <span class="receipt__line-dots"></span>
+          <p class="receipt__total-value">{{ section.settings.left_total_value }}</p>
+        </div>
+      </div>
+      {%- comment -%} Zig-zag bottom edge {%- endcomment -%}
+      <div class="receipt__edge">
+        <svg viewBox="0 0 370 15" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0 L7.4 15 L14.8 0 L22.2 15 L29.6 0 L37 15 L44.4 0 L51.8 15 L59.2 0 L66.6 15 L74 0 L81.4 15 L88.8 0 L96.2 15 L103.6 0 L111 15 L118.4 0 L125.8 15 L133.2 0 L140.6 15 L148 0 L155.4 15 L162.8 0 L170.2 15 L177.6 0 L185 15 L192.4 0 L199.8 15 L207.2 0 L214.6 15 L222 0 L229.4 15 L236.8 0 L244.2 15 L251.6 0 L259 15 L266.4 0 L273.8 15 L281.2 0 L288.6 15 L296 0 L303.4 15 L310.8 0 L318.2 15 L325.6 0 L333 15 L340.4 0 L347.8 15 L355.2 0 L362.6 15 L370 0" fill="#ffffff" />
+        </svg>
+      </div>
+    </div>
+
+    {%- comment -%} RIGHT RECEIPT: Screenlux {%- endcomment -%}
+    <div class="receipt">
+      <div class="receipt__main">
+        <h3 class="receipt__title receipt__title--brand">{{ section.settings.receipt_right_title }}</h3>
+
+        {%- comment -%} Group: Direct Sales {%- endcomment -%}
+        <div class="receipt__group">
+          <p class="receipt__group-title">{{ section.settings.right_group1_title }}</p>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'right_sales_line' -%}
+              <div class="receipt__line" {{ block.shopify_attributes }}>
+                <p class="receipt__line-label{% if block.settings.struck %} receipt__line-label--struck{% endif %}">
+                  {{ block.settings.label }}
+                </p>
+                <span class="receipt__line-dots"></span>
+                {%- if block.settings.value != blank -%}
+                  <p class="receipt__line-value">{{ block.settings.value }}</p>
+                {%- endif -%}
+                {%- if block.settings.badge != blank -%}
+                  <span class="receipt__label">{{ block.settings.badge }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} Group: Factory Costs {%- endcomment -%}
+        <div class="receipt__group">
+          <p class="receipt__group-title">{{ section.settings.right_group2_title }}</p>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'right_factory_line' -%}
+              <div class="receipt__line" {{ block.shopify_attributes }}>
+                <p class="receipt__line-label{% if block.settings.bold %} receipt__line-label--bold{% endif %}{% if block.settings.struck %} receipt__line-label--struck{% endif %}">
+                  {{ block.settings.label }}
+                </p>
+                <span class="receipt__line-dots"></span>
+                {%- if block.settings.value != blank -%}
+                  <p class="receipt__line-value{% if block.settings.bold %} receipt__line-value--bold{% endif %}">
+                    {{ block.settings.value }}
+                  </p>
+                {%- endif -%}
+                {%- if block.settings.badge != blank -%}
+                  <span class="receipt__label">{{ block.settings.badge }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} Group: Direct Delivery {%- endcomment -%}
+        <div class="receipt__group">
+          <p class="receipt__group-title">{{ section.settings.right_group3_title }}</p>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'right_delivery_line' -%}
+              <div class="receipt__line" {{ block.shopify_attributes }}>
+                <p class="receipt__line-label{% if block.settings.struck %} receipt__line-label--struck{% endif %}">
+                  {{ block.settings.label }}
+                </p>
+                <span class="receipt__line-dots"></span>
+                {%- if block.settings.value != blank -%}
+                  <p class="receipt__line-value">{{ block.settings.value }}</p>
+                {%- endif -%}
+                {%- if block.settings.badge != blank -%}
+                  <span class="receipt__label">{{ block.settings.badge }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} Divider + Total {%- endcomment -%}
+        <hr class="receipt__divider">
+        <div class="receipt__total">
+          <p class="receipt__total-label">{{ section.settings.right_total_label }}</p>
+          <span class="receipt__line-dots"></span>
+          <p class="receipt__total-value">{{ section.settings.right_total_value }}</p>
+          {%- if section.settings.right_total_badge != blank -%}
+            <span class="receipt__label">{{ section.settings.right_total_badge }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+      {%- comment -%} Zig-zag bottom edge {%- endcomment -%}
+      <div class="receipt__edge">
+        <svg viewBox="0 0 370 15" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0 L7.4 15 L14.8 0 L22.2 15 L29.6 0 L37 15 L44.4 0 L51.8 15 L59.2 0 L66.6 15 L74 0 L81.4 15 L88.8 0 L96.2 15 L103.6 0 L111 15 L118.4 0 L125.8 15 L133.2 0 L140.6 15 L148 0 L155.4 15 L162.8 0 L170.2 15 L177.6 0 L185 15 L192.4 0 L199.8 15 L207.2 0 L214.6 15 L222 0 L229.4 15 L236.8 0 L244.2 15 L251.6 0 L259 15 L266.4 0 L273.8 15 L281.2 0 L288.6 15 L296 0 L303.4 15 L310.8 0 L318.2 15 L325.6 0 L333 15 L340.4 0 L347.8 15 L355.2 0 L362.6 15 L370 0" fill="#ffffff" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} CTA Button {%- endcomment -%}
+  {%- if section.settings.button_label != blank -%}
+    <div class="no-middlemen__cta">
+      <a
+        class="no-middlemen__button"
+        href="{{ section.settings.button_link }}"
+      >
+        {{ section.settings.button_label }}
+      </a>
+      {%- if section.settings.price_label != blank -%}
+        <p class="no-middlemen__price-label">{{ section.settings.price_label }}</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "No Middlemen",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Pay for the Product. Not the Middleman."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "The industry hides the real cost behind commissions and complex supply chain. We give you the market's best quality with an instant price you can trust."
+    },
+    {
+      "type": "header",
+      "content": "Left Receipt (Industry)"
+    },
+    {
+      "type": "text",
+      "id": "receipt_left_title",
+      "label": "Left receipt title",
+      "default": "Industry standard"
+    },
+    {
+      "type": "text",
+      "id": "left_group1_title",
+      "label": "Left group 1 title",
+      "default": "Middleman"
+    },
+    {
+      "type": "text",
+      "id": "left_group2_title",
+      "label": "Left group 2 title",
+      "default": "Factory Costs"
+    },
+    {
+      "type": "text",
+      "id": "left_group3_title",
+      "label": "Left group 3 title",
+      "default": "Middleman"
+    },
+    {
+      "type": "text",
+      "id": "left_total_label",
+      "label": "Left total label",
+      "default": "TOTAL PRICE"
+    },
+    {
+      "type": "text",
+      "id": "left_total_value",
+      "label": "Left total value",
+      "default": "€€€€€€"
+    },
+    {
+      "type": "header",
+      "content": "Right Receipt (Screenlux)"
+    },
+    {
+      "type": "text",
+      "id": "receipt_right_title",
+      "label": "Right receipt title",
+      "default": "Screenlux"
+    },
+    {
+      "type": "text",
+      "id": "right_group1_title",
+      "label": "Right group 1 title",
+      "default": "Direct Sales"
+    },
+    {
+      "type": "text",
+      "id": "right_group2_title",
+      "label": "Right group 2 title",
+      "default": "Factory Costs"
+    },
+    {
+      "type": "text",
+      "id": "right_group3_title",
+      "label": "Right group 3 title",
+      "default": "Direct Delivery"
+    },
+    {
+      "type": "text",
+      "id": "right_total_label",
+      "label": "Right total label",
+      "default": "YOUR PRICE"
+    },
+    {
+      "type": "text",
+      "id": "right_total_value",
+      "label": "Right total value",
+      "default": "€€€"
+    },
+    {
+      "type": "text",
+      "id": "right_total_badge",
+      "label": "Right total badge",
+      "default": "Save 50%"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Configure"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "price_label",
+      "label": "Price label",
+      "default": "From only <strong>395€</strong>"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#a3a3a3"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#5b5bf9"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "price_label_color",
+      "label": "Price label color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "left_middleman_line",
+      "name": "Left: Middleman line",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Sales Commission"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "€€€"
+        }
+      ]
+    },
+    {
+      "type": "left_factory_line",
+      "name": "Left: Factory line",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Order Processing"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "€"
+        },
+        {
+          "type": "checkbox",
+          "id": "bold",
+          "label": "Bold text",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "left_delivery_line",
+      "name": "Left: Delivery line",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Distributor Warehousing"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "€"
+        }
+      ]
+    },
+    {
+      "type": "right_sales_line",
+      "name": "Right: Sales line",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Sales Commission"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge (e.g. Free)"
+        },
+        {
+          "type": "checkbox",
+          "id": "struck",
+          "label": "Strikethrough",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "right_factory_line",
+      "name": "Right: Factory line",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Auto-Processing"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge (e.g. Free)"
+        },
+        {
+          "type": "checkbox",
+          "id": "bold",
+          "label": "Bold text",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "struck",
+          "label": "Strikethrough",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "right_delivery_line",
+      "name": "Right: Delivery line",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Warehousing fees"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge (e.g. Free)"
+        },
+        {
+          "type": "checkbox",
+          "id": "struck",
+          "label": "Strikethrough",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "No Middlemen",
+      "blocks": [
+        { "type": "left_middleman_line", "settings": { "label": "Sales Commission", "value": "€€€" } },
+        { "type": "left_middleman_line", "settings": { "label": "Mandatory Home Visit", "value": "€€" } },
+        { "type": "left_middleman_line", "settings": { "label": "Showroom Rental", "value": "€€" } },
+        { "type": "left_factory_line", "settings": { "label": "Order Processing", "value": "€" } },
+        { "type": "left_factory_line", "settings": { "label": "Product Manufacturing", "value": "€€€", "bold": true } },
+        { "type": "left_factory_line", "settings": { "label": "Shipping to Distributor", "value": "€" } },
+        { "type": "left_delivery_line", "settings": { "label": "Distributor Warehousing", "value": "€" } },
+        { "type": "left_delivery_line", "settings": { "label": "Home Delivery", "value": "€" } },
+        { "type": "left_delivery_line", "settings": { "label": "Installation Service", "value": "€€€" } },
+        { "type": "left_delivery_line", "settings": { "label": "Electrician Fees", "value": "€€" } },
+        { "type": "right_sales_line", "settings": { "label": "Sales Commission", "struck": true } },
+        { "type": "right_sales_line", "settings": { "label": "Configure online", "badge": "Free" } },
+        { "type": "right_sales_line", "settings": { "label": "Showroom Rental", "struck": true } },
+        { "type": "right_factory_line", "settings": { "label": "Auto-Processing", "badge": "Free" } },
+        {
+          "type": "right_factory_line",
+          "settings": { "label": "Product Manufacturing", "value": "€€€", "bold": true }
+        },
+        { "type": "right_factory_line", "settings": { "label": "Shipping to Distributor", "struck": true } },
+        { "type": "right_delivery_line", "settings": { "label": "Warehousing fees", "struck": true } },
+        { "type": "right_delivery_line", "settings": { "label": "Direct Home Delivery", "badge": "Free" } },
+        { "type": "right_delivery_line", "settings": { "label": "Simple Self-Install", "badge": "Free" } },
+        { "type": "right_delivery_line", "settings": { "label": "Electrician Fees", "struck": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}
