@@ -1,7 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "footer_custom_YJARaj": {
+      "type": "footer-custom",
+      "blocks": {
+        "link_column_JfyQA9": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Support",
+            "menu": "footer"
+          }
+        },
+        "link_column_qMmGVc": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Company",
+            "menu": "footer"
+          }
+        },
+        "link_column_TBGmEC": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Resources",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "link_column_JfyQA9",
+        "link_column_qMmGVc",
+        "link_column_TBGmEC"
+      ],
+      "name": "Custom Footer",
+      "settings": {
+        "tagline": "German Quality. Factory Direct Prices.",
+        "newsletter_enable": true,
+        "newsletter_text": "Join our community.\nUnlock Exclusive deals.",
+        "email_placeholder": "Enter your email",
+        "submit_label": "Submit",
+        "copyright_text": "Screenlux GmbH. Alle Rechte vorbehalten.",
+        "show_payment": true,
+        "bg_color": "#171717",
+        "text_color": "#ffffff",
+        "secondary_text_color": "#a3a3a3",
+        "divider_color": "#404040",
+        "button_border_color": "#e5e5e5"
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -23,7 +78,7 @@
           "type": "text",
           "settings": {
             "heading": "Our mission",
-            "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+            "subtext": "<p>Share contact information, store details, and brand content with your customers.</p>"
           }
         }
       },
@@ -32,10 +87,12 @@
         "footer-1",
         "footer-2"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
         "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": false,
         "enable_language_selector": false,
@@ -48,6 +105,7 @@
     }
   },
   "order": [
+    "footer_custom_YJARaj",
     "footer"
   ]
 }
