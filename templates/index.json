@@ -336,7 +336,71 @@
       "type": "text-and-video-flawless-finish",
       "settings": {
         "heading": "Flawless Finish. No visible screws.",
-        "video_url": "video-text-and-video-flawless-finish.mp4",
+        "video": "shopify://files/videos/video-text-and-video-flawless-finish.mp4",
+        "button_label": "Configure",
+        "button_link": "",
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff"
+      }
+    },
+    "cards_section_aCrkkK": {
+      "type": "cards-section",
+      "blocks": {
+        "card_Ga8UCE": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/img-card-section-01.png",
+            "title": "Superior Low-Light Tech.",
+            "description": "High-efficiency IBC solar panels harvest energy even on heavily overcast days."
+          }
+        },
+        "card_WqEfg9": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/img-card-section-02.png",
+            "title": "Massive 5200mAh Battery.",
+            "description": "A single charge provides enough power to keep your screens running for 30 days of total darkness."
+          }
+        },
+        "card_E9VPr9": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/img-card-section-03.png",
+            "title": "Emergency Charger.",
+            "description": "If you ever run low, the integrated charging port lets you power up manually in minutes."
+          }
+        },
+        "card_QF9U7k": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/img-card-section-04.png",
+            "title": "Wired options available.",
+            "description": "Under a porch or deep in the shade? Opt for our hardwired version for permanent power."
+          }
+        }
+      },
+      "block_order": [
+        "card_Ga8UCE",
+        "card_WqEfg9",
+        "card_E9VPr9",
+        "card_QF9U7k"
+      ],
+      "name": "Cards Section",
+      "settings": {
+        "heading": "Engineered for the Darkest Winters.",
+        "subheading": "While others fail in the shade, the Screenlux Zip 2 thrives. Featuring IBC-solar technology and a high-capacity battery, it's designed to stay powered through Germany's grayest months.",
+        "bg_color": "#f5f5f5",
+        "heading_color": "#000000",
+        "subheading_color": "#525252"
+      }
+    },
+    "text_and_video_flawless_finish_G8EPjE": {
+      "type": "text-and-video-flawless-finish",
+      "settings": {
+        "heading": "SmartHome that works with what you have.",
+        "video": "shopify://files/videos/video-smart-home.mp4",
         "button_label": "Configure",
         "button_link": "",
         "bg_color": "#ffffff",
@@ -435,6 +499,8 @@
     "compare_slider",
     "worlds_slimmest",
     "flawless_finish_video",
+    "cards_section_aCrkkK",
+    "text_and_video_flawless_finish_G8EPjE",
     "reviews_EndBfQ"
   ]
 }
