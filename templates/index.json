@@ -345,19 +345,6 @@
         "button_text_color": "#ffffff"
       }
     },
-    "text_and_video_flawless_finish_GFUyX6": {
-      "type": "text-and-video-flawless-finish",
-      "settings": {
-        "heading": "Flawless Finish. No visible screws.",
-        "video_url": "video-text-and-video-flawless-finish.mp4",
-        "button_label": "Configure",
-        "button_link": "",
-        "bg_color": "#ffffff",
-        "heading_color": "#000000",
-        "button_bg_color": "#5b5bf9",
-        "button_text_color": "#ffffff"
-      }
-    },
     "cards_section_mcmAEM": {
       "type": "cards-section",
       "blocks": {
@@ -407,6 +394,19 @@
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
         "subheading_color": "#525252"
+      }
+    },
+    "text_and_video_flawless_finish_GFUyX6": {
+      "type": "text-and-video-flawless-finish",
+      "settings": {
+        "heading": "Flawless Finish. No visible screws.",
+        "video_url": "video-smart-home.mp4",
+        "button_label": "Configure",
+        "button_link": "",
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff"
       }
     },
     "reviews_EndBfQ": {
