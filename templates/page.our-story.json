@@ -11,13 +11,182 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "timeline_section_4pRqhC": {
+      "type": "timeline-section",
+      "name": "Timeline Section",
+      "settings": {
+        "variant": "default",
+        "year_label": "2019",
+        "heading": "Born in a Nordic Storm",
+        "body": "<p>In 2019, we started Screenlux's sister company, Pergolux, with a blank slate and one question: why does standard shading fail when the weather gets rough? After seeing Scandinavian frost and high winds destroy \"off-the-shelf\" systems, we engineered a solution from the ground up. Today, Pergolux is the #1 pergola brand in the world—and that same \"indestructible\" DNA is what we built into Screenlux.</p>",
+        "image": "shopify://shop_images/img-story-container.png",
+        "button_label": "View Open Positions",
+        "button_link": "",
+        "show_timeline_top": true,
+        "show_timeline_bottom": true,
+        "bg_color": "#171717",
+        "year_color": "#5b5bf9",
+        "heading_color": "#ffffff",
+        "body_color": "#a3a3a3",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "timeline_section_YiD4EH": {
+      "type": "timeline-section",
+      "name": "Timeline Section",
+      "settings": {
+        "variant": "image_left",
+        "year_label": "2023",
+        "heading": "The \"Middle Ground\" Was Missing.",
+        "body": "<p><strong>We realized the German market forced homeowners to choose between accessible junk or inaccessible luxury.</strong> While legacy brands offered incredible quality, they were locked behind a hostile business model involving expensive middlemen, 12-week wait times, and complex wiring that required certified electricians. The alternative was cheap clamp-on blinds that rattled in the wind, leaving a massive gap for a professional-grade product that was actually easy to buy.</p>",
+        "image": "shopify://shop_images/img-story-business-models.jpg",
+        "button_label": "View Open Positions",
+        "button_link": "",
+        "show_timeline_top": true,
+        "show_timeline_bottom": true,
+        "bg_color": "#171717",
+        "year_color": "#5b5bf9",
+        "heading_color": "#ffffff",
+        "body_color": "#a3a3a3",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "timeline_section_M8a9eR": {
+      "type": "timeline-section",
+      "name": "Timeline Section",
+      "settings": {
+        "variant": "default",
+        "year_label": "2025",
+        "heading": "The End of the Middleman.",
+        "body": "<p><strong>We built Screenlux to prove that professional shading shouldn't cost a fortune.</strong> The old industry relies on \"trade partners\" to gatekeep quality and inflate prices. We solved the installation barrier with solar power and cut out the middlemen. The result? You finally get architect-grade shading without the luxury price tag.</p>",
+        "image": "shopify://shop_images/img-story-first-product.jpg",
+        "button_label": "View Open Positions",
+        "button_link": "",
+        "show_timeline_top": true,
+        "show_timeline_bottom": true,
+        "bg_color": "#171717",
+        "year_color": "#5b5bf9",
+        "heading_color": "#ffffff",
+        "body_color": "#a3a3a3",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "timeline_section_GJawxe": {
+      "type": "timeline-section",
+      "name": "Timeline Section",
+      "settings": {
+        "variant": "image_left",
+        "year_label": "2025",
+        "heading": "Award-Winning from Day One.",
+        "body": "<p>Our very first Screenlux system took home the International Design Award (IDA), proving that \"accessible\" doesn't mean \"cheap.\" This win validated our core belief: you can skip the dealer network and the markup, and still get world-class, architect-grade design for your home.</p>",
+        "image": "shopify://shop_images/img-story-german-ida.png",
+        "button_label": "View Open Positions",
+        "button_link": "",
+        "show_timeline_top": true,
+        "show_timeline_bottom": true,
+        "bg_color": "#171717",
+        "year_color": "#5b5bf9",
+        "heading_color": "#ffffff",
+        "body_color": "#a3a3a3",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "timeline_section_T37tFD": {
+      "type": "timeline-section",
+      "name": "Timeline Section",
+      "settings": {
+        "variant": "default",
+        "year_label": "2026",
+        "heading": "Zip-Screen 2: Built on learnings from 50,000+ screens.",
+        "body": "<p>After shipping 50,000 units, we knew exactly how to bridge the gap between \"good\" shading and a design icon. We engineered the Zip-Screen 2—the world's slimmest 85mm system. We developed a clip-rail to hide every visible screw, smoothed the corners, and supercharged the solar engine to thrive in dark German winters.</p>",
+        "image": "shopify://shop_images/img-text-and-video-flawless-finish-fallback.png",
+        "button_label": "View Open Positions",
+        "button_link": "",
+        "show_timeline_top": true,
+        "show_timeline_bottom": true,
+        "bg_color": "#171717",
+        "year_color": "#5b5bf9",
+        "heading_color": "#ffffff",
+        "body_color": "#a3a3a3",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "timeline_section_axp7m7": {
+      "type": "timeline-section",
+      "name": "Timeline Section",
+      "settings": {
+        "variant": "image_left",
+        "year_label": "2026",
+        "heading": "The Design Masterprize",
+        "body": "<p>aking home the Design Masterprize for the Zip-Screen 2 proved that our uncompromising approach to quality stands up against the biggest names in the industry worldwide. It’s proof that a DIY-friendly product can still be world-class design.</p>",
+        "image": "shopify://shop_images/img-story-design-masterprize.png",
+        "button_label": "View Open Positions",
+        "button_link": "",
+        "show_timeline_top": true,
+        "show_timeline_bottom": true,
+        "bg_color": "#171717",
+        "year_color": "#5b5bf9",
+        "heading_color": "#ffffff",
+        "body_color": "#a3a3a3",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "timeline_section_Vne3xj": {
+      "type": "timeline-section",
+      "name": "Timeline Section",
+      "settings": {
+        "variant": "default",
+        "year_label": "2026",
+        "heading": "The German Design Award",
+        "body": "<p>Winning the German Design Award 2026 was the ultimate stress test for our engineering. In a market known for strict standards and critical eyes, this award confirmed that Screenlux didn't just meet the bar—we raised it. It’s the official seal of approval that our \"bulletproof\" design is also a work of art.</p>",
+        "image": "shopify://shop_images/img-story-german-design-award.png",
+        "button_label": "View Open Positions",
+        "button_link": "",
+        "show_timeline_top": true,
+        "show_timeline_bottom": true,
+        "bg_color": "#171717",
+        "year_color": "#5b5bf9",
+        "heading_color": "#ffffff",
+        "body_color": "#a3a3a3",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "timeline_section_4pRqhC",
+    "timeline_section_YiD4EH",
+    "timeline_section_M8a9eR",
+    "timeline_section_GJawxe",
+    "timeline_section_T37tFD",
+    "timeline_section_axp7m7",
+    "timeline_section_Vne3xj"
   ]
 }
