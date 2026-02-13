@@ -4,7 +4,7 @@
   /* ===== BASE ===== */
   #shopify-section-{{ section.id }} .tl-section {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     gap: 64px;
     padding: {{ section.settings.padding_top }}px 80px {{ section.settings.padding_bottom }}px;
@@ -16,33 +16,48 @@
 
   /* ===== TIMELINE CONNECTOR (center column) ===== */
   #shopify-section-{{ section.id }} .tl-section__connector {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    position: relative;
     width: 87px;
     flex-shrink: 0;
     align-self: stretch;
-    gap: 8px;
   }
 
-  #shopify-section-{{ section.id }} .tl-section__line {
-    flex: 1 0 0;
+  /* Continuous vertical line via pseudo-element */
+  #shopify-section-{{ section.id }} .tl-section__connector::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     width: 1px;
     background-color: {{ section.settings.year_color }};
     opacity: 0.3;
+    {% if section.settings.show_timeline_top %}
+      top: 0;
+    {% else %}
+      top: 13px;
+    {% endif %}
+    {% if section.settings.show_timeline_bottom %}
+      bottom: 0;
+    {% else %}
+      bottom: calc(100% - 13px);
+    {% endif %}
   }
 
-  #shopify-section-{{ section.id }} .tl-section__line--hidden {
-    visibility: hidden;
+  /* Hide the old line divs – replaced by ::before */
+  #shopify-section-{{ section.id }} .tl-section__line {
+    display: none;
   }
 
+  /* Dot aligned with the year label at top */
   #shopify-section-{{ section.id }} .tl-section__dot {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 26px;
     height: 26px;
     border-radius: 50%;
     border: 1px solid {{ section.settings.year_color }};
-    flex-shrink: 0;
     box-sizing: border-box;
   }
 
@@ -185,18 +200,62 @@
 
   /* ===== MOBILE ===== */
   @media screen and (max-width: 749px) {
+    /* Grid: line column left, content right (image row 1, text row 2) */
     #shopify-section-{{ section.id }} .tl-section {
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      grid-template-rows: auto auto;
+      gap: 0 16px;
       padding: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px 16px {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-      gap: 32px;
     }
 
-    /* Hide timeline connector on mobile */
+    /* Connector: left column, spans all rows */
     #shopify-section-{{ section.id }} .tl-section__connector {
+      grid-column: 1;
+      grid-row: 1 / -1;
+      width: 32px;
+    }
+
+    /* Hide the dot on mobile, keep the continuous line */
+    #shopify-section-{{ section.id }} .tl-section__dot {
       display: none;
     }
 
-    /* Text column */
+    /* On mobile without dot, line goes full height */
+    #shopify-section-{{ section.id }} .tl-section__connector::before {
+      {% if section.settings.show_timeline_top %}
+        top: 0;
+      {% else %}
+        top: 50%;
+      {% endif %}
+      {% if section.settings.show_timeline_bottom %}
+        bottom: 0;
+      {% else %}
+        bottom: 50%;
+      {% endif %}
+    }
+
+    /* Image: right column, row 1 (always on top) */
+    #shopify-section-{{ section.id }} .tl-section__image-wrapper {
+      grid-column: 2;
+      grid-row: 1;
+      height: 260px;
+      border-radius: 24px;
+      width: 100%;
+      flex: none;
+      margin-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .tl-section__image-gradient {
+      border-radius: 24px;
+    }
+
+    /* Text: right column, row 2 (below image) */
+    #shopify-section-{{ section.id }} .tl-section__text {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
     #shopify-section-{{ section.id }} .tl-section__text--left,
     #shopify-section-{{ section.id }} .tl-section__text--right {
       text-align: left;
@@ -210,34 +269,25 @@
       font-size: 14px;
     }
 
-    /* Image */
-    #shopify-section-{{ section.id }} .tl-section__image-wrapper {
-      height: 300px;
-      border-radius: 24px;
-      width: 100%;
+    /* End variant: keep centered, full width, hide connector */
+    #shopify-section-{{ section.id }} .tl-section--end {
+      display: flex;
+      flex-direction: column;
+      grid-template-columns: unset;
     }
 
-    #shopify-section-{{ section.id }} .tl-section__image-gradient {
-      border-radius: 24px;
+    #shopify-section-{{ section.id }} .tl-section--end .tl-section__connector {
+      display: none;
     }
 
-    /* End variant */
     #shopify-section-{{ section.id }} .tl-section--end .tl-section__text {
       text-align: center;
+      padding-bottom: 0;
     }
 
     #shopify-section-{{ section.id }} .tl-section__button {
       width: 100%;
       max-width: 300px;
-    }
-
-    /* On mobile, "image_left" shows image first (natural stacking) */
-    /* For "default" (image right on desktop), we reorder so image goes first on mobile */
-    #shopify-section-{{ section.id }} .tl-section--default .tl-section__text {
-      order: 2;
-    }
-    #shopify-section-{{ section.id }} .tl-section--default .tl-section__image-wrapper {
-      order: 1;
     }
   }
 {%- endstyle -%}
@@ -377,6 +427,40 @@
       </div>
   {%- endcase -%}
 </div>
+
+<script>
+  (function () {
+    var el = document.querySelector('#shopify-section-{{ section.id }} .tl-section');
+    if (!el) return;
+    el.style.opacity = '0.15';
+    var ticking = false;
+
+    function update() {
+      var rect = el.getBoundingClientRect();
+      var wh = window.innerHeight;
+      var center = rect.top + rect.height / 2;
+      var dist = Math.abs(center - wh / 2);
+      var maxDist = wh / 2 + rect.height / 2;
+      var ratio = Math.max(0, 1 - dist / maxDist);
+      /* Power curve for snappier fade */
+      var opacity = 0.15 + Math.pow(ratio, 1.5) * 0.85;
+      el.style.opacity = opacity;
+      ticking = false;
+    }
+
+    window.addEventListener(
+      'scroll',
+      function () {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true }
+    );
+    update();
+  })();
+</script>
 
 {% schema %}
 {
@@ -519,7 +603,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top padding",
-      "default": 0
+      "default": 48
     },
     {
       "type": "range",
@@ -529,7 +613,7 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom padding",
-      "default": 0
+      "default": 48
     }
   ],
   "presets": [
