@@ -1,0 +1,263 @@
+{% comment %} Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=238-1373 {% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .faq-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+    padding: 80px 64px;
+    max-width: 1440px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  /* --- Title --- */
+  .faq-section__title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+    text-align: center;
+  }
+
+  /* --- Questions Container --- */
+  .faq-section__questions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+  }
+
+  /* --- Single Question Item --- */
+  .faq-section__item {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .faq-section__question-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .faq-section__question-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+
+  .faq-section__chevron {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-section__item[open] .faq-section__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* --- Answer --- */
+  .faq-section__answer {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: {{ section.settings.answer_color }};
+    margin: 0;
+    padding: 0;
+  }
+
+  /* --- Divider --- */
+  .faq-section__divider {
+    width: 100%;
+    height: 1px;
+    background-color: {{ section.settings.divider_color }};
+    border: none;
+    margin: 0;
+  }
+
+  /* --- Mobile (<750px) --- */
+  @media screen and (max-width: 749px) {
+    .faq-section {
+      padding: 64px 16px;
+      gap: 40px;
+    }
+
+    .faq-section__title {
+      font-size: 32px;
+    }
+
+    .faq-section__questions {
+      gap: 12px;
+      max-width: 100%;
+    }
+
+    .faq-section__question-text {
+      font-size: 16px;
+    }
+
+    .faq-section__item {
+      gap: 16px;
+    }
+
+    .faq-section__answer {
+      font-size: 14px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="faq-section" data-section-id="{{ section.id }}">
+  <h2 class="faq-section__title">{{ section.settings.heading }}</h2>
+
+  <div class="faq-section__questions">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'question' -%}
+        <details class="faq-section__item" {{ block.shopify_attributes }}>
+          <summary class="faq-section__question-row">
+            <p class="faq-section__question-text">{{ block.settings.question }}</p>
+            <svg
+              class="faq-section__chevron"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </summary>
+
+          {%- if block.settings.answer != blank -%}
+            <div class="faq-section__answer">{{ block.settings.answer }}</div>
+          {%- endif -%}
+
+          <hr class="faq-section__divider">
+        </details>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "faq-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "FAQ"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Question text color",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer text color",
+      "default": "#525252"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#e5e5e5"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Frequently Asked Questions"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Answer goes here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "question": "How long does the battery last without sunlight?",
+            "answer": "<p>The Screenlux Zip 2 features a massive 5200mAh battery that provides up to 30 days of operation in complete darkness. Even during the grayest winter months, the IBC-solar technology continues to harvest energy.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Can I install the screens myself?",
+            "answer": "<p>Yes! Our screens come 90% pre-assembled. Simply mount the rails and click the screen into place. We provide a step-by-step video tutorial and our Measurement Guarantee ensures a perfect fit.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "What smart home systems are supported?",
+            "answer": "<p>Screenlux connects directly to Apple Home and Google Home locally — no expensive hub or cloud account required. It works seamlessly with what you already have.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "How slim is the cassette design?",
+            "answer": "<p>At just 85mm, the Screenlux cassette is the world's slimmest. It integrates seamlessly into your facade with our patented ClickFit™ system for a flawless, screw-free finish.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

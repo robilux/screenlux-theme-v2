@@ -1,0 +1,455 @@
+{% comment %} Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=246-1382&t=HET5jBT7j25OVNe6-4 {% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .install-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+    padding: 80px 64px;
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  /* --- Headline --- */
+  #shopify-section-{{ section.id }} .install-section__headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    max-width: 1312px;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+    color: {{ section.settings.subheading_color }};
+    max-width: 800px;
+    margin: 0;
+  }
+
+  /* --- Cards Container --- */
+  #shopify-section-{{ section.id }} .install-section__cards {
+    display: flex;
+    gap: 32px;
+    width: 100%;
+    max-width: 1312px;
+    justify-content: center;
+  }
+
+  /* --- Individual Card --- */
+  #shopify-section-{{ section.id }} .install-section__card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 340px;
+    min-height: 360px;
+    padding: 32px 24px;
+    background: {{ section.settings.card_bg_color }};
+    border: 1px solid {{ section.settings.card_border_color }};
+    border-radius: 24px;
+    box-sizing: border-box;
+    overflow: hidden;
+    justify-content: space-between;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__card-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1;
+    color: #000;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__card-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #171717;
+    margin: 0;
+  }
+
+  /* --- Checklist --- */
+  #shopify-section-{{ section.id }} .install-section__checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__check-item {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__check-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__check-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #525252;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__check-text strong {
+    font-weight: 700;
+  }
+
+  /* --- Card Button --- */
+  #shopify-section-{{ section.id }} .install-section__card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    padding: 12px 24px;
+    background: {{ section.settings.card_bg_color }};
+    border: 1px solid {{ section.settings.card_border_color }};
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #171717;
+    text-decoration: none;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__card-btn:hover {
+    background-color: #f5f5f5;
+  }
+
+  /* --- Primary CTA --- */
+  #shopify-section-{{ section.id }} .install-section__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 24px;
+    min-width: 180px;
+    height: 48px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .install-section__button:hover {
+    opacity: 0.9;
+  }
+
+  /* --- Check circle SVG --- */
+  #shopify-section-{{ section.id }} .install-section__check-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ===== MOBILE ===== */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .install-section {
+      padding: 64px 16px;
+      gap: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .install-section__headline {
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .install-section__title {
+      font-size: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .install-section__subtitle {
+      font-size: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .install-section__cards {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .install-section__card {
+      width: 100%;
+      max-width: 400px;
+      min-height: auto;
+    }
+  }
+{%- endstyle -%}
+
+<section class="install-section" aria-label="{{ section.settings.heading }}">
+  {%- comment -%} Headline {%- endcomment -%}
+  <div class="install-section__headline">
+    <h2 class="install-section__title">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="install-section__subtitle">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Cards {%- endcomment -%}
+  <div class="install-section__cards">
+    {%- for block in section.blocks -%}
+      <div class="install-section__card" {{ block.shopify_attributes }}>
+        <div class="install-section__card-content">
+          {%- if block.settings.card_title != blank -%}
+            <h3 class="install-section__card-title">{{ block.settings.card_title }}</h3>
+          {%- endif -%}
+
+          {%- if block.settings.card_description != blank -%}
+            <p class="install-section__card-desc">{{ block.settings.card_description }}</p>
+          {%- endif -%}
+
+          <ul class="install-section__checklist">
+            {%- for i in (1..4) -%}
+              {%- capture check_setting -%}check_{{ i }}{%- endcapture -%}
+              {%- if block.settings[check_setting] != blank -%}
+                <li class="install-section__check-item">
+                  <span class="install-section__check-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM6.4 12L2.4 8L3.528 6.872L6.4 9.736L12.472 3.664L13.6 4.8L6.4 12Z" fill="#22C55E"/>
+                    </svg>
+                  </span>
+                  <p class="install-section__check-text">{{ block.settings[check_setting] }}</p>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        {%- if block.settings.card_button_label != blank -%}
+          <a class="install-section__card-btn" href="{{ block.settings.card_button_link }}">
+            {{ block.settings.card_button_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- comment -%} Primary CTA {%- endcomment -%}
+  {%- if section.settings.button_label != blank -%}
+    <div class="install-section__cta">
+      <a class="install-section__button" href="{{ section.settings.button_link }}">
+        {{ section.settings.button_label }}
+      </a>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Installation Section",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Installation: Your choice."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Save with a simple self-install or sit back and let our experts handle the installation."
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Configure"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#525252"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "CTA button background",
+      "default": "#5b5bf9"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "CTA button text color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "installation_card",
+      "name": "Installation Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card title",
+          "default": "Self-installation"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description",
+          "label": "Card description",
+          "default": "Ideal for single-story homes and accessible windows."
+        },
+        {
+          "type": "html",
+          "id": "check_1",
+          "label": "Checklist item 1",
+          "default": "Save ~200 € per window."
+        },
+        {
+          "type": "html",
+          "id": "check_2",
+          "label": "Checklist item 2",
+          "default": "90% Pre-assembled. Just mount the rails and click it in."
+        },
+        {
+          "type": "html",
+          "id": "check_3",
+          "label": "Checklist item 3",
+          "default": "Step-by-step video tutorial."
+        },
+        {
+          "type": "html",
+          "id": "check_4",
+          "label": "Checklist item 4",
+          "default": "Measurement Guarantee!"
+        },
+        {
+          "type": "text",
+          "id": "card_button_label",
+          "label": "Card button label",
+          "default": "Read the guide"
+        },
+        {
+          "type": "url",
+          "id": "card_button_link",
+          "label": "Card button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Installation Section",
+      "blocks": [
+        {
+          "type": "installation_card",
+          "settings": {
+            "card_title": "Self-installation",
+            "card_description": "Ideal for single-story homes and accessible windows.",
+            "check_1": "Save ~200 € per window.",
+            "check_2": "90% Pre-assembled. Just mount the rails and click it in.",
+            "check_3": "Step-by-step video tutorial.",
+            "check_4": "Measurement Guarantee!",
+            "card_button_label": "Read the guide"
+          }
+        },
+        {
+          "type": "installation_card",
+          "settings": {
+            "card_title": "Installed by a Pro",
+            "card_description": "Ideal for multi-story buildings or large-scale projects.",
+            "check_1": "<strong>Introductory Offer:</strong> 30% off assembly on your first order.",
+            "check_2": "Low, fixed rates with no hidden fees.",
+            "check_3": "2-Year Guarantee.",
+            "card_button_label": "Check availability"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

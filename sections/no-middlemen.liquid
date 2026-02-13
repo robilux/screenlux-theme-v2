@@ -11,6 +11,8 @@
     align-items: center;
     gap: 64px;
     padding: 80px 20px;
+    max-width: 1440px;
+    margin: 0 auto;
   }
 
   /* --- Headline --- */
@@ -72,7 +74,7 @@
 
   .receipt__title {
     font-family: 'Geist Mono', 'Courier New', monospace;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 24px;
     text-align: center;
     color: #171717;
@@ -122,7 +124,7 @@
 
   .receipt__line-label {
     font-family: 'Geist Mono', 'Courier New', monospace;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 16px;
     color: #171717;
     white-space: nowrap;
@@ -146,7 +148,7 @@
 
   .receipt__line-value {
     font-family: 'Geist Mono', 'Courier New', monospace;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 16px;
     color: #171717;
     letter-spacing: 1.6px;
@@ -247,9 +249,9 @@
     font-family: 'Inter', sans-serif;
     font-weight: 500;
     font-size: 14px;
-    padding: 12px 24px;
-    min-width: 180px;
-    height: 48px;
+    padding: 10px 24px;
+    width: auto;
+    height: 40px;
     border-radius: 8px;
     text-decoration: none;
     border: none;
@@ -310,17 +312,17 @@
     }
 
     .receipt__main {
-      gap: 12px;
-      padding: 18px 12px 30px;
+      gap: 10px;
+      padding: 16px 12px 26px;
     }
 
     .receipt__title {
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .receipt__group {
-      padding: 9px 3px;
-      gap: 3px;
+      padding: 6px 3px;
+      gap: 1px;
     }
 
     .receipt__group--highlighted {
@@ -328,44 +330,44 @@
     }
 
     .receipt__group-title {
-      font-size: 12px;
-      padding: 6px 9px 6px 15px;
+      font-size: 11px;
+      padding: 4px 9px 4px 15px;
     }
 
     .receipt__line {
       gap: 7px;
-      padding: 6px 9px 6px 15px;
-      height: 31px;
+      padding: 4px 9px 4px 15px;
+      height: auto;
     }
 
     .receipt__line-label {
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .receipt__line-value {
-      font-size: 12px;
-      letter-spacing: 1.17px;
+      font-size: 11px;
+      letter-spacing: 1px;
     }
 
     .receipt__label {
-      font-size: 12px;
+      font-size: 11px;
       padding: 3px 6px;
       border-radius: 4px;
     }
 
     .receipt__total {
-      padding: 6px 9px 6px 15px;
-      height: 35px;
+      padding: 4px 9px 4px 15px;
+      height: auto;
     }
 
     .receipt__total-label {
-      font-size: 13px;
-      line-height: 23px;
+      font-size: 12px;
+      line-height: 20px;
     }
 
     .receipt__total-value {
-      font-size: 13px;
-      line-height: 23px;
+      font-size: 12px;
+      line-height: 20px;
       letter-spacing: 0.66px;
     }
 
@@ -378,8 +380,8 @@
     }
 
     .no-middlemen__button {
-      width: 100%;
-      max-width: 300px;
+      width: auto;
+      max-width: none;
     }
   }
 {%- endstyle -%}
@@ -556,7 +558,7 @@
   {%- if section.settings.button_label != blank -%}
     <div class="no-middlemen__cta">
       <a
-        class="no-middlemen__button"
+        class="btn btn-primary no-middlemen__button"
         href="{{ section.settings.button_link }}"
       >
         {{ section.settings.button_label }}

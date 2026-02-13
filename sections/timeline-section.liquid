@@ -1,0 +1,541 @@
+{% comment %} Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=306-19465&t=HET5jBT7j25OVNe6-4 {% endcomment %}
+
+{%- style -%}
+  /* ===== BASE ===== */
+  #shopify-section-{{ section.id }} .tl-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+    padding: {{ section.settings.padding_top }}px 80px {{ section.settings.padding_bottom }}px;
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: {{ section.settings.bg_color }};
+    position: relative;
+  }
+
+  /* ===== TIMELINE CONNECTOR (center column) ===== */
+  #shopify-section-{{ section.id }} .tl-section__connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 87px;
+    flex-shrink: 0;
+    align-self: stretch;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__line {
+    flex: 1 0 0;
+    width: 1px;
+    background-color: {{ section.settings.year_color }};
+    opacity: 0.3;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__line--hidden {
+    visibility: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid {{ section.settings.year_color }};
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+
+  /* ===== TEXT COLUMN ===== */
+  #shopify-section-{{ section.id }} .tl-section__text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1 0 0;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__text--right {
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__text--left {
+    text-align: right;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__year {
+    font-family: 'Geist Mono', monospace;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1;
+    color: {{ section.settings.year_color }};
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__heading {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: {{ section.settings.body_color }};
+    margin: 0;
+    max-width: 800px;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__body strong {
+    color: {{ section.settings.heading_color }};
+  }
+
+  /* ===== IMAGE ===== */
+  #shopify-section-{{ section.id }} .tl-section__image-wrapper {
+    position: relative;
+    flex: 1 0 0;
+    min-width: 0;
+    height: 460px;
+    border-radius: 32px;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__image-wrapper img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__image-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.3) 100%);
+    pointer-events: none;
+    border-radius: 32px;
+  }
+
+  /* ===== END SECTION VARIANT ===== */
+  #shopify-section-{{ section.id }} .tl-section--end {
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section--end .tl-section__text {
+    align-items: center;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section--end .tl-section__body {
+    text-align: center;
+  }
+
+  /* End-section logo / icon at top */
+  #shopify-section-{{ section.id }} .tl-section__end-icon {
+    width: 87px;
+    height: 70px;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__end-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* ===== CTA BUTTON ===== */
+  #shopify-section-{{ section.id }} .tl-section__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    padding: 12px 24px;
+    min-width: 180px;
+    height: 48px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .tl-section__button:hover {
+    opacity: 0.9;
+  }
+
+  /* ===== BACKGROUND WRAPPER ===== */
+  #shopify-section-{{ section.id }} .tl-section__bg {
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  /* ===== MOBILE ===== */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .tl-section {
+      flex-direction: column;
+      padding: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px 16px {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+      gap: 32px;
+    }
+
+    /* Hide timeline connector on mobile */
+    #shopify-section-{{ section.id }} .tl-section__connector {
+      display: none;
+    }
+
+    /* Text column */
+    #shopify-section-{{ section.id }} .tl-section__text--left,
+    #shopify-section-{{ section.id }} .tl-section__text--right {
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .tl-section__heading {
+      font-size: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .tl-section__body {
+      font-size: 14px;
+    }
+
+    /* Image */
+    #shopify-section-{{ section.id }} .tl-section__image-wrapper {
+      height: 300px;
+      border-radius: 24px;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .tl-section__image-gradient {
+      border-radius: 24px;
+    }
+
+    /* End variant */
+    #shopify-section-{{ section.id }} .tl-section--end .tl-section__text {
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .tl-section__button {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    /* On mobile, "image_left" shows image first (natural stacking) */
+    /* For "default" (image right on desktop), we reorder so image goes first on mobile */
+    #shopify-section-{{ section.id }} .tl-section--default .tl-section__text {
+      order: 2;
+    }
+    #shopify-section-{{ section.id }} .tl-section--default .tl-section__image-wrapper {
+      order: 1;
+    }
+  }
+{%- endstyle -%}
+
+<div class="tl-section__bg">
+  {%- case section.settings.variant -%}
+    {%- when 'default' -%}
+      {%- comment -%} DEFAULT: Text left | Connector | Image right {%- endcomment -%}
+      <div class="tl-section tl-section--default" aria-label="{{ section.settings.heading }}">
+        {%- comment -%} Text column (left) {%- endcomment -%}
+        <div class="tl-section__text tl-section__text--left">
+          {%- if section.settings.year_label != blank -%}
+            <p class="tl-section__year">{{ section.settings.year_label }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="tl-section__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.body != blank -%}
+            <div class="tl-section__body rte">{{ section.settings.body }}</div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Timeline connector {%- endcomment -%}
+        <div class="tl-section__connector">
+          <div
+            class="tl-section__line{% unless section.settings.show_timeline_top %} tl-section__line--hidden{% endunless %}"
+          ></div>
+          <div class="tl-section__dot"></div>
+          <div
+            class="tl-section__line{% unless section.settings.show_timeline_bottom %} tl-section__line--hidden{% endunless %}"
+          ></div>
+        </div>
+
+        {%- comment -%} Image (right) {%- endcomment -%}
+        <div class="tl-section__image-wrapper">
+          {%- if section.settings.image != blank -%}
+            {{
+              section.settings.image
+              | image_url: width: 1500
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(max-width: 749px) 100vw, 50vw',
+                widths: '375, 550, 750, 1100, 1500',
+                class: 'tl-section__image'
+            }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'tl-section__image' }}
+          {%- endif -%}
+          <div class="tl-section__image-gradient" aria-hidden="true"></div>
+        </div>
+      </div>
+
+    {%- when 'image_left' -%}
+      {%- comment -%} IMAGE LEFT: Image left | Connector | Text right {%- endcomment -%}
+      <div class="tl-section tl-section--image-left" aria-label="{{ section.settings.heading }}">
+        {%- comment -%} Image (left) {%- endcomment -%}
+        <div class="tl-section__image-wrapper">
+          {%- if section.settings.image != blank -%}
+            {{
+              section.settings.image
+              | image_url: width: 1500
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(max-width: 749px) 100vw, 50vw',
+                widths: '375, 550, 750, 1100, 1500',
+                class: 'tl-section__image'
+            }}
+          {%- else -%}
+            {{ 'product-2' | placeholder_svg_tag: 'tl-section__image' }}
+          {%- endif -%}
+          <div class="tl-section__image-gradient" aria-hidden="true"></div>
+        </div>
+
+        {%- comment -%} Timeline connector {%- endcomment -%}
+        <div class="tl-section__connector">
+          <div
+            class="tl-section__line{% unless section.settings.show_timeline_top %} tl-section__line--hidden{% endunless %}"
+          ></div>
+          <div class="tl-section__dot"></div>
+          <div
+            class="tl-section__line{% unless section.settings.show_timeline_bottom %} tl-section__line--hidden{% endunless %}"
+          ></div>
+        </div>
+
+        {%- comment -%} Text column (right) {%- endcomment -%}
+        <div class="tl-section__text tl-section__text--right">
+          {%- if section.settings.year_label != blank -%}
+            <p class="tl-section__year">{{ section.settings.year_label }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="tl-section__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.body != blank -%}
+            <div class="tl-section__body rte">{{ section.settings.body }}</div>
+          {%- endif -%}
+        </div>
+      </div>
+
+    {%- when 'end_section' -%}
+      {%- comment -%} END SECTION: Centered text + CTA, no image {%- endcomment -%}
+      <div class="tl-section tl-section--end" aria-label="{{ section.settings.heading }}">
+        {%- comment -%} Icon / logo at top {%- endcomment -%}
+        {%- if section.settings.end_icon != blank -%}
+          <div class="tl-section__end-icon">
+            {{
+              section.settings.end_icon
+              | image_url: width: 174
+              | image_tag: loading: 'lazy', widths: '87, 174', class: 'tl-section__end-icon-img'
+            }}
+          </div>
+        {%- else -%}
+          {%- comment -%} Fallback: show a timeline dot {%- endcomment -%}
+          <div class="tl-section__connector" style="height: auto; align-self: center;">
+            <div class="tl-section__dot"></div>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Centered text {%- endcomment -%}
+        <div class="tl-section__text">
+          {%- if section.settings.year_label != blank -%}
+            <p class="tl-section__year">{{ section.settings.year_label }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="tl-section__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.body != blank -%}
+            <div class="tl-section__body rte">{{ section.settings.body }}</div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} CTA Button {%- endcomment -%}
+        {%- if section.settings.button_label != blank -%}
+          <a class="tl-section__button" href="{{ section.settings.button_link }}">
+            {{ section.settings.button_label }}
+          </a>
+        {%- endif -%}
+      </div>
+  {%- endcase -%}
+</div>
+
+{% schema %}
+{
+  "name": "Timeline Section",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Variant"
+    },
+    {
+      "type": "select",
+      "id": "variant",
+      "label": "Layout variant",
+      "options": [
+        { "value": "default", "label": "Text left, image right" },
+        { "value": "image_left", "label": "Image left, text right" },
+        { "value": "end_section", "label": "End section (centered, no image)" }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "year_label",
+      "label": "Year label",
+      "default": "2019"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "From \"Good\" to \"Indestructible.\""
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body text",
+      "default": "<p>We started as the founders of PERGOLUX with a simple obsession: <strong>engineering shading that survives the Nordic climate</strong>. Having manufactured and shipped over 50,000 screens worldwide, we learned the hard way how fabrics age in the sun and how mechanisms react to Scandinavian frost.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Image (Default & Image Left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "End Section Options"
+    },
+    {
+      "type": "image_picker",
+      "id": "end_icon",
+      "label": "Icon / Logo (End section)",
+      "info": "Small logo shown above the text in the End Section variant."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View Open Positions"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Timeline Connector"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timeline_top",
+      "label": "Show top connector line",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timeline_bottom",
+      "label": "Show bottom connector line",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "year_color",
+      "label": "Year label color",
+      "default": "#5b5bf9"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text color",
+      "default": "#a3a3a3"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#5b5bf9"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Timeline Section"
+    }
+  ]
+}
+{% endschema %}
