@@ -206,7 +206,7 @@
   {%- comment -%} Video / Image Container {%- endcomment -%}
   <div class="tv-flawless__media-wrapper">
     <div class="tv-flawless__media" id="tv-flawless-media-{{ section.id }}">
-      {%- if section.settings.video_url != blank -%}
+      {%- if section.settings.video != blank -%}
         <video
           id="tv-flawless-video-{{ section.id }}"
           playsinline
@@ -217,7 +217,9 @@
             poster="{{ section.settings.fallback_image | image_url: width: 1920 }}"
           {% endif %}
         >
-          <source src="{{ section.settings.video_url | asset_url }}" type="video/mp4">
+          {%- for source in section.settings.video.sources -%}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {%- endfor -%}
         </video>
       {%- elsif section.settings.fallback_image != blank -%}
         <img
@@ -236,7 +238,7 @@
       <div class="tv-flawless__media-gradient" aria-hidden="true"></div>
 
       {%- comment -%} Play / Pause button {%- endcomment -%}
-      {%- if section.settings.video_url != blank -%}
+      {%- if section.settings.video != blank -%}
         <button
           class="tv-flawless__play-btn is-playing"
           id="tv-flawless-toggle-{{ section.id }}"
@@ -274,7 +276,7 @@
   {%- endif -%}
 </section>
 
-{%- if section.settings.video_url != blank -%}
+{%- if section.settings.video != blank -%}
   <script>
     (function () {
       var sectionId = '{{ section.id }}';
@@ -317,10 +319,10 @@
       "content": "Media"
     },
     {
-      "type": "text",
-      "id": "video_url",
-      "label": "Video URL (MP4)",
-      "info": "Filename of an MP4 video in your theme assets folder (e.g. video-text-and-video-flawless-finish.mp4). Leave blank to show only the fallback image."
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "Select a video from your Shopify Files library, or upload a new one. Leave blank to show only the fallback image."
     },
     {
       "type": "image_picker",
