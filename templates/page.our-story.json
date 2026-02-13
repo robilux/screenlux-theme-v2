@@ -17,6 +17,44 @@
         "padding_bottom": 28
       }
     },
+    "image_banner_GwKF7h": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_TrrGX8": {
+          "type": "heading",
+          "settings": {
+            "heading": "German Quality. Factory Direct Prices.",
+            "heading_size": "h1"
+          }
+        },
+        "text_Y4RCxk": {
+          "type": "text",
+          "settings": {
+            "text": "We cut out the middlemen, not the quality. Get premium screens for 30% less than the competition.",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_TrrGX8",
+        "text_Y4RCxk"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image_overlay_opacity": 30,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-1",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "timeline_section_4pRqhC": {
       "type": "timeline-section",
       "name": "Timeline Section",
@@ -181,6 +219,7 @@
   },
   "order": [
     "main",
+    "image_banner_GwKF7h",
     "timeline_section_4pRqhC",
     "timeline_section_YiD4EH",
     "timeline_section_M8a9eR",
