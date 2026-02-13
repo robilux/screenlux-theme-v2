@@ -215,6 +215,28 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "timeline_section_QqKgpD": {
+      "type": "timeline-section",
+      "name": "Timeline Section",
+      "settings": {
+        "variant": "end_section",
+        "year_label": "Today",
+        "heading": "Be part of the story!",
+        "body": "<p>We changed the pergola industry, and now we’re rewriting the rules for shading. We are looking for builders, dreamers, and doers to help us write the next chapter.</p>",
+        "button_label": "View Open Positions",
+        "button_link": "",
+        "show_timeline_top": true,
+        "show_timeline_bottom": true,
+        "bg_color": "#171717",
+        "year_color": "#5b5bf9",
+        "heading_color": "#ffffff",
+        "body_color": "#a3a3a3",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
@@ -226,6 +248,7 @@
     "timeline_section_GJawxe",
     "timeline_section_T37tFD",
     "timeline_section_axp7m7",
-    "timeline_section_Vne3xj"
+    "timeline_section_Vne3xj",
+    "timeline_section_QqKgpD"
   ]
 }
