@@ -103,7 +103,7 @@
   }
 
   .receipt__group-title {
-    font-family: 'Geist', sans-serif;
+    font-family: 'Geist Mono', 'Courier New', monospace;
     font-weight: 600;
     font-size: 16px;
     color: #171717;
@@ -248,10 +248,10 @@
     color: {{ section.settings.button_text_color }};
     font-family: 'Inter', sans-serif;
     font-weight: 500;
-    font-size: 14px;
-    padding: 10px 24px;
-    width: auto;
-    height: 40px;
+    font-size: 16px;
+    padding: 16px 32px;
+    min-width: 200px;
+    height: 56px;
     border-radius: 8px;
     text-decoration: none;
     border: none;
@@ -317,7 +317,9 @@
     }
 
     .receipt__title {
-      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
     }
 
     .receipt__group {
@@ -330,7 +332,8 @@
     }
 
     .receipt__group-title {
-      font-size: 11px;
+      font-size: 14px;
+      font-weight: 700;
       padding: 4px 9px 4px 15px;
     }
 
@@ -341,16 +344,16 @@
     }
 
     .receipt__line-label {
-      font-size: 11px;
+      font-size: 13px;
     }
 
     .receipt__line-value {
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 1px;
     }
 
     .receipt__label {
-      font-size: 11px;
+      font-size: 12px;
       padding: 3px 6px;
       border-radius: 4px;
     }
@@ -361,12 +364,12 @@
     }
 
     .receipt__total-label {
-      font-size: 12px;
+      font-size: 14px;
       line-height: 20px;
     }
 
     .receipt__total-value {
-      font-size: 12px;
+      font-size: 14px;
       line-height: 20px;
       letter-spacing: 0.66px;
     }
@@ -558,7 +561,7 @@
   {%- if section.settings.button_label != blank -%}
     <div class="no-middlemen__cta">
       <a
-        class="btn btn-primary no-middlemen__button"
+        class="no-middlemen__button"
         href="{{ section.settings.button_link }}"
       >
         {{ section.settings.button_label }}

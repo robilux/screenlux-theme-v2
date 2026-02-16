@@ -52,11 +52,27 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 32px 24px;
+    padding: 24px 24px 32px;
     min-width: 340px;
     max-width: 340px;
     overflow: hidden;
     flex-shrink: 0;
+  }
+
+  /* --- Review Photo --- */
+  .reviews__photo {
+    width: 100%;
+    aspect-ratio: 1312 / 816;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .reviews__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   /* --- Card Header (avatar + name) --- */
@@ -209,18 +225,36 @@
     }
 
     .reviews__nav {
-      justify-content: flex-start;
+      display: none;
     }
   }
 {%- endstyle -%}
 
 <section class="reviews" data-section-id="{{ section.id }}">
-  <h2 class="reviews__title">{{ section.settings.heading }}</h2>
+  <h2 class="reviews__title{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    {{ section.settings.heading }}
+  </h2>
 
-  <div class="reviews__container" id="reviews-slider-{{ section.id }}">
+  <div
+    class="reviews__container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    id="reviews-slider-{{ section.id }}"
+  >
     {%- for block in section.blocks -%}
       {%- if block.type == 'review_card' -%}
         <article class="reviews__card" {{ block.shopify_attributes }}>
+          {%- comment -%} Review photo {%- endcomment -%}
+          {%- if block.settings.review_image != blank -%}
+            <div class="reviews__photo">
+              <img
+                src="{{ block.settings.review_image | image_url: width: 700 }}"
+                alt="{{ block.settings.author_name }} review photo"
+                width="700"
+                height="436"
+                loading="lazy"
+              >
+            </div>
+          {%- endif -%}
+
           {%- comment -%} Card header: Avatar + Author info {%- endcomment -%}
           <div class="reviews__card-header">
             <div class="reviews__avatar" style="background-color: {{ block.settings.avatar_color }};">
@@ -259,7 +293,7 @@
   </div>
 
   {%- comment -%} Navigation arrows {%- endcomment -%}
-  <div class="reviews__nav">
+  <div class="reviews__nav{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <button
       class="reviews__nav-btn reviews__nav-btn--prev"
       aria-label="Previous reviews"
@@ -335,6 +369,11 @@
       "type": "review_card",
       "name": "Review Card",
       "settings": [
+        {
+          "type": "image_picker",
+          "id": "review_image",
+          "label": "Review photo"
+        },
         {
           "type": "text",
           "id": "initials",

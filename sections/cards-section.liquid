@@ -47,7 +47,14 @@
     display: flex;
     gap: 32px;
     width: 100%;
-    max-width: 1312px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .cards-section__cards::-webkit-scrollbar {
+    display: none;
   }
 
   /* --- Individual Card --- */
@@ -55,8 +62,8 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    flex: 1;
-    min-width: 0;
+    flex: 0 0 350px;
+    min-width: 350px;
   }
 
   .cards-section__card-image-wrap {
@@ -159,21 +166,15 @@
     }
 
     .cards-section__cards {
-      overflow-x: auto;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
       gap: 16px;
       padding-bottom: 8px;
     }
 
-    .cards-section__cards::-webkit-scrollbar {
-      display: none;
-    }
-
     .cards-section__card {
-      flex: 0 0 300px;
+      flex: 0 0 280px;
+      min-width: 280px;
       scroll-snap-align: start;
     }
 
@@ -194,7 +195,7 @@
 
 <section class="cards-section" aria-label="{{ section.settings.heading }}">
   {%- comment -%} Headline {%- endcomment -%}
-  <div class="cards-section__headline">
+  <div class="cards-section__headline{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <h2 class="cards-section__title">{{ section.settings.heading }}</h2>
     {%- if section.settings.subheading != blank -%}
       <p class="cards-section__subtitle">{{ section.settings.subheading }}</p>
@@ -202,7 +203,10 @@
   </div>
 
   {%- comment -%} Cards {%- endcomment -%}
-  <div class="cards-section__cards">
+  <div
+    class="cards-section__cards{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    id="cards-slider-{{ section.id }}"
+  >
     {%- for block in section.blocks -%}
       <div class="cards-section__card" {{ block.shopify_attributes }}>
         <div class="cards-section__card-image-wrap">
@@ -232,13 +236,23 @@
   </div>
 
   {%- comment -%} Navigation Arrows {%- endcomment -%}
-  <div class="cards-section__nav">
-    <button class="cards-section__nav-btn cards-section__nav-btn--prev" aria-label="Previous" type="button">
+  <div class="cards-section__nav{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <button
+      class="cards-section__nav-btn cards-section__nav-btn--prev"
+      aria-label="Previous"
+      type="button"
+      onclick="document.getElementById('cards-slider-{{ section.id }}').scrollBy({left: -382, behavior: 'smooth'})"
+    >
       <svg viewBox="0 0 24 24">
         <polyline points="15 18 9 12 15 6"></polyline>
       </svg>
     </button>
-    <button class="cards-section__nav-btn cards-section__nav-btn--next" aria-label="Next" type="button">
+    <button
+      class="cards-section__nav-btn cards-section__nav-btn--next"
+      aria-label="Next"
+      type="button"
+      onclick="document.getElementById('cards-slider-{{ section.id }}').scrollBy({left: 382, behavior: 'smooth'})"
+    >
       <svg viewBox="0 0 24 24">
         <polyline points="9 6 15 12 9 18"></polyline>
       </svg>

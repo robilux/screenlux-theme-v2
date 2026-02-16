@@ -71,7 +71,7 @@
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="section-{{ section.id }}-padding page-width">
+  <div class="section-{{ section.id }}-padding page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <div class="logo-bar__wrapper">
       <div class="logo-bar__item logo-bar__item--gda26">
         {%- if section.settings.image_gda26 != blank -%}

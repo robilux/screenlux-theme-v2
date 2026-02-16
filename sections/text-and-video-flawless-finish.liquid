@@ -33,6 +33,16 @@
     margin: 0;
   }
 
+  #shopify-section-{{ section.id }} .tv-flawless__description {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.6;
+    color: {{ section.settings.description_color }};
+    margin: 0;
+    max-width: 720px;
+  }
+
   /* --- Video Container --- */
   #shopify-section-{{ section.id }} .tv-flawless__media-wrapper {
     width: 100%;
@@ -134,10 +144,10 @@
     color: {{ section.settings.button_text_color }};
     font-family: 'Inter', sans-serif;
     font-weight: 500;
-    font-size: 14px;
-    padding: 12px 24px;
-    min-width: 180px;
-    height: 48px;
+    font-size: 16px;
+    padding: 16px 32px;
+    min-width: 200px;
+    height: 56px;
     border-radius: 8px;
     text-decoration: none;
     border: none;
@@ -150,6 +160,19 @@
     opacity: 0.9;
   }
 
+  #shopify-section-{{ section.id }} .tv-flawless__price-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    font-style: italic;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .tv-flawless__price-label strong {
+    font-weight: 700;
+  }
+
   /* ===== MOBILE ===== */
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .tv-flawless {
@@ -159,6 +182,10 @@
 
     #shopify-section-{{ section.id }} .tv-flawless__title {
       font-size: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .tv-flawless__description {
+      font-size: 16px;
     }
 
     #shopify-section-{{ section.id }} .tv-flawless__media {
@@ -199,12 +226,15 @@
 
 <section class="tv-flawless" aria-label="{{ section.settings.heading }}">
   {%- comment -%} Headline {%- endcomment -%}
-  <div class="tv-flawless__headline">
+  <div class="tv-flawless__headline{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <h2 class="tv-flawless__title">{{ section.settings.heading }}</h2>
+    {%- if section.settings.description != blank -%}
+      <div class="tv-flawless__description">{{ section.settings.description }}</div>
+    {%- endif -%}
   </div>
 
   {%- comment -%} Video / Image Container {%- endcomment -%}
-  <div class="tv-flawless__media-wrapper">
+  <div class="tv-flawless__media-wrapper{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="tv-flawless__media" id="tv-flawless-media-{{ section.id }}">
       {%- if section.settings.video != blank -%}
         <video
@@ -268,10 +298,13 @@
 
   {%- comment -%} CTA Button {%- endcomment -%}
   {%- if section.settings.button_label != blank -%}
-    <div class="tv-flawless__cta">
+    <div class="tv-flawless__cta{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <a class="tv-flawless__button" href="{{ section.settings.button_link }}">
         {{ section.settings.button_label }}
       </a>
+      {%- if section.settings.price_label != blank -%}
+        <p class="tv-flawless__price-label">{{ section.settings.price_label }}</p>
+      {%- endif -%}
     </div>
   {%- endif -%}
 </section>
@@ -300,7 +333,7 @@
 
 {% schema %}
 {
-  "name": "Flawless Finish Video",
+  "name": "Video-section",
   "tag": "section",
   "class": "section",
   "settings": [
@@ -313,6 +346,12 @@
       "id": "heading",
       "label": "Heading",
       "default": "Flawless Finish. No visible screws."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "info": "Optional text below the headline. Leave empty to hide."
     },
     {
       "type": "header",
@@ -346,6 +385,12 @@
       "label": "Button link"
     },
     {
+      "type": "inline_richtext",
+      "id": "price_label",
+      "label": "Price label",
+      "default": "From only <strong>395€</strong>"
+    },
+    {
       "type": "header",
       "content": "Colors"
     },
@@ -363,6 +408,12 @@
     },
     {
       "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
       "id": "button_bg_color",
       "label": "Button background",
       "default": "#5b5bf9"
@@ -376,7 +427,7 @@
   ],
   "presets": [
     {
-      "name": "Flawless Finish Video"
+      "name": "Video-section"
     }
   ]
 }

@@ -193,6 +193,19 @@
     opacity: 0.9;
   }
 
+  .worlds-slimmest__price-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    font-style: italic;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+  }
+
+  .worlds-slimmest__price-label strong {
+    font-weight: 700;
+  }
+
   /* ===== MOBILE ===== */
   @media screen and (max-width: 749px) {
     .worlds-slimmest {
@@ -243,7 +256,7 @@
     }
 
     .worlds-slimmest__feature {
-      height: 340px;
+      aspect-ratio: 4 / 3;
       border-radius: 24px;
     }
 
@@ -264,7 +277,7 @@
 
 <section class="worlds-slimmest" aria-label="{{ section.settings.heading }}">
   {%- comment -%} Headline {%- endcomment -%}
-  <div class="worlds-slimmest__headline">
+  <div class="worlds-slimmest__headline{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <h2 class="worlds-slimmest__title">{{ section.settings.heading }}</h2>
     {%- if section.settings.subheading != blank -%}
       <p class="worlds-slimmest__subtitle">{{ section.settings.subheading }}</p>
@@ -274,7 +287,7 @@
   {%- comment -%} Image Container {%- endcomment -%}
   <div class="worlds-slimmest__images">
     {%- comment -%} Hero Image {%- endcomment -%}
-    <div class="worlds-slimmest__hero">
+    <div class="worlds-slimmest__hero{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {%- if section.settings.hero_image != blank -%}
         <img
           class="worlds-slimmest__hero-img"
@@ -325,7 +338,7 @@
     </div>
 
     {%- comment -%} Feature Cards {%- endcomment -%}
-    <div class="worlds-slimmest__features">
+    <div class="worlds-slimmest__features{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       {%- comment -%} Feature Card 1 {%- endcomment -%}
       <div class="worlds-slimmest__feature">
         {%- if section.settings.feature_1_image != blank -%}
@@ -368,13 +381,16 @@
 
   {%- comment -%} CTA Button {%- endcomment -%}
   {%- if section.settings.button_label != blank -%}
-    <div class="worlds-slimmest__cta">
+    <div class="worlds-slimmest__cta{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <a
         class="worlds-slimmest__button"
         href="{{ section.settings.button_link }}"
       >
         {{ section.settings.button_label }}
       </a>
+      {%- if section.settings.price_label != blank -%}
+        <p class="worlds-slimmest__price-label">{{ section.settings.price_label }}</p>
+      {%- endif -%}
     </div>
   {%- endif -%}
 </section>
@@ -485,6 +501,12 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "price_label",
+      "label": "Price label",
+      "default": "From only <strong>395€</strong>"
     },
     {
       "type": "header",

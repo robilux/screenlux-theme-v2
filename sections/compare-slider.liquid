@@ -17,7 +17,7 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="section-{{ section.id }}-padding screenlux-product-container compare-section">
-    <div class="compare-header">
+    <div class="compare-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       {%- if section.settings.heading != blank -%}
         <h2 class="compare-heading">{{ section.settings.heading }}</h2>
       {%- endif -%}
@@ -26,7 +26,7 @@
       {%- endif -%}
     </div>
 
-    <compare-slider class="compare-slider-component">
+    <compare-slider class="compare-slider-component{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <div class="compare-wrapper">
         <div class="compare-image compare-after">
           {%- if section.settings.image_2 != blank -%}
@@ -78,9 +78,9 @@
       </div>
     </compare-slider>
 
-    <div class="compare-cta">
+    <div class="compare-cta{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       {%- if section.settings.cta_text != blank -%}
-        <a href="{{ section.settings.cta_url }}" class="btn btn-secondary">{{ section.settings.cta_text }}</a>
+        <a href="{{ section.settings.cta_url }}" class="btn btn-primary">{{ section.settings.cta_text }}</a>
       {%- endif -%}
       {%- if section.settings.cta_subtext != blank -%}
         <div class="compare-cta-subtext rte">{{ section.settings.cta_subtext }}</div>
