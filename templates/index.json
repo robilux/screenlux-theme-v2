@@ -308,6 +308,61 @@
         "padding_bottom": 80
       }
     },
+    "cards_section_aCrkkK": {
+      "type": "cards-section",
+      "blocks": {
+        "card_Ga8UCE": {
+          "type": "card",
+          "name": "Living room",
+          "settings": {
+            "image": "shopify://shop_images/img-situations-living-room.jpg",
+            "title": "Living Room",
+            "description": "<b>Glare-Free Views.</b> Enjoy your favorite shows without the sun’s reflection. Our <b><i>3% transparency</i></b> screen cuts screen glare and heat while keeping your outdoor view perfectly clear."
+          }
+        },
+        "card_WqEfg9": {
+          "type": "card",
+          "name": "Bedroom",
+          "settings": {
+            "image": "shopify://shop_images/img-situations-bedrrom.jpg",
+            "title": "Bedroom",
+            "description": "<b>Turn day into night instantly.</b> Our <b><i>0% blackout</i></b> fabric combined with zip-side tracks eliminates all light leaks for the ultimate restorative sleep."
+          }
+        },
+        "card_E9VPr9": {
+          "type": "card",
+          "name": "Kitchen",
+          "settings": {
+            "image": "shopify://shop_images/img-situations-kitchen.jpg",
+            "title": "Kitchen",
+            "description": "<b>Vibrant & Cool.</b> Keep your workspace bright. A <b><i>5% transparency</i></b> filters in soft natural light for cooking while blocking harsh midday heat and glare."
+          }
+        },
+        "card_QF9U7k": {
+          "type": "card",
+          "name": "Bathroom",
+          "settings": {
+            "image": "shopify://shop_images/img-situations-bathroom.jpg",
+            "title": "Bathroom",
+            "description": "<b>Maximum Privacy.</b> Privacy is non-negotiable here. Our <b><i>1% transparency</i></b> weave offers excellent daytime seclusion and soft filtered light without making the room feel closed-in.\n<br><br><i style=\"font-size:90%;\">Note: Subtles silhouettes may be visible at night with interior lights on.</i>"
+          }
+        }
+      },
+      "block_order": [
+        "card_Ga8UCE",
+        "card_WqEfg9",
+        "card_E9VPr9",
+        "card_QF9U7k"
+      ],
+      "name": "Cards Section",
+      "settings": {
+        "heading": "Master the Light in Every Room.",
+        "subheading": "Every room has different needs. Select the ideal transparency to balance your privacy and connection to the outdoors.",
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "subheading_color": "#525252"
+      }
+    },
     "worlds_slimmest": {
       "type": "worlds-slimmest",
       "settings": {
@@ -325,6 +380,7 @@
         "feature_2_desc": "Flawless Finish. No visible screws.",
         "button_label": "Configure",
         "button_link": "",
+        "price_label": "From only <strong>395€</strong>",
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
         "subheading_color": "#525252",
@@ -336,19 +392,22 @@
       "type": "text-and-video-flawless-finish",
       "settings": {
         "heading": "Flawless Finish. No visible screws.",
+        "description": "",
         "video": "shopify://files/videos/video-text-and-video-flawless-finish.mp4",
         "button_label": "Configure",
         "button_link": "",
+        "price_label": "From only <strong>395€</strong>",
         "bg_color": "#ffffff",
         "heading_color": "#000000",
+        "description_color": "#666666",
         "button_bg_color": "#5b5bf9",
         "button_text_color": "#ffffff"
       }
     },
-    "cards_section_aCrkkK": {
+    "cards_section_w4dayx": {
       "type": "cards-section",
       "blocks": {
-        "card_Ga8UCE": {
+        "card_Jxyzid": {
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/img-card-section-01.png",
@@ -356,7 +415,7 @@
             "description": "High-efficiency IBC solar panels harvest energy even on heavily overcast days."
           }
         },
-        "card_WqEfg9": {
+        "card_XjWrHM": {
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/img-card-section-02.png",
@@ -364,7 +423,7 @@
             "description": "A single charge provides enough power to keep your screens running for 30 days of total darkness."
           }
         },
-        "card_E9VPr9": {
+        "card_CNwPce": {
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/img-card-section-03.png",
@@ -372,7 +431,7 @@
             "description": "If you ever run low, the integrated charging port lets you power up manually in minutes."
           }
         },
-        "card_QF9U7k": {
+        "card_PwDajx": {
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/img-card-section-04.png",
@@ -382,10 +441,10 @@
         }
       },
       "block_order": [
-        "card_Ga8UCE",
-        "card_WqEfg9",
-        "card_E9VPr9",
-        "card_QF9U7k"
+        "card_Jxyzid",
+        "card_XjWrHM",
+        "card_CNwPce",
+        "card_PwDajx"
       ],
       "name": "Cards Section",
       "settings": {
@@ -400,11 +459,14 @@
       "type": "text-and-video-flawless-finish",
       "settings": {
         "heading": "SmartHome that works with what you have.",
+        "description": "",
         "video": "shopify://files/videos/video-smart-home.mp4",
         "button_label": "Configure",
         "button_link": "",
+        "price_label": "From only <strong>395€</strong>",
         "bg_color": "#ffffff",
         "heading_color": "#000000",
+        "description_color": "#666666",
         "button_bg_color": "#5b5bf9",
         "button_text_color": "#ffffff"
       }
@@ -497,9 +559,10 @@
     "logo_bar",
     "no_middlemen",
     "compare_slider",
+    "cards_section_aCrkkK",
     "worlds_slimmest",
     "flawless_finish_video",
-    "cards_section_aCrkkK",
+    "cards_section_w4dayx",
     "text_and_video_flawless_finish_G8EPjE",
     "reviews_EndBfQ"
   ]
