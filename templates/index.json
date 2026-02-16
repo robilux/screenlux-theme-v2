@@ -471,12 +471,62 @@
         "button_text_color": "#ffffff"
       }
     },
+    "installation_section_iNT83q": {
+      "type": "installation-section",
+      "blocks": {
+        "installation_card_HJLazM": {
+          "type": "installation_card",
+          "settings": {
+            "card_title": "Self-installation",
+            "card_description": "Ideal for single-story homes and accessible windows.",
+            "check_1": "Save ~200 € per window.",
+            "check_2": "90% Pre-assembled. Just mount the rails and click it in.",
+            "check_3": "Step-by-step video tutorial.",
+            "check_4": "Measurement Guarantee!",
+            "card_button_label": "Read the guide",
+            "card_button_link": ""
+          }
+        },
+        "installation_card_JJHdKk": {
+          "type": "installation_card",
+          "settings": {
+            "card_title": "Installed by a Pro",
+            "card_description": "Ideal for multi-story buildings or large-scale projects.",
+            "check_1": "<strong>Introductory Offer:</strong> 30% off assembly on your first order.",
+            "check_2": "Low, fixed rates with no hidden fees.",
+            "check_3": "2-Year Guarantee.",
+            "check_4": "Measurement Guarantee!",
+            "card_button_label": "Check availability",
+            "card_button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "installation_card_HJLazM",
+        "installation_card_JJHdKk"
+      ],
+      "name": "Installation Section",
+      "settings": {
+        "heading": "Installation: Your choice.",
+        "subheading": "Save with a simple self-install or sit back and let our experts handle the installation.",
+        "button_label": "Configure",
+        "button_link": "",
+        "bg_color": "#f5f5f5",
+        "heading_color": "#000000",
+        "subheading_color": "#525252",
+        "card_bg_color": "#ffffff",
+        "card_border_color": "#e5e5e5",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff"
+      }
+    },
     "reviews_EndBfQ": {
       "type": "reviews",
       "blocks": {
         "review_card_y7Dcge": {
           "type": "review_card",
           "settings": {
+            "review_image": "shopify://shop_images/img-review-1.png",
             "initials": "LW",
             "author_name": "Lukas Weber",
             "date": "11 Feb. 2026",
@@ -489,6 +539,7 @@
         "review_card_ERfWpL": {
           "type": "review_card",
           "settings": {
+            "review_image": "shopify://shop_images/img-review-3.png",
             "initials": "AS",
             "author_name": "Anja Schneider",
             "date": "19 Feb. 2026",
@@ -501,6 +552,7 @@
         "review_card_zjhqNc": {
           "type": "review_card",
           "settings": {
+            "review_image": "shopify://shop_images/img-review-2.png",
             "initials": "MK",
             "author_name": "Matthias Koch",
             "date": "21 Feb. 2026",
@@ -513,6 +565,7 @@
         "review_card_d7arg9": {
           "type": "review_card",
           "settings": {
+            "review_image": "shopify://shop_images/img-review-4.png",
             "initials": "CS",
             "author_name": "Christian Schmidt",
             "date": "26 Feb. 2026",
@@ -552,6 +605,54 @@
         "card_bg_color": "#ffffff",
         "card_border_color": "#e5e5e5"
       }
+    },
+    "faq_9eQ79V": {
+      "type": "faq",
+      "blocks": {
+        "question_KPYegH": {
+          "type": "question",
+          "settings": {
+            "question": "How long does the battery last without sunlight?",
+            "answer": "<p>The Screenlux Zip 2 features a massive 5200mAh battery that provides up to 30 days of operation in complete darkness. Even during the grayest winter months, the IBC-solar technology continues to harvest energy.</p>"
+          }
+        },
+        "question_qWpMiK": {
+          "type": "question",
+          "settings": {
+            "question": "Can I install the screens myself?",
+            "answer": "<p>Yes! Our screens come 90% pre-assembled. Simply mount the rails and click the screen into place. We provide a step-by-step video tutorial and our Measurement Guarantee ensures a perfect fit.</p>"
+          }
+        },
+        "question_qUWi8C": {
+          "type": "question",
+          "settings": {
+            "question": "What smart home systems are supported?",
+            "answer": "<p>Screenlux connects directly to Apple Home and Google Home locally — no expensive hub or cloud account required. It works seamlessly with what you already have.</p>"
+          }
+        },
+        "question_mMrhR7": {
+          "type": "question",
+          "settings": {
+            "question": "How slim is the cassette design?",
+            "answer": "<p>At just 85mm, the Screenlux cassette is the world's slimmest. It integrates seamlessly into your facade with our patented ClickFit™ system for a flawless, screw-free finish.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_KPYegH",
+        "question_qWpMiK",
+        "question_qUWi8C",
+        "question_mMrhR7"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "heading": "FAQ",
+        "bg_color": "#f5f5f5",
+        "heading_color": "#000000",
+        "text_color": "#171717",
+        "answer_color": "#525252",
+        "divider_color": "#e5e5e5"
+      }
     }
   },
   "order": [
@@ -564,6 +665,8 @@
     "flawless_finish_video",
     "cards_section_w4dayx",
     "text_and_video_flawless_finish_G8EPjE",
-    "reviews_EndBfQ"
+    "installation_section_iNT83q",
+    "reviews_EndBfQ",
+    "faq_9eQ79V"
   ]
 }
