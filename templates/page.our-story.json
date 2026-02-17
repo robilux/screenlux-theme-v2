@@ -41,16 +41,17 @@
       ],
       "name": "t:sections.image-banner.presets.name",
       "settings": {
-        "image_overlay_opacity": 30,
+        "image": "shopify://shop_images/Generated_Image_February_17_2026_-_11_08AM-2.jpg",
+        "image_overlay_opacity": 70,
         "image_height": "medium",
         "image_behavior": "none",
         "desktop_content_position": "middle-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
         "color_scheme": "scheme-1",
-        "stack_images_on_mobile": true,
+        "stack_images_on_mobile": false,
         "mobile_content_alignment": "center",
-        "show_text_below": true,
+        "show_text_below": false,
         "padding_top": 36,
         "padding_bottom": 36
       }
