@@ -315,36 +315,36 @@
           "type": "card",
           "name": "Living room",
           "settings": {
-            "image": "shopify://shop_images/img-situations-living-room.jpg",
+            "image": "shopify://shop_images/img-situation-livingroom.png",
             "title": "Living Room",
-            "description": "<b>Glare-Free Views.</b> Enjoy your favorite shows without the sun’s reflection. Our <b><i>3% transparency</i></b> screen cuts screen glare and heat while keeping your outdoor view perfectly clear."
+            "description": "<b>Glare-Free Views.</b> Enjoy your favorite shows without the sun’s reflection. Our <b>5% openness</b> screen cuts screen glare and heat while keeping your outdoor view perfectly clear."
           }
         },
         "card_WqEfg9": {
           "type": "card",
           "name": "Bedroom",
           "settings": {
-            "image": "shopify://shop_images/img-situations-bedrrom.jpg",
+            "image": "shopify://shop_images/img-situation-bedroom.jpg",
             "title": "Bedroom",
-            "description": "<b>Turn day into night instantly.</b> Our <b><i>0% blackout</i></b> fabric combined with zip-side tracks eliminates all light leaks for the ultimate restorative sleep."
+            "description": "<b>Turn day into night instantly.</b> Our <b>Blackout</b> fabric combined with zip-side tracks eliminates all light leaks for the ultimate restorative sleep and total darkness."
           }
         },
         "card_E9VPr9": {
           "type": "card",
           "name": "Kitchen",
           "settings": {
-            "image": "shopify://shop_images/img-situations-kitchen.jpg",
+            "image": "shopify://shop_images/img-situation-kitchen.png",
             "title": "Kitchen",
-            "description": "<b>Vibrant & Cool.</b> Keep your workspace bright. A <b><i>5% transparency</i></b> filters in soft natural light for cooking while blocking harsh midday heat and glare."
+            "description": "<b>Vibrant & Cool.</b> Keep your workspace bright. A <b>5% openness</b> filters in soft natural light for cooking while blocking harsh midday heat and glare."
           }
         },
         "card_QF9U7k": {
           "type": "card",
           "name": "Bathroom",
           "settings": {
-            "image": "shopify://shop_images/img-situations-bathroom.jpg",
+            "image": "shopify://shop_images/img-situations-bathroom.png",
             "title": "Bathroom",
-            "description": "<b>Maximum Privacy.</b> Privacy is non-negotiable here. Our <b><i>1% transparency</i></b> weave offers excellent daytime seclusion and soft filtered light without making the room feel closed-in.\n<br><br><i style=\"font-size:90%;\">Note: Subtles silhouettes may be visible at night with interior lights on.</i>"
+            "description": "<b>Maximum Privacy.</b> Privacy is non-negotiable here. Our <b>Blackout</b> fabric offers complete seclusion, ensuring no silhouettes are visible even with interior lights on."
           }
         }
       },
