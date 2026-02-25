@@ -71,7 +71,102 @@
         "padding_bottom": 80,
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "color_scheme": ""
+        "color_scheme": "scheme-2"
+      }
+    },
+    "compare_slider": {
+      "type": "compare-slider",
+      "settings": {
+        "heading": "Keep the heat out, not the light.",
+        "subheading": "<p>Traditional roller shutters require total darkness to be effective. Screenlux ZIP blocks <strong>95% of heat</strong> and <strong>98% of UV rays</strong> before it hits the glass – keeping you cool without losing the light.</p>",
+        "image_1": "shopify://shop_images/Compare_image_Roller_Shutters.png",
+        "image_2": "shopify://shop_images/Compare_image_Screens.png",
+        "cta_text": "Configure",
+        "cta_url": "",
+        "cta_subtext": "<p>From only <em>395€</em></p>",
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "cards_section_aCrkkK": {
+      "type": "cards-section",
+      "blocks": {
+        "card_Ga8UCE": {
+          "type": "card",
+          "name": "Living room",
+          "settings": {
+            "image": "shopify://shop_images/img-situation-livingroom.png",
+            "title": "Living Room",
+            "description": "<b>Glare-Free Views.</b> Enjoy your favorite shows without the sun’s reflection. Our <b>5% openness</b> screen cuts screen glare and heat while keeping your outdoor view perfectly clear."
+          }
+        },
+        "card_WqEfg9": {
+          "type": "card",
+          "name": "Bedroom",
+          "settings": {
+            "image": "shopify://shop_images/img-situation-bedroom.jpg",
+            "title": "Bedroom",
+            "description": "<b>Turn day into night instantly.</b> Our <b>Blackout</b> fabric combined with zip-side tracks eliminates all light leaks for the ultimate restorative sleep and total darkness."
+          }
+        },
+        "card_E9VPr9": {
+          "type": "card",
+          "name": "Kitchen",
+          "settings": {
+            "image": "shopify://shop_images/img-situation-kitchen.png",
+            "title": "Kitchen",
+            "description": "<b>Vibrant & Cool.</b> Keep your workspace bright. A <b>5% openness</b> filters in soft natural light for cooking while blocking harsh midday heat and glare."
+          }
+        },
+        "card_QF9U7k": {
+          "type": "card",
+          "name": "Bathroom",
+          "settings": {
+            "image": "shopify://shop_images/img-situations-bathroom.png",
+            "title": "Bathroom",
+            "description": "<b>Maximum Privacy.</b> Privacy is non-negotiable here. Our <b>Blackout</b> fabric offers complete seclusion, ensuring no silhouettes are visible even with interior lights on."
+          }
+        }
+      },
+      "block_order": [
+        "card_Ga8UCE",
+        "card_WqEfg9",
+        "card_E9VPr9",
+        "card_QF9U7k"
+      ],
+      "name": "Cards Section",
+      "settings": {
+        "heading": "Master the Light in Every Room.",
+        "subheading": "Every room has different needs. Select the ideal transparency to balance your privacy and connection to the outdoors.",
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "subheading_color": "#525252"
+      }
+    },
+    "worlds_slimmest": {
+      "type": "worlds-slimmest",
+      "settings": {
+        "heading": "Worlds slimmest. Designed to Disappear.",
+        "subheading": "At just 85mm, the world's slimmest cassette integrates seamlessly into your facade to preserve your view. Our click-fit system ensures a flawless, screw-free finish.",
+        "hero_image": "shopify://shop_images/img-feature-img1-designed-to-disappear.png",
+        "badge_1": "shopify://shop_images/img-gda26-winner-screenlux-text-white.png",
+        "badge_2": "shopify://shop_images/img-logobar-dmp.png",
+        "badge_3": "shopify://shop_images/img-logobar-ida.png",
+        "feature_1_image": "shopify://shop_images/img-feature-img2-ultra-slim.png",
+        "feature_1_title": "Ultra-Slim 85mm",
+        "feature_1_desc": "Maximum light, minimum profile.",
+        "feature_2_image": "shopify://shop_images/img-feature-img3-clickfit.png",
+        "feature_2_title": "Screenlux ClickFit™",
+        "feature_2_desc": "Flawless Finish. No visible screws.",
+        "button_label": "Configure",
+        "button_link": "",
+        "price_label": "From only <strong>395€</strong>",
+        "bg_color": "#f5f5f5",
+        "heading_color": "#000000",
+        "subheading_color": "#525252",
+        "button_bg_color": "#5b5bf9",
+        "button_text_color": "#ffffff"
       }
     },
     "no_middlemen": {
@@ -291,101 +386,6 @@
         "button_bg_color": "#5b5bf9",
         "button_text_color": "#ffffff",
         "price_label_color": "#ffffff"
-      }
-    },
-    "compare_slider": {
-      "type": "compare-slider",
-      "settings": {
-        "heading": "Keep the heat out, not the light.",
-        "subheading": "<p>Traditional roller shutters require total darkness to be effective. Screenlux ZIP blocks <strong>95% of heat</strong> and <strong>98% of UV rays</strong> before it hits the glass – keeping you cool without losing the light.</p>",
-        "image_1": "shopify://shop_images/Compare_image_Roller_Shutters.png",
-        "image_2": "shopify://shop_images/Compare_image_Screens.png",
-        "cta_text": "Configure",
-        "cta_url": "",
-        "cta_subtext": "<p>From only <em>395€</em></p>",
-        "color_scheme": "scheme-1",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "cards_section_aCrkkK": {
-      "type": "cards-section",
-      "blocks": {
-        "card_Ga8UCE": {
-          "type": "card",
-          "name": "Living room",
-          "settings": {
-            "image": "shopify://shop_images/img-situation-livingroom.png",
-            "title": "Living Room",
-            "description": "<b>Glare-Free Views.</b> Enjoy your favorite shows without the sun’s reflection. Our <b>5% openness</b> screen cuts screen glare and heat while keeping your outdoor view perfectly clear."
-          }
-        },
-        "card_WqEfg9": {
-          "type": "card",
-          "name": "Bedroom",
-          "settings": {
-            "image": "shopify://shop_images/img-situation-bedroom.jpg",
-            "title": "Bedroom",
-            "description": "<b>Turn day into night instantly.</b> Our <b>Blackout</b> fabric combined with zip-side tracks eliminates all light leaks for the ultimate restorative sleep and total darkness."
-          }
-        },
-        "card_E9VPr9": {
-          "type": "card",
-          "name": "Kitchen",
-          "settings": {
-            "image": "shopify://shop_images/img-situation-kitchen.png",
-            "title": "Kitchen",
-            "description": "<b>Vibrant & Cool.</b> Keep your workspace bright. A <b>5% openness</b> filters in soft natural light for cooking while blocking harsh midday heat and glare."
-          }
-        },
-        "card_QF9U7k": {
-          "type": "card",
-          "name": "Bathroom",
-          "settings": {
-            "image": "shopify://shop_images/img-situations-bathroom.png",
-            "title": "Bathroom",
-            "description": "<b>Maximum Privacy.</b> Privacy is non-negotiable here. Our <b>Blackout</b> fabric offers complete seclusion, ensuring no silhouettes are visible even with interior lights on."
-          }
-        }
-      },
-      "block_order": [
-        "card_Ga8UCE",
-        "card_WqEfg9",
-        "card_E9VPr9",
-        "card_QF9U7k"
-      ],
-      "name": "Cards Section",
-      "settings": {
-        "heading": "Master the Light in Every Room.",
-        "subheading": "Every room has different needs. Select the ideal transparency to balance your privacy and connection to the outdoors.",
-        "bg_color": "#ffffff",
-        "heading_color": "#000000",
-        "subheading_color": "#525252"
-      }
-    },
-    "worlds_slimmest": {
-      "type": "worlds-slimmest",
-      "settings": {
-        "heading": "Worlds slimmest. Designed to Disappear.",
-        "subheading": "At just 85mm, the world's slimmest cassette integrates seamlessly into your facade to preserve your view. Our click-fit system ensures a flawless, screw-free finish.",
-        "hero_image": "shopify://shop_images/img-feature-img1-designed-to-disappear.png",
-        "badge_1": "shopify://shop_images/img-gda26-winner-screenlux-text-white.png",
-        "badge_2": "shopify://shop_images/img-logobar-dmp.png",
-        "badge_3": "shopify://shop_images/img-logobar-ida.png",
-        "feature_1_image": "shopify://shop_images/img-feature-img2-ultra-slim.png",
-        "feature_1_title": "Ultra-Slim 85mm",
-        "feature_1_desc": "Maximum light, minimum profile.",
-        "feature_2_image": "shopify://shop_images/img-feature-img3-clickfit.png",
-        "feature_2_title": "Screenlux ClickFit™",
-        "feature_2_desc": "Flawless Finish. No visible screws.",
-        "button_label": "Configure",
-        "button_link": "",
-        "price_label": "From only <strong>395€</strong>",
-        "bg_color": "#f5f5f5",
-        "heading_color": "#000000",
-        "subheading_color": "#525252",
-        "button_bg_color": "#5b5bf9",
-        "button_text_color": "#ffffff"
       }
     },
     "flawless_finish_video": {
@@ -658,10 +658,10 @@
   "order": [
     "image_banner",
     "logo_bar",
-    "no_middlemen",
     "compare_slider",
     "cards_section_aCrkkK",
     "worlds_slimmest",
+    "no_middlemen",
     "flawless_finish_video",
     "cards_section_w4dayx",
     "text_and_video_flawless_finish_G8EPjE",
