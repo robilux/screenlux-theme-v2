@@ -103,7 +103,7 @@ class ProductConfigurator extends HTMLElement {
     };
 
     const fabricTypeCodeMap = {
-      '4-percent': '4tr',
+      '5-percent': '4tr',
       blackout: '0tr',
     };
 

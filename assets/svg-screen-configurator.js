@@ -93,7 +93,7 @@
         height: 1000,
         frameColor: 'anthracite',
         fabricColor: 'charcoal',
-        fabricType: '4-percent',
+        fabricType: '5-percent',
         cassetteSize: 'slim',
         motor: 'wired',
       };
@@ -240,7 +240,7 @@
         height: parseInt(this.container.dataset.height) || 1000,
         frameColor: this.container.dataset.frameColor || 'anthracite',
         fabricColor: this.container.dataset.fabricColor || 'charcoal',
-        fabricType: this.container.dataset.fabricType || '4-percent',
+        fabricType: this.container.dataset.fabricType || '5-percent',
         cassetteSize: this.container.dataset.cassetteSize || 'slim',
         motor: this.container.dataset.motor || 'wired',
       };
@@ -255,7 +255,7 @@
           height: s.height || 1000,
           frameColor: s.frameColor || 'anthracite',
           fabricColor: s.fabricColor || 'charcoal',
-          fabricType: s.fabricType || '4-percent',
+          fabricType: s.fabricType || '5-percent',
           cassetteSize: s.cassetteSize || 'slim',
           motor: s.motor || 'wired',
         });
