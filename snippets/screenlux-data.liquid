@@ -80,23 +80,23 @@
       { id: 'white', title: 'White', hex: '#FFFFFF', ral: 'RAL 9016', selected: false }
     ],
     fabricColors: [
-      { id: 'graphite', title: 'Graphite', image: {{ 'img_fabric_graphite.png' | asset_img_url: '400x' | json }} },
-      { id: 'gray-pepper', title: 'Gray pepper', image: {{ 'img_fabric_gray_pepper.png' | asset_img_url: '400x' | json }} },
-      { id: 'natural', title: 'Natural', image: {{ 'img_fabric_natural.png' | asset_img_url: '400x' | json }} },
-      { id: 'edelweiss', title: 'Edelweiß', image: {{ 'img_fabric_edelweiss.png' | asset_img_url: '400x' | json }} }
+      { id: 'graphite', title: 'Graphite', image: {{ 'img_fabric_graphite.png' | asset_url | json }} },
+      { id: 'gray-pepper', title: 'Gray pepper', image: {{ 'img_fabric_gray_pepper.png' | asset_url | json }} },
+      { id: 'natural', title: 'Natural', image: {{ 'img_fabric_natural.png' | asset_url | json }} },
+      { id: 'edelweiss', title: 'Edelweiß', image: {{ 'img_fabric_edelweiss.png' | asset_url | json }} }
     ],
     fabrics: [
       {
         id: '5-percent',
         title: '5% Openness',
         desc: 'Perfect for living rooms and open spaces.',
-        image: {{ 'img_fabric_5_percent_transparency.png' | asset_img_url: '400x' | json }}
+        image: {{ 'img_fabric_5_percent_transparency.png' | asset_url | json }}
       },
       {
         id: 'blackout',
         title: 'Blackout',
         desc: 'Common for bathrooms and bedrooms.',
-        image: {{ 'img_fabric_blackout.png' | asset_img_url: '400x' | json }}
+        image: {{ 'img_fabric_blackout.png' | asset_url | json }}
       }
     ],
     cassetteSizes: [
