@@ -47,60 +47,60 @@ window.ScreenluxEngine = {
     const validation = this.validateDimensions(config.width, config.height);
     if (!validation.valid) return 0;
 
-    // 2.2.2.3.1 Calculate SQM
+    // 1. Base Price
+    let total = 9500; // 95€
+
+    // Calculate dimensions
     const widthM = config.width / 1000;
     const heightM = config.height / 1000;
     const sqm = widthM * heightM;
 
-    // 2.2.2.2 Parameters from rules (populated by settings)
-    const PRICE_PER_SQM = rules.price_per_sqm !== undefined ? rules.price_per_sqm : 5000;
-    const MIN_BILLABLE = rules.min_billable_sqm || 0;
-    const BASE_INCLUDES = rules.base_includes_sqm || 0;
-    const BASE_PRICE = rules.base_price || 50000;
+    // 2. Fabric Cost
+    const fabricPricePerSqm = config.fabricType === 'blackout' ? 1500 : 1150;
+    total += Math.round(sqm * fabricPricePerSqm);
 
-    // 2.2.2.3.2 Billable SQM
-    const billableSqm = Math.max(sqm, MIN_BILLABLE);
-
-    // 2.2.2.3.3 Area Cost
-    const chargeableSqm = Math.max(0, billableSqm - BASE_INCLUDES);
-    const areaCost = Math.round(chargeableSqm * PRICE_PER_SQM);
-
-    // 1. Base Price accumulator
-    let total = BASE_PRICE + areaCost;
-
-    // 3. Cassette Surcharge
+    // 3. Cassette Cost
+    let cassetteWidthPrice = 1600; // 16€
+    let cassetteHeightPrice = 700; // 7€
     if (config.cassetteSize === 'large') {
-      total += rules.surcharge_cassette || 5000;
+      cassetteWidthPrice = 2500; // 25€
+      cassetteHeightPrice = 900; // 9€
     }
+    total += Math.round(widthM * cassetteWidthPrice + heightM * cassetteHeightPrice);
 
     // 4. Motor Surcharge
     if (config.motor === 'solar') {
-      total += rules.surcharge_solar || 10000;
+      total += 3500; // 35€
     }
 
     return total;
   },
 
   /**
-   * Snaps a raw price to the nearest 50€ step variant.
-   * @param {number} rawPrice - in cents
-   * @param {Array} variants - list of {id, price} from ScreenluxData.screens
+   * Snaps a raw price (cost) to a matching variant by SKU.
+   * @param {number} rawPrice - calculated cost in cents
+   * @param {Array} variants - list of {id, price, sku} from ScreenluxData.screens
    * @returns {object|null} matching variant object
    */
   matchVariant(rawPrice, variants) {
-    // 1. Round up to nearest 5000 cents (50€)
-    const STEP = 5000;
-    let target = Math.ceil(rawPrice / STEP) * STEP;
+    const targetCost = rawPrice / 100;
 
-    // 2. Clamp (2.3.1.2)
-    const MIN_PRICE = 50000; // 500€
-    const MAX_PRICE = 300000; // 3000€
+    // First try exact match on SKU parse
+    const match = variants.find((v) => v.sku && parseFloat(v.sku.replace(',', '.')) === targetCost);
+    if (match) return match;
 
-    if (target < MIN_PRICE) target = MIN_PRICE;
-    if (target > MAX_PRICE) target = MAX_PRICE;
+    // Fallback: find nearest by SKU
+    const validVariants = variants.filter((v) => v.sku && !isNaN(parseFloat(v.sku.replace(',', '.'))));
+    if (validVariants.length > 0) {
+      return validVariants.reduce((prev, curr) => {
+        const prevDiff = Math.abs(parseFloat(prev.sku.replace(',', '.')) - targetCost);
+        const currDiff = Math.abs(parseFloat(curr.sku.replace(',', '.')) - targetCost);
+        return currDiff < prevDiff ? curr : prev;
+      });
+    }
 
-    // 3. Find match
-    return variants.find((v) => v.price === target) || null;
+    // Default fallback
+    return variants[0] || null;
   },
 
   /**

@@ -20,7 +20,9 @@
           {
             id: {{ variant.id }},
             title: {{ variant.title | json }},
-            price: {{ variant.price }}, // Raw cents
+            sku: {{ variant.sku | json }},
+            price: {{ variant.price }}, // Real sale price
+            compare_at_price: {{ variant.compare_at_price | default: variant.price }}, // Used for strikethrough
             price_float: {{ variant.price | divided_by: 100.0 }}
           }{% unless forloop.last %},{% endunless %}
         {%- endfor -%}
@@ -78,8 +80,10 @@
       { id: 'white', title: 'White', hex: '#FFFFFF', ral: 'RAL 9016', selected: false }
     ],
     fabricColors: [
-      { id: 'charcoal', title: 'Charcoal', desc: 'Popular!', hex: '#1F1F1F' },
-      { id: 'gray', title: 'Gray', desc: 'Calm and traditional', hex: '#6B7280' }
+      { id: 'graphite', title: 'Graphite', image: {{ 'img_fabric_Graphite.png' | asset_url | json }} },
+      { id: 'gray-pepper', title: 'Gray pepper', image: {{ 'img_fabric_Gray Pepper.png' | asset_url | json }} },
+      { id: 'natural', title: 'Natural', image: {{ 'img_fabric_Natural.png' | asset_url | json }} },
+      { id: 'edelweiss', title: 'Edelweiß', image: {{ 'img_fabric_Edelweiß.png' | asset_url | json }} }
     ],
     fabrics: [
       {

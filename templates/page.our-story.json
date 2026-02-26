@@ -23,14 +23,14 @@
         "heading_TrrGX8": {
           "type": "heading",
           "settings": {
-            "heading": "German Quality. Factory Direct Prices.",
+            "heading": "Deutsche Qualität. Direkt ab Werk.",
             "heading_size": "h1"
           }
         },
         "text_Y4RCxk": {
           "type": "text",
           "settings": {
-            "text": "We cut out the middlemen, not the quality. Get premium screens for 30% less than the competition.",
+            "text": "Premium-Qualität ohne Zwischenhändler. Hol dir High-End Screens 30 % günstiger.",
             "text_style": "body"
           }
         }
@@ -62,8 +62,8 @@
       "settings": {
         "variant": "default",
         "year_label": "2019",
-        "heading": "Born in a Nordic Storm",
-        "body": "<p>In 2019, we started Screenlux's sister company, Pergolux, with a blank slate and one question: why does standard shading fail when the weather gets rough? After seeing Scandinavian frost and high winds destroy \"off-the-shelf\" systems, we engineered a solution from the ground up. Today, Pergolux is the #1 pergola brand in the world—and that same \"indestructible\" DNA is what we built into Screenlux.</p>",
+        "heading": "Geboren in einem nordischen Sturm.",
+        "body": "<p>2019 starteten wir mit einer fundamentalen Frage: Warum versagt Standard-Sonnenschutz, wenn es hart auf hart kommt? Wir haben ein System neu entwickelt, das extremem skandinavischem Wetter standhält. Diese unzerstörbare DNA steckt heute in Screenlux.</p>",
         "image": "shopify://shop_images/img-story-container.png",
         "button_label": "View Open Positions",
         "button_link": "",
@@ -85,8 +85,8 @@
       "settings": {
         "variant": "image_left",
         "year_label": "2023",
-        "heading": "The \"Middle Ground\" Was Missing.",
-        "body": "<p><strong>We realized the German market forced homeowners to choose between accessible junk or inaccessible luxury.</strong> While legacy brands offered incredible quality, they were locked behind a hostile business model involving expensive middlemen, 12-week wait times, and complex wiring that required certified electricians. The alternative was cheap clamp-on blinds that rattled in the wind, leaving a massive gap for a professional-grade product that was actually easy to buy.</p>",
+        "heading": "Der goldene Mittelweg fehlte.",
+        "body": "<p><strong>Die Branche war zweigeteilt:</strong> Traditionelle Marken zwingen Nutzer zu komplexen Prozessen und Elektriker-Aufwänden. Andere bauen billigste Qualitäten. Es fehlte ein professionelles, erstklassiges System, das genial einfach bleibt und das man online kaufen kann.</p>",
         "image": "shopify://shop_images/img-story-middleman-de.png",
         "button_label": "View Open Positions",
         "button_link": "",
@@ -108,8 +108,8 @@
       "settings": {
         "variant": "default",
         "year_label": "2025",
-        "heading": "The End of the Middleman.",
-        "body": "<p><strong>We built Screenlux to prove that professional shading shouldn't cost a fortune.</strong> The old industry relies on \"trade partners\" to gatekeep quality and inflate prices. We solved the installation barrier with solar power and cut out the middlemen. The result? You finally get architect-grade shading without the luxury price tag.</p>",
+        "heading": "Das Ende der Zwischenhändler.",
+        "body": "<p><strong>Die Lösung war klar: Solar.</strong> Durch die Integration eines leistungsstarken Solarantriebs entfiel die Notwendigkeit für Elektriker und komplexe Installationen. So konnten wir ein High-End System entwickeln, das direkt zum Kunden geliefert wird. Ohne Zwischenhändler, ohne versteckte Kosten.</p>",
         "image": "shopify://shop_images/img-story-first-product.jpg",
         "button_label": "View Open Positions",
         "button_link": "",
@@ -131,8 +131,8 @@
       "settings": {
         "variant": "image_left",
         "year_label": "2025",
-        "heading": "Award-Winning from Day One.",
-        "body": "<p>Our very first Screenlux system took home the International Design Award (IDA), proving that \"accessible\" doesn't mean \"cheap.\" This win validated our core belief: you can skip the dealer network and the markup, and still get world-class, architect-grade design for your home.</p>",
+        "heading": "Preisgekrönt. Vom ersten Tag an.",
+        "body": "<p>Unser allererstes Screenlux-System wurde direkt mit dem International Design Award (IDA) ausgezeichnet. Dieser Sieg bestätigte uns: Man kann Zwischenhändler überspringen und dennoch State-of-the-Art Design für sein Zuhause bekommen.</p>",
         "image": "shopify://shop_images/img-story-german-ida.png",
         "button_label": "View Open Positions",
         "button_link": "",
@@ -154,8 +154,8 @@
       "settings": {
         "variant": "default",
         "year_label": "2026",
-        "heading": "Zip-Screen 2: Built on learnings from 50,000+ screens.",
-        "body": "<p>After shipping 50,000 units, we knew exactly how to bridge the gap between \"good\" shading and a design icon. We engineered the Zip-Screen 2—the world's slimmest 85mm system. We developed a clip-rail to hide every visible screw, smoothed the corners, and supercharged the solar engine to thrive in dark German winters.</p>",
+        "heading": "Zip-Screen 2: Das Destillat aus über 50.000 Installationen.",
+        "body": "<p>Wir wussten genau, wie wir die Lücke zwischen 'gutem' Sonnenschutz und einer Design-Ikone schließen. Wir haben den Zip-Screen 2 entwickelt—das schlankste 85 mm System der Welt. Ohne sichtbare Schrauben und mit einem Solar-Akku, der auch in den dunkelsten deutschen Wintern durchhält.</p>",
         "image": "shopify://shop_images/img-text-and-video-flawless-finish-fallback.png",
         "button_label": "View Open Positions",
         "button_link": "",
@@ -178,7 +178,7 @@
         "variant": "image_left",
         "year_label": "2026",
         "heading": "The Design Masterprize",
-        "body": "<p>aking home the Design Masterprize for the Zip-Screen 2 proved that our uncompromising approach to quality stands up against the biggest names in the industry worldwide. It’s proof that a DIY-friendly product can still be world-class design.</p>",
+        "body": "<p>Der Gewinn des Design Masterprize für den Zip-Screen 2 bewies, dass unser kompromissloser Ansatz weltweit gegen die größten Namen der Branche bestehen kann. Der Beweis, dass ein DIY-freundliches Produkt absolute Luxus-Qualität sein kann.</p>",
         "image": "shopify://shop_images/img-story-design-masterprize.png",
         "button_label": "View Open Positions",
         "button_link": "",
@@ -200,8 +200,8 @@
       "settings": {
         "variant": "default",
         "year_label": "2026",
-        "heading": "The German Design Award",
-        "body": "<p>Winning the German Design Award 2026 was the ultimate stress test for our engineering. In a market known for strict standards and critical eyes, this award confirmed that Screenlux didn't just meet the bar—we raised it. It’s the official seal of approval that our \"bulletproof\" design is also a work of art.</p>",
+        "heading": "German Design Award",
+        "body": "<p>Der Gewinn des German Design Award 2026 war der ultimative Stresstest für unsere Ingenieure. Dies ist das offizielle Siegel für unzerstörbares Design, das gleichzeitig ein Kunstwerk ist.</p>",
         "image": "shopify://shop_images/img-story-german-design-award.png",
         "button_label": "View Open Positions",
         "button_link": "",
@@ -223,9 +223,9 @@
       "settings": {
         "variant": "end_section",
         "year_label": "Today",
-        "heading": "Be part of the story!",
-        "body": "<p>We changed the pergola industry, and now we’re rewriting the rules for shading. We are looking for builders, dreamers, and doers to help us write the next chapter.</p>",
-        "button_label": "View Open Positions",
+        "heading": "Schreib die Geschichte mit uns weiter!",
+        "body": "<p>Wir haben die Pergola-Branche aufgerollt und jetzt schreiben wir die Regeln für perfekten Sonnenschutz neu. Wir suchen Macher, Visionäre und Innovatoren, die uns auf diesem Weg begleiten.</p>",
+        "button_label": "Offene Stellen ansehen",
         "button_link": "",
         "show_timeline_top": true,
         "show_timeline_bottom": true,

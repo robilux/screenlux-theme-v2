@@ -710,8 +710,10 @@ class ProductConfigurator extends HTMLElement {
 
   renderScreenItem(screen, index) {
     const wrapper = document.createElement('details-accordion');
-    const price = window.ScreenluxEngine.calculateScreenPrice(screen, this.data.config);
-    const nicePrice = (price / 100).toFixed(2);
+    const rawCost = window.ScreenluxEngine.calculateScreenPrice(screen, this.data.config);
+    const variant = window.ScreenluxEngine.matchVariant(rawCost, this.data.screens);
+    const price = variant ? variant.price : rawCost;
+    const compareAtPrice = variant ? variant.compare_at_price : price;
 
     const frameOptions = this.data.frameColors || [];
     const fabricColors = this.data.fabricColors || [];
@@ -749,14 +751,21 @@ class ProductConfigurator extends HTMLElement {
       summaryItems.push({ text: 'Dimensions not set', class: 'placeholder' });
     }
 
-    // 2. Frame
+    // 2. Cassette
+    if (cassetteLabel) {
+      summaryItems.push({ text: cassetteLabel, class: '' });
+    } else {
+      summaryItems.push({ text: 'No cassette size selected', class: 'placeholder' });
+    }
+
+    // 3. Frame
     if (frameLabel) {
       summaryItems.push({ text: frameLabel, class: '' });
     } else {
       summaryItems.push({ text: 'No frame color selected', class: 'placeholder' });
     }
 
-    // 3. Fabric (Color + Type)
+    // 4. Fabric (Color + Type)
     const fabricParts = [];
     if (fabricColorLabel) fabricParts.push(fabricColorLabel);
     if (fabricTypeLabel) fabricParts.push(fabricTypeLabel);
@@ -765,13 +774,6 @@ class ProductConfigurator extends HTMLElement {
       summaryItems.push({ text: fabricParts.join(', '), class: '' });
     } else {
       summaryItems.push({ text: 'No fabric selected', class: 'placeholder' });
-    }
-
-    // 4. Cassette
-    if (cassetteLabel) {
-      summaryItems.push({ text: cassetteLabel, class: '' });
-    } else {
-      summaryItems.push({ text: 'No cassette size selected', class: 'placeholder' });
     }
 
     // 5. Motor
@@ -792,6 +794,7 @@ class ProductConfigurator extends HTMLElement {
                 </ul>
              </div>
              <div class="screen-price-container">
+                 ${compareAtPrice > price ? `<span class="price-old" style="margin-right:8px;font-size:14px;align-self:center;">${(compareAtPrice / 100).toFixed(0)} €</span>` : ''}
                  <span class="screen-price">${(price / 100).toFixed(0)} €</span>
                  <svg class="accordion-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 9L12 15L18 9" stroke="#171717" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -826,6 +829,17 @@ class ProductConfigurator extends HTMLElement {
                : ''
            }
            
+           <!-- Cassette Size Selector -->
+           ${this.renderSelectionGrid(
+             'Cassette size',
+             'cassetteSize',
+             cassetteSizes,
+             screen.cassetteSize,
+             index,
+             'image',
+             'vertical',
+           )}
+
            <!-- Frame Color Selector -->
            ${this.renderSelectionGrid(
              'Frame color',
@@ -854,17 +868,6 @@ class ProductConfigurator extends HTMLElement {
              'fabricType',
              fabricTypes,
              screen.fabricType,
-             index,
-             'image',
-             'vertical',
-           )}
-
-           <!-- Cassette Size Selector -->
-           ${this.renderSelectionGrid(
-             'Cassette size',
-             'cassetteSize',
-             cassetteSizes,
-             screen.cassetteSize,
              index,
              'image',
              'vertical',
@@ -1076,32 +1079,12 @@ class ProductConfigurator extends HTMLElement {
       });
     });
 
-    // DIY Brackets Section
+    // DIY Brackets Section removed/hidden as requested
+    /*
     if (this.state.installationType === 'diy') {
-      const bracketsSection = document.createElement('div');
-      bracketsSection.className = 'margin-top-lg';
-      bracketsSection.innerHTML = '<label class="field-label">Installation brackets</label>';
-
-      if (this.data.brackets.length === 0) {
-        bracketsSection.innerHTML += `<p class="text-subdued margin-top-sm"><em>No brackets found.</em></p>`;
-      } else {
-        const grid = document.createElement('div');
-        grid.className = 'selection-grid--vertical'; // Use vertical layout for brackets as per design
-
-        // Ensure "Unsure" is selected by default if nothing is selected
-        if (!this.state.selectedBracketId) {
-          this.state.selectedBracketId = 'unsure';
-        }
-
-        this.data.brackets.forEach((bracket) => {
-          const card = this.renderBracketCard(bracket);
-          grid.appendChild(card);
-        });
-        bracketsSection.appendChild(grid);
-      }
-
-      section.appendChild(bracketsSection);
+      // brackets code hidden
     }
+    */
 
     return section;
   }
@@ -1259,8 +1242,14 @@ class ProductConfigurator extends HTMLElement {
 
   calculateTotals() {
     let screensTotal = 0;
+    let oldScreensTotal = 0;
     this.state.screens.forEach((s) => {
-      screensTotal += window.ScreenluxEngine.calculateScreenPrice(s, this.data.config);
+      const rawCost = window.ScreenluxEngine.calculateScreenPrice(s, this.data.config);
+      const variant = window.ScreenluxEngine.matchVariant(rawCost, this.data.screens);
+      if (variant) {
+        screensTotal += variant.price;
+        oldScreensTotal += variant.compare_at_price || variant.price;
+      }
     });
 
     let installTotal = 0;
@@ -1284,7 +1273,9 @@ class ProductConfigurator extends HTMLElement {
       if (product) addonsTotal += product.price * qty;
     });
 
-    return { screensTotal, installTotal, addonsTotal, grandTotal: screensTotal + installTotal + addonsTotal };
+    const grandTotal = screensTotal + installTotal + addonsTotal;
+    const oldGrandTotal = oldScreensTotal + installTotal + addonsTotal;
+    return { screensTotal, oldScreensTotal, installTotal, addonsTotal, grandTotal, oldGrandTotal };
   }
 
   renderOrderSummary() {
@@ -1322,7 +1313,9 @@ class ProductConfigurator extends HTMLElement {
       const screensDetails = document.createElement('div');
       screensDetails.className = 'category-details';
       this.state.screens.forEach((s, i) => {
-        const sPrice = window.ScreenluxEngine.calculateScreenPrice(s, this.data.config);
+        const rawCost = window.ScreenluxEngine.calculateScreenPrice(s, this.data.config);
+        const variant = window.ScreenluxEngine.matchVariant(rawCost, this.data.screens);
+        const sPrice = variant ? variant.price : 0;
         const detailRow = document.createElement('div');
         detailRow.className = 'summary-row detail-row';
         detailRow.innerHTML = `
@@ -1378,22 +1371,15 @@ class ProductConfigurator extends HTMLElement {
     }
 
     // 3. Installation Category
-    if (
-      totals.installTotal > 0 ||
-      this.state.installationType === 'professional' ||
-      (this.state.installationType === 'diy' && this.state.selectedBracketId)
-    ) {
+    if (totals.installTotal > 0 || this.state.installationType === 'professional') {
       let installCount = 0;
       if (this.state.installationType === 'professional') {
         installCount = 1;
-      } else if (this.state.installationType === 'diy') {
-        // Count is equal to number of screens if a bracket is selected
-        installCount = this.state.screens.length;
       }
 
       const installCategory = document.createElement('div');
       installCategory.className = `summary-category ${this.state.installationExpanded ? 'expanded' : ''}`;
-      const label = this.state.installationType === 'diy' ? 'Installation Brackets' : 'Professional Installation';
+      const label = 'Professional Installation';
 
       const installHeader = document.createElement('div');
       installHeader.className = 'summary-row category-header';
@@ -1427,21 +1413,6 @@ class ProductConfigurator extends HTMLElement {
             `;
             installDetails.appendChild(detailRow);
           }
-        } else {
-          // DIY Brackets
-          if (this.state.selectedBracketId) {
-            const bracket = this.data.brackets.find((b) => b.id == this.state.selectedBracketId);
-            if (bracket) {
-              const bPrice = (bracket.price || 0) * installCount;
-              const detailRow = document.createElement('div');
-              detailRow.className = 'summary-row detail-row';
-              detailRow.innerHTML = `
-                  <span class="detail-label">${installCount}x ${bracket.title}</span>
-                  <span class="detail-price">${fmt(bPrice)}</span>
-                `;
-              installDetails.appendChild(detailRow);
-            }
-          }
         }
         installCategory.appendChild(installDetails);
       }
@@ -1454,7 +1425,7 @@ class ProductConfigurator extends HTMLElement {
     totalRow.innerHTML = `
       <span>Total</span>
       <div class="total-price-wrapper">
-         <span class="price-old">${fmt(totals.grandTotal * 1.1)}</span> 
+         ${totals.oldGrandTotal > totals.grandTotal ? `<span class="price-old">${fmt(totals.oldGrandTotal)}</span>` : ''} 
          <span class="price-current">${fmt(totals.grandTotal)}</span>
       </div>
     `;

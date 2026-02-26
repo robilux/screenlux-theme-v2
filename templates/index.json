@@ -15,27 +15,27 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "German Quality. Factory Direct Prices.",
+            "heading": "Deutsche Qualität. Direkt ab Werk.",
             "heading_size": "h1"
           }
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "We cut out the middlemen, not the quality. Get premium screens for 30% less than the competition.",
+            "text": "Premium-Qualität ohne Zwischenhändler. Hol dir High-End Screens 30 % günstiger.",
             "text_style": "body"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Configure",
+            "button_label_1": "Konfigurieren",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
             "button_link_2": "",
             "button_style_secondary_2": false,
-            "text_below_button": "From only 395€"
+            "text_below_button": "Ab nur 395 €"
           }
         }
       },
@@ -77,13 +77,13 @@
     "compare_slider": {
       "type": "compare-slider",
       "settings": {
-        "heading": "Keep the heat out, not the light.",
-        "subheading": "<p>Traditional roller shutters require total darkness to be effective. Screenlux ZIP blocks <strong>95% of heat</strong> and <strong>98% of UV rays</strong> before it hits the glass – keeping you cool without losing the light.</p>",
+        "heading": "Hitze bleibt draußen. Das Licht drinnen.",
+        "subheading": "<p>Klassische Rollläden zwingen dich ins Dunkle. Screenlux ZIP blockt <strong>95 % der Hitze</strong> und <strong>98 % der UV-Strahlung</strong> direkt am Glas. Für ein kühles Zuhause ohne Kompromisse.</p>",
         "image_1": "shopify://shop_images/Compare_image_Roller_Shutters.png",
         "image_2": "shopify://shop_images/Compare_image_Screens.png",
-        "cta_text": "Configure",
+        "cta_text": "Konfigurieren",
         "cta_url": "",
-        "cta_subtext": "<p>From only <em>395€</em></p>",
+        "cta_subtext": "<p>Ab nur <em>395 €</em></p>",
         "color_scheme": "scheme-1",
         "padding_top": 80,
         "padding_bottom": 80
@@ -97,8 +97,8 @@
           "name": "Living room",
           "settings": {
             "image": "shopify://shop_images/img-situation-livingroom.png",
-            "title": "Living Room",
-            "description": "<b>Glare-Free Views.</b> Enjoy your favorite shows without the sun’s reflection. Our <b>5% openness</b> screen cuts screen glare and heat while keeping your outdoor view perfectly clear."
+            "title": "Wohnzimmer",
+            "description": "<b>Blendfreie Sicht.</b> Genieß dein Heimkino ohne störende Reflexionen. <b>5 % Öffnungsfaktor</b> reduzieren Hitze, während der Blick nach draußen glasklar bleibt."
           }
         },
         "card_WqEfg9": {
@@ -106,8 +106,8 @@
           "name": "Bedroom",
           "settings": {
             "image": "shopify://shop_images/img-situation-bedroom.jpg",
-            "title": "Bedroom",
-            "description": "<b>Turn day into night instantly.</b> Our <b>Blackout</b> fabric combined with zip-side tracks eliminates all light leaks for the ultimate restorative sleep and total darkness."
+            "title": "Schlafzimmer",
+            "description": "<b>Mach den Tag zur Nacht.</b> Unser <b>Blackout-Stoff</b> mit ZIP-System eliminiert jedes Licht. Für ultimativen Schlaf in absoluter Dunkelheit."
           }
         },
         "card_E9VPr9": {
@@ -115,8 +115,8 @@
           "name": "Kitchen",
           "settings": {
             "image": "shopify://shop_images/img-situation-kitchen.png",
-            "title": "Kitchen",
-            "description": "<b>Vibrant & Cool.</b> Keep your workspace bright. A <b>5% openness</b> filters in soft natural light for cooking while blocking harsh midday heat and glare."
+            "title": "Küche",
+            "description": "<b>Hell & Kühl.</b> So bleibt dein Arbeitsbereich strahlend. Ein <b>5 % Öffnungsfaktor</b> filtert sanft das Tageslicht und blockt gleichzeitig harte Mittagssonne."
           }
         },
         "card_QF9U7k": {
@@ -124,8 +124,8 @@
           "name": "Bathroom",
           "settings": {
             "image": "shopify://shop_images/img-situations-bathroom.png",
-            "title": "Bathroom",
-            "description": "<b>Maximum Privacy.</b> Privacy is non-negotiable here. Our <b>Blackout</b> fabric offers complete seclusion, ensuring no silhouettes are visible even with interior lights on."
+            "title": "Badezimmer",
+            "description": "<b>Maximale Privatsphäre.</b> Keine Kompromisse. Absolute Blickdichte – selbst bei Festbeleuchtung im Inneren."
           }
         }
       },
@@ -137,8 +137,8 @@
       ],
       "name": "Cards Section",
       "settings": {
-        "heading": "Master the Light in Every Room.",
-        "subheading": "Every room has different needs. Select the ideal transparency to balance your privacy and connection to the outdoors.",
+        "heading": "Meistere das Licht. In jedem Raum.",
+        "subheading": "Jeder Raum stellt andere Anforderungen. Wähle die ideale Transparenz für die perfekte Balance aus Privatsphäre und der Verbindung nach draußen.",
         "bg_color": "#ffffff",
         "heading_color": "#000000",
         "subheading_color": "#525252"
@@ -147,21 +147,21 @@
     "worlds_slimmest": {
       "type": "worlds-slimmest",
       "settings": {
-        "heading": "Worlds slimmest. Designed to Disappear.",
-        "subheading": "At just 85mm, the world's slimmest cassette integrates seamlessly into your facade to preserve your view. Our click-fit system ensures a flawless, screw-free finish.",
+        "heading": "Die flachste Kassette der Welt. Unsichtbares Design.",
+        "subheading": "Mit nur 85 mm integriert sich unser System nahtlos in deine Fassade. Unser ClickFit™-System garantiert ein makelloses Finish. Ohne sichtbare Schrauben.",
         "hero_image": "shopify://shop_images/img-screenlux_zip-screen-designed-to-dossappear-2.jpg",
         "badge_1": "shopify://shop_images/img-gda26-winner-screenlux-text-white.png",
         "badge_2": "shopify://shop_images/img-logobar-dmp.png",
         "badge_3": "shopify://shop_images/img-logobar-ida.png",
         "feature_1_image": "shopify://shop_images/img-screenlux-85mm-profile_fc417529-c86d-48ff-a870-f90488fc850a.png",
-        "feature_1_title": "Maximum light",
-        "feature_1_desc": "Ultra-Slim 85mm profile.",
+        "feature_1_title": "Maximales Licht",
+        "feature_1_desc": "Ultra-flaches 85 mm Profil.",
         "feature_2_image": "shopify://shop_images/img-screenlux-no-visible-screws.jpg",
-        "feature_2_title": "Flawless Finish",
-        "feature_2_desc": "No visible screws with Screenlux ClickFit™.",
-        "button_label": "Configure",
+        "feature_2_title": "Makelloses Finish",
+        "feature_2_desc": "Keine sichtbaren Schrauben dank Screenlux ClickFit™.",
+        "button_label": "Konfigurieren",
         "button_link": "",
-        "price_label": "From only <strong>395€</strong>",
+        "price_label": "Ab nur <strong>395 €</strong>",
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
         "subheading_color": "#525252",
@@ -175,28 +175,28 @@
         "left_mid_1": {
           "type": "left_middleman_line",
           "settings": {
-            "label": "Sales Commission",
+            "label": "Verkaufsprovision",
             "value": "€€€"
           }
         },
         "left_mid_2": {
           "type": "left_middleman_line",
           "settings": {
-            "label": "Mandatory Home Visit",
+            "label": "Verbindlicher Hausbesuch",
             "value": "€€"
           }
         },
         "left_mid_3": {
           "type": "left_middleman_line",
           "settings": {
-            "label": "Showroom Rental",
+            "label": "Showroom-Miete",
             "value": "€€"
           }
         },
         "left_fac_1": {
           "type": "left_factory_line",
           "settings": {
-            "label": "Order Processing",
+            "label": "Bestellabwicklung",
             "value": "€",
             "bold": false
           }
@@ -204,7 +204,7 @@
         "left_fac_2": {
           "type": "left_factory_line",
           "settings": {
-            "label": "Product Manufacturing",
+            "label": "Produktion",
             "value": "€€€",
             "bold": true
           }
@@ -212,7 +212,7 @@
         "left_fac_3": {
           "type": "left_factory_line",
           "settings": {
-            "label": "Shipping to Distributor",
+            "label": "Versand an Händler",
             "value": "€",
             "bold": false
           }
@@ -220,35 +220,35 @@
         "left_del_1": {
           "type": "left_delivery_line",
           "settings": {
-            "label": "Distributor Warehousing",
+            "label": "Lagerhaltung (Händler)",
             "value": "€"
           }
         },
         "left_del_2": {
           "type": "left_delivery_line",
           "settings": {
-            "label": "Home Delivery",
+            "label": "Lieferung nach Hause",
             "value": "€"
           }
         },
         "left_del_3": {
           "type": "left_delivery_line",
           "settings": {
-            "label": "Installation Service",
+            "label": "Montageservice",
             "value": "€€€"
           }
         },
         "left_del_4": {
           "type": "left_delivery_line",
           "settings": {
-            "label": "Electrician Fees",
+            "label": "Elektriker",
             "value": "€€"
           }
         },
         "right_sal_1": {
           "type": "right_sales_line",
           "settings": {
-            "label": "Sales Commission",
+            "label": "Verkaufsprovision",
             "value": "",
             "badge": "",
             "struck": true
@@ -257,16 +257,16 @@
         "right_sal_2": {
           "type": "right_sales_line",
           "settings": {
-            "label": "Configure online",
+            "label": "Online konfigurieren",
             "value": "",
-            "badge": "Free",
+            "badge": "Kostenlos",
             "struck": false
           }
         },
         "right_sal_3": {
           "type": "right_sales_line",
           "settings": {
-            "label": "Showroom Rental",
+            "label": "Showroom-Miete",
             "value": "",
             "badge": "",
             "struck": true
@@ -275,9 +275,9 @@
         "right_fac_1": {
           "type": "right_factory_line",
           "settings": {
-            "label": "Auto-Processing",
+            "label": "Automatische Abwicklung",
             "value": "",
-            "badge": "Free",
+            "badge": "Kostenlos",
             "bold": false,
             "struck": false
           }
@@ -285,7 +285,7 @@
         "right_fac_2": {
           "type": "right_factory_line",
           "settings": {
-            "label": "Product Manufacturing",
+            "label": "Produktion",
             "value": "€€€",
             "badge": "",
             "bold": true,
@@ -295,7 +295,7 @@
         "right_fac_3": {
           "type": "right_factory_line",
           "settings": {
-            "label": "Shipping to Distributor",
+            "label": "Versand an Händler",
             "value": "",
             "badge": "",
             "bold": false,
@@ -305,7 +305,7 @@
         "right_del_1": {
           "type": "right_delivery_line",
           "settings": {
-            "label": "Warehousing fees",
+            "label": "Lagergebühren",
             "value": "",
             "badge": "",
             "struck": true
@@ -314,25 +314,25 @@
         "right_del_2": {
           "type": "right_delivery_line",
           "settings": {
-            "label": "Direct Home Delivery",
+            "label": "Direkte Lieferung",
             "value": "",
-            "badge": "Free",
+            "badge": "Kostenlos",
             "struck": false
           }
         },
         "right_del_3": {
           "type": "right_delivery_line",
           "settings": {
-            "label": "Simple Self-Install",
+            "label": "Einfache Selbstmontage",
             "value": "",
-            "badge": "Free",
+            "badge": "Kostenlos",
             "struck": false
           }
         },
         "right_del_4": {
           "type": "right_delivery_line",
           "settings": {
-            "label": "Electrician Fees",
+            "label": "Elektriker",
             "value": "",
             "badge": "",
             "struck": true
@@ -362,24 +362,24 @@
         "right_del_4"
       ],
       "settings": {
-        "heading": "Pay for the Product. Not the Middleman.",
-        "subheading": "The industry hides the real cost behind commissions and complex supply chain. We give you the market's best quality with an instant price you can trust.",
-        "receipt_left_title": "Industry standard",
-        "left_group1_title": "Middleman",
-        "left_group2_title": "Factory Costs",
-        "left_group3_title": "Middleman",
-        "left_total_label": "TOTAL PRICE",
+        "heading": "Zahl für das Produkt. Nicht für den Mittelsmann.",
+        "subheading": "Die Branche versteckt Kosten hinter Provisionen und komplexen Lieferketten. Wir liefern dir High-End Qualität zum sofort sichtbaren Preis. Keine versteckten Aufschläge.",
+        "receipt_left_title": "Branchenstandard",
+        "left_group1_title": "Zwischenhändler",
+        "left_group2_title": "Produktionskosten",
+        "left_group3_title": "Zwischenhändler",
+        "left_total_label": "GESAMTPREIS",
         "left_total_value": "€€€€€€",
         "receipt_right_title": "Screenlux",
-        "right_group1_title": "Direct Sales",
-        "right_group2_title": "Factory Costs",
-        "right_group3_title": "Direct Delivery",
-        "right_total_label": "YOUR PRICE",
+        "right_group1_title": "Direktvertrieb",
+        "right_group2_title": "Produktionskosten",
+        "right_group3_title": "Direkte Lieferung",
+        "right_total_label": "DEIN PREIS",
         "right_total_value": "€€€",
-        "right_total_badge": "Save 50%",
-        "button_label": "Configure",
+        "right_total_badge": "Spare 50%",
+        "button_label": "Konfigurieren",
         "button_link": "",
-        "price_label": "From only <strong>395€</strong>",
+        "price_label": "Ab nur <strong>395 €</strong>",
         "bg_color": "#171717",
         "heading_color": "#ffffff",
         "subheading_color": "#a3a3a3",
@@ -391,12 +391,12 @@
     "flawless_finish_video": {
       "type": "text-and-video-flawless-finish",
       "settings": {
-        "heading": "Flawless Finish. No visible screws.",
+        "heading": "Makelloses Finish. Keine sichtbaren Schrauben.",
         "description": "",
         "video": "shopify://files/videos/video-text-and-video-flawless-finish.mp4",
-        "button_label": "Configure",
+        "button_label": "Konfigurieren",
         "button_link": "",
-        "price_label": "From only <strong>395€</strong>",
+        "price_label": "Ab nur <strong>395 €</strong>",
         "bg_color": "#ffffff",
         "heading_color": "#000000",
         "description_color": "#666666",
@@ -411,32 +411,32 @@
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/img-card-section-01.png",
-            "title": "Superior Low-Light Tech.",
-            "description": "High-efficiency IBC solar panels harvest energy even on heavily overcast days."
+            "title": "Hocheffizient bei extrem wenig Licht.",
+            "description": "High-End IBC-Solarpaneele sammeln sogar an stark bewölkten Tagen Energie."
           }
         },
         "card_XjWrHM": {
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/img-card-section-02.png",
-            "title": "Massive 5200mAh Battery.",
-            "description": "A single charge provides enough power to keep your screens running for 30 days of total darkness."
+            "title": "Massiver 5200 mAh Akku.",
+            "description": "Eine einzige Ladung reicht aus, um deine Screens 30 Tage in absoluter Dunkelheit zu betreiben."
           }
         },
         "card_CNwPce": {
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/img-card-section-03.png",
-            "title": "Emergency Charger.",
-            "description": "If you ever run low, the integrated charging port lets you power up manually in minutes."
+            "title": "Notfall-Ladeanschluss.",
+            "description": "Solltest du jemals wenig Akku haben, kannst du das System in wenigen Minuten manuell aufladen."
           }
         },
         "card_PwDajx": {
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/img-card-section-04.png",
-            "title": "Wired options available.",
-            "description": "Under a porch or deep in the shade? Opt for our hardwired version for permanent power."
+            "title": "Kabelgebundene Versionen.",
+            "description": "Viel Schatten? Kein Problem. Entscheide dich für unsere festverdrahtete Version für permanente Stromzufuhr."
           }
         }
       },
@@ -448,8 +448,8 @@
       ],
       "name": "Cards Section",
       "settings": {
-        "heading": "Engineered for the Darkest Winters.",
-        "subheading": "While others fail in the shade, the Screenlux Zip 2 thrives. Featuring IBC-solar technology and a high-capacity battery, it's designed to stay powered through Germany's grayest months.",
+        "heading": "Gemacht für die härtesten Winter.",
+        "subheading": "Wo andere Systeme aufgeben, dreht Screenlux Zip 2 auf. High-End IBC-Solartechnologie und ein massiver Akku sorgen selbst im grauesten Dezember für 100 % Zuverlässigkeit.",
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
         "subheading_color": "#525252"
@@ -458,12 +458,12 @@
     "text_and_video_flawless_finish_G8EPjE": {
       "type": "text-and-video-flawless-finish",
       "settings": {
-        "heading": "SmartHome that works with what you have.",
+        "heading": "SmartHome, das mit dem funktioniert, was du schon hast.",
         "description": "",
         "video": "shopify://files/videos/video-smart-home.mp4",
-        "button_label": "Configure",
+        "button_label": "Konfigurieren",
         "button_link": "",
-        "price_label": "From only <strong>395€</strong>",
+        "price_label": "Ab nur <strong>395 €</strong>",
         "bg_color": "#ffffff",
         "heading_color": "#000000",
         "description_color": "#666666",
@@ -477,26 +477,26 @@
         "installation_card_HJLazM": {
           "type": "installation_card",
           "settings": {
-            "card_title": "Self-installation",
-            "card_description": "Ideal for single-story homes and accessible windows.",
-            "check_1": "Save ~200 € per window.",
-            "check_2": "90% Pre-assembled. Just mount the rails and click it in.",
-            "check_3": "Step-by-step video tutorial.",
-            "check_4": "Measurement Guarantee!",
-            "card_button_label": "Read the guide",
+            "card_title": "Einfache Selbstmontage",
+            "card_description": "Ideal für eingeschossige Häuser und leicht erreichbare Fenster.",
+            "check_1": "Spare ca. 200 € pro Fenster.",
+            "check_2": "90 % Vormontiert. Schienen anbringen und Screen einklicken.",
+            "check_3": "Schritt-für-Schritt Video-Tutorials.",
+            "check_4": "Aufmaß-Garantie!",
+            "card_button_label": "Anleitung lesen",
             "card_button_link": ""
           }
         },
         "installation_card_JJHdKk": {
           "type": "installation_card",
           "settings": {
-            "card_title": "Installed by a Pro",
-            "card_description": "Ideal for multi-story buildings or large-scale projects.",
-            "check_1": "<strong>Introductory Offer:</strong> 30% off assembly on your first order.",
-            "check_2": "Low, fixed rates with no hidden fees.",
-            "check_3": "2-Year Guarantee.",
-            "check_4": "Measurement Guarantee!",
-            "card_button_label": "Check availability",
+            "card_title": "Montage durch Profis",
+            "card_description": "Ideal für mehrstöckige Gebäude oder größere Projekte.",
+            "check_1": "<strong>Einführungsangebot:</strong> 30 % Rabatt auf die Montage deiner ersten Bestellung.",
+            "check_2": "Niedrige Festpreise ohne versteckte Kosten.",
+            "check_3": "2 Jahre Montagesicherheit.",
+            "check_4": "Aufmaß-Garantie!",
+            "card_button_label": "Verfügbarkeit prüfen",
             "card_button_link": ""
           }
         }
@@ -507,9 +507,9 @@
       ],
       "name": "Installation Section",
       "settings": {
-        "heading": "Installation: Your choice.",
-        "subheading": "Save with a simple self-install or sit back and let our experts handle the installation.",
-        "button_label": "Configure",
+        "heading": "Montage: Du hast die Wahl.",
+        "subheading": "Geld sparen durch einfache Selbstmontage? Oder zurücklehnen und unsere Experten übernehmen lassen?",
+        "button_label": "Konfigurieren",
         "button_link": "",
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
@@ -597,7 +597,7 @@
       ],
       "name": "Reviews",
       "settings": {
-        "heading": "What people are saying",
+        "heading": "Das sagen unsere Kunden",
         "bg_color": "#ffffff",
         "heading_color": "#000000",
         "text_color": "#171717",
@@ -612,29 +612,29 @@
         "question_KPYegH": {
           "type": "question",
           "settings": {
-            "question": "How long does the battery last without sunlight?",
-            "answer": "<p>The Screenlux Zip 2 features a massive 5200mAh battery that provides up to 30 days of operation in complete darkness. Even during the grayest winter months, the IBC-solar technology continues to harvest energy.</p>"
+            "question": "Wie lange hält der Akku ohne Sonnenlicht?",
+            "answer": "<p>Der Screenlux Zip 2 verfügt über einen massiven 5200 mAh Akku, der bis zu 30 Tage Betrieb in absoluter Dunkelheit ermöglicht. Selbst in den grauesten Wintermonaten erntet die IBC-Solartechnik weiterhin Energie.</p>"
           }
         },
         "question_qWpMiK": {
           "type": "question",
           "settings": {
-            "question": "Can I install the screens myself?",
-            "answer": "<p>Yes! Our screens come 90% pre-assembled. Simply mount the rails and click the screen into place. We provide a step-by-step video tutorial and our Measurement Guarantee ensures a perfect fit.</p>"
+            "question": "Kann ich die Screens selbst montieren?",
+            "answer": "<p>Ja! Unsere Screens werden zu 90 % vormontiert geliefert. Einfach die Schienen montieren und den Screen einklicken. Wir bieten ein Schritt-für-Schritt-Video-Tutorial an. Und unsere Aufmaß-Garantie sorgt für die perfekte Passform.</p>"
           }
         },
         "question_qUWi8C": {
           "type": "question",
           "settings": {
-            "question": "What smart home systems are supported?",
-            "answer": "<p>Screenlux connects directly to Apple Home and Google Home locally — no expensive hub or cloud account required. It works seamlessly with what you already have.</p>"
+            "question": "Welche Smart Home Systeme werden unterstützt?",
+            "answer": "<p>Screenlux verbindet sich lokal direkt mit Apple Home und Google Home — kein teurer Hub und kein Cloud-Konto erforderlich. Es funktioniert einfach mit dem, was du bereits hast.</p>"
           }
         },
         "question_mMrhR7": {
           "type": "question",
           "settings": {
-            "question": "How slim is the cassette design?",
-            "answer": "<p>At just 85mm, the Screenlux cassette is the world's slimmest. It integrates seamlessly into your facade with our patented ClickFit™ system for a flawless, screw-free finish.</p>"
+            "question": "Wie flach ist das Kassettendesign?",
+            "answer": "<p>Mit nur 85 mm ist die Screenlux Kassette die flachste der Welt. Mit unserem patentierten ClickFit™ System integriert sie sich nahtlos in deine Fassade. Für ein makelloses, schraubenloses Finish.</p>"
           }
         }
       },
@@ -646,7 +646,7 @@
       ],
       "name": "FAQ",
       "settings": {
-        "heading": "FAQ",
+        "heading": "Häufige Fragen",
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
         "text_color": "#171717",
