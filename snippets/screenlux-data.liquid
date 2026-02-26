@@ -104,8 +104,8 @@
       { id: 'large', title: 'Large (120×120mm)', desc: 'When the slim cassette no longer fits.', image: 'https://cdn.shopify.com/s/files/1/0975/4676/4636/files/cassette-large.jpg?v=1768220918' }
     ],
     motorOptions: [
-      { id: 'solar', title: 'Solar-powered screen', desc: 'Hassle-free installation with solar panel.', image: 'https://cdn.shopify.com/s/files/1/0975/4676/4636/files/motor-solar.jpg?v=1768220938', surcharge: 10000 },
-      { id: 'wired', title: 'Wired screen', desc: 'Traditional and safe.', image: 'https://cdn.shopify.com/s/files/1/0975/4676/4636/files/motor-wired.jpg?v=1768220938', surcharge: 0 }
+      { id: 'solar', title: 'Solar-powered screen', desc: 'Hassle-free installation with solar panel.', image: {{ 'img-cassette-solar-panel.png' | asset_img_url: '400x' | json }}, surcharge: 10000 },
+      { id: 'wired', title: 'Wired screen', desc: 'Traditional and safe.', image: {{ 'img-cassette-wired.png' | asset_img_url: '400x' | json }}, surcharge: 0 }
     ],
 
     assets: {
@@ -113,22 +113,38 @@
       truck_icon: {{ 'icon-sl-truck.svg' | asset_url | json }},
       // Dynamic product images for all option combinations
       productImages: {
-        'ant-cha-0tr-sol': {{ 'img-screenlux-zipscreen-ant-cha-0tr-sol.png' | asset_url | json }},
-        'ant-cha-0tr-wir': {{ 'img-screenlux-zipscreen-ant-cha-0tr-wir.png' | asset_url | json }},
-        'ant-cha-4tr-sol': {{ 'img-screenlux-zipscreen-ant-cha-4tr-sol.png' | asset_url | json }},
-        'ant-cha-4tr-wir': {{ 'img-screenlux-zipscreen-ant-cha-4tr-wir.png' | asset_url | json }},
-        'ant-gra-0tr-sol': {{ 'img-screenlux-zipscreen-ant-gra-0tr-sol.png' | asset_url | json }},
-        'ant-gra-0tr-wir': {{ 'img-screenlux-zipscreen-ant-gra-0tr-wir.png' | asset_url | json }},
-        'ant-gra-4tr-sol': {{ 'img-screenlux-zipscreen-ant-gra-4tr-sol.png' | asset_url | json }},
-        'ant-gra-4tr-wir': {{ 'img-screenlux-zipscreen-ant-gra-4tr-wir.png' | asset_url | json }},
-        'whi-cha-0tr-sol': {{ 'img-screenlux-zipscreen-whi-cha-0tr-sol.png' | asset_url | json }},
-        'whi-cha-0tr-wir': {{ 'img-screenlux-zipscreen-whi-cha-0tr-wir.png' | asset_url | json }},
-        'whi-cha-4tr-sol': {{ 'img-screenlux-zipscreen-whi-cha-4tr-sol.png' | asset_url | json }},
-        'whi-cha-4tr-wir': {{ 'img-screenlux-zipscreen-whi-cha-4tr-wir.png' | asset_url | json }},
-        'whi-gra-0tr-sol': {{ 'img-screenlux-zipscreen-whi-gra-0tr-sol.png' | asset_url | json }},
-        'whi-gra-0tr-wir': {{ 'img-screenlux-zipscreen-whi-gra-0tr-wir.png' | asset_url | json }},
-        'whi-gra-4tr-sol': {{ 'img-screenlux-zipscreen-whi-gra-4tr-sol.png' | asset_url | json }},
-        'whi-gra-4tr-wir': {{ 'img-screenlux-zipscreen-whi-gra-4tr-wir.png' | asset_url | json }}
+        'AC-AN-EWH-5OPEN': {{ 'img-variantSLX85-AC-AN-EWH-5OPEN.jpg' | asset_url | json }},
+        'AC-AN-EWH-BLACKOUT': {{ 'img-variantSLX85-AC-AN-WH-EWH-BLACKOUT.jpg' | asset_url | json }},
+        'AC-AN-GRP-5OPEN': {{ 'img-variantSLX85-AC-AN-GRP-5OPEN.jpg' | asset_url | json }},
+        'AC-AN-GRP-BLACKOUT': {{ 'img-variantSLX85-AC-AN-WH-GRP-BLACKOUT.jpg' | asset_url | json }},
+        'AC-AN-NAT-5OPEN': {{ 'img-variantSLX85-AC-AN-NAT-5OPEN.jpg' | asset_url | json }},
+        'AC-AN-NAT-BLACKOUT': {{ 'img-variantSLX85-AC-AN-WH-NAT-BLACKOUT.jpg' | asset_url | json }},
+        'AC-AN-PEP-5OPEN': {{ 'img-variantSLX85-AC-AN-PEP-5OPEN.jpg' | asset_url | json }},
+        'AC-AN-PEP-BLACKOUT': {{ 'img-variantSLX85-AC-AN-WH-PEP-BLACKOUT.jpg' | asset_url | json }},
+        'AC-WH-EWH-5OPEN': {{ 'img-variantSLX85-AC-WH-EWH-5OPEN.jpg' | asset_url | json }},
+        'AC-WH-EWH-BLACKOUT': {{ 'img-variantSLX85-AC-WH-EWH-BLACKOUT.jpg' | asset_url | json }},
+        'AC-WH-GRP-5OPEN': {{ 'img-variantSLX85-AC-WH-GRP-5OPEN.jpg' | asset_url | json }},
+        'AC-WH-GRP-BLACKOUT': {{ 'img-variantSLX85-AC-WH-GRP-BLACKOUT.jpg' | asset_url | json }},
+        'AC-WH-NAT-5OPEN': {{ 'img-variantSLX85-AC-WH-NAT-5OPEN.jpg' | asset_url | json }},
+        'AC-WH-NAT-BLACKOUT': {{ 'img-variantSLX85-AC-WH-NAT-BLACKOUT.jpg' | asset_url | json }},
+        'AC-WH-PEP-5OPEN': {{ 'img-variantSLX85-AC-WH-PEP-5OPEN.jpg' | asset_url | json }},
+        'AC-WH-PEP-BLACKOUT': {{ 'img-variantSLX85-AC-WH-PEP-BLACKOUT.jpg' | asset_url | json }},
+        'DC-AN-EWH-5OPEN': {{ 'img-variantSLX85-DC-AN-EWH-5OPEN.jpg' | asset_url | json }},
+        'DC-AN-EWH-BLACKOUT': {{ 'img-variantSLX85-DC-AN-EWH-BLAC-AN-WHKOUT.jpg' | asset_url | json }},
+        'DC-AN-GRP-5OPEN': {{ 'img-variantSLX85-DC-AN-GRP-5OPEN.jpg' | asset_url | json }},
+        'DC-AN-GRP-BLACKOUT': {{ 'img-variantSLX85-DC-AN-GRP-BLAC-AN-WHKOUT.jpg' | asset_url | json }},
+        'DC-AN-NAT-5OPEN': {{ 'img-variantSLX85-DC-AN-NAT-5OPEN.jpg' | asset_url | json }},
+        'DC-AN-NAT-BLACKOUT': {{ 'img-variantSLX85-DC-AN-NAT-BLAC-AN-WHKOUT.jpg' | asset_url | json }},
+        'DC-AN-PEP-5OPEN': {{ 'img-variantSLX85-DC-AN-PEP-5OPEN.jpg' | asset_url | json }},
+        'DC-AN-PEP-BLACKOUT': {{ 'img-variantSLX85-DC-AN-PEP-BLAC-AN-WHKOUT.jpg' | asset_url | json }},
+        'DC-WH-EWH-5OPEN': {{ 'img-variantSLX85-DC-WH-EWH-5OPEN.jpg' | asset_url | json }},
+        'DC-WH-EWH-BLACKOUT': {{ 'img-variantSLX85-DC-WH-EWH-BLAC-WHKOUT.jpg' | asset_url | json }},
+        'DC-WH-GRP-5OPEN': {{ 'img-variantSLX85-DC-WH-GRP-5OPEN.jpg' | asset_url | json }},
+        'DC-WH-GRP-BLACKOUT': {{ 'img-variantSLX85-DC-WH-GRP-BLAC-WHKOUT.jpg' | asset_url | json }},
+        'DC-WH-NAT-5OPEN': {{ 'img-variantSLX85-DC-WH-NAT-5OPEN.jpg' | asset_url | json }},
+        'DC-WH-NAT-BLACKOUT': {{ 'img-variantSLX85-DC-WH-NAT-BLAC-WHKOUT.jpg' | asset_url | json }},
+        'DC-WH-PEP-5OPEN': {{ 'img-variantSLX85-DC-WH-PEP-5OPEN.jpg' | asset_url | json }},
+        'DC-WH-PEP-BLACKOUT': {{ 'img-variantSLX85-DC-WH-PEP-BLAC-WHKOUT.jpg' | asset_url | json }}
       }
     },
     // Configuration Constants

@@ -91,35 +91,37 @@ class ProductConfigurator extends HTMLElement {
    * Uses pre-generated Shopify CDN URLs from ScreenluxData.assets.productImages
    */
   buildDynamicImageUrl(screen) {
-    // Map option IDs to 3-letter codes
+    // Map option IDs to codes
     const frameCodeMap = {
-      anthracite: 'ant',
-      white: 'whi',
+      anthracite: 'AN',
+      white: 'WH',
     };
 
     const fabricColorCodeMap = {
-      charcoal: 'cha',
-      gray: 'gra',
+      graphite: 'GRP',
+      'gray-pepper': 'PEP',
+      natural: 'NAT',
+      edelweiss: 'EWH',
     };
 
     const fabricTypeCodeMap = {
-      '5-percent': '4tr',
-      blackout: '0tr',
+      '5-percent': '5OPEN',
+      blackout: 'BLACKOUT',
     };
 
     const motorCodeMap = {
-      solar: 'sol',
-      wired: 'wir',
+      solar: 'DC',
+      wired: 'AC',
     };
 
     // Get codes with defaults
-    const frameCode = frameCodeMap[screen.frameColor] || 'ant';
-    const fabricColorCode = fabricColorCodeMap[screen.fabricColor] || 'cha';
-    const fabricTypeCode = fabricTypeCodeMap[screen.fabricType] || '0tr';
-    const motorCode = motorCodeMap[screen.motor] || 'sol';
+    const frameCode = frameCodeMap[screen.frameColor] || 'AN';
+    const fabricColorCode = fabricColorCodeMap[screen.fabricColor] || 'GRP';
+    const fabricTypeCode = fabricTypeCodeMap[screen.fabricType] || '5OPEN';
+    const motorCode = motorCodeMap[screen.motor] || 'DC';
 
     // Build the key to look up in productImages
-    const imageKey = `${frameCode}-${fabricColorCode}-${fabricTypeCode}-${motorCode}`;
+    const imageKey = `${motorCode}-${frameCode}-${fabricColorCode}-${fabricTypeCode}`;
 
     // Get the URL from ScreenluxData.assets.productImages
     if (this.data && this.data.assets && this.data.assets.productImages) {
