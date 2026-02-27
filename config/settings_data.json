@@ -141,6 +141,11 @@
         "type": "shopify://apps/intercom-ai-customer-service/blocks/widget/ef6552d6-43c7-4fc7-b903-fec510e74dee",
         "disabled": false,
         "settings": {}
+      },
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
