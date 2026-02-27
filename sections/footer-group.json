@@ -17,12 +17,13 @@
         "link_column_JfyQA9": {
           "type": "link_column",
           "settings": {
-            "heading": "Support",
+            "heading": "",
             "menu": "footer"
           }
         },
         "link_column_qMmGVc": {
           "type": "link_column",
+          "disabled": true,
           "settings": {
             "heading": "Company",
             "menu": "footer"
@@ -30,6 +31,7 @@
         },
         "link_column_TBGmEC": {
           "type": "link_column",
+          "disabled": true,
           "settings": {
             "heading": "Resources",
             "menu": "footer"
