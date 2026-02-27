@@ -30,9 +30,22 @@
         "padding_top": 24,
         "padding_bottom": 24
       }
+    },
+    "slim_countdown_UwipiV": {
+      "type": "slim-countdown",
+      "name": "Slim Countdown",
+      "settings": {
+        "text": "Zip-Screen 2 Sale startet in:",
+        "countdown_date": "2026-20-03T17:00:00",
+        "bg_color": "#1a1a1a",
+        "text_color": "#ffffff",
+        "show_icon": true,
+        "icon_color": "#5b5bf9"
+      }
     }
   },
   "order": [
-    "header"
+    "header",
+    "slim_countdown_UwipiV"
   ]
 }
