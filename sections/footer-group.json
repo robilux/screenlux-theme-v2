@@ -46,7 +46,7 @@
       "name": "Custom Footer",
       "settings": {
         "tagline": "German Quality. Factory Direct Prices.",
-        "newsletter_enable": true,
+        "newsletter_enable": false,
         "newsletter_text": "Join our community.\nUnlock Exclusive deals.",
         "email_placeholder": "Enter your email",
         "submit_label": "Submit",
