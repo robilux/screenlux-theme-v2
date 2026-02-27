@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -526,6 +535,127 @@
       "max_characters": "{{ max_chars }} characters max",
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
+    }
+  },
+  "configurator": {
+    "title": "Configure your screens",
+    "add_another_one": "Add another one",
+    "installation_title": "Installation",
+    "tip_title": "Tip",
+    "tip_message_html": "Switch to <strong>Solar Driven</strong> screens to simplify installation and reduce costs.",
+    "tip_benefits": {
+      "no_wiring": "No wiring",
+      "no_wall_drilling": "No wall drilling for power",
+      "no_electrician": "No electrician dependency"
+    },
+    "tip_footer_html": "Switch now and save <strong>1200€</strong> on professional assembly.",
+    "switch_to_solar": "Switch to Solar",
+    "installation_diy": {
+      "title": "Self-installation (DIY)",
+      "desc": "Hassle-free self-assembly using our assembly manual and video guides.\n• Estimated assembly time:\n• 30 minutes per Solar driven screen\n• 5 hours per wired screen",
+      "price": "Free"
+    },
+    "installation_professional": {
+      "title": "Professional Installation",
+      "desc": "Get the screen assembled by one of our professional installation companies.",
+      "price": "+ 2350 €",
+      "note": "Save 1200 € by switching to Solar driven screens."
+    },
+    "addons_title": "Add-ons",
+    "no_addons": "No add-ons available.",
+    "add": "Add",
+    "order_summary_title": "Order summary",
+    "order_summary": {
+      "zip_screens": "Zip-Screens",
+      "addons": "Add-ons",
+      "professional_installation": "Professional Installation",
+      "total": "Total",
+      "free_delivery": "Free delivery",
+      "arrives_in": "Arrives in 5-7 business days",
+      "continue_to_payment": "Continue to payment",
+      "please_check_dimensions": "Please check dimensions",
+      "zip_screen_detail": "1x Zip Screen",
+      "per_screen": "per screen"
+    },
+    "awards": {
+      "award_title": "Excellent Product Design 2026 Winner!",
+      "award_text": "Die stilsichere Kombination aus schlankem Gehäuse und smarter Technologie schafft einen ästhetisch anspruchsvollen Sonnenschutz, der sich harmonisch in moderne Umgebungen einfügt. Mit dieser charakterstarken Lösung setzt das Projekt einen beeindrauckenden Maßstab für hochwertiges Outdoor-Design auf Gold-Niveau."
+    },
+    "dimensions": {
+      "width": "Width (mm)",
+      "height": "Height (mm)",
+      "invalid": "Invalid dimensions"
+    },
+    "options": {
+      "cassette_size": "Cassette size",
+      "frame_color": "Frame color",
+      "fabric_color": "Fabric color",
+      "fabric_transparency": "Fabric transparency",
+      "motor": "Motor"
+    },
+    "actions": {
+      "remove_screen": "Remove screen",
+      "duplicate_screen": "Duplicate screen",
+      "open_screen": "Open screen",
+      "close_screen": "Close screen",
+      "show_measurements": "Show measurements",
+      "hide_measurements": "Hide measurements"
+    },
+    "screen_summary": {
+      "prefix": "Screen",
+      "dimensions_not_set": "Dimensions not set",
+      "no_cassette": "No cassette size selected",
+      "no_frame": "No frame color selected",
+      "no_fabric": "No fabric selected",
+      "no_motor": "No motor selected"
+    },
+    "misc": {
+      "loading": "Configuration Loading...",
+      "loading_desc": "If this does not disappear, no products were found in the \"main-product\" collection.",
+      "loading_desc_sub": "(Check Console for details)",
+      "developed_in_germany": "Developed in Germany"
+    },
+    "data": {
+      "frameColors": {
+        "anthracite": "Anthracite",
+        "white": "White"
+      },
+      "fabricColors": {
+        "graphite": "Graphite",
+        "gray_pepper": "Gray pepper",
+        "natural": "Natural",
+        "edelweiss": "Edelweiß"
+      },
+      "fabrics": {
+        "per_5_openness": {
+          "title": "5% Openness",
+          "desc": "Perfect for living rooms and open spaces."
+        },
+        "blackout": {
+          "title": "Blackout",
+          "desc": "Common for bathrooms and bedrooms."
+        }
+      },
+      "cassetteSizes": {
+        "slim": {
+          "title": "Slim (85×85mm)",
+          "desc": "Our slim standard cassette. For screens up to 5m²."
+        },
+        "large": {
+          "title": "Large (120×120mm)",
+          "desc": "When the slim cassette no longer fits."
+        }
+      },
+      "motorOptions": {
+        "solar": {
+          "title": "Solar-powered screen",
+          "desc": "Hassle-free installation with solar panel."
+        },
+        "wired": {
+          "title": "Wired screen",
+          "desc": "Traditional and safe."
+        }
+      }
     }
   }
 }

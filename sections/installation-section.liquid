@@ -1,6 +1,10 @@
 {% comment %} Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=246-1382&t=HET5jBT7j25OVNe6-4 {% endcomment %}
 
 {%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+
   #shopify-section-{{ section.id }} .install-section {
     display: flex;
     flex-direction: column;
@@ -10,7 +14,6 @@
     padding: 80px 64px;
     max-width: 1440px;
     margin: 0 auto;
-    background-color: {{ section.settings.bg_color }};
   }
 
   /* --- Headline --- */
@@ -117,7 +120,7 @@
   #shopify-section-{{ section.id }} .install-section__check-text {
     font-family: 'Inter', sans-serif;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.4;
     color: #525252;
     margin: 0;
@@ -125,32 +128,6 @@
 
   #shopify-section-{{ section.id }} .install-section__check-text strong {
     font-weight: 700;
-  }
-
-  /* --- Card Button --- */
-  #shopify-section-{{ section.id }} .install-section__card-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 40px;
-    padding: 12px 24px;
-    background: {{ section.settings.card_bg_color }};
-    border: 1px solid {{ section.settings.card_border_color }};
-    border-radius: 6px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    color: #171717;
-    text-decoration: none;
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-
-  #shopify-section-{{ section.id }} .install-section__card-btn:hover {
-    background-color: #f5f5f5;
   }
 
   /* --- Primary CTA --- */
@@ -262,12 +239,6 @@
             {%- endfor -%}
           </ul>
         </div>
-
-        {%- if block.settings.card_button_label != blank -%}
-          <a class="install-section__card-btn" href="{{ block.settings.card_button_link }}">
-            {{ block.settings.card_button_label }}
-          </a>
-        {%- endif -%}
       </div>
     {%- endfor -%}
   </div>
@@ -406,17 +377,6 @@
           "id": "check_4",
           "label": "Checklist item 4",
           "default": "Measurement Guarantee!"
-        },
-        {
-          "type": "text",
-          "id": "card_button_label",
-          "label": "Card button label",
-          "default": "Read the guide"
-        },
-        {
-          "type": "url",
-          "id": "card_button_link",
-          "label": "Card button link"
         }
       ]
     }
@@ -433,8 +393,7 @@
             "check_1": "Save ~200 € per window.",
             "check_2": "90% Pre-assembled. Just mount the rails and click it in.",
             "check_3": "Step-by-step video tutorial.",
-            "check_4": "Measurement Guarantee!",
-            "card_button_label": "Read the guide"
+            "check_4": "Measurement Guarantee!"
           }
         },
         {
@@ -444,8 +403,7 @@
             "card_description": "Ideal for multi-story buildings or large-scale projects.",
             "check_1": "<strong>Introductory Offer:</strong> 30% off assembly on your first order.",
             "check_2": "Low, fixed rates with no hidden fees.",
-            "check_3": "2-Year Guarantee.",
-            "card_button_label": "Check availability"
+            "check_3": "2-Year Guarantee."
           }
         }
       ]

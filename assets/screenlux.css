@@ -1,5 +1,5 @@
 /* Screenlux Design System (Figma JSON Implementation) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap');
 
 :root {
   /* --- Colors --- */
@@ -568,11 +568,14 @@ body {
   border: none;
   flex-shrink: 0;
   object-fit: cover; /* For img tags */
-  display: block;
+  display: block !important;
 }
 
 .fabric-swatch.small {
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 40px !important; 
+  height: 40px !important; 
+  border-radius: 50%;
+  display: block !important;
 }
 
 .card-title {

@@ -220,3 +220,35 @@ cart-items {
     gap: 1rem;
   }
 }
+
+/* Screenlux Custom Cart Button Overrides */
+.cart__checkout-button,
+.cart__warnings .button {
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 14px 20px !important;
+  font-family: var(--sl-font-family, 'Inter', sans-serif) !important;
+  background-color: var(--sl-color-primary, #5b5bf9) !important;
+  color: #ffffff !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+  text-decoration: none !important;
+  line-height: normal !important;
+  transition: background-color 0.2s ease !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.cart__checkout-button:hover,
+.cart__warnings .button:hover {
+  background-color: var(--sl-color-primary-hover, #4F46E5) !important;
+}
+
+.cart__checkout-button::after,
+.cart__checkout-button::before,
+.cart__warnings .button::after,
+.cart__warnings .button::before {
+  display: none !important;
+}

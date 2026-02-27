@@ -148,7 +148,9 @@
         measurementsBtn.dataset.measurementsVisible = this.showMeasurements ? 'true' : 'false';
       }
       if (measurementsText) {
-        measurementsText.textContent = this.showMeasurements ? 'Hide measurements' : 'Show measurements';
+        measurementsText.textContent = this.showMeasurements
+          ? window.ScreenluxTranslations.actions.hideMeasurements
+          : window.ScreenluxTranslations.actions.showMeasurements;
       }
       if (measurementLines) {
         measurementLines.style.opacity = this.showMeasurements ? '1' : '0';
@@ -230,7 +232,9 @@
         toggleBtn.dataset.screenState = this.isScreenOpen ? 'open' : 'closed';
       }
       if (toggleText) {
-        toggleText.textContent = this.isScreenOpen ? 'Close screen' : 'Open screen';
+        toggleText.textContent = this.isScreenOpen
+          ? window.ScreenluxTranslations.actions.closeScreen
+          : window.ScreenluxTranslations.actions.openScreen;
       }
     }
 

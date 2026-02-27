@@ -69,7 +69,7 @@
           </li>
 
           {%- comment -%} Insert SVG Configurator after the first image {%- endcomment -%}
-          {%- if forloop.first -%}
+          {%- if is_configurator and forloop.first -%}
             <li
               id="Slide-{{ section.id }}-svg-configurator"
               class="product__media-item grid__item slider__slide"
@@ -140,7 +140,7 @@
           </button>
 
           {%- comment -%} SVG Configurator Thumbnail after first image {%- endcomment -%}
-          {%- if forloop.first -%}
+          {%- if is_configurator and forloop.first -%}
             <button
               class="thumbnail thumbnail--configurator"
               aria-label="Screen Configurator Preview"

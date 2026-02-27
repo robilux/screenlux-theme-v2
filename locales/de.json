@@ -535,5 +535,126 @@
       "expanded": "Formular für den Empfänger des Gutscheins erweitert",
       "collapsed": "Formular für den Empfänger des Gutscheins minimiert"
     }
+  },
+  "configurator": {
+    "title": "Konfiguriere deine Screens",
+    "add_another_one": "Noch einen hinzufügen",
+    "installation_title": "Installation",
+    "tip_title": "Tipp",
+    "tip_message_html": "Wechsle zu <strong>solarbetriebenen</strong> Screens, um die Installation zu vereinfachen und Kosten zu senken.",
+    "tip_benefits": {
+      "no_wiring": "Keine Verkabelung",
+      "no_wall_drilling": "Kein Bohren für die Stromversorgung",
+      "no_electrician": "Kein Elektriker erforderlich"
+    },
+    "tip_footer_html": "Jetzt wechseln und <strong>1200€</strong> bei der professionellen Montage sparen.",
+    "switch_to_solar": "Auf Solar wechseln",
+    "installation_diy": {
+      "title": "Selbstmontage (DIY)",
+      "desc": "Problemlose Selbstmontage mithilfe unserer Montageanleitung und Video-Tutorials.\n• Geschätzte Montagezeit:\n• 30 Minuten pro solarbetriebenem Screen\n• 5 Stunden pro kabelgebundenem Screen",
+      "price": "Kostenlos"
+    },
+    "installation_professional": {
+      "title": "Professionelle Montage",
+      "desc": "Lass den Screen von einem unserer professionellen Montageunternehmen montieren.",
+      "price": "+ 2350 €",
+      "note": "Spare 1200 €, indem du zu solarbetriebenen Screens wechselst."
+    },
+    "addons_title": "Add-ons",
+    "no_addons": "Keine Add-ons verfügbar.",
+    "add": "Hinzufügen",
+    "order_summary_title": "Bestellübersicht",
+    "order_summary": {
+      "zip_screens": "Zip-Screens",
+      "addons": "Add-ons",
+      "professional_installation": "Professionelle Montage",
+      "total": "Gesamtsumme",
+      "free_delivery": "Kostenlose Lieferung",
+      "arrives_in": "Lieferung in 5-7 Werktagen",
+      "continue_to_payment": "Weiter zur Zahlung",
+      "please_check_dimensions": "Bitte Maße überprüfen",
+      "zip_screen_detail": "1x Zip-Screen",
+      "per_screen": "pro Screen"
+    },
+    "awards": {
+      "award_title": "Gewinner beim German Design Award 2026!",
+      "award_text": "Die stilsichere Kombination aus schlankem Gehäuse und smarter Technologie schafft einen ästhetisch anspruchsvollen Sonnenschutz, der sich harmonisch in moderne Umgebungen einfügt. Mit dieser charakterstarken Lösung setzt das Projekt einen beeindruckenden Maßstab für hochwertiges Outdoor-Design auf Gold-Niveau."
+    },
+    "dimensions": {
+      "width": "Breite (mm)",
+      "height": "Höhe (mm)",
+      "invalid": "Ungültige Maße"
+    },
+    "options": {
+      "cassette_size": "Kassettengröße",
+      "frame_color": "Rahmenfarbe",
+      "fabric_color": "Stofffarbe",
+      "fabric_transparency": "Stofftransparenz",
+      "motor": "Motor"
+    },
+    "actions": {
+      "remove_screen": "Screen entfernen",
+      "duplicate_screen": "Screen duplizieren",
+      "open_screen": "Screen öffnen",
+      "close_screen": "Screen schließen",
+      "show_measurements": "Maße anzeigen",
+      "hide_measurements": "Maße ausblenden"
+    },
+    "screen_summary": {
+      "prefix": "Screen",
+      "dimensions_not_set": "Maße nicht festgelegt",
+      "no_cassette": "Keine Kassettengröße ausgewählt",
+      "no_frame": "Keine Rahmenfarbe ausgewählt",
+      "no_fabric": "Kein Stoff ausgewählt",
+      "no_motor": "Kein Motor ausgewählt"
+    },
+    "misc": {
+      "loading": "Konfigurator wird geladen...",
+      "loading_desc": "Falls dieser Text nicht verschwindet, wurden keine Produkte in der Kollektion \"main-product\" gefunden.",
+      "loading_desc_sub": "(Details in der Konsole prüfen)",
+      "developed_in_germany": "Entwickelt in Deutschland"
+    },
+    "data": {
+      "frameColors": {
+        "anthracite": "Anthrazit",
+        "white": "Weiß"
+      },
+      "fabricColors": {
+        "graphite": "Graphit",
+        "gray_pepper": "Grau-Pfeffer",
+        "natural": "Natur",
+        "edelweiss": "Edelweiß"
+      },
+      "fabrics": {
+        "per_5_openness": {
+          "title": "5 % Durchlässigkeit",
+          "desc": "Perfekt für Wohnzimmer und offene Räume."
+        },
+        "blackout": {
+          "title": "Verdunkelnd",
+          "desc": "Oft für Badezimmer und Schlafzimmer gewählt."
+        }
+      },
+      "cassetteSizes": {
+        "slim": {
+          "title": "Slim (85×85mm)",
+          "desc": "Unsere Standard-Kassette. Für Screens bis zu 5m²."
+        },
+        "large": {
+          "title": "Large (120×120mm)",
+          "desc": "Wenn die Slim-Kassette nicht mehr passt."
+        }
+      },
+      "motorOptions": {
+        "solar": {
+          "title": "Solarbetriebener Screen",
+          "desc": "Problemlose Montage mit Solarpanel."
+        },
+        "wired": {
+          "title": "Kabelgebundener Screen",
+          "desc": "Traditionell und sicher."
+        }
+      }
+    }
   }
 }

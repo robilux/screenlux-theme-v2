@@ -8,6 +8,86 @@
 {% endcomment %}
 
 <script>
+  window.ScreenluxTranslations = {
+    title: {{ 'configurator.title' | t | json }},
+    addAnotherOne: {{ 'configurator.add_another_one' | t | json }},
+    installationTitle: {{ 'configurator.installation_title' | t | json }},
+    tipTitle: {{ 'configurator.tip_title' | t | json }},
+    tipMessageHtml: {{ 'configurator.tip_message_html' | t | json }},
+    tipBenefits: {
+      noWiring: {{ 'configurator.tip_benefits.no_wiring' | t | json }},
+      noWallDrilling: {{ 'configurator.tip_benefits.no_wall_drilling' | t | json }},
+      noElectrician: {{ 'configurator.tip_benefits.no_electrician' | t | json }}
+    },
+    tipFooterHtml: {{ 'configurator.tip_footer_html' | t | json }},
+    switchToSolar: {{ 'configurator.switch_to_solar' | t | json }},
+    installationDiy: {
+      title: {{ 'configurator.installation_diy.title' | t | json }},
+      desc: {{ 'configurator.installation_diy.desc' | t | json }},
+      price: {{ 'configurator.installation_diy.price' | t | json }}
+    },
+    installationProfessional: {
+      title: {{ 'configurator.installation_professional.title' | t | json }},
+      desc: {{ 'configurator.installation_professional.desc' | t | json }},
+      price: {{ 'configurator.installation_professional.price' | t | json }},
+      note: {{ 'configurator.installation_professional.note' | t | json }}
+    },
+    addonsTitle: {{ 'configurator.addons_title' | t | json }},
+    noAddons: {{ 'configurator.no_addons' | t | json }},
+    add: {{ 'configurator.add' | t | json }},
+    orderSummaryTitle: {{ 'configurator.order_summary_title' | t | json }},
+    orderSummary: {
+      zipScreens: {{ 'configurator.order_summary.zip_screens' | t | json }},
+      addons: {{ 'configurator.order_summary.addons' | t | json }},
+      professionalInstallation: {{ 'configurator.order_summary.professional_installation' | t | json }},
+      total: {{ 'configurator.order_summary.total' | t | json }},
+      freeDelivery: {{ 'configurator.order_summary.free_delivery' | t | json }},
+      arrivesIn: {{ 'configurator.order_summary.arrives_in' | t | json }},
+      continueToPayment: {{ 'configurator.order_summary.continue_to_payment' | t | json }},
+      pleaseCheckDimensions: {{ 'configurator.order_summary.please_check_dimensions' | t | json }},
+      zipScreenDetail: {{ 'configurator.order_summary.zip_screen_detail' | t | json }},
+      perScreen: {{ 'configurator.order_summary.per_screen' | t | json }}
+    },
+    awards: {
+      awardTitle: {{ 'configurator.awards.award_title' | t | json }},
+      awardText: {{ 'configurator.awards.award_text' | t | json }}
+    },
+    dimensions: {
+      width: {{ 'configurator.dimensions.width' | t | json }},
+      height: {{ 'configurator.dimensions.height' | t | json }},
+      invalid: {{ 'configurator.dimensions.invalid' | t | json }}
+    },
+    options: {
+      cassetteSize: {{ 'configurator.options.cassette_size' | t | json }},
+      frameColor: {{ 'configurator.options.frame_color' | t | json }},
+      fabricColor: {{ 'configurator.options.fabric_color' | t | json }},
+      fabricTransparency: {{ 'configurator.options.fabric_transparency' | t | json }},
+      motor: {{ 'configurator.options.motor' | t | json }}
+    },
+    actions: {
+      removeScreen: {{ 'configurator.actions.remove_screen' | t | json }},
+      duplicateScreen: {{ 'configurator.actions.duplicate_screen' | t | json }},
+      openScreen: {{ 'configurator.actions.open_screen' | t | json }},
+      closeScreen: {{ 'configurator.actions.close_screen' | t | json }},
+      showMeasurements: {{ 'configurator.actions.show_measurements' | t | json }},
+      hideMeasurements: {{ 'configurator.actions.hide_measurements' | t | json }}
+    },
+    screenSummary: {
+      prefix: {{ 'configurator.screen_summary.prefix' | t | json }},
+      dimensionsNotSet: {{ 'configurator.screen_summary.dimensions_not_set' | t | json }},
+      noCassette: {{ 'configurator.screen_summary.no_cassette' | t | json }},
+      noFrame: {{ 'configurator.screen_summary.no_frame' | t | json }},
+      noFabric: {{ 'configurator.screen_summary.no_fabric' | t | json }},
+      noMotor: {{ 'configurator.screen_summary.no_motor' | t | json }}
+    },
+    misc: {
+      loading: {{ 'configurator.misc.loading' | t | json }},
+      loadingDesc: {{ 'configurator.misc.loading_desc' | t | json }},
+      loadingDescSub: {{ 'configurator.misc.loading_desc_sub' | t | json }},
+      developedInGermany: {{ 'configurator.misc.developed_in_germany' | t | json }}
+    }
+  };
+
   window.ScreenluxData = {
     // 1. ZIP-Screen Variants (The Price Carriers)
     // We assume the collection 'Main product' contains the ZIP-Screen product(s).
@@ -38,7 +118,11 @@
            id: {{ prod.selected_or_first_available_variant.id }},
            title: {{ prod.title | json }},
            description: {{ prod.description | strip_html | truncate: 100 | json }},
-           image: {{ prod.featured_image | image_url: width: 200 | json }},
+           {% if prod.featured_image %}
+             image: {{ prod.featured_image | image_url: width: 200 | json }},
+           {% else %}
+             image: null,
+           {% endif %}
            price: {{ prod.price }}
         }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
@@ -68,44 +152,49 @@
           id: {{ prod.selected_or_first_available_variant.id }},
           title: {{ prod.title | json }},
           description: {{ prod.description | strip_html | truncate: 100 | json }},
-          image: {{ prod.featured_image | image_url: width: 200 | json }},
-          price: {{ prod.price }}
+          {% if prod.featured_image %}
+            image: {{ prod.featured_image | image_url: width: 200 | json }},
+          {% else %}
+            image: null,
+          {% endif %}
+          price: {{ prod.price }},
+          compare_at_price: {{ prod.compare_at_price | default: prod.price }}
         }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
     ],
 
     // 5. Hardcoded Design Options (For Visual Configurator)
     frameColors: [
-      { id: 'anthracite', title: 'Anthracite', hex: '#373F47', ral: 'RAL 7016', selected: true },
-      { id: 'white', title: 'White', hex: '#FFFFFF', ral: 'RAL 9016', selected: false }
+      { id: 'anthracite', title: {{ 'configurator.data.frameColors.anthracite' | t | json }}, hex: '#373F47', ral: 'RAL 7016', selected: true },
+      { id: 'white', title: {{ 'configurator.data.frameColors.white' | t | json }}, hex: '#FFFFFF', ral: 'RAL 9016', selected: false }
     ],
     fabricColors: [
-      { id: 'graphite', title: 'Graphite', image: {{ 'img_fabric_graphite.png' | asset_url | json }} },
-      { id: 'gray-pepper', title: 'Gray pepper', image: {{ 'img_fabric_gray_pepper.png' | asset_url | json }} },
-      { id: 'natural', title: 'Natural', image: {{ 'img_fabric_natural.png' | asset_url | json }} },
-      { id: 'edelweiss', title: 'Edelweiß', image: {{ 'img_fabric_edelweiss.png' | asset_url | json }} }
+      { id: 'graphite', title: {{ 'configurator.data.fabricColors.graphite' | t | json }}, image: {{ 'img_fabric_graphite.png' | asset_img_url: '400x' | json }} },
+      { id: 'gray-pepper', title: {{ 'configurator.data.fabricColors.gray_pepper' | t | json }}, image: {{ 'img_fabric_gray_pepper.png' | asset_img_url: '400x' | json }} },
+      { id: 'natural', title: {{ 'configurator.data.fabricColors.natural' | t | json }}, image: {{ 'img_fabric_natural.png' | asset_img_url: '400x' | json }} },
+      { id: 'edelweiss', title: {{ 'configurator.data.fabricColors.edelweiss' | t | json }}, image: {{ 'img_fabric_edelweiss.png' | asset_img_url: '400x' | json }} }
     ],
     fabrics: [
       {
         id: '5-percent',
-        title: '5% Openness',
-        desc: 'Perfect for living rooms and open spaces.',
+        title: {{ 'configurator.data.fabrics.per_5_openness.title' | t | json }},
+        desc: {{ 'configurator.data.fabrics.per_5_openness.desc' | t | json }},
         image: {{ 'img_fabric_5_percent_transparency.png' | asset_url | json }}
       },
       {
         id: 'blackout',
-        title: 'Blackout',
-        desc: 'Common for bathrooms and bedrooms.',
+        title: {{ 'configurator.data.fabrics.blackout.title' | t | json }},
+        desc: {{ 'configurator.data.fabrics.blackout.desc' | t | json }},
         image: {{ 'img_fabric_blackout.png' | asset_url | json }}
       }
     ],
     cassetteSizes: [
-      { id: 'slim', title: 'Slim (85×85mm)', desc: 'Our slim standard cassette. For screens up to 5m².', image: 'https://cdn.shopify.com/s/files/1/0975/4676/4636/files/cassette-slim.jpg?v=1768220919' },
-      { id: 'large', title: 'Large (120×120mm)', desc: 'When the slim cassette no longer fits.', image: 'https://cdn.shopify.com/s/files/1/0975/4676/4636/files/cassette-large.jpg?v=1768220918' }
+      { id: 'slim', title: {{ 'configurator.data.cassetteSizes.slim.title' | t | json }}, desc: {{ 'configurator.data.cassetteSizes.slim.desc' | t | json }}, image: 'https://cdn.shopify.com/s/files/1/0975/4676/4636/files/cassette-slim.jpg?v=1768220919' },
+      { id: 'large', title: {{ 'configurator.data.cassetteSizes.large.title' | t | json }}, desc: {{ 'configurator.data.cassetteSizes.large.desc' | t | json }}, image: 'https://cdn.shopify.com/s/files/1/0975/4676/4636/files/cassette-large.jpg?v=1768220918' }
     ],
     motorOptions: [
-      { id: 'solar', title: 'Solar-powered screen', desc: 'Hassle-free installation with solar panel.', image: {{ 'img-cassette-solar-panel.png' | asset_img_url: '400x' | json }}, surcharge: 10000 },
-      { id: 'wired', title: 'Wired screen', desc: 'Traditional and safe.', image: {{ 'img-cassette-wired.png' | asset_img_url: '400x' | json }}, surcharge: 0 }
+      { id: 'solar', title: {{ 'configurator.data.motorOptions.solar.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.solar.desc' | t | json }}, image: {{ 'img-cassette-solar-panel.png' | asset_img_url: '400x' | json }}, surcharge: 10000 },
+      { id: 'wired', title: {{ 'configurator.data.motorOptions.wired.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.wired.desc' | t | json }}, image: {{ 'img-cassette-wired.png' | asset_img_url: '400x' | json }}, surcharge: 0 }
     ],
 
     assets: {

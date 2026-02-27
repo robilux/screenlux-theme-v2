@@ -29,8 +29,8 @@
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Konfigurieren",
-            "button_link_1": "shopify://collections/all",
+            "button_label_1": "Registrieren & Sparen",
+            "button_link_1": "/pages/registrieren-sparen",
             "button_style_secondary_1": true,
             "button_label_2": "",
             "button_link_2": "",
@@ -482,9 +482,7 @@
             "check_1": "Spare ca. 200 € pro Fenster.",
             "check_2": "90 % Vormontiert. Schienen anbringen und Screen einklicken.",
             "check_3": "Schritt-für-Schritt Video-Tutorials.",
-            "check_4": "Aufmaß-Garantie!",
-            "card_button_label": "Anleitung lesen",
-            "card_button_link": ""
+            "check_4": "Aufmaß-Garantie!"
           }
         },
         "installation_card_JJHdKk": {
@@ -495,9 +493,7 @@
             "check_1": "<strong>Einführungsangebot:</strong> 30 % Rabatt auf die Montage deiner ersten Bestellung.",
             "check_2": "Niedrige Festpreise ohne versteckte Kosten.",
             "check_3": "2 Jahre Montagesicherheit.",
-            "check_4": "Aufmaß-Garantie!",
-            "card_button_label": "Verfügbarkeit prüfen",
-            "card_button_link": ""
+            "check_4": "Aufmaß-Garantie!"
           }
         }
       },

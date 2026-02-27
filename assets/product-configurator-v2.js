@@ -625,7 +625,7 @@ class ProductConfigurator extends HTMLElement {
     screensContainer.className = 'screens-list';
 
     // Add Header for Screens Section
-    screensContainer.innerHTML = '<label class="grouping-title">Configure your screens</label>';
+    screensContainer.innerHTML = `<label class="grouping-title">${window.ScreenluxTranslations.title}</label>`;
 
     this.state.screens.forEach((screen, index) => {
       screensContainer.appendChild(this.renderScreenItem(screen, index));
@@ -635,7 +635,7 @@ class ProductConfigurator extends HTMLElement {
     // 2. Add Screen Button
     const addBtn = document.createElement('button');
     addBtn.className = 'btn btn-dashed margin-top-sm';
-    addBtn.innerHTML = `<span>+</span> Add another one`;
+    addBtn.innerHTML = `<span>+</span> ${window.ScreenluxTranslations.addAnotherOne}`;
     addBtn.onclick = this.handleAddScreen;
     screensGroup.appendChild(addBtn);
 
@@ -775,14 +775,14 @@ class ProductConfigurator extends HTMLElement {
     if (fabricParts.length > 0) {
       summaryItems.push({ text: fabricParts.join(', '), class: '' });
     } else {
-      summaryItems.push({ text: 'No fabric selected', class: 'placeholder' });
+      summaryItems.push({ text: window.ScreenluxTranslations.screenSummary.noFabric, class: 'placeholder' });
     }
 
     // 5. Motor
     if (motorLabel) {
       summaryItems.push({ text: motorLabel, class: '' });
     } else {
-      summaryItems.push({ text: 'No motor selected', class: 'placeholder' });
+      summaryItems.push({ text: window.ScreenluxTranslations.screenSummary.noMotor, class: 'placeholder' });
     }
 
     wrapper.innerHTML = `
@@ -795,9 +795,11 @@ class ProductConfigurator extends HTMLElement {
                    ${summaryItems.map((item) => `<li class="${item.class}">${item.text}</li>`).join('')}
                 </ul>
              </div>
-             <div class="screen-price-container">
-                 ${compareAtPrice > price ? `<span class="price-old" style="margin-right:8px;font-size:14px;align-self:center;">${(compareAtPrice / 100).toFixed(0)} €</span>` : ''}
-                 <span class="screen-price">${(price / 100).toFixed(0)} €</span>
+             <div class="screen-price-container" style="display:flex; align-items:center;">
+                 <div class="price-group" style="display:flex; flex-direction:column; align-items:flex-end; margin-right:8px;">
+                     ${compareAtPrice > price ? `<span class="price-old" style="font-size:12px; text-decoration:line-through; color:var(--sl-text-subdued); line-height:1; margin-bottom:2px;">${(compareAtPrice / 100).toFixed(0)} €</span>` : ''}
+                     <span class="screen-price" style="line-height:1;">${(price / 100).toFixed(0)} €</span>
+                 </div>
                  <svg class="accordion-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 9L12 15L18 9" stroke="#171717" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                  </svg>
@@ -808,14 +810,14 @@ class ProductConfigurator extends HTMLElement {
            <!-- Dimensions -->
            <div class="grid-2"> 
              <div class="field">
-               <label class="field-label">Width (mm)</label>
+               <label class="field-label">${window.ScreenluxTranslations.dimensions.width}</label>
                <input type="number" 
                       value="${screen.width}" 
                       data-field="width" 
                       class="sl-input ${screen.errors.dimension && !screen.width ? 'error' : ''}">
              </div>
              <div class="field">
-               <label class="field-label">Height (mm)</label>
+               <label class="field-label">${window.ScreenluxTranslations.dimensions.height}</label>
                <input type="number" 
                       value="${screen.height}" 
                       data-field="height"
@@ -826,14 +828,14 @@ class ProductConfigurator extends HTMLElement {
            ${
              !screen.valid
                ? `<div class="text-xs margin-top-xs" style="color:var(--sl-color-error)">⚠️ ${
-                   screen.errors.dimension || 'Invalid dimensions'
+                   screen.errors.dimension || window.ScreenluxTranslations.dimensions.invalid
                  }</div>`
                : ''
            }
            
            <!-- Cassette Size Selector -->
            ${this.renderSelectionGrid(
-             'Cassette size',
+             window.ScreenluxTranslations.options.cassetteSize,
              'cassetteSize',
              cassetteSizes,
              screen.cassetteSize,
@@ -844,7 +846,7 @@ class ProductConfigurator extends HTMLElement {
 
            <!-- Frame Color Selector -->
            ${this.renderSelectionGrid(
-             'Frame color',
+             window.ScreenluxTranslations.options.frameColor,
              'frameColor',
              frameOptions,
              screen.frameColor,
@@ -855,7 +857,7 @@ class ProductConfigurator extends HTMLElement {
 
            <!-- Fabric Color Selector -->
            ${this.renderSelectionGrid(
-             'Fabric color',
+             window.ScreenluxTranslations.options.fabricColor,
              'fabricColor',
              fabricColors,
              screen.fabricColor,
@@ -866,7 +868,7 @@ class ProductConfigurator extends HTMLElement {
            
            <!-- Fabric Type Selector -->
            ${this.renderSelectionGrid(
-             'Fabric transparency',
+             window.ScreenluxTranslations.options.fabricTransparency,
              'fabricType',
              fabricTypes,
              screen.fabricType,
@@ -876,7 +878,7 @@ class ProductConfigurator extends HTMLElement {
            )}
 
            <!-- Motor Selector -->
-           ${this.renderSelectionGrid('Motor', 'motor', motorOptions, screen.motor, index, 'image', 'vertical')}
+           ${this.renderSelectionGrid(window.ScreenluxTranslations.options.motor, 'motor', motorOptions, screen.motor, index, 'image', 'vertical')}
            
            <!-- Actions -->
            <div class="margin-top-md" style="display:flex; justify-content: space-between; align-items: center;">
@@ -891,13 +893,13 @@ class ProductConfigurator extends HTMLElement {
                     </clipPath>
                   </defs>
                 </svg>
-                Remove screen
+                ${window.ScreenluxTranslations.actions.removeScreen}
               </button>
               <button type="button" class="btn btn-text duplicate-screen-btn" style="padding:0; width:auto; color: var(--sl-text-secondary); display: inline-flex; align-items: center;">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 6px;">
                   <path d="M13.5 1.75H5.5C5.30109 1.75 5.11032 1.82902 4.96967 1.96967C4.82902 2.11032 4.75 2.30109 4.75 2.5V4.75H2.5C2.30109 4.75 2.11032 4.82902 1.96967 4.96967C1.82902 5.11032 1.75 5.30109 1.75 5.5V13.5C1.75 13.6989 1.82902 13.8897 1.96967 14.0303C2.11032 14.171 2.30109 14.25 2.5 14.25H10.5C10.6989 14.25 10.8897 14.171 11.0303 14.0303C11.171 13.8897 11.25 13.6989 11.25 13.5V11.25H13.5C13.6989 11.25 13.8897 11.171 14.0303 11.0303C14.171 10.8897 14.25 10.6989 14.25 10.5V2.5C14.25 2.30109 14.171 2.11032 14.0303 1.96967C13.8897 1.82902 13.6989 1.75 13.5 1.75ZM9.75 12.75H3.25V6.25H9.75V12.75ZM12.75 9.75H11.25V5.5C11.25 5.30109 11.171 5.11032 11.0303 4.96967C10.8897 4.82902 10.6989 4.75 10.5 4.75H6.25V3.25H12.75V9.75Z" fill="#171717"/>
                 </svg>
-                Duplicate screen
+                ${window.ScreenluxTranslations.actions.duplicateScreen}
               </button>
            </div>
         </div>
@@ -959,12 +961,17 @@ class ProductConfigurator extends HTMLElement {
     // 1. Group Title
     const title = document.createElement('label');
     title.className = 'grouping-title';
-    title.textContent = 'Installation';
+    title.textContent = window.ScreenluxTranslations.installationTitle;
     section.appendChild(title);
 
     // 2. Global Solar Check (Upsell / Tip)
     // Show tip if any screen is NOT solar (i.e. wired or undefined)
     if (this.state.screens.some((s) => s.motor !== 'solar')) {
+      const currentEst = this.getEstimatedInstallationPrice(this.state.screens);
+      const allSolarScreens = this.state.screens.map((s) => ({ ...s, motor: 'solar' }));
+      const allSolarEst = this.getEstimatedInstallationPrice(allSolarScreens);
+      const savings = currentEst > allSolarEst ? currentEst - allSolarEst : 0;
+
       const solarTip = document.createElement('div');
       solarTip.className = 'info-card-tip';
 
@@ -973,29 +980,29 @@ class ProductConfigurator extends HTMLElement {
            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="benefit-check" style="color:var(--sl-color-success)">
              <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm-2 15l-5-5 1.41-1.41L8 12.17l7.59-7.59L17 6l-9 9z" fill="currentColor"/>
            </svg>
-           <span class="info-card-title">Tip</span>
+           <span class="info-card-title">${window.ScreenluxTranslations.tipTitle}</span>
         </div>
         <div class="info-card-body">
            <div class="info-card-message">
-             Switch to <strong>Solar Driven</strong> screens to simplify installation and reduce costs.
+             ${window.ScreenluxTranslations.tipMessageHtml}
            </div>
            <ul class="info-card-benefits">
              <li class="info-card-benefit">
                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.3333 4L6 11.3333L2.66667 8" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-               No wiring
+               ${window.ScreenluxTranslations.tipBenefits.noWiring}
              </li>
              <li class="info-card-benefit">
                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.3333 4L6 11.3333L2.66667 8" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-               No wall drilling for power
+               ${window.ScreenluxTranslations.tipBenefits.noWallDrilling}
              </li>
              <li class="info-card-benefit">
                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.3333 4L6 11.3333L2.66667 8" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-               No electrician dependency
+               ${window.ScreenluxTranslations.tipBenefits.noElectrician}
              </li>
            </ul>
            <div class="info-card-footer">
-             <span class="info-card-footer-text">Switch now and save <strong>1200€</strong> on professional assembly.</span>
-             <button type="button" class="info-card-btn">Switch to Solar</button>
+             <span class="info-card-footer-text">${window.ScreenluxTranslations.tipFooterHtml.replace(/1200|1\.200€|1,200€/g, '~ ' + (savings / 100).toFixed(0))}</span>
+             <button type="button" class="info-card-btn">${window.ScreenluxTranslations.switchToSolar}</button>
            </div>
         </div>
       `;
@@ -1009,20 +1016,32 @@ class ProductConfigurator extends HTMLElement {
       section.appendChild(solarTip);
     }
 
+    const estInstallPrice = this.getEstimatedInstallationPrice(this.state.screens);
+    const allSolarScreensForOptions = this.state.screens.map((s) => ({ ...s, motor: 'solar' }));
+    const allSolarEstForOptions = this.getEstimatedInstallationPrice(allSolarScreensForOptions);
+    const savingsOptions = estInstallPrice > allSolarEstForOptions ? estInstallPrice - allSolarEstForOptions : 0;
+
+    const profDesc = 'Geschätzter Preis. Unser Partner wird dich nach der Bestellung zur Bestätigung kontaktieren.';
+    const profPriceFormat = `~ ${(estInstallPrice / 100).toFixed(0)} €`;
+    const profNote =
+      savingsOptions > 0
+        ? `Spare ~ ${(savingsOptions / 100).toFixed(0)} € durch den Wechsel zu solarbetriebenen Screens.`
+        : '';
+
     // Installation type options
     const installationOptions = [
       {
         id: 'diy',
-        title: 'Self-installation (DIY)',
-        desc: 'Hassle-free self-assembly using our assembly manual and video guides.\n• Estimated assembly time:\n• 30 minutes per Solar driven screen\n• 5 hours per wired screen',
-        price: 'Free',
+        title: window.ScreenluxTranslations.installationDiy.title,
+        desc: window.ScreenluxTranslations.installationDiy.desc,
+        price: window.ScreenluxTranslations.installationDiy.price,
       },
       {
         id: 'professional',
-        title: 'Professional Installation',
-        desc: 'Get the screen assembled by one of our professional installation companies.',
-        price: '+ 2350 €',
-        note: 'Save 1200 € by switching to Solar driven screens.',
+        title: window.ScreenluxTranslations.installationProfessional.title,
+        desc: profDesc,
+        price: profPriceFormat,
+        note: profNote,
       },
     ];
 
@@ -1037,9 +1056,8 @@ class ProductConfigurator extends HTMLElement {
 
               // Standardized price rendering
               let priceDisplay = '';
-              if (opt.price === 'Free') {
-                priceDisplay =
-                  '<span style="background-color: #A7F3D0; color: #064E3B; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Free</span>';
+              if (opt.price === window.ScreenluxTranslations.installationDiy.price) {
+                priceDisplay = `<span style="background-color: #A7F3D0; color: #064E3B; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">${window.ScreenluxTranslations.installationDiy.price}</span>`;
               } else {
                 // Ensure standardized look for other prices
                 priceDisplay = `<span style="font-weight: 600; font-size: 14px;">${opt.price}</span>`;
@@ -1149,12 +1167,11 @@ class ProductConfigurator extends HTMLElement {
     section.className = 'configurator-group-box';
 
     if (this.data.addons.length === 0) {
-      section.innerHTML =
-        '<label class="grouping-title">Add-ons</label><p class="text-subdued"><em>No add-ons available.</em></p>';
+      section.innerHTML = `<label class="grouping-title">${window.ScreenluxTranslations.addonsTitle}</label><p class="text-subdued"><em>${window.ScreenluxTranslations.noAddons}</em></p>`;
       return section;
     }
 
-    section.innerHTML = '<label class="grouping-title">Add-ons</label>';
+    section.innerHTML = `<label class="grouping-title">${window.ScreenluxTranslations.addonsTitle}</label>`;
 
     this.data.addons.forEach((addon) => {
       const card = this.renderAddonCard(addon);
@@ -1177,7 +1194,9 @@ class ProductConfigurator extends HTMLElement {
     card.className = `product-card margin-top-sm ${quantity > 0 ? 'selected' : ''}`;
 
     // Calculate total price based on quantity (if > 0, otherwise show unit price)
-    const displayPrice = ((addon.price * (quantity > 0 ? quantity : 1)) / 100).toFixed(0);
+    const factor = quantity > 0 ? quantity : 1;
+    const displayPrice = ((addon.price * factor) / 100).toFixed(0);
+    const displayCompareAtPrice = ((addon.compare_at_price * factor) / 100).toFixed(0);
 
     // New Structure: Image | Body (Title, Desc, Price, Actions)
     card.innerHTML = `
@@ -1191,12 +1210,15 @@ class ProductConfigurator extends HTMLElement {
       <div class="product-card__body">
         <div class="product-card__title">${addon.title}</div>
         <div class="product-card__desc">${addon.description || ''}</div>
-        <div class="product-card__price">${displayPrice} €</div>
+        <div class="product-card__price-wrapper" style="display:flex; flex-direction:column; align-items:flex-start; margin-top:4px;">
+           ${addon.compare_at_price > addon.price ? `<span class="price-old" style="font-size:12px; text-decoration:line-through; color:var(--sl-text-subdued); line-height:1; margin-bottom:2px;">${displayCompareAtPrice} €</span>` : ''}
+           <div class="product-card__price" style="line-height:1;">${displayPrice} €</div>
+        </div>
         
         <div class="product-card__actions">
         ${
           quantity === 0
-            ? `<button class="btn-add-addon" data-addon-id="${addon.id}">Add</button>`
+            ? `<button class="btn-add-addon" data-addon-id="${addon.id}">${window.ScreenluxTranslations.add}</button>`
             : `<div class="qty-control-group">
             <button class="qty-btn qty-minus" data-addon-id="${addon.id}">−</button>
             <span class="qty-value">${quantity}</span>
@@ -1242,6 +1264,17 @@ class ProductConfigurator extends HTMLElement {
     return card;
   }
 
+  getEstimatedInstallationPrice(screens) {
+    if (!screens || screens.length === 0) return 0;
+    const hasWired = screens.some((s) => s.motor !== 'solar');
+    const numScreens = screens.length;
+    if (hasWired) {
+      return 69900 + (numScreens - 1) * 25000;
+    } else {
+      return 29900 + numScreens * 10000;
+    }
+  }
+
   calculateTotals() {
     let screensTotal = 0;
     let oldScreensTotal = 0;
@@ -1255,6 +1288,7 @@ class ProductConfigurator extends HTMLElement {
     });
 
     let installTotal = 0;
+    let estimatedInstallTotal = 0;
     if (this.state.installationType === 'diy') {
       if (this.state.selectedBracketId && this.state.selectedBracketId !== 'unsure') {
         const b = this.data.brackets.find((x) => x.id == this.state.selectedBracketId);
@@ -1263,10 +1297,10 @@ class ProductConfigurator extends HTMLElement {
         }
       }
     } else if (this.state.installationType === 'professional') {
-      const hasWired = this.state.screens.some((s) => s.motor !== 'solar');
-      const targetLabel = hasWired ? 'Wired' : 'Solar';
-      const svc = this.data.services.find((s) => s.title.includes(targetLabel));
-      if (svc) installTotal += svc.price;
+      // For professional, we don't add to the JS grandTotal
+      // But we calculate the estimate for UI display.
+      estimatedInstallTotal = this.getEstimatedInstallationPrice(this.state.screens);
+      installTotal = 0;
     }
 
     let addonsTotal = 0;
@@ -1277,7 +1311,15 @@ class ProductConfigurator extends HTMLElement {
 
     const grandTotal = screensTotal + installTotal + addonsTotal;
     const oldGrandTotal = oldScreensTotal + installTotal + addonsTotal;
-    return { screensTotal, oldScreensTotal, installTotal, addonsTotal, grandTotal, oldGrandTotal };
+    return {
+      screensTotal,
+      oldScreensTotal,
+      installTotal,
+      addonsTotal,
+      estimatedInstallTotal,
+      grandTotal,
+      oldGrandTotal,
+    };
   }
 
   renderOrderSummary() {
@@ -1286,7 +1328,7 @@ class ProductConfigurator extends HTMLElement {
 
     const section = document.createElement('div');
     section.className = 'order-summary-box margin-top-lg';
-    section.innerHTML = `<label class="grouping-title">Order summary</label>`;
+    section.innerHTML = `<label class="grouping-title">${window.ScreenluxTranslations.orderSummaryTitle}</label>`;
 
     const list = document.createElement('div');
     list.className = 'summary-list';
@@ -1300,7 +1342,7 @@ class ProductConfigurator extends HTMLElement {
     screensHeader.className = 'summary-row category-header';
     screensHeader.innerHTML = `
       <div class="category-title">
-        <span>Zip-Screens (${screenCount})</span>
+        <span>${window.ScreenluxTranslations.orderSummary.zipScreens} (${screenCount})</span>
         <svg class="chevron-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <span class="category-price">${fmt(totals.screensTotal)}</span>
@@ -1340,7 +1382,7 @@ class ProductConfigurator extends HTMLElement {
       addonsHeader.className = 'summary-row category-header';
       addonsHeader.innerHTML = `
         <div class="category-title">
-          <span>Add-ons (${addonsCount})</span>
+          <span>${window.ScreenluxTranslations.orderSummary.addons} (${addonsCount})</span>
           <svg class="chevron-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <span class="category-price">${fmt(totals.addonsTotal)}</span>
@@ -1373,7 +1415,7 @@ class ProductConfigurator extends HTMLElement {
     }
 
     // 3. Installation Category
-    if (totals.installTotal > 0 || this.state.installationType === 'professional') {
+    if (totals.installTotal > 0 || totals.estimatedInstallTotal > 0 || this.state.installationType === 'professional') {
       let installCount = 0;
       if (this.state.installationType === 'professional') {
         installCount = 1;
@@ -1381,7 +1423,12 @@ class ProductConfigurator extends HTMLElement {
 
       const installCategory = document.createElement('div');
       installCategory.className = `summary-category ${this.state.installationExpanded ? 'expanded' : ''}`;
-      const label = 'Professional Installation';
+      const label = window.ScreenluxTranslations.orderSummary.professionalInstallation;
+
+      const installDisplayTotal =
+        this.state.installationType === 'professional'
+          ? `~ ${fmt(totals.estimatedInstallTotal)}`
+          : fmt(totals.installTotal);
 
       const installHeader = document.createElement('div');
       installHeader.className = 'summary-row category-header';
@@ -1390,7 +1437,7 @@ class ProductConfigurator extends HTMLElement {
           <span>${label} (${installCount})</span>
           <svg class="chevron-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <span class="category-price">${fmt(totals.installTotal)}</span>
+        <span class="category-price">${installDisplayTotal}</span>
       `;
       installHeader.onclick = () => {
         this.state.installationExpanded = !this.state.installationExpanded;
@@ -1410,8 +1457,8 @@ class ProductConfigurator extends HTMLElement {
             const detailRow = document.createElement('div');
             detailRow.className = 'summary-row detail-row';
             detailRow.innerHTML = `
-              <span class="detail-label">1x ${svc.title}</span>
-              <span class="detail-price">${fmt(svc.price)}</span>
+              <span class="detail-label">1x ${svc.title} (Estimated)</span>
+              <span class="detail-price">~ ${fmt(totals.estimatedInstallTotal)}</span>
             `;
             installDetails.appendChild(detailRow);
           }
@@ -1425,13 +1472,23 @@ class ProductConfigurator extends HTMLElement {
     const totalRow = document.createElement('div');
     totalRow.className = 'summary-row total';
     totalRow.innerHTML = `
-      <span>Total</span>
+      <span>${window.ScreenluxTranslations.orderSummary.total}</span>
       <div class="total-price-wrapper">
          ${totals.oldGrandTotal > totals.grandTotal ? `<span class="price-old">${fmt(totals.oldGrandTotal)}</span>` : ''} 
          <span class="price-current">${fmt(totals.grandTotal)}</span>
       </div>
     `;
     list.appendChild(totalRow);
+
+    if (this.state.installationType === 'professional') {
+      const invoiceNotice = document.createElement('div');
+      invoiceNotice.className = 'margin-top-xs text-subdued';
+      invoiceNotice.style.fontSize = '12px';
+      invoiceNotice.style.textAlign = 'right';
+      invoiceNotice.style.color = 'var(--sl-text-secondary)';
+      invoiceNotice.innerText = 'Die Fachmontage wird später direkt vom Montagepartner in Rechnung gestellt.';
+      list.appendChild(invoiceNotice);
+    }
 
     section.appendChild(list);
 
@@ -1442,7 +1499,7 @@ class ProductConfigurator extends HTMLElement {
       <span class="shipping-icon">
         <img src="${this.data.assets.truck_icon}" alt="Delivery" width="24" height="24">
       </span>
-      <span class="shipping-text"><strong class="text-success">Free delivery</strong> · Arrives in 5-7 business days</span>
+      <span class="shipping-text"><strong class="text-success">${window.ScreenluxTranslations.orderSummary.freeDelivery}</strong> · ${window.ScreenluxTranslations.orderSummary.arrivesIn}</span>
     `;
     section.appendChild(shippingInfo);
 
@@ -1450,7 +1507,9 @@ class ProductConfigurator extends HTMLElement {
     const allValid = this.state.screens.every((s) => s.valid);
     const cartBtn = document.createElement('button');
     cartBtn.className = `btn btn-primary margin-top-md ${!allValid ? 'btn-disabled' : ''}`;
-    cartBtn.innerText = allValid ? 'Continue to payment' : 'Please check dimensions';
+    cartBtn.innerText = allValid
+      ? window.ScreenluxTranslations.orderSummary.continueToPayment
+      : window.ScreenluxTranslations.orderSummary.pleaseCheckDimensions;
     cartBtn.onclick = allValid ? this.handleAddToCart : null;
 
     section.appendChild(cartBtn);

@@ -146,7 +146,7 @@ window.ScreenluxEngine = {
 
     // 2. Installation Service (Professional Only)
     if (state.installationType === 'professional') {
-      const hasWired = state.screens.some((s) => !s.solar);
+      const hasWired = state.screens.some((s) => s.motor !== 'solar');
       const targetTitle = hasWired ? 'Wired' : 'Solar';
 
       const serviceVariant = data.services.find((v) => v.title.includes(targetTitle));
