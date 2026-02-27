@@ -36,7 +36,7 @@
       "name": "Slim Countdown",
       "settings": {
         "text": "Zip-Screen 2 Sale startet in:",
-        "countdown_date": "2026-20-03T17:00:00",
+        "countdown_date": "2026-03-20T17:00:00",
         "bg_color": "#1a1a1a",
         "text_color": "#ffffff",
         "show_icon": true,
