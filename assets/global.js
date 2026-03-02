@@ -1318,3 +1318,14 @@ class CartPerformance {
     performance.measure(metricName, `${metricName}:start`, `${metricName}:end`);
   }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  window._klOnsite = window._klOnsite || [];
+
+  document.querySelectorAll('.open_klaviyo').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      window._klOnsite.push(['openForm', 'Y9GBhd']);
+    });
+  });
+});
