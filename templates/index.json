@@ -78,8 +78,8 @@
     "compare_slider": {
       "type": "compare-slider",
       "settings": {
-        "heading": "Hitze bleibt draußen. Das Licht drinnen.",
-        "subheading": "<p>Klassische Rollläden zwingen dich ins Dunkle. Screenlux ZIP blockt <strong>95 % der Hitze</strong> und <strong>98 % der UV-Strahlung</strong> direkt am Glas. Für ein kühles Zuhause ohne Kompromisse.</p>",
+        "heading": "Hitze bleibt draußen. Licht bleibt drin.",
+        "subheading": "<p>Klassische Rollläden machen dein Zuhause dunkel.</p><p>Screenlux ZIP blockt bis zu 95 % der Hitze direkt am Fenster – während natürliches Licht weiterhin in den Raum fällt.</p>",
         "image_1": "shopify://shop_images/Compare_image_Roller_Shutters.png",
         "image_2": "shopify://shop_images/Compare_image_Screens.png",
         "cta_text": "Konfigurieren",
@@ -148,9 +148,9 @@
     "worlds_slimmest": {
       "type": "worlds-slimmest",
       "custom_css": [
-        ".worlds-slimmest__feature{position:relative;overflow:hidden}",
-        ".worlds-slimmest__feature-gradient{display:block!important;position:absolute;inset:0;z-index:2;opacity:1;background:linear-gradient(to bottom,rgba(0,0,0,0)60%,rgba(0,0,0,.75)100%);pointer-events:none}",
-        ".worlds-slimmest__feature-title,.worlds-slimmest__feature-desc{position:relative;z-index:3}"
+        ".worlds-slimmest__feature {position: relative; overflow: hidden;}",
+        ".worlds-slimmest__feature-gradient {display: block !important; position: absolute; inset: 0; z-index: 2; opacity: 1; background: linear-gradient( to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.75) 100% ); pointer-events: none;}",
+        ".worlds-slimmest__feature-title,.worlds-slimmest__feature-desc {position: relative; z-index: 3;}"
       ],
       "settings": {
         "heading": "Entwickelt, um zu verschwinden.",
