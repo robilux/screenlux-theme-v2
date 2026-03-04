@@ -149,7 +149,7 @@
       "type": "worlds-slimmest",
       "custom_css": [
         ".worlds-slimmest__feature{position:relative;overflow:hidden}",
-        ".worlds-slimmest__feature-gradient{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,0)60%,rgba(0,0,0,.7)100%)}",
+        ".worlds-slimmest__feature-gradient{display:block!important;position:absolute;inset:0;z-index:2;opacity:1;background:linear-gradient(to bottom,rgba(0,0,0,0)60%,rgba(0,0,0,.75)100%);pointer-events:none}",
         ".worlds-slimmest__feature-title,.worlds-slimmest__feature-desc{position:relative;z-index:3}"
       ],
       "settings": {
