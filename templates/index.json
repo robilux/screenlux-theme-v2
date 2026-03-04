@@ -148,8 +148,8 @@
     "worlds_slimmest": {
       "type": "worlds-slimmest",
       "settings": {
-        "heading": "Die flachste Kassette der Welt. Unsichtbares Design.",
-        "subheading": "Mit nur 85 mm integriert sich unser System nahtlos in deine Fassade. Unser ClickFit™-System garantiert ein makelloses Finish. Ohne sichtbare Schrauben.",
+        "heading": "Entwickelt, um zu verschwinden.",
+        "subheading": "Noch reduzierter. Noch unauffälliger. Für mehr Licht und freie Sicht.",
         "hero_image": "shopify://shop_images/img-screenlux_zip-screen-designed-to-dossappear-2.jpg",
         "badge_1": "shopify://shop_images/img-gda26-winner-screenlux-text-white.png",
         "badge_2": "shopify://shop_images/img-logobar-dmp.png",
@@ -363,8 +363,8 @@
         "right_del_4"
       ],
       "settings": {
-        "heading": "Zahl für das Produkt. Nicht für den Mittelsmann.",
-        "subheading": "Die Branche versteckt Kosten hinter Provisionen und komplexen Lieferketten. Wir liefern dir High-End Qualität zum sofort sichtbaren Preis. Keine versteckten Aufschläge.",
+        "heading": "Direkt vom Hersteller.",
+        "subheading": "Hochwertige Screenrollos zum fairen Preis. Ohne versteckte Aufschläge.",
         "receipt_left_title": "Branchenstandard",
         "left_group1_title": "Zwischenhändler",
         "left_group2_title": "Produktionskosten",
