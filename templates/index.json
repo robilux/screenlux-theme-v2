@@ -147,6 +147,11 @@
     },
     "worlds_slimmest": {
       "type": "worlds-slimmest",
+      "custom_css": [
+        ".worlds-slimmest__feature{position:relative;overflow:hidden}",
+        ".worlds-slimmest__feature-gradient{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,0)60%,rgba(0,0,0,.7)100%)}",
+        ".worlds-slimmest__feature-title,.worlds-slimmest__feature-desc{position:relative;z-index:3}"
+      ],
       "settings": {
         "heading": "Entwickelt, um zu verschwinden.",
         "subheading": "Noch reduzierter. Noch unauffälliger. Für mehr Licht und freie Sicht.",
@@ -364,7 +369,7 @@
       ],
       "settings": {
         "heading": "Direkt vom Hersteller.",
-        "subheading": "Hochwertige Screenrollos zum fairen Preis. Ohne versteckte Aufschläge.",
+        "subheading": "Wir verzichten bewusst auf Zwischenhändler. Dadurch bekommst du hochwertige Screenrollos zu einem deutlich besseren Preis.",
         "receipt_left_title": "Branchenstandard",
         "left_group1_title": "Zwischenhändler",
         "left_group2_title": "Produktionskosten",
