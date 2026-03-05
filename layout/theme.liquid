@@ -377,16 +377,5 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    <script>
-document.addEventListener("klaviyoForms", function(e) {
-  if (e?.detail?.type !== "submit") return;
-
-  setTimeout(function () {
-    const formHost = document.querySelector(".klaviyo-form-WzJT8S");
-    const box = formHost && formHost.closest(".configurator-group-box");
-    if (box) box.style.display = "none";
-  }, 300);
-});
-</script>
   </body>
 </html>
