@@ -22,14 +22,14 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "Die nächste Generation unserer Screen-Technologie. Jetzt zum Einführungspreis sichern.",
+            "text": "Die nächste Generation unserer Screen-Technologie. Jetzt mit Einführungspreis 30 % sichern.",
             "text_style": "body"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Einführungspreis sichern",
+            "button_label_1": "Jetzt anmelden",
             "button_link_1": "#",
             "button_style_secondary_1": true,
             "is_klaviyo": true,
