@@ -99,7 +99,7 @@
           "settings": {
             "image": "shopify://shop_images/img-situation-livingroom.png",
             "title": "Wohnzimmer",
-            "description": "Film schauen ohne Spiegelungen. Der <b>3 % transparente </b>Screen sorgt für klare Sicht, ohne das offene Raumgefühl zu verlieren."
+            "description": "Film schauen ohne Spiegelungen. Der <b>3 % transparente </b>Screen schützt vor starker Sonneneinstrahlung, ohne das offene Raumgefühl zu verlieren."
           }
         },
         "card_WqEfg9": {
@@ -117,7 +117,7 @@
           "settings": {
             "image": "shopify://shop_images/img-situation-kitchen.png",
             "title": "Küche",
-            "description": "<b>Hell & Kühl.</b> So bleibt dein Arbeitsbereich strahlend. Ein <b>5 % Öffnungsfaktor</b> filtert sanft das Tageslicht und blockt gleichzeitig harte Mittagssonne."
+            "description": "<b>Hell & kühl. </b> Der <b>5 % Öffnungsfaktor </b> lässt angenehmes Tageslicht hinein und hält harte Mittagssonne draußen."
           }
         },
         "card_QF9U7k": {
@@ -126,7 +126,7 @@
           "settings": {
             "image": "shopify://shop_images/img-situations-bathroom.png",
             "title": "Badezimmer",
-            "description": "<b>Maximale Privatsphäre.</b> Keine Kompromisse. Absolute Blickdichte – selbst bei Festbeleuchtung im Inneren."
+            "description": "<b>Maximale Privatsphäre.</b> Unser <b>1 % Gewebe </b> bietet starken Sichtschutz und lässt gleichzeitig sanft gefiltertes Tageslicht in den Raum."
           }
         }
       },
@@ -138,7 +138,7 @@
       ],
       "name": "Cards Section",
       "settings": {
-        "heading": "Meistere das Licht. In jedem Raum.",
+        "heading": "Das richtige Licht. Für jeden Raum.",
         "subheading": "Jeder Raum stellt andere Anforderungen. Wähle die ideale Transparenz für die perfekte Balance aus Privatsphäre und der Verbindung nach draußen.",
         "bg_color": "#ffffff",
         "heading_color": "#000000",
@@ -161,7 +161,7 @@
         "badge_3": "shopify://shop_images/img-logobar-ida.png",
         "feature_1_image": "shopify://shop_images/img-screenlux-85mm-profile_fc417529-c86d-48ff-a870-f90488fc850a.png",
         "feature_1_title": "Maximales Licht",
-        "feature_1_desc": "Ultra-flaches 85 mm Profil.",
+        "feature_1_desc": "Ultra-dünnes 85 mm Profil.",
         "feature_2_image": "shopify://shop_images/img-screenlux-no-visible-screws.jpg",
         "feature_2_title": "Makelloses Finish",
         "feature_2_desc": "Keine sichtbaren Schrauben dank Screenlux ClickFit™.",
@@ -397,7 +397,7 @@
     "flawless_finish_video": {
       "type": "text-and-video-flawless-finish",
       "settings": {
-        "heading": "Makelloses Finish. Keine sichtbaren Schrauben.",
+        "heading": "Solarbetriebener Motor. Leise, effizient und ganz ohne Stromanschluss.",
         "description": "",
         "video": "shopify://files/videos/video-text-and-video-flawless-finish.mp4",
         "button_label": "Konfigurieren",
