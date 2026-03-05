@@ -418,7 +418,7 @@
           "settings": {
             "image": "shopify://shop_images/img-card-section-01.png",
             "title": "Hocheffizient bei extrem wenig Licht.",
-            "description": "High-End IBC-Solarpaneele sammeln sogar an stark bewölkten Tagen Energie."
+            "description": "High-End-IBC-Solarpaneele gewinnen Energie selbst an stark bewölkten Tagen."
           }
         },
         "card_XjWrHM": {
@@ -426,7 +426,7 @@
           "settings": {
             "image": "shopify://shop_images/img-card-section-02.png",
             "title": "Massiver 5200 mAh Akku.",
-            "description": "Eine einzige Ladung reicht aus, um deine Screens 30 Tage in absoluter Dunkelheit zu betreiben."
+            "description": "Eine Akkuladung reicht für bis zu 30 Tage Betrieb."
           }
         },
         "card_CNwPce": {
@@ -434,15 +434,15 @@
           "settings": {
             "image": "shopify://shop_images/img-card-section-03.png",
             "title": "Notfall-Ladeanschluss.",
-            "description": "Solltest du jemals wenig Akku haben, kannst du das System in wenigen Minuten manuell aufladen."
+            "description": "Falls nötig, lässt sich das System in wenigen Minuten manuell nachladen."
           }
         },
         "card_PwDajx": {
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/img-card-section-04.png",
-            "title": "Kabelgebundene Versionen.",
-            "description": "Viel Schatten? Kein Problem. Entscheide dich für unsere festverdrahtete Version für permanente Stromzufuhr."
+            "title": "Optional auch kabelgebunden",
+            "description": "Keine Sonne? Kein Problem. Entscheide dich für die festverdrahtete Version."
           }
         }
       },
@@ -454,8 +454,8 @@
       ],
       "name": "Cards Section",
       "settings": {
-        "heading": "Gemacht für die härtesten Winter.",
-        "subheading": "Wo andere Systeme aufgeben, dreht Screenlux Zip 2 auf. High-End IBC-Solartechnologie und ein massiver Akku sorgen selbst im grauesten Dezember für 100 % Zuverlässigkeit.",
+        "heading": "Zuverlässig. Auch im Winter.",
+        "subheading": "Ein effizienter Motor, leistungsstarke IBC-Solarzellen und ein langanhaltender Akku sorgen dafür, dass der Screen auch an bewölkten Wintertagen zuverlässig funktioniert.",
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
         "subheading_color": "#525252"
@@ -464,8 +464,8 @@
     "text_and_video_flawless_finish_G8EPjE": {
       "type": "text-and-video-flawless-finish",
       "settings": {
-        "heading": "SmartHome, das mit dem funktioniert, was du schon hast.",
-        "description": "",
+        "heading": "Smart Home. Ohne Umdenken.",
+        "description": "<p>Funktioniert mit Apple Home, Amazon Alexa und Google Home.</p>",
         "video": "shopify://files/videos/video-smart-home.mp4",
         "button_label": "Konfigurieren",
         "button_link": "",
@@ -484,7 +484,7 @@
           "type": "installation_card",
           "settings": {
             "card_title": "Einfache Selbstmontage",
-            "card_description": "Ideal für eingeschossige Häuser und leicht erreichbare Fenster.",
+            "card_description": "Ideal bei leicht erreichbaren Fenster",
             "check_1": "Spare ca. 200 € pro Fenster.",
             "check_2": "90 % Vormontiert. Schienen anbringen und Screen einklicken.",
             "check_3": "Schritt-für-Schritt Video-Tutorials.",
@@ -534,8 +534,8 @@
             "date": "11 Feb. 2026",
             "avatar_color": "#ddf9e3",
             "stars": 5,
-            "review_title": "Hält auch im grauen Winter.",
-            "review_body": "Ich war skeptisch wegen der Solarfunktion im Norden, aber die 30 Tage Laufzeit ohne Sonne sind kein Marketing-Gag. Selbst im tiefsten Grau laufen die Screens einwandfrei. Es hält auch im grauen Winter absolut, was es verspricht."
+            "review_title": "War wegen Solar skeptisch",
+            "review_body": "Wohne im Norden und hatte ehrlich gesagt Zweifel, ob das im Winter überhaupt funktioniert. Aber bisher läuft alles wie gehabt. Danke für die gute Beratung :)"
           }
         },
         "review_card_ERfWpL": {
@@ -548,7 +548,7 @@
             "avatar_color": "#ddf4f9",
             "stars": 5,
             "review_title": "Ästhetik pur.",
-            "review_body": "Die 85mm Kassette ist wahnsinnig schlank. Dass Technik, die einen Monat ohne Licht auskommt, in so ein flaches Design passt, hat mich echt beeindruckt. Für mich ist das Ästhetik pur kombiniert mit High-Tech."
+            "review_body": "Hatte Sorgen das es klobig wird. Jetzt wo ich sehe wie dünn es ist, bin ich erstaunt, wie die Technik da reinpasst. Sehr coole Technik!"
           }
         },
         "review_card_zjhqNc": {
@@ -560,8 +560,8 @@
             "date": "21 Feb. 2026",
             "avatar_color": "#ddf4f9",
             "stars": 5,
-            "review_title": "Einfache Montage, starke Leistung.",
-            "review_body": "Selbst montiert und direkt begeistert. Das ist einfache Montage und starke Leistung in einem: Die Akku-Leistung für einen ganzen Monat Dunkelheit gibt einem ein extrem sicheres Gefühl. Top System!"
+            "review_title": "Einfach genial.",
+            "review_body": "Die Montage ging wirklich super. Hatte ich mir komplizierter vorgestellt.\nSieht super integriert aus.\nSuper Konzept!"
           }
         },
         "review_card_d7arg9": {
@@ -573,8 +573,8 @@
             "date": "26 Feb. 2026",
             "avatar_color": "#f9dde1",
             "stars": 5,
-            "review_title": "Profis am Werk.",
-            "review_body": "Montageservice genutzt und alles perfekt. Da waren echte Profis am Werk. Die Screens laufen seit Wochen ohne einen einzigen Sonnenstrahl – genau wie versprochen."
+            "review_title": "Danke an das PLX-Team!",
+            "review_body": "Habe eine perfekte Erfahrung mit dem Montageservice erleben dürfen! Frue mich das echte Profis eingesetzt werden. Super professionell gemacht und schnell!"
           }
         },
         "review_card_fBJAA9": {
@@ -585,8 +585,8 @@
             "date": "27 Feb. 2026",
             "avatar_color": "#ddf9e3",
             "stars": 5,
-            "review_title": "Zuverlässig und robust.",
-            "review_body": "Zuverlässig und robust: Nach diesem Winter im Schwarzwald kann ich das bestätigen. Der 5200 mAh Akku ist ein echtes Kraftpaket."
+            "review_title": "Macht nen robusten Eindruck",
+            "review_body": "Hat den Winter im Schwarzwald gut ausgehalten. Muss ein effizientes Teil sein, wenn es mit so wenig Sonne auskommt"
           }
         }
       },
@@ -615,7 +615,7 @@
           "type": "question",
           "settings": {
             "question": "Wie lange hält der Akku ohne Sonnenlicht?",
-            "answer": "<p>Der Screenlux Zip 2 verfügt über einen massiven 5200 mAh Akku, der bis zu 30 Tage Betrieb in absoluter Dunkelheit ermöglicht. Selbst in den grauesten Wintermonaten erntet die IBC-Solartechnik weiterhin Energie.</p>"
+            "answer": "<p>Der Screenlux Zip 2 verfügt über einen massiven 5200 mAh Akku, der bis zu 30 Tage Betrieb in absoluter Dunkelheit ermöglicht. Selbst in den grauesten Wintermonaten gewinnt die IBC-Solartechnik weiterhin Energie.</p>"
           }
         },
         "question_qWpMiK": {
