@@ -99,7 +99,7 @@
           "settings": {
             "image": "shopify://shop_images/img-situation-livingroom.png",
             "title": "Wohnzimmer",
-            "description": "Film schauen ohne Spiegelungen. Der <b>3 % transparente </b>Screen schützt vor starker Sonneneinstrahlung, ohne das offene Raumgefühl zu verlieren."
+            "description": "<b> Natürliches Licht. Weniger Blendung. </b>\nDer <b>5 % Screen</b> reduziert starke Sonneneinstrahlung und hält den Raum angenehm hell."
           }
         },
         "card_WqEfg9": {
@@ -108,7 +108,7 @@
           "settings": {
             "image": "shopify://shop_images/img-situation-bedroom.jpg",
             "title": "Schlafzimmer",
-            "description": "<b>Mach den Tag zur Nacht.</b> Hol dir erholsamen Schlaf mit unserem <b>Blackout-Stoff</b>."
+            "description": "<b>Mach den Tag zur Nacht.</b> Hol dir erholsamen Schlaf mit unserem <b>Blackout-Screen</b>."
           }
         },
         "card_E9VPr9": {
@@ -126,7 +126,7 @@
           "settings": {
             "image": "shopify://shop_images/img-situations-bathroom.png",
             "title": "Badezimmer",
-            "description": "<b>Maximale Privatsphäre.</b> Unser <b>1 % Gewebe </b> bietet starken Sichtschutz und lässt gleichzeitig sanft gefiltertes Tageslicht in den Raum."
+            "description": "<b>Maximale Privatsphäre.</b> Der Blackout-Screen verhindert zuverlässig Einblicke – auch bei Licht im Raum."
           }
         }
       },
@@ -138,8 +138,8 @@
       ],
       "name": "Cards Section",
       "settings": {
-        "heading": "Für jeden Raum die passende Lösung",
-        "subheading": "Jeder Raum stellt andere Anforderungen. Wähle die ideale Transparenz für die perfekte Balance aus Privatsphäre und Verbindung nach draußen.",
+        "heading": "Das richtige Licht für jeden Raum.",
+        "subheading": "Wähle zwischen unserem 5 % Screen für helles, blendfreies Tageslicht und unserem Blackout-Screen für vollständige Verdunkelung.",
         "bg_color": "#ffffff",
         "heading_color": "#000000",
         "subheading_color": "#525252"
