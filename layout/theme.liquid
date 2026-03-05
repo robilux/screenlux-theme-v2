@@ -376,5 +376,16 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script>
+document.addEventListener("klaviyoForms", function(e) {
+  if (e.detail.type === "submit") {
+    setTimeout(function() {
+      const box = document.querySelector(".configurator-group-box");
+      if (box) box.style.display = "none";
+    }, 300);
+  }
+});
+</script>
   </body>
 </html>
