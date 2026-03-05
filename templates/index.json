@@ -622,21 +622,28 @@
           "type": "question",
           "settings": {
             "question": "Kann ich die Screens selbst montieren?",
-            "answer": "<p>Ja! Unsere Screens werden zu 90 % vormontiert geliefert. Einfach die Schienen montieren und den Screen einklicken. Wir bieten ein Schritt-für-Schritt-Video-Tutorial an. Und unsere Aufmaß-Garantie sorgt für die perfekte Passform.</p>"
+            "answer": "<p>Ja! Unsere Screens werden zu 90 % vormontiert geliefert. Du montierst nur die Führungsschienen und klickst den Screen ein. </p>"
           }
         },
         "question_qUWi8C": {
           "type": "question",
           "settings": {
             "question": "Welche Smart Home Systeme werden unterstützt?",
-            "answer": "<p>Screenlux verbindet sich lokal direkt mit Apple Home und Google Home — kein teurer Hub und kein Cloud-Konto erforderlich. Es funktioniert einfach mit dem, was du bereits hast.</p>"
+            "answer": "<p>Screenlux ist Matter-kompatibel und funktioniert mit Apple Home, Google Home, Amazon Alexa und Samsung SmartThings. Wenn du bereits einen passenden Hub hast, kannst du den Screen direkt verbinden. Keine Cloud, keine komplizierte Einrichtung.</p>"
           }
         },
         "question_mMrhR7": {
           "type": "question",
           "settings": {
-            "question": "Wie flach ist das Kassettendesign?",
-            "answer": "<p>Mit nur 85 mm ist die Screenlux Kassette die flachste der Welt. Mit unserem patentierten ClickFit™ System integriert sie sich nahtlos in deine Fassade. Für ein makelloses, schraubenloses Finish.</p>"
+            "question": "Welche Montageart sollte ich wählen?",
+            "answer": "<p>In den meisten Fällen empfehlen wir die <strong>Montage in der Laibung</strong>. Dabei werden Kassette und Führungsschienen direkt innerhalb der Fensteröffnung montiert. Das wirkt am<strong> saubersten integriert</strong> und ist meist auch die günstigere Lösung, da der Screen etwas kleiner ausfällt.<br/><br/>Wenn die Laibung sehr flach ist oder sich Bauteile im Weg befinden, kann der Screen stattdessen außen auf dem Mauerwerk montiert werden. Dabei sitzt die Kassette über dem Fenster und die Führungsschienen links und rechts daneben.</p>"
+          }
+        },
+        "question_aKKMFe": {
+          "type": "question",
+          "settings": {
+            "question": "Wie messe ich richtig aus?",
+            "answer": "<p><strong>Breite messen</strong><br/>Miss oben, in der Mitte und unten. Verwende die kleinste gemessene Breite.<br/><br/><strong>Höhe messen</strong><br/>Miss links, in der Mitte und rechts. Verwende die kleinste gemessene Höhe.<br/><br/><strong>Bei Laibungsmontage</strong><br/>Bestellbreite = kleinste Breite − 5 mm<br/>Bestellhöhe = kleinste Höhe − 5 mm<br/><br/><strong>Bei Mauerwerksmontage</strong><br/>Bestellbreite = kleinste Breite + 64 mm (Führungsschienen)<br/>Bestellhöhe = kleinste Höhe + 105 mm (Kassette + Abdeckleiste)<br/><br/>So stellst du sicher, dass der Screen auch bei leicht ungeraden Wänden problemlos montiert werden kann.</p>"
           }
         }
       },
@@ -644,7 +651,8 @@
         "question_KPYegH",
         "question_qWpMiK",
         "question_qUWi8C",
-        "question_mMrhR7"
+        "question_mMrhR7",
+        "question_aKKMFe"
       ],
       "name": "FAQ",
       "settings": {
