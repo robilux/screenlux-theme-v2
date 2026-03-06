@@ -643,7 +643,7 @@
           "type": "question",
           "settings": {
             "question": "Wie messe ich richtig aus?",
-            "answer": "<p>Du solltest immer außen, wo auch der Screen dann montiert wird messen.<strong><br/><br/>Laibungsbreite messen</strong><br/>Miss oben, in der Mitte und unten. Verwende die kleinste gemessene Breite.<br/><br/><strong>Laiungshöhe messen</strong><br/>Miss links, in der Mitte und rechts. Verwende die kleinste gemessene Höhe.<br/><br/><strong>Bei Laibungsmontage</strong><br/>Bestellbreite = kleinste Breite − 5 mm<br/>Bestellhöhe = kleinste Höhe − 5 mm<br/><br/><strong>Bei Mauerwerksmontage</strong><br/>Bestellbreite = kleinste Breite + 64 mm (Führungsschienen)<br/>Bestellhöhe = kleinste Höhe + 105 mm (Kassette + Abdeckleiste)<br/><br/>So stellst du sicher, dass der Screen auch bei leicht ungeraden Wänden problemlos montiert werden kann.</p>"
+            "answer": "<p>Das Ausmessen ist einfacher, als viele denken. Ein Maßband reicht völlig.<br/><br/><strong>1. Breite messen</strong><br/>Miss die Breite oben, in der Mitte und unten.<br/>Verwende immer die kleinste gemessene Breite.<br/><br/><strong>2. Höhe messen</strong><br/>Miss die Höhe links, in der Mitte und rechts.<br/>Verwende immer die kleinste gemessene Höhe.<br/><br/>So stellst du sicher, dass der Screen auch bei leicht ungeraden Wänden problemlos passt.<br/><br/>Laibungsmontage (in der Fensterlaibung)<br/>Bestellbreite = kleinste Breite − 5 mm<br/>Bestellhöhe = kleinste Höhe − 5 mm<br/><br/>Montage auf dem Mauerwerk (außen vor der Laibung)<br/>Bestellbreite = kleinste Breite + 64 mm<br/>Bestellhöhe = kleinste Höhe + 105 mm<br/><br/>Wenn du dir unsicher bist, kontaktiere uns gerne.</p>"
           }
         }
       },
