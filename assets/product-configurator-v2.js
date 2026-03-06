@@ -325,43 +325,24 @@ class ProductConfigurator extends HTMLElement {
     }
   }
 
-   getKlaviyoWrapperElements() {
-  const formRoot = document.querySelector('.klaviyo-form-WzJT8S');
-  const wrapper = formRoot ? formRoot.closest('.configurator-group-box') : null;
+  getKlaviyoWrapperElements() {
+    const formRoot = document.querySelector('.klaviyo-form-WzJT8S');
+    const wrapper = formRoot ? formRoot.closest('.configurator-group-box') : null;
 
-  return { wrapper, formRoot };
-}
+    return { wrapper, formRoot };
+  }
 
-  setupKlaviyoWrapperVisibility() {
+    setupKlaviyoWrapperVisibility() {
     const { wrapper, formRoot } = this.getKlaviyoWrapperElements();
 
     if (!wrapper || !formRoot) return;
 
-    const isVisible = (el) => {
-      if (!el) return false;
-      const style = window.getComputedStyle(el);
-      return (
-        style.display !== 'none' &&
-        style.visibility !== 'hidden' &&
-        style.opacity !== '0' &&
-        el.offsetWidth > 0 &&
-        el.offsetHeight > 0
-      );
-    };
-
-    const hasVisibleKlaviyoContent = () => {
-      const visibleForm = formRoot.querySelector('form') && isVisible(formRoot.querySelector('form'));
-      const visibleSuccessMessage =
-        formRoot.querySelector('[class*="success"], [data-testid*="success"], .klaviyo-success') &&
-        isVisible(formRoot.querySelector('[class*="success"], [data-testid*="success"], .klaviyo-success'));
-
-      const visibleChildren = Array.from(formRoot.querySelectorAll('*')).some(isVisible);
-
-      return Boolean(visibleForm || visibleSuccessMessage || visibleChildren);
+    const hasMeaningfulContent = () => {
+      return formRoot.innerHTML.trim() !== '';
     };
 
     const updateVisibility = () => {
-      wrapper.style.display = hasVisibleKlaviyoContent() ? '' : 'none';
+      wrapper.style.display = hasMeaningfulContent() ? '' : 'none';
     };
 
     updateVisibility();
@@ -373,13 +354,12 @@ class ProductConfigurator extends HTMLElement {
     observer.observe(formRoot, {
       childList: true,
       subtree: true,
-      attributes: true,
-      attributeFilter: ['style', 'class', 'hidden'],
     });
 
     window.addEventListener('pageshow', updateVisibility);
     setTimeout(updateVisibility, 300);
     setTimeout(updateVisibility, 1000);
+    setTimeout(updateVisibility, 2000);
   }
 
   connectedCallback() {
