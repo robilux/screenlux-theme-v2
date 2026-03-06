@@ -1,10 +1,12 @@
-<div class="header-usp-bar">
-  <div class="page-width header-usp-bar__inner">
-    <div class="header-usp-bar__left">
-      {{ section.settings.usp_text }}
+<div class="sl-header-bar">
+  <div class="page-width sl-header-bar__inner">
+    <div class="sl-header-bar__left">
+      <span class="sl-header-bar__usp">{{ section.settings.usp_text }}</span>
     </div>
-    <div class="header-usp-bar__right">
-      <a href="tel:{{ section.settings.phone_number | replace: ' ', '' }}">
+
+    <div class="sl-header-bar__right">
+      <span class="sl-header-bar__status">Wir sind erreichbar</span>
+      <a class="sl-header-bar__phone" href="tel:{{ section.settings.phone_number | replace: ' ', '' }}">
         {{ section.settings.phone_label }}
       </a>
     </div>
@@ -12,47 +14,98 @@
 </div>
 
 <style>
-  .header-usp-bar {
-    background: #111111;
+  .sl-header-bar {
+    background: #1a1a1a;
     color: #ffffff;
-    font-size: 1.3rem;
-    line-height: 1.2;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .header-usp-bar__inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
+  .sl-header-bar__inner {
     min-height: 3.6rem;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
   }
 
-  .header-usp-bar__left,
-  .header-usp-bar__right a {
+  .sl-header-bar__left,
+  .sl-header-bar__right {
+    display: flex;
+    align-items: center;
+  }
+
+  .sl-header-bar__left {
+    min-width: 0;
+  }
+
+  .sl-header-bar__usp {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.88);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sl-header-bar__right {
+    gap: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .sl-header-bar__status {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+  }
+
+  .sl-header-bar__phone {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    font-weight: 600;
     color: #ffffff;
     text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
   }
 
-  .header-usp-bar__right a:hover {
-    opacity: 0.8;
+  .sl-header-bar__phone:hover {
+    opacity: 0.78;
+  }
+
+  @media screen and (max-width: 989px) {
+    .sl-header-bar__inner {
+      min-height: 3.4rem;
+      padding-top: 0.6rem;
+      padding-bottom: 0.6rem;
+    }
+
+    .sl-header-bar__status {
+      display: none;
+    }
+
+    .sl-header-bar__usp,
+    .sl-header-bar__phone {
+      font-size: 1.15rem;
+    }
   }
 
   @media screen and (max-width: 749px) {
-    .header-usp-bar__inner {
-      min-height: auto;
-      padding-top: 0.9rem;
-      padding-bottom: 0.9rem;
+    .sl-header-bar__inner {
+      justify-content: center;
+      text-align: center;
     }
 
-    .header-usp-bar__left {
-      font-size: 1.2rem;
+    .sl-header-bar__left {
+      display: none;
     }
 
-    .header-usp-bar__right {
+    .sl-header-bar__phone {
       font-size: 1.2rem;
-      white-space: nowrap;
     }
   }
 </style>
