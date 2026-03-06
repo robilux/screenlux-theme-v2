@@ -58,7 +58,7 @@
 <div class="page-width screenlux-product-container">
   <!-- Left Column: Sticky Media Gallery -->
   <div class="sticky-media-col product__media-wrapper screenlux-gallery">
-    {% render 'product-media-gallery', product: product %}
+    {% render 'product-media-gallery', product: product, is_configurator: true %}
   </div>
 
   <!-- Right Column: Configurator Form -->
@@ -70,13 +70,13 @@
     <div class="de-badge-container">
       <img
         src="{{ 'img-sl-de-badge.png' | asset_url }}"
-        alt="Developed in Germany"
+        alt="{{ 'configurator.misc.developed_in_germany' | t }}"
         class="de-badge-icon"
         width="22"
         height="22"
         loading="lazy"
       >
-      <span class="de-badge-text">Developed in Germany</span>
+      <span class="de-badge-text">{{ 'configurator.misc.developed_in_germany' | t }}</span>
     </div>
 
     {%- comment -%}
@@ -95,14 +95,19 @@
       if (window.ScreenluxData && window.ScreenluxData.screens.length === 0)
         console.warn('ScreenluxData.screens is empty! Check collection "main-product".');
     </script>
+
+<div class="klaviyo-form-WzJT8S"></div>
+
     <product-configurator>
       <div
         id="loading-fallback"
         style="padding: 20px; text-align: center; border: 1px dashed #ccc; background: #fafafa;"
       >
-        <h3>Configuration Loading...</h3>
-        <p>If this does not disappear, no products were found in the "main-product" collection.</p>
-        <p><small>(Check Console for details)</small></p>
+        <h3>{{ 'configurator.misc.loading' | t }}</h3>
+        <p>{{ 'configurator.misc.loading_desc' | t }}</p>
+        <p>
+          <small>{{ 'configurator.misc.loading_desc_sub' | t }}</small>
+        </p>
       </div>
       <!--
         The content here is rendered by JS.
