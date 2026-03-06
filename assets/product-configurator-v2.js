@@ -325,6 +325,63 @@ class ProductConfigurator extends HTMLElement {
     }
   }
 
+   getKlaviyoWrapperElements() {
+  const formRoot = document.querySelector('.klaviyo-form-WzJT8S');
+  const wrapper = formRoot ? formRoot.closest('.configurator-group-box') : null;
+
+  return { wrapper, formRoot };
+}
+
+  setupKlaviyoWrapperVisibility() {
+    const { wrapper, formRoot } = this.getKlaviyoWrapperElements();
+
+    if (!wrapper || !formRoot) return;
+
+    const isVisible = (el) => {
+      if (!el) return false;
+      const style = window.getComputedStyle(el);
+      return (
+        style.display !== 'none' &&
+        style.visibility !== 'hidden' &&
+        style.opacity !== '0' &&
+        el.offsetWidth > 0 &&
+        el.offsetHeight > 0
+      );
+    };
+
+    const hasVisibleKlaviyoContent = () => {
+      const visibleForm = formRoot.querySelector('form') && isVisible(formRoot.querySelector('form'));
+      const visibleSuccessMessage =
+        formRoot.querySelector('[class*="success"], [data-testid*="success"], .klaviyo-success') &&
+        isVisible(formRoot.querySelector('[class*="success"], [data-testid*="success"], .klaviyo-success'));
+
+      const visibleChildren = Array.from(formRoot.querySelectorAll('*')).some(isVisible);
+
+      return Boolean(visibleForm || visibleSuccessMessage || visibleChildren);
+    };
+
+    const updateVisibility = () => {
+      wrapper.style.display = hasVisibleKlaviyoContent() ? '' : 'none';
+    };
+
+    updateVisibility();
+
+    const observer = new MutationObserver(() => {
+      updateVisibility();
+    });
+
+    observer.observe(formRoot, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style', 'class', 'hidden'],
+    });
+
+    window.addEventListener('pageshow', updateVisibility);
+    setTimeout(updateVisibility, 300);
+    setTimeout(updateVisibility, 1000);
+  }
+
   connectedCallback() {
     this.init();
   }
@@ -369,6 +426,10 @@ class ProductConfigurator extends HTMLElement {
 
       // 6. Setup mobile sticky gallery behavior
       this.setupMobileStickyGallery();
+
+      // 7. Hide empty Klaviyo wrapper when embed has no visible content
+      this.setupKlaviyoWrapperVisibility();
+
     } catch (err) {
       console.error('Configurator Init Error:', err);
       this.innerHTML = `
