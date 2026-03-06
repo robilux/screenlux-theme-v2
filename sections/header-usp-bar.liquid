@@ -1,0 +1,94 @@
+<div class="header-usp-bar">
+  <div class="page-width header-usp-bar__inner">
+    <div class="header-usp-bar__left">
+      {{ section.settings.usp_text }}
+    </div>
+    <div class="header-usp-bar__right">
+      <a href="tel:{{ section.settings.phone_number | replace: ' ', '' }}">
+        {{ section.settings.phone_label }}
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .header-usp-bar {
+    background: #111111;
+    color: #ffffff;
+    font-size: 1.3rem;
+    line-height: 1.2;
+  }
+
+  .header-usp-bar__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    min-height: 3.6rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .header-usp-bar__left,
+  .header-usp-bar__right a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .header-usp-bar__right a:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-usp-bar__inner {
+      min-height: auto;
+      padding-top: 0.9rem;
+      padding-bottom: 0.9rem;
+    }
+
+    .header-usp-bar__left {
+      font-size: 1.2rem;
+    }
+
+    .header-usp-bar__right {
+      font-size: 1.2rem;
+      white-space: nowrap;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Header USP Bar",
+  "tag": "section",
+  "class": "section-header-usp-bar",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "usp_text",
+      "label": "USP text",
+      "default": "Direkt vom Hersteller"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Telefon Text",
+      "default": "+49 661 4108750"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Telefonnummer für Link",
+      "default": "+496614108750"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header USP Bar"
+    }
+  ]
+}
+{% endschema %}

@@ -11,6 +11,10 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
+    "header_usp_bar": {
+      "type": "header-usp-bar",
+      "settings": {}
+    },
     "header": {
       "type": "header",
       "settings": {
@@ -45,6 +49,7 @@
     }
   },
   "order": [
+    "header_usp_bar",
     "header",
     "slim_countdown_UwipiV"
   ]
