@@ -720,14 +720,20 @@ class ProductConfigurator extends HTMLElement {
     const compareAtPrice = variant ? variant.compare_at_price : price;
 
     console.log('SCREEN DEBUG', {
-    screen,
-    config: this.data.config,
-    rawCost,
-    matchedVariant: variant,
-    finalDisplayedPrice: price,
-    compareAtPrice
-  });
-  
+      width: screen.width,
+      height: screen.height,
+      cassetteSize: screen.cassetteSize,
+      motor: screen.motor,
+      frameColor: screen.frameColor,
+      fabricColor: screen.fabricColor,
+      fabricType: screen.fabricType,
+      rawCost,
+      matchedVariantId: variant?.id,
+      matchedVariantTitle: variant?.title,
+      matchedVariantPrice: variant?.price,
+      finalDisplayedPrice: price
+    });
+
     const frameOptions = this.data.frameColors || [];
     const fabricColors = this.data.fabricColors || [];
     const fabricTypes = this.data.fabrics || [];
