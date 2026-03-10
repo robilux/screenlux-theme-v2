@@ -719,6 +719,15 @@ class ProductConfigurator extends HTMLElement {
     const price = variant ? variant.price : rawCost;
     const compareAtPrice = variant ? variant.compare_at_price : price;
 
+    console.log('SCREEN DEBUG', {
+    screen,
+    config: this.data.config,
+    rawCost,
+    matchedVariant: variant,
+    finalDisplayedPrice: price,
+    compareAtPrice
+  });
+  
     const frameOptions = this.data.frameColors || [];
     const fabricColors = this.data.fabricColors || [];
     const fabricTypes = this.data.fabrics || [];
