@@ -714,6 +714,15 @@ class ProductConfigurator extends HTMLElement {
   renderScreenItem(screen, index) {
     const wrapper = document.createElement('details-accordion');
     const rawCost = window.ScreenluxEngine.calculateScreenPrice(screen, this.data.config);
+
+    console.log('SCREEN DEBUG', {
+  screen,
+  config: this.data.config,
+  rawCost,
+  matchedVariant: variant,
+  finalDisplayedPrice: variant ? variant.price : rawCost
+});
+
     const variant = window.ScreenluxEngine.matchVariant(rawCost, this.data.screens);
     const price = variant ? variant.price : rawCost;
     const compareAtPrice = variant ? variant.compare_at_price : price;
