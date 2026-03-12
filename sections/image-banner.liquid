@@ -55,19 +55,22 @@
   id="Banner-{{ section.id }}"
   class="banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
-  {%- if section.settings.video != blank -%}
-    <div class="banner__media media{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {{
-        section.settings.video
-        | video_tag:
-          image_size: '1100x',
-          loop: true,
-          controls: false,
-          muted: true,
-          autoplay: true,
-          class: 'banner__media-image'
-      }}
-    </div>
+ {%- if section.settings.video != blank -%}
+  {%- assign mp4_source = section.settings.video.sources | where: 'format', 'mp4' | first -%}
+  <div class="banner__media media{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+    <video
+      class="banner__media-image"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="{{ section.settings.video.preview_image | image_url: width: 2000 }}"
+    >
+      <source src="{{ mp4_source.url }}" type="video/mp4">
+    </video>
+  </div>
+  
   {%- elsif section.settings.image != blank -%}
     <div class="banner__media media{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {%- liquid
