@@ -13,7 +13,6 @@
   "sections": {
     "header_usp_bar": {
       "type": "header-usp-bar",
-      "disabled": true,
       "settings": {
         "usp_text": "Direkt vom Hersteller",
         "phone_label": "+49 661 4108750",
