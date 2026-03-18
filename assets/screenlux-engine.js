@@ -139,7 +139,6 @@ window.ScreenluxEngine = {
           'Fabric Transparency': findTitle(data.fabrics, screen.fabricType),
           'Cassette Size': findTitle(data.cassetteSizes, screen.cassetteSize),
           Motor: findTitle(data.motorOptions, screen.motor),
-          'Calculated Price': `€${(rawPrice / 100).toFixed(2)}`,
         },
       });
     });
