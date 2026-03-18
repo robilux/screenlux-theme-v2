@@ -377,5 +377,16 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
+    <script>
+      window.addEventListener("klaviyoForms", function(e) { 
+        if (e.detail.type == 'submit') {
+          if (typeof window.fbq === 'function') {
+            window.fbq('track', 'Lead');
+          } else if (typeof fbq === 'function') {
+            fbq('track', 'Lead');
+          }
+        }
+      });
+    </script>
   </body>
 </html>
