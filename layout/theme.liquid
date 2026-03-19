@@ -300,6 +300,16 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17965928709"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-17965928709');
+    </script>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -384,6 +394,10 @@
             window.fbq('track', 'Lead');
           } else if (typeof fbq === 'function') {
             fbq('track', 'Lead');
+          }
+
+          if (typeof gtag === 'function') {
+            gtag('event', 'conversion', {'send_to': 'AW-17965928709/3o3MCNGkloscEIWi6fZC'});
           }
         }
       });
