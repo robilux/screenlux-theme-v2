@@ -36,7 +36,7 @@
 
     <div class="cart__warnings">
       <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="button">
+      <a href="{{ routes.all_products_collection_url }}" class="button button--primary">
         {{ 'general.continue_shopping' | t }}
       </a>
 
@@ -136,7 +136,13 @@
                         or item.selling_plan_allocation != null
                       -%}
                         <dl>
-                          {%- if item.product.has_only_default_variant == false -%}
+                          {%- assign hide_variant = false -%}
+                          {%- for property in item.properties -%}
+                            {%- if property.first == '_hide_variant' and property.last == 'true' -%}
+                              {%- assign hide_variant = true -%}
+                            {%- endif -%}
+                          {%- endfor -%}
+                          {%- if item.product.has_only_default_variant == false and hide_variant == false -%}
                             {%- for option in item.options_with_values -%}
                               <div class="product-option">
                                 <dt>{{ option.name }}:</dt>
