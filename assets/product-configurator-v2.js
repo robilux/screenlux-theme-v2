@@ -767,21 +767,21 @@ class ProductConfigurator extends HTMLElement {
     if (screen.width || screen.height) {
       summaryItems.push({ text: `${screen.width || 0} × ${screen.height || 0} mm`, class: '' });
     } else {
-      summaryItems.push({ text: 'Dimensions not set', class: 'placeholder' });
+      summaryItems.push({ text: window.ScreenluxTranslations.screenSummary.dimensionsNotSet, class: 'placeholder' });
     }
 
     // 2. Cassette
     if (cassetteLabel) {
       summaryItems.push({ text: cassetteLabel, class: '' });
     } else {
-      summaryItems.push({ text: 'No cassette size selected', class: 'placeholder' });
+      summaryItems.push({ text: window.ScreenluxTranslations.screenSummary.noCassette, class: 'placeholder' });
     }
 
     // 3. Frame
     if (frameLabel) {
       summaryItems.push({ text: frameLabel, class: '' });
     } else {
-      summaryItems.push({ text: 'No frame color selected', class: 'placeholder' });
+      summaryItems.push({ text: window.ScreenluxTranslations.screenSummary.noFrame, class: 'placeholder' });
     }
 
     // 4. Fabric (Color + Type)
@@ -806,8 +806,8 @@ class ProductConfigurator extends HTMLElement {
       <details ${screen.expanded ? 'open' : ''} class="${screen.valid ? '' : 'invalid'}">
         <summary>
           <div class="screen-summary-container">
-             <div class="screen-info">
-                <span class="screen-title">Screen ${index + 1}</span>
+              <div class="screen-info">
+                <span class="screen-title">${window.ScreenluxTranslations.screenSummary.prefix} ${index + 1}</span>
                 <ul class="screen-summary-list">
                    ${summaryItems.map((item) => `<li class="${item.class}">${item.text}</li>`).join('')}
                 </ul>
