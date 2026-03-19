@@ -530,7 +530,7 @@
           "settings": {
             "review_image": "shopify://shop_images/img-review-1.png",
             "initials": "LW",
-            "author_name": "Lukas Weber",
+            "author_name": "Lukas W.",
             "date": "11 Feb. 2026",
             "avatar_color": "#ddf9e3",
             "stars": 5,
@@ -541,9 +541,8 @@
         "review_card_ERfWpL": {
           "type": "review_card",
           "settings": {
-            "review_image": "shopify://shop_images/img-review-3.png",
             "initials": "AS",
-            "author_name": "Anja Schneider",
+            "author_name": "Anja S.",
             "date": "19 Feb. 2026",
             "avatar_color": "#ddf4f9",
             "stars": 5,
@@ -556,7 +555,7 @@
           "settings": {
             "review_image": "shopify://shop_images/img-review-2.png",
             "initials": "MK",
-            "author_name": "Matthias Koch",
+            "author_name": "Matthias K.",
             "date": "21 Feb. 2026",
             "avatar_color": "#ddf4f9",
             "stars": 5,
@@ -569,7 +568,7 @@
           "settings": {
             "review_image": "shopify://shop_images/img-review-4.png",
             "initials": "CS",
-            "author_name": "Christian Schmidt",
+            "author_name": "Christian S.",
             "date": "26 Feb. 2026",
             "avatar_color": "#f9dde1",
             "stars": 5,
@@ -581,7 +580,7 @@
           "type": "review_card",
           "settings": {
             "initials": "EF",
-            "author_name": "Elena Fischer",
+            "author_name": "Elena F.",
             "date": "27 Feb. 2026",
             "avatar_color": "#ddf9e3",
             "stars": 5,
