@@ -45,7 +45,7 @@
     color: #171717;
   }
 </style>
-{% render 'screenlux-data' %}
+{% render 'screenlux-data', delivery_time: section.settings.delivery_time %}
 
 <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'screenlux-engine.js' | asset_url }}" defer="defer"></script>
@@ -123,6 +123,14 @@
   "name": "Product Configurator",
   "tag": "section",
   "class": "section",
-  "settings": []
+  "settings": [
+    {
+      "type": "text",
+      "id": "delivery_time",
+      "label": "Delivery Time Text",
+      "info": "Leave blank to use default translation.",
+      "default": "Lieferung in 5-7 Werktagen"
+    }
+  ]
 }
 {% endschema %}

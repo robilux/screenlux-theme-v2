@@ -42,7 +42,8 @@
       professionalInstallation: {{ 'configurator.order_summary.professional_installation' | t | json }},
       total: {{ 'configurator.order_summary.total' | t | json }},
       freeDelivery: {{ 'configurator.order_summary.free_delivery' | t | json }},
-      arrivesIn: {{ 'configurator.order_summary.arrives_in' | t | json }},
+{%- assign default_delivery_text = 'configurator.order_summary.arrives_in' | t -%}
+      arrivesIn: {{ delivery_time | default: default_delivery_text | json }},
       continueToPayment: {{ 'configurator.order_summary.continue_to_payment' | t | json }},
       pleaseCheckDimensions: {{ 'configurator.order_summary.please_check_dimensions' | t | json }},
       zipScreenDetail: {{ 'configurator.order_summary.zip_screen_detail' | t | json }},
