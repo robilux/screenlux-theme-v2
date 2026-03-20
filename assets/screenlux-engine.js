@@ -61,7 +61,7 @@ window.ScreenluxEngine = {
 
     // 3. Size Cost (Width and Height)
     const widthPrice = 9225; // €92.25 per meter
-    const heightPrice = 3240; // €32.40 per meter
+    const heightPrice = 3600; // €36.00 per meter
     total += Math.round(widthM * widthPrice + heightM * heightPrice);
 
     // 4. Cassette Type Cost
