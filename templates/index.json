@@ -627,8 +627,8 @@
         "question_qUWi8C": {
           "type": "question",
           "settings": {
-            "question": "Welche Smart Home Systeme werden unterstützt?",
-            "answer": "<p>Screenlux ist Matter-kompatibel und funktioniert mit Apple Home, Google Home, Amazon Alexa und Samsung SmartThings. Wenn du bereits einen passenden Hub hast, kannst du den Screen direkt verbinden. Keine Cloud, keine komplizierte Einrichtung.</p>"
+            "question": "Wie funktioniert die Steuerung und Smart Home Integration?",
+            "answer": "<p>Unsere Screens werden über ein eigenes Funksystem gesteuert.<br/>Das sorgt für eine zuverlässige Verbindung – auch durch dicke Wände und unabhängig vom WLAN.<br/><br/>Du kannst sie direkt per Wandschalter oder Fernbedienung bedienen.<br/><br/>Für die Integration ins Smart Home ergänzt du einfach unsere <strong>Matter Bridge</strong>:<br/>QR-Code scannen und alle Screens sind direkt in <strong>Apple Home, Google Home, Alexa oder SmartThings</strong> eingebunden.<br/><br/>Keine Verbindungsprobleme. Keine komplizierte Einrichtung.</p>"
           }
         },
         "question_mMrhR7": {
