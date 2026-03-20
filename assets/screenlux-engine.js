@@ -48,7 +48,7 @@ window.ScreenluxEngine = {
     if (!validation.valid) return 0;
 
     // 1. Base Price
-    let total = 9500; // 95€
+    let total = 37500; // 375€
 
     // Calculate dimensions
     const widthM = config.width / 1000;
@@ -56,21 +56,22 @@ window.ScreenluxEngine = {
     const sqm = widthM * heightM;
 
     // 2. Fabric Cost
-    const fabricPricePerSqm = config.fabricType === 'blackout' ? 1500 : 1150;
+    const fabricPricePerSqm = config.fabricType === 'blackout' ? 7400 : 5600;
     total += Math.round(sqm * fabricPricePerSqm);
 
-    // 3. Cassette Cost
-    let cassetteWidthPrice = 1600; // 16€
-    let cassetteHeightPrice = 700; // 7€
-    if (config.cassetteSize === 'large') {
-      cassetteWidthPrice = 2500; // 25€
-      cassetteHeightPrice = 900; // 9€
-    }
-    total += Math.round(widthM * cassetteWidthPrice + heightM * cassetteHeightPrice);
+    // 3. Size Cost (Width and Height)
+    const widthPrice = 9225; // €92.25 per meter
+    const heightPrice = 3240; // €32.40 per meter
+    total += Math.round(widthM * widthPrice + heightM * heightPrice);
 
-    // 4. Motor Surcharge
+    // 4. Cassette Type Cost
+    if (config.cassetteSize === 'large') {
+      total += 4000; // 40€ add-on
+    }
+
+    // 5. Motor Surcharge
     if (config.motor === 'solar') {
-      total += 3500; // 35€
+      total += 14000; // 140€
     }
 
     return total;

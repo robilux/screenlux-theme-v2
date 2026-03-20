@@ -11,9 +11,7 @@
   "sections": {
     "main": {
       "type": "product-configurator",
-      "settings": {
-        "delivery_time": "Lieferung in 5-7 Wochen"
-      }
+      "settings": {}
     }
   },
   "order": [

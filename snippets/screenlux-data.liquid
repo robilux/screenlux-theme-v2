@@ -32,13 +32,17 @@
       price: {{ 'configurator.installation_professional.price' | t | json }},
       note: {{ 'configurator.installation_professional.note' | t | json }}
     },
-    addonsTitle: {{ 'configurator.addons_title' | t | json }},
-    noAddons: {{ 'configurator.no_addons' | t | json }},
+    steuerungTitle: {{ 'configurator.steuerung_title' | t | json }},
+    noSteuerung: {{ 'configurator.no_steuerung' | t | json }},
+    automatisierungTitle: {{ 'configurator.automatisierung_title' | t | json }},
+    noAutomatisierung: {{ 'configurator.no_automatisierung' | t | json }},
     add: {{ 'configurator.add' | t | json }},
     orderSummaryTitle: {{ 'configurator.order_summary_title' | t | json }},
     orderSummary: {
       zipScreens: {{ 'configurator.order_summary.zip_screens' | t | json }},
-      addons: {{ 'configurator.order_summary.addons' | t | json }},
+      steuerung: {{ 'configurator.order_summary.steuerung' | t | json }},
+      automatisierung: {{ 'configurator.order_summary.automatisierung' | t | json }},
+      warningNoSteuerung: {{ 'configurator.order_summary.warning_no_steuerung' | t | json }},
       professionalInstallation: {{ 'configurator.order_summary.professional_installation' | t | json }},
       total: {{ 'configurator.order_summary.total' | t | json }},
       freeDelivery: {{ 'configurator.order_summary.free_delivery' | t | json }},
@@ -145,10 +149,29 @@
       {%- endif -%}
     ],
 
-    // 4. Add-ons
-    addons: [
-      {%- assign addon_coll = collections['add-ons'] -%}
-      {%- for prod in addon_coll.products -%}
+    // 4. Steuerung
+    steuerung: [
+      {%- assign steuerung_coll = collections['steuerung'] -%}
+      {%- for prod in steuerung_coll.products -%}
+        {
+          id: {{ prod.selected_or_first_available_variant.id }},
+          title: {{ prod.title | json }},
+          description: {{ prod.description | strip_html | truncate: 100 | json }},
+          {% if prod.featured_image %}
+            image: {{ prod.featured_image | image_url: width: 200 | json }},
+          {% else %}
+            image: null,
+          {% endif %}
+          price: {{ prod.price }},
+          compare_at_price: {{ prod.compare_at_price | default: prod.price }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ],
+
+    // 5. Automatisierung
+    automatisierung: [
+      {%- assign automatisierung_coll = collections['automatisierung'] -%}
+      {%- for prod in automatisierung_coll.products -%}
         {
           id: {{ prod.selected_or_first_available_variant.id }},
           title: {{ prod.title | json }},
@@ -194,8 +217,8 @@
       { id: 'large', title: {{ 'configurator.data.cassetteSizes.large.title' | t | json }}, desc: {{ 'configurator.data.cassetteSizes.large.desc' | t | json }}, image: 'https://cdn.shopify.com/s/files/1/0975/4676/4636/files/cassette-large.jpg?v=1768220918' }
     ],
     motorOptions: [
-      { id: 'solar', title: {{ 'configurator.data.motorOptions.solar.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.solar.desc' | t | json }}, image: {{ 'img-cassette-solar-panel.png' | asset_img_url: '400x' | json }}, surcharge: 10000 },
-      { id: 'wired', title: {{ 'configurator.data.motorOptions.wired.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.wired.desc' | t | json }}, image: {{ 'img-cassette-wired.png' | asset_img_url: '400x' | json }}, surcharge: 0 }
+      { id: 'wired', title: {{ 'configurator.data.motorOptions.wired.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.wired.desc' | t | json }}, image: {{ 'img-cassette-wired.png' | asset_img_url: '400x' | json }}, surcharge: 0 },
+      { id: 'solar', title: {{ 'configurator.data.motorOptions.solar.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.solar.desc' | t | json }}, image: {{ 'img-cassette-solar-panel.png' | asset_img_url: '400x' | json }}, surcharge: 10000 }
     ],
 
     assets: {

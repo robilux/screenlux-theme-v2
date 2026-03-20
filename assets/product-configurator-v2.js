@@ -6,7 +6,8 @@ class ProductConfigurator extends HTMLElement {
     this.state = {
       screens: [], // Array of screen objects
       installationType: 'diy',
-      addons: {}, // { prodId: qty }
+      steuerung: {}, // { prodId: qty }
+      automatisierung: {}, // { prodId: qty }
     };
   }
 
@@ -347,20 +348,7 @@ class ProductConfigurator extends HTMLElement {
 
       // 4. Dispatch initial state for SVG configurator
       if (this.state.screens.length > 0) {
-        const firstScreen = this.state.screens[0];
-        document.dispatchEvent(
-          new CustomEvent('screenlux:screen-updated', {
-            detail: {
-              width: firstScreen.width,
-              height: firstScreen.height,
-              frameColor: firstScreen.frameColor,
-              fabricColor: firstScreen.fabricColor,
-              fabricType: firstScreen.fabricType,
-              cassetteSize: firstScreen.cassetteSize,
-              motor: firstScreen.motor,
-            },
-          }),
-        );
+        this.updateSVGConfigurator(this.state.screens[0]);
         document.dispatchEvent(new CustomEvent('screenlux:configurator-ready'));
       }
 
@@ -369,6 +357,20 @@ class ProductConfigurator extends HTMLElement {
 
       // 6. Setup mobile sticky gallery behavior
       this.setupMobileStickyGallery();
+
+      // 7. Setup sticky summary bar
+      window.addEventListener('scroll', () => {
+        if (!this._tickingStickyBar) {
+          window.requestAnimationFrame(() => {
+            if (this.updateStickyBar) this.updateStickyBar();
+            this._tickingStickyBar = false;
+          });
+          this._tickingStickyBar = true;
+        }
+      });
+      window.addEventListener('resize', () => {
+        if (this.updateStickyBar) this.updateStickyBar();
+      });
 
     } catch (err) {
       console.error('Configurator Init Error:', err);
@@ -384,17 +386,42 @@ class ProductConfigurator extends HTMLElement {
 
   /* --- State Modifiers --- */
 
+  updateSVGConfigurator(screen) {
+    if (!screen) return;
+    document.dispatchEvent(
+      new CustomEvent('screenlux:screen-updated', {
+        detail: {
+          width: screen.width,
+          height: screen.height,
+          frameColor: screen.frameColor,
+          fabricColor: screen.fabricColor,
+          fabricType: screen.fabricType,
+          cassetteSize: screen.cassetteSize,
+          motor: screen.motor,
+        },
+      }),
+    );
+  }
+
   handleAddScreen = (skipScroll = false) => {
     const newId = Date.now();
+    
+    // Auto-select first available options
+    const firstFrameColor = this.data.frameColors?.length > 0 ? this.data.frameColors[0].id : null;
+    const firstFabricColor = this.data.fabricColors?.length > 0 ? this.data.fabricColors[0].id : null;
+    const firstFabricType = this.data.fabrics?.length > 0 ? this.data.fabrics[0].id : null;
+    const firstCassetteSize = this.data.cassetteSizes?.length > 0 ? this.data.cassetteSizes[0].id : null;
+    const firstMotor = this.data.motorOptions?.length > 0 ? this.data.motorOptions[0].id : null;
+
     this.state.screens.push({
       id: newId,
-      width: 1500,
-      height: 1000,
-      frameColor: null,
-      fabricColor: null,
-      fabricType: null,
-      cassetteSize: null,
-      motor: null,
+      width: 800,
+      height: 600,
+      frameColor: firstFrameColor,
+      fabricColor: firstFabricColor,
+      fabricType: firstFabricType,
+      cassetteSize: firstCassetteSize,
+      motor: firstMotor,
       expanded: true,
       valid: true,
       errors: {},
@@ -417,6 +444,10 @@ class ProductConfigurator extends HTMLElement {
         }
       }, 50);
     }
+    
+    // Update SVG configurator
+    const activeScreen = this.getActiveScreen();
+    this.updateSVGConfigurator(activeScreen);
   };
 
   handleDuplicateScreen = (index) => {
@@ -439,6 +470,10 @@ class ProductConfigurator extends HTMLElement {
         newScreenEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }, 50);
+    
+    // Update SVG configurator
+    const activeScreen = this.getActiveScreen();
+    this.updateSVGConfigurator(activeScreen);
   };
 
   updateScreen(index, field, value) {
@@ -456,23 +491,8 @@ class ProductConfigurator extends HTMLElement {
     screen.valid = v.valid;
     screen.errors = v.valid ? {} : { dimension: v.error };
 
-    // Dispatch event for SVG configurator (always use first screen for preview)
-    if (this.state.screens.length > 0) {
-      const firstScreen = this.state.screens[0];
-      document.dispatchEvent(
-        new CustomEvent('screenlux:screen-updated', {
-          detail: {
-            width: firstScreen.width,
-            height: firstScreen.height,
-            frameColor: firstScreen.frameColor,
-            fabricColor: firstScreen.fabricColor,
-            fabricType: firstScreen.fabricType,
-            cassetteSize: firstScreen.cassetteSize,
-            motor: firstScreen.motor,
-          },
-        }),
-      );
-    }
+    // Dispatch event for SVG configurator (always use active screen for preview)
+    this.updateSVGConfigurator(screen);
 
     // Handle slider navigation based on what field changed
     const optionFields = ['frameColor', 'fabricColor', 'fabricType', 'motor'];
@@ -521,6 +541,10 @@ class ProductConfigurator extends HTMLElement {
           targetScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 50);
+      
+      // Update SVG configurator
+      const activeScreen = this.getActiveScreen();
+      this.updateSVGConfigurator(activeScreen);
     }
   }
 
@@ -555,6 +579,9 @@ class ProductConfigurator extends HTMLElement {
       if (imageUrl) {
         this.updateFirstProductImage(imageUrl);
       }
+      
+      // Update SVG configurator to match expanded screen
+      this.updateSVGConfigurator(openedScreen);
     }
 
     // We do NOT call this.render() here to preserve the DOM for animation.
@@ -571,10 +598,7 @@ class ProductConfigurator extends HTMLElement {
     this.render();
   };
 
-  updateAddon(id, qty) {
-    this.state.addons[id] = qty;
-    this.render();
-  }
+
 
   /* --- Rendering --- */
 
@@ -648,8 +672,11 @@ class ProductConfigurator extends HTMLElement {
     // 4. Installation Section
     container.appendChild(this.renderInstallationSection());
 
-    // 5. Add-ons Section
-    container.appendChild(this.renderAddonsSection());
+    // 5. Steuerung Section
+    container.appendChild(this.renderExtraSection('steuerung', window.ScreenluxTranslations.steuerungTitle, window.ScreenluxTranslations.noSteuerung));
+
+    // 5.1 Automatisierung Section
+    container.appendChild(this.renderExtraSection('automatisierung', window.ScreenluxTranslations.automatisierungTitle, window.ScreenluxTranslations.noAutomatisierung));
 
     // 6. Order Summary & Cart
     container.appendChild(this.renderOrderSummary());
@@ -657,8 +684,14 @@ class ProductConfigurator extends HTMLElement {
     // 7. Award Section
     container.appendChild(this.renderAwardSection());
 
+    // 8. Sticky Bar
+    container.appendChild(this.renderStickyBar());
+
     // Atomic Swap
     this.replaceChildren(container);
+
+    // Update sticky bar state immediately
+    if (this.updateStickyBar) this.updateStickyBar();
 
     // Restore Focus
     this.restoreFocus(savedFocus);
@@ -769,38 +802,8 @@ class ProductConfigurator extends HTMLElement {
     } else {
       summaryItems.push({ text: window.ScreenluxTranslations.screenSummary.dimensionsNotSet, class: 'placeholder' });
     }
-
-    // 2. Cassette
-    if (cassetteLabel) {
-      summaryItems.push({ text: cassetteLabel, class: '' });
-    } else {
-      summaryItems.push({ text: window.ScreenluxTranslations.screenSummary.noCassette, class: 'placeholder' });
-    }
-
-    // 3. Frame
-    if (frameLabel) {
-      summaryItems.push({ text: frameLabel, class: '' });
-    } else {
-      summaryItems.push({ text: window.ScreenluxTranslations.screenSummary.noFrame, class: 'placeholder' });
-    }
-
-    // 4. Fabric (Color + Type)
-    const fabricParts = [];
-    if (fabricColorLabel) fabricParts.push(fabricColorLabel);
-    if (fabricTypeLabel) fabricParts.push(fabricTypeLabel);
-
-    if (fabricParts.length > 0) {
-      summaryItems.push({ text: fabricParts.join(', '), class: '' });
-    } else {
-      summaryItems.push({ text: window.ScreenluxTranslations.screenSummary.noFabric, class: 'placeholder' });
-    }
-
-    // 5. Motor
-    if (motorLabel) {
-      summaryItems.push({ text: motorLabel, class: '' });
-    } else {
-      summaryItems.push({ text: window.ScreenluxTranslations.screenSummary.noMotor, class: 'placeholder' });
-    }
+    
+    // Hidden: Cassette, Frame, Fabric, Motor as per user request to only show measurements.
 
     wrapper.innerHTML = `
       <details ${screen.expanded ? 'open' : ''} class="${screen.valid ? '' : 'invalid'}">
@@ -808,9 +811,9 @@ class ProductConfigurator extends HTMLElement {
           <div class="screen-summary-container">
               <div class="screen-info">
                 <span class="screen-title">${window.ScreenluxTranslations.screenSummary.prefix} ${index + 1}</span>
-                <ul class="screen-summary-list">
-                   ${summaryItems.map((item) => `<li class="${item.class}">${item.text}</li>`).join('')}
-                </ul>
+                <div class="screen-summary-list" style="margin-top: 4px;">
+                   ${summaryItems.map((item) => `<div class="${item.class}" style="color: var(--sl-text-secondary); font-size: 14px;">${item.text}</div>`).join('')}
+                </div>
              </div>
              <div class="screen-price-container" style="display:flex; align-items:center;">
                  <div class="price-group" style="display:flex; flex-direction:column; align-items:flex-end; margin-right:8px;">
@@ -1179,80 +1182,75 @@ class ProductConfigurator extends HTMLElement {
     return label;
   }
 
-  renderAddonsSection() {
+  renderExtraSection(dataKey, title, emptyText) {
     const section = document.createElement('div');
     section.className = 'configurator-group-box';
 
-    if (this.data.addons.length === 0) {
-      section.innerHTML = `<label class="grouping-title">${window.ScreenluxTranslations.addonsTitle}</label><p class="text-subdued"><em>${window.ScreenluxTranslations.noAddons}</em></p>`;
+    const items = this.data[dataKey] || [];
+    if (items.length === 0) {
+      section.innerHTML = `<label class="grouping-title">${title}</label><p class="text-subdued"><em>${emptyText}</em></p>`;
       return section;
     }
 
-    section.innerHTML = `<label class="grouping-title">${window.ScreenluxTranslations.addonsTitle}</label>`;
+    section.innerHTML = `<label class="grouping-title">${title}</label>`;
 
-    this.data.addons.forEach((addon) => {
-      const card = this.renderAddonCard(addon);
+    items.forEach((item) => {
+      const card = this.renderExtraCard(item, dataKey);
       section.appendChild(card);
     });
 
     return section;
   }
 
-  renderAddonCard(addon) {
-    // Initialize addons state if it doesn't exist
-    if (!this.state.addons) {
-      this.state.addons = {};
+  renderExtraCard(item, dataKey) {
+    if (!this.state[dataKey]) {
+      this.state[dataKey] = {};
     }
 
-    const quantity = this.state.addons[addon.id] || 0;
+    const quantity = this.state[dataKey][item.id] || 0;
 
     const card = document.createElement('div');
-    // Add selected class if quantity > 0
     card.className = `product-card margin-top-sm ${quantity > 0 ? 'selected' : ''}`;
 
-    // Calculate total price based on quantity (if > 0, otherwise show unit price)
     const factor = quantity > 0 ? quantity : 1;
-    const displayPrice = ((addon.price * factor) / 100).toFixed(0);
-    const displayCompareAtPrice = ((addon.compare_at_price * factor) / 100).toFixed(0);
+    const displayPrice = ((item.price * factor) / 100).toFixed(0);
+    const displayCompareAtPrice = ((item.compare_at_price * factor) / 100).toFixed(0);
 
-    // New Structure: Image | Body (Title, Desc, Price, Actions)
     card.innerHTML = `
       <div class="product-card__image">
         ${
-          addon.image
-            ? `<img src="${addon.image}" alt="${addon.title}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`
+          item.image
+            ? `<img src="${item.image}" alt="${item.title}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`
             : '<div style="width: 80px; height: 80px; background: #F3F4F6; border-radius: 8px;"></div>'
         }
       </div>
       <div class="product-card__body">
-        <div class="product-card__title">${addon.title}</div>
-        <div class="product-card__desc">${addon.description || ''}</div>
+        <div class="product-card__title">${item.title}</div>
+        <div class="product-card__desc">${item.description || ''}</div>
         <div class="product-card__price-wrapper" style="display:flex; flex-direction:column; align-items:flex-start; margin-top:4px;">
-           ${addon.compare_at_price > addon.price ? `<span class="price-old" style="font-size:12px; text-decoration:line-through; color:var(--sl-text-subdued); line-height:1; margin-bottom:2px;">${displayCompareAtPrice} €</span>` : ''}
+           ${item.compare_at_price > item.price ? `<span class="price-old" style="font-size:12px; text-decoration:line-through; color:var(--sl-text-subdued); line-height:1; margin-bottom:2px;">${displayCompareAtPrice} €</span>` : ''}
            <div class="product-card__price" style="line-height:1;">${displayPrice} €</div>
         </div>
         
         <div class="product-card__actions">
         ${
           quantity === 0
-            ? `<button class="btn-add-addon" data-addon-id="${addon.id}">${window.ScreenluxTranslations.add}</button>`
+            ? `<button class="btn-add-extra" data-extra-id="${item.id}">${window.ScreenluxTranslations.add}</button>`
             : `<div class="qty-control-group">
-            <button class="qty-btn qty-minus" data-addon-id="${addon.id}">−</button>
+            <button class="qty-btn qty-minus" data-extra-id="${item.id}">−</button>
             <span class="qty-value">${quantity}</span>
-            <button class="qty-btn qty-plus" data-addon-id="${addon.id}">+</button>
+            <button class="qty-btn qty-plus" data-extra-id="${item.id}">+</button>
           </div>`
         }
         </div>
       </div>
     `;
 
-    // Event listeners for addon quantity
-    // Note: Selector classes updated to match new HTML
-    const addBtn = card.querySelector('.btn-add-addon');
+    const addBtn = card.querySelector('.btn-add-extra');
     if (addBtn) {
       addBtn.addEventListener('click', () => {
-        if (!this.state.addons) this.state.addons = {};
-        this.state.addons[addon.id] = 1;
+        if (!this.state[dataKey]) this.state[dataKey] = {};
+        this.state[dataKey][item.id] = 1;
         this.render();
       });
     }
@@ -1260,10 +1258,10 @@ class ProductConfigurator extends HTMLElement {
     const minusBtn = card.querySelector('.qty-minus');
     if (minusBtn) {
       minusBtn.addEventListener('click', () => {
-        if (this.state.addons[addon.id] > 0) {
-          this.state.addons[addon.id]--;
-          if (this.state.addons[addon.id] === 0) {
-            delete this.state.addons[addon.id];
+        if (this.state[dataKey][item.id] > 0) {
+          this.state[dataKey][item.id]--;
+          if (this.state[dataKey][item.id] === 0) {
+            delete this.state[dataKey][item.id];
           }
           this.render();
         }
@@ -1273,7 +1271,7 @@ class ProductConfigurator extends HTMLElement {
     const plusBtn = card.querySelector('.qty-plus');
     if (plusBtn) {
       plusBtn.addEventListener('click', () => {
-        this.state.addons[addon.id]++;
+        this.state[dataKey][item.id]++;
         this.render();
       });
     }
@@ -1320,23 +1318,80 @@ class ProductConfigurator extends HTMLElement {
       installTotal = 0;
     }
 
-    let addonsTotal = 0;
-    Object.entries(this.state.addons).forEach(([id, qty]) => {
-      const product = this.data.addons.find((p) => p.id == id);
-      if (product) addonsTotal += product.price * qty;
-    });
+    let steuerungTotal = 0;
+    if (this.state.steuerung) {
+      Object.entries(this.state.steuerung).forEach(([id, qty]) => {
+        const product = this.data.steuerung.find((p) => p.id == id);
+        if (product) steuerungTotal += product.price * qty;
+      });
+    }
 
-    const grandTotal = screensTotal + installTotal + addonsTotal;
-    const oldGrandTotal = oldScreensTotal + installTotal + addonsTotal;
+    let automatisierungTotal = 0;
+    if (this.state.automatisierung) {
+      Object.entries(this.state.automatisierung).forEach(([id, qty]) => {
+        const product = this.data.automatisierung.find((p) => p.id == id);
+        if (product) automatisierungTotal += product.price * qty;
+      });
+    }
+
+    const extraTotal = steuerungTotal + automatisierungTotal;
+    const grandTotal = screensTotal + installTotal + extraTotal;
+    const oldGrandTotal = oldScreensTotal + installTotal + extraTotal;
     return {
       screensTotal,
       oldScreensTotal,
       installTotal,
-      addonsTotal,
+      steuerungTotal,
+      automatisierungTotal,
       estimatedInstallTotal,
       grandTotal,
       oldGrandTotal,
     };
+  }
+
+  renderExtraCategorySummary(list, totalsData, dataKey, titleKey, expandedKey) {
+    const itemsCount = Object.values(this.state[dataKey] || {}).reduce((a, b) => a + b, 0);
+    const fmt = (cents) => `€${(cents / 100).toFixed(2)}`;
+    
+    if (itemsCount > 0) {
+      const category = document.createElement('div');
+      category.className = `summary-category ${this.state[expandedKey] ? 'expanded' : ''}`;
+
+      const header = document.createElement('div');
+      header.className = 'summary-row category-header';
+      header.innerHTML = `
+        <div class="category-title">
+          <span>${titleKey} (${itemsCount})</span>
+          <svg class="chevron-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="category-price">${fmt(totalsData)}</span>
+      `;
+      header.onclick = () => {
+        this.state[expandedKey] = !this.state[expandedKey];
+        this.render();
+      };
+      category.appendChild(header);
+
+      if (this.state[expandedKey]) {
+        const details = document.createElement('div');
+        details.className = 'category-details';
+        Object.entries(this.state[dataKey]).forEach(([id, qty]) => {
+          const product = this.data[dataKey].find((p) => p.id == id);
+          if (product) {
+            const pPrice = product.price * qty;
+            const detailRow = document.createElement('div');
+            detailRow.className = 'summary-row detail-row';
+            detailRow.innerHTML = `
+              <span class="detail-label">${qty}x ${product.title}</span>
+              <span class="detail-price">${fmt(pPrice)}</span>
+            `;
+            details.appendChild(detailRow);
+          }
+        });
+        category.appendChild(details);
+      }
+      list.appendChild(category);
+    }
   }
 
   renderOrderSummary() {
@@ -1389,47 +1444,23 @@ class ProductConfigurator extends HTMLElement {
     }
     list.appendChild(screensCategory);
 
-    // 2. Add-ons Category
-    const addonsCount = Object.values(this.state.addons).reduce((a, b) => a + b, 0);
-    if (addonsCount > 0) {
-      const addonsCategory = document.createElement('div');
-      addonsCategory.className = `summary-category ${this.state.addonsExpanded ? 'expanded' : ''}`;
+    // 2. Steuerung Categories
+    this.renderExtraCategorySummary(list, totals.steuerungTotal, 'steuerung', window.ScreenluxTranslations.orderSummary.steuerung, 'steuerungExpanded');
 
-      const addonsHeader = document.createElement('div');
-      addonsHeader.className = 'summary-row category-header';
-      addonsHeader.innerHTML = `
-        <div class="category-title">
-          <span>${window.ScreenluxTranslations.orderSummary.addons} (${addonsCount})</span>
-          <svg class="chevron-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <span class="category-price">${fmt(totals.addonsTotal)}</span>
+    const steuerungCount = Object.values(this.state.steuerung || {}).reduce((a, b) => a + b, 0);
+    if (steuerungCount === 0) {
+      const warningRow = document.createElement('div');
+      warningRow.className = 'summary-row warning-row margin-bottom-sm';
+      warningRow.style = 'color: #B45309; font-size: 13px; display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; background: #FFFBEB; border: 1px solid #FEF3C7; border-radius: 6px; margin-top: 4px;';
+      warningRow.innerHTML = `
+        <svg fill="currentColor" width="16" height="16" viewBox="0 0 20 20" style="flex-shrink:0; margin-top:1px;"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
+        <span>${window.ScreenluxTranslations.orderSummary.warningNoSteuerung}</span>
       `;
-      addonsHeader.onclick = () => {
-        this.state.addonsExpanded = !this.state.addonsExpanded;
-        this.render();
-      };
-      addonsCategory.appendChild(addonsHeader);
-
-      if (this.state.addonsExpanded) {
-        const addonsDetails = document.createElement('div');
-        addonsDetails.className = 'category-details';
-        Object.entries(this.state.addons).forEach(([id, qty]) => {
-          const product = this.data.addons.find((p) => p.id == id);
-          if (product) {
-            const pPrice = product.price * qty;
-            const detailRow = document.createElement('div');
-            detailRow.className = 'summary-row detail-row';
-            detailRow.innerHTML = `
-              <span class="detail-label">${qty}x ${product.title}</span>
-              <span class="detail-price">${fmt(pPrice)}</span>
-            `;
-            addonsDetails.appendChild(detailRow);
-          }
-        });
-        addonsCategory.appendChild(addonsDetails);
-      }
-      list.appendChild(addonsCategory);
+      list.appendChild(warningRow);
     }
+    
+    // 3. Automatisierung Categories
+    this.renderExtraCategorySummary(list, totals.automatisierungTotal, 'automatisierung', window.ScreenluxTranslations.orderSummary.automatisierung, 'automatisierungExpanded');
 
     // 3. Installation Category
     if (totals.installTotal > 0 || totals.estimatedInstallTotal > 0 || this.state.installationType === 'professional') {
@@ -1564,6 +1595,122 @@ class ProductConfigurator extends HTMLElement {
     `;
 
     return section;
+  }
+
+  renderStickyBar() {
+    const bar = document.createElement('div');
+    bar.className = 'sticky-summary-bar';
+    bar.innerHTML = `
+      <div class="sticky-bar-left">
+        <div class="sticky-bar-title">Gesamtsumme</div>
+        <div class="sticky-bar-price-wrapper">
+          <span class="sticky-bar-price-old"></span>
+          <span class="sticky-bar-price"></span>
+          <svg class="sticky-bar-arrow hidden" width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.0625 1.46875L7.3125 7.71875L13.5625 1.46875" stroke="#171717" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="sticky-bar-right">
+        <button type="button" class="sticky-bar-btn">${window.ScreenluxTranslations?.orderSummary?.continueToPayment || 'Continue to payment'}</button>
+      </div>
+    `;
+
+    const scrollHandler = (e) => {
+      e.preventDefault();
+      const summaryBox = this.querySelector('.order-summary-box');
+      if (summaryBox) {
+        summaryBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    };
+
+    const arrowBtn = bar.querySelector('.sticky-bar-arrow');
+    const ctaBtn = bar.querySelector('.sticky-bar-btn');
+    
+    if (arrowBtn) arrowBtn.addEventListener('click', scrollHandler);
+    if (ctaBtn) ctaBtn.addEventListener('click', scrollHandler);
+    
+    return bar;
+  }
+
+  updateStickyBar() {
+    const bar = this.querySelector('.sticky-summary-bar');
+    if (!bar) return;
+
+    // Fade out if scrolled into order-summary-box
+    const orderSummaryBox = this.querySelector('.order-summary-box');
+    let isHidden = false;
+    
+    if (orderSummaryBox) {
+      const summaryRect = orderSummaryBox.getBoundingClientRect();
+      // Hide the bar when the user reaches the very bottom 
+      // i.e., top of summary box is above the bottom of the viewport
+      if (summaryRect.top < window.innerHeight - 80) {
+        isHidden = true;
+      }
+    }
+
+    if (isHidden) {
+      bar.classList.add('sticky-summary-bar--hidden');
+      return; 
+    } else {
+      bar.classList.remove('sticky-summary-bar--hidden');
+    }
+
+    const screensGroup = this.querySelector('.screens-list');
+    let isPastScreens = false;
+    
+    if (screensGroup) {
+      const rect = screensGroup.getBoundingClientRect();
+      // If the bottom of the screens list is above the window's vertical center (or top), we are past it.
+      // E.g. when scrolling down to the Installation section.
+      if (rect.bottom < window.innerHeight / 2) {
+        isPastScreens = true;
+      }
+    }
+
+    const titleEl = bar.querySelector('.sticky-bar-title');
+    const oldPriceEl = bar.querySelector('.sticky-bar-price-old');
+    const priceEl = bar.querySelector('.sticky-bar-price');
+    const arrowEl = bar.querySelector('.sticky-bar-arrow');
+    const fmt = (cents) => `${(cents / 100).toFixed(0)} €`;
+
+    if (isPastScreens) {
+      const totals = this.calculateTotals();
+      titleEl.innerText = window.ScreenluxTranslations?.orderSummary?.total || 'Gesamtsumme';
+      
+      if (totals.oldGrandTotal > totals.grandTotal) {
+        oldPriceEl.innerText = fmt(totals.oldGrandTotal);
+        oldPriceEl.style.display = 'inline';
+      } else {
+        oldPriceEl.style.display = 'none';
+      }
+      priceEl.innerText = fmt(totals.grandTotal);
+      arrowEl.classList.remove('hidden');
+    } else {
+      // Find active screen
+      const activeScreenIndex = this.state.screens.findIndex((s) => s.expanded);
+      const screenIndex = activeScreenIndex >= 0 ? activeScreenIndex : 0;
+      const screen = this.state.screens[screenIndex];
+      
+      if (screen) {
+        titleEl.innerText = `${window.ScreenluxTranslations?.screenSummary?.prefix || 'Screen'} ${screenIndex + 1}`;
+        
+        const rawCost = window.ScreenluxEngine.calculateScreenPrice(screen, this.data.config);
+        const variant = window.ScreenluxEngine.matchVariant(rawCost, this.data.screens);
+        const price = variant ? variant.price : rawCost;
+        const compareAtPrice = variant ? (variant.compare_at_price || price) : price;
+        
+        if (compareAtPrice > price) {
+          oldPriceEl.innerText = fmt(compareAtPrice);
+          oldPriceEl.style.display = 'inline';
+        } else {
+          oldPriceEl.style.display = 'none';
+        }
+        priceEl.innerText = fmt(price);
+      }
+      arrowEl.classList.add('hidden');
+    }
   }
 
   handleAddToCart = () => {
