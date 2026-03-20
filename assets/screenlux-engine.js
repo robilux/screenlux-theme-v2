@@ -56,12 +56,12 @@ window.ScreenluxEngine = {
     const sqm = widthM * heightM;
 
     // 2. Fabric Cost
-    const fabricPricePerSqm = config.fabricType === 'blackout' ? 7400 : 5600;
+    const fabricPricePerSqm = config.fabricType === 'blackout' ? 7500 : 6500;
     total += Math.round(sqm * fabricPricePerSqm);
 
     // 3. Size Cost (Width and Height)
-    const widthPrice = 9225; // €92.25 per meter
-    const heightPrice = 3600; // €36.00 per meter
+    const widthPrice = 9800; // €98.00 per meter
+    const heightPrice = 3800; // €38.00 per meter
     total += Math.round(widthM * widthPrice + heightM * heightPrice);
 
     // 4. Cassette Type Cost
@@ -174,8 +174,18 @@ window.ScreenluxEngine = {
       }
     }
 
-    // 4. Add-ons
-    Object.entries(state.addons || {}).forEach(([id, qty]) => {
+    // 4. Steuerung
+    Object.entries(state.steuerung || {}).forEach(([id, qty]) => {
+      if (qty > 0) {
+        items.push({
+          id: parseInt(id),
+          quantity: qty,
+        });
+      }
+    });
+
+    // 5. Automatisierung
+    Object.entries(state.automatisierung || {}).forEach(([id, qty]) => {
       if (qty > 0) {
         items.push({
           id: parseInt(id),
