@@ -17,16 +17,15 @@
         "link_column_JfyQA9": {
           "type": "link_column",
           "settings": {
-            "heading": "",
+            "heading": "Unternehmen",
             "menu": "footer"
           }
         },
         "link_column_qMmGVc": {
           "type": "link_column",
-          "disabled": true,
           "settings": {
-            "heading": "Company",
-            "menu": "footer"
+            "heading": "Kontakt",
+            "menu": "footer-contact-1"
           }
         },
         "link_column_TBGmEC": {
@@ -51,6 +50,8 @@
         "email_placeholder": "Enter your email",
         "submit_label": "Submit",
         "copyright_text": "Screenlux GmbH. Alle Rechte vorbehalten.",
+        "enable_intercom": false,
+        "intercom_text": "Support / Chat",
         "show_payment": true,
         "bg_color": "#171717",
         "text_color": "#ffffff",
@@ -93,6 +94,7 @@
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
+        "klaviyo_snippet": "",
         "newsletter_heading": "Subscribe to our emails",
         "enable_follow_on_shop": true,
         "show_social": true,
