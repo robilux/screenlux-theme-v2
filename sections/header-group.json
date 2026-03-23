@@ -11,8 +11,22 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
+    "top_bar_g7Mk6r": {
+      "type": "top-bar",
+      "name": "Top Bar",
+      "settings": {
+        "bg_color": "#171717",
+        "text_color": "#FFFFFF",
+        "rating_stars": 5,
+        "rating_text": "4.9/5",
+        "phone_number": "+49 155 67240587",
+        "phone_link": "",
+        "profile_image": "shopify://shop_images/Kevin_headshot_website.png"
+      }
+    },
     "header_usp_bar": {
       "type": "header-usp-bar",
+      "disabled": true,
       "settings": {
         "usp_text": "Direkt vom Hersteller",
         "phone_label": "+4915567240587",
@@ -53,6 +67,7 @@
     }
   },
   "order": [
+    "top_bar_g7Mk6r",
     "header_usp_bar",
     "header",
     "slim_countdown_UwipiV"
