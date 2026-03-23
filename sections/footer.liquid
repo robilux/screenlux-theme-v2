@@ -99,6 +99,17 @@
                             </a>
                           </li>
                         {%- endfor -%}
+                        {%- if block.settings.enable_intercom -%}
+                          <li>
+                            <a
+                              href="javascript:void(0)"
+                              data-no-instant
+                              class="link link--text list-menu__item list-menu__item--link intercom-custom-launcher"
+                            >
+                              {{ block.settings.intercom_text | escape }}
+                            </a>
+                          </li>
+                        {%- endif -%}
                       </ul>
                     {%- endif -%}
                   {%- when 'brand_information' -%}
@@ -325,6 +336,27 @@
       </div>
     </div>
   </div>
+
+  {%- assign has_intercom = false -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'link_list' and block.settings.enable_intercom -%}
+      {%- assign has_intercom = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if has_intercom -%}
+    <script>
+      window.intercomSettings = {
+        api_base: "https://api-iam.intercom.io",
+        app_id: "q9tt65wx",
+        custom_launcher_selector: '.intercom-custom-launcher',
+        hide_default_launcher: true
+      };
+    </script>
+    <script>
+    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/q9tt65wx';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else{w.addEventListener('load',l,false);}}})();
+    </script>
+  {%- endif -%}
 </footer>
 
 {% schema %}
@@ -349,6 +381,18 @@
           "id": "menu",
           "default": "footer",
           "label": "t:sections.footer.blocks.link_list.settings.menu.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_intercom",
+          "label": "Enable Intercom Chat Link",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "intercom_text",
+          "label": "Intercom Link Text",
+          "default": "Support / Chat"
         }
       ]
     },

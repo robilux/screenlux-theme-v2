@@ -1,0 +1,172 @@
+{% comment %}
+  Slim Countdown Section
+{% endcomment %}
+
+{% style %}
+  .slim-countdown-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .slim-countdown-{{ section.id }} svg {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px;
+    min-height: 20px;
+    aspect-ratio: 1;
+    fill: {{ section.settings.icon_color }};
+    flex-shrink: 0;
+  }
+
+  .slim-countdown-{{ section.id }} .countdown-text {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .slim-countdown-{{ section.id }} .countdown-timer {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    .slim-countdown-{{ section.id }} {
+      font-size: 12px;
+      padding: 8px 15px;
+    }
+    .slim-countdown-{{ section.id }} svg {
+      width: 16px !important;
+      height: 16px !important;
+      min-width: 16px;
+      min-height: 16px;
+    }
+    .slim-countdown-{{ section.id }} .countdown-timer {
+      font-size: 13px;
+    }
+  }
+{% endstyle %}
+
+<div class="slim-countdown-{{ section.id }}">
+  {% if section.settings.show_icon %}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 2L14.88 5.61L19.46 4.96L20.2 9.46L24 12L20.2 14.54L19.46 19.04L14.88 18.39L12 22L9.12 18.39L4.54 19.04L3.8 14.54L0 12L3.8 9.46L4.54 4.96L9.12 5.61L12 2ZM9 8C8.45 8 8 8.45 8 9C8 9.55 8.45 10 9 10C9.55 10 10 9.55 10 9C10 8.45 9.55 8 9 8ZM15 14C14.45 14 14 14.45 14 15C14 15.55 14.45 16 15 16C15.55 16 16 15.55 16 15C16 14.45 15.55 14 15 14ZM8.5 16.5L15.5 7.5L14.5 6.5L7.5 15.5L8.5 16.5Z"/>
+    </svg>
+  {% endif %}
+  <div class="countdown-text">
+    <span>{{ section.settings.text }}</span>
+    <span class="countdown-timer" id="countdown-{{ section.id }}" data-date="{{ section.settings.countdown_date }}">
+      00t : 00m : 00s
+    </span>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var timerEl = document.getElementById('countdown-{{ section.id }}');
+    if (!timerEl) return;
+
+    var targetDateStr = timerEl.getAttribute('data-date');
+    if (!targetDateStr) return;
+
+    var targetDate = new Date(targetDateStr).getTime();
+
+    if (isNaN(targetDate)) {
+      timerEl.innerHTML = 'Invalid Date configuration';
+      return;
+    }
+
+    var updateTimer = function () {
+      var now = new Date().getTime();
+      var distance = targetDate - now;
+
+      if (distance < 0) {
+        timerEl.innerHTML = '00t : 00m : 00s';
+        return;
+      }
+
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      var output = '';
+      if (days > 0) {
+        output += days + 'd : ';
+      }
+
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      output += hours + 't : ' + minutes + 'm : ' + seconds + 's';
+
+      timerEl.innerHTML = output;
+    };
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Slim Countdown",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Zip-Screen 2 Sale startet in:"
+    },
+    {
+      "type": "text",
+      "id": "countdown_date",
+      "label": "Countdown Date",
+      "info": "Format: YYYY-MM-DDTHH:MM:SS (e.g. 2026-03-20T17:00:00)",
+      "default": "2026-03-20T17:00:00"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#f49425"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Show Percent Icon",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#f49425"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slim Countdown"
+    }
+  ]
+}
+{% endschema %}
