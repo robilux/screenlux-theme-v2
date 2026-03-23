@@ -18,22 +18,27 @@
           "type": "link_column",
           "settings": {
             "heading": "Unternehmen",
-            "menu": "footer"
+            "menu": "footer",
+            "enable_intercom": false,
+            "intercom_text": "Support / Chat"
           }
         },
         "link_column_qMmGVc": {
           "type": "link_column",
           "settings": {
             "heading": "Kontakt",
-            "menu": "footer-contact-1"
+            "menu": "footer-contact-1",
+            "enable_intercom": true,
+            "intercom_text": "Chat mit uns"
           }
         },
         "link_column_TBGmEC": {
           "type": "link_column",
-          "disabled": true,
           "settings": {
-            "heading": "Resources",
-            "menu": "footer"
+            "heading": "Schnellzugriff",
+            "menu": "main-menu",
+            "enable_intercom": false,
+            "intercom_text": "Support / Chat"
           }
         }
       },
@@ -45,8 +50,9 @@
       "name": "Custom Footer",
       "settings": {
         "tagline": "Deutsche Qualität. Preise direkt beim Hersteller.",
-        "newsletter_enable": false,
-        "newsletter_text": "Join our community.\nUnlock Exclusive deals.",
+        "newsletter_enable": true,
+        "newsletter_text": "Jetzt anmelden und bis zu 30% Rabatt sichern!",
+        "klaviyo_snippet": "<div class=\"klaviyo-form-TPHnY2\"></div>",
         "email_placeholder": "Enter your email",
         "submit_label": "Submit",
         "copyright_text": "Screenlux GmbH. Alle Rechte vorbehalten.",
