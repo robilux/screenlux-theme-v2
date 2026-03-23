@@ -188,6 +188,27 @@
     margin: 0;
   }
 
+  .custom-footer__bottom-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .custom-footer__intercom-link {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    color: {{ section.settings.secondary_text_color }};
+    text-decoration: underline;
+    transition: color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .custom-footer__intercom-link:hover {
+    color: {{ section.settings.text_color }};
+  }
+
   .custom-footer__payment {
     display: flex;
     align-items: center;
@@ -310,6 +331,12 @@
       text-align: center;
     }
 
+    .custom-footer__bottom-left {
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
     .custom-footer__payment {
       justify-content: center;
     }
@@ -423,10 +450,17 @@
 
   {%- comment -%} Bottom: Copyright + Payment Methods {%- endcomment -%}
   <div class="custom-footer__bottom">
-    <p class="custom-footer__copyright">
-      &copy;{{ 'now' | date: '%Y' }}
-      {{ section.settings.copyright_text }}
-    </p>
+    <div class="custom-footer__bottom-left">
+      <p class="custom-footer__copyright">
+        &copy;{{ 'now' | date: '%Y' }}
+        {{ section.settings.copyright_text }}
+      </p>
+      {%- if section.settings.enable_intercom -%}
+        <a href="#" class="custom-footer__intercom-link intercom-custom-launcher" onclick="event.preventDefault();">
+          {{ section.settings.intercom_text }}
+        </a>
+      {%- endif -%}
+    </div>
 
     {%- if section.settings.show_payment -%}
       <div class="custom-footer__payment">
@@ -440,6 +474,20 @@
       </div>
     {%- endif -%}
   </div>
+
+  {%- if section.settings.enable_intercom -%}
+    <script>
+      window.intercomSettings = {
+        api_base: "https://api-iam.intercom.io",
+        app_id: "q9tt65wx",
+        custom_launcher_selector: '.intercom-custom-launcher',
+        hide_default_launcher: true
+      };
+    </script>
+    <script>
+    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/q9tt65wx';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else{w.addEventListener('load',l,false);}}})();
+    </script>
+  {%- endif -%}
 </footer>
 
 {% schema %}
@@ -491,6 +539,18 @@
       "id": "copyright_text",
       "label": "Copyright text",
       "default": "Screenlux GmbH. Alle Rechte vorbehalten."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_intercom",
+      "label": "Enable Intercom Chat Link",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "intercom_text",
+      "label": "Intercom Link Text",
+      "default": "Support / Chat"
     },
     {
       "type": "checkbox",

@@ -170,7 +170,12 @@
               {%- if section.settings.newsletter_heading != blank -%}
                 <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_heading }}</h2>
               {%- endif -%}
-              {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
+              {%- if section.settings.klaviyo_snippet != blank -%}
+                <div class="klaviyo-form-wrapper">
+                  {{ section.settings.klaviyo_snippet }}
+                </div>
+              {%- else -%}
+                {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
                 <input type="hidden" name="contact[tags]" value="newsletter">
                 <div class="newsletter-form__field-wrapper">
                   <div class="field">
@@ -233,6 +238,7 @@
                   </h3>
                 {%- endif -%}
               {%- endform -%}
+              {%- endif -%}
             </div>
           {%- endif -%}
 
@@ -440,6 +446,12 @@
       "id": "newsletter_enable",
       "default": true,
       "label": "t:sections.footer.settings.newsletter_enable.label"
+    },
+    {
+      "type": "html",
+      "id": "klaviyo_snippet",
+      "label": "Klaviyo Snippet",
+      "info": "Paste your Klaviyo sign-up form snippet here. If provided, this will replace the default Shopify newsletter form."
     },
     {
       "type": "inline_richtext",

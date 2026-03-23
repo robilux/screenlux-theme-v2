@@ -1,0 +1,182 @@
+{% comment %} Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=708-3418&t=Kspz19PHHXAUqHyf-4 {% endcomment %}
+<div class="top-bar" id="top-bar-{{ section.id }}">
+  <div class="page-width">
+    <div class="top-bar__inner">
+      <div class="top-bar__rating">
+        <div class="top-bar__stars">
+          {%- for i in (1..section.settings.rating_stars) -%}
+            <svg viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg" class="top-bar__star-icon">
+              <path d="M10 0L13.09 6.26L20 7.27L15 12.14L16.18 19L10 15.75L3.82 19L5 12.14L0 7.27L6.91 6.26L10 0Z" fill="#ffb400" />
+            </svg>
+          {%- endfor -%}
+        </div>
+        <span class="top-bar__rating-text">{{ section.settings.rating_text }}</span>
+      </div>
+      <div class="top-bar__contact">
+        <a {% if section.settings.phone_link != blank %}href="{{ section.settings.phone_link }}"{% endif %} class="top-bar__phone">
+          {{ section.settings.phone_number }}
+        </a>
+        {%- if section.settings.profile_image != blank -%}
+          <div class="top-bar__profile-img">
+            {{ section.settings.profile_image | image_url: width: 56 | image_tag: class: 'top-bar__profile-img-tag' }}
+            <span class="top-bar__profile-dot"></span>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  #top-bar-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    height: 42px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+  }
+  
+  #top-bar-{{ section.id }} .top-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  #top-bar-{{ section.id }} .top-bar__rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #top-bar-{{ section.id }} .top-bar__stars {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  #top-bar-{{ section.id }} .top-bar__star-icon {
+    width: 19px;
+    height: 19px;
+  }
+
+  #top-bar-{{ section.id }} .top-bar__rating-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    color: {{ section.settings.text_color }};
+  }
+
+  #top-bar-{{ section.id }} .top-bar__contact {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #top-bar-{{ section.id }} .top-bar__phone {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    color: {{ section.settings.text_color }};
+    text-decoration: underline;
+  }
+
+  #top-bar-{{ section.id }} .top-bar__profile-img {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
+
+  #top-bar-{{ section.id }} .top-bar__profile-img-tag {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+
+  #top-bar-{{ section.id }} .top-bar__profile-dot {
+    position: absolute;
+    bottom: -1px;
+    left: 1px;
+    width: 6px;
+    height: 6px;
+    background-color: #27d923;
+    border-radius: 50%;
+    border: 1px solid {{ section.settings.bg_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    #top-bar-{{ section.id }} .top-bar__star-icon {
+      width: 17px;
+      height: 17px;
+    }
+    
+    #top-bar-{{ section.id }} .top-bar__rating-text,
+    #top-bar-{{ section.id }} .top-bar__phone {
+      font-size: 12px;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Top Bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "rating_stars",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": "Number of stars",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating Text",
+      "default": "4.9/5"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone Number",
+      "default": "+49 155 67240587"
+    },
+    {
+      "type": "url",
+      "id": "phone_link",
+      "label": "Phone Link",
+      "info": "Use tel:+49... for call links"
+    },
+    {
+      "type": "image_picker",
+      "id": "profile_image",
+      "label": "Profile Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Top Bar"
+    }
+  ]
+}
+{% endschema %}
