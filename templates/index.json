@@ -399,7 +399,8 @@
       "settings": {
         "heading": "Solarbetriebener Motor. Leise, effizient und ganz ohne Stromanschluss.",
         "description": "",
-        "video": "shopify://files/videos/video-text-and-video-flawless-finish.mp4",
+        "video": "shopify://files/videos/Screenlux_Living_Room_Blinds_Video.mp4",
+        "fallback_image": "shopify://shop_images/Screen_indoor_view.png",
         "button_label": "Konfigurieren",
         "button_link": "/products/zip-screen-configurator",
         "price_label": "Ab nur <strong>395 €</strong>",
