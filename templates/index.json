@@ -466,7 +466,7 @@
       "settings": {
         "heading": "Smart Home. Ohne Umdenken.",
         "description": "<p>Funktioniert mit Apple Home, Amazon Alexa und Google Home.</p>",
-        "video": "shopify://files/videos/video-smart-home.mp4",
+        "video": "shopify://files/videos/alexa-homepage-video.mp4",
         "button_label": "Konfigurieren",
         "button_link": "/products/zip-screen-configurator",
         "price_label": "Ab nur <strong>395 €</strong>",
