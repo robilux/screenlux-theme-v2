@@ -1501,7 +1501,7 @@
         "type": "number",
         "id": "configurator_surcharge_solar",
         "label": "Solar Surcharge (cents)",
-        "default": 10000
+        "default": 4200
       }
     ]
   }

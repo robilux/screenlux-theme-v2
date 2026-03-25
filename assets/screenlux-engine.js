@@ -71,7 +71,7 @@ window.ScreenluxEngine = {
 
     // 5. Motor Surcharge
     if (config.motor === 'solar') {
-      total += parseInt((rules || {}).surcharge_solar) || 14000;
+      total += parseInt((rules || {}).surcharge_solar) || 4200;
     }
 
     return total;
