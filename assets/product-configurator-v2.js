@@ -735,6 +735,7 @@ class ProductConfigurator extends HTMLElement {
             <span class="card-title">${opt.title}</span>
             ${opt.ral ? `<span class="ral-code">${opt.ral}</span>` : ''}
             ${opt.desc ? `<span class="card-price">${opt.desc}</span>` : ''}
+            ${opt.extraPrice && opt.extraPrice > 0 ? `<span class="card-price" style="margin-top: 4px; display: block; font-weight: 600; font-size: 14px; color: #171717;">+${(opt.extraPrice / 100).toFixed(0)} €</span>` : ''}
           </div>
         </label>
       `;
@@ -769,9 +770,33 @@ class ProductConfigurator extends HTMLElement {
 
     const frameOptions = this.data.frameColors || [];
     const fabricColors = this.data.fabricColors || [];
-    const fabricTypes = this.data.fabrics || [];
-    const cassetteSizes = this.data.cassetteSizes || [];
-    const motorOptions = this.data.motorOptions || [];
+    
+    // Calculate extra prices for options based on actual variant sale prices (with discounts)
+    const getBasePrice = (field, optionsArray) => {
+      if (!optionsArray || optionsArray.length === 0) return 0;
+      let minPrice = Infinity;
+      optionsArray.forEach(opt => {
+        const raw = window.ScreenluxEngine.calculateScreenPrice({ ...screen, [field]: opt.id }, this.data.config);
+        const variant = window.ScreenluxEngine.matchVariant(raw, this.data.screens);
+        const actualPrice = variant ? variant.price : raw;
+        if (actualPrice < minPrice) minPrice = actualPrice;
+      });
+      return minPrice;
+    };
+
+    const mapExtraPrice = (field, optionsArray) => {
+      const basePrice = getBasePrice(field, optionsArray);
+      return (optionsArray || []).map(opt => {
+        const raw = window.ScreenluxEngine.calculateScreenPrice({ ...screen, [field]: opt.id }, this.data.config);
+        const variant = window.ScreenluxEngine.matchVariant(raw, this.data.screens);
+        const actualPrice = variant ? variant.price : raw;
+        return { ...opt, extraPrice: Math.max(0, actualPrice - basePrice) };
+      });
+    };
+
+    const fabricTypes = mapExtraPrice('fabricType', this.data.fabrics);
+    const cassetteSizes = mapExtraPrice('cassetteSize', this.data.cassetteSizes);
+    const motorOptions = mapExtraPrice('motor', this.data.motorOptions);
 
     // --- Summary Data Preparation ---
     // Helper to get title or null if not selected

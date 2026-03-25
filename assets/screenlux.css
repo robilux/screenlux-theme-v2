@@ -1905,7 +1905,7 @@ slider-component .slider-counter {
 
 @media screen and (max-width: 749px) {
   .sticky-summary-bar {
-    padding: 16px;
+    display: none !important;
   }
 }
 

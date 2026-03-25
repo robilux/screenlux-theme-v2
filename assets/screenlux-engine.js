@@ -66,12 +66,12 @@ window.ScreenluxEngine = {
 
     // 4. Cassette Type Cost
     if (config.cassetteSize === 'large') {
-      total += 4000; // 40€ add-on
+      total += parseInt((rules || {}).surcharge_cassette) || 4000;
     }
 
     // 5. Motor Surcharge
     if (config.motor === 'solar') {
-      total += 14000; // 140€
+      total += parseInt((rules || {}).surcharge_solar) || 14000;
     }
 
     return total;
@@ -84,18 +84,18 @@ window.ScreenluxEngine = {
    * @returns {object|null} matching variant object
    */
   matchVariant(rawPrice, variants) {
-    const targetCost = rawPrice / 100;
+    const targetCost = rawPrice;
 
-    // First try exact match on SKU parse
-    const match = variants.find((v) => v.sku && parseFloat(v.sku.replace(',', '.')) === targetCost);
+    // First try exact match on compare_at_price
+    const match = variants.find((v) => v.compare_at_price === targetCost);
     if (match) return match;
 
-    // Fallback: find nearest by SKU
-    const validVariants = variants.filter((v) => v.sku && !isNaN(parseFloat(v.sku.replace(',', '.'))));
+    // Fallback: find nearest by compare_at_price
+    const validVariants = variants.filter((v) => typeof v.compare_at_price === 'number');
     if (validVariants.length > 0) {
       return validVariants.reduce((prev, curr) => {
-        const prevDiff = Math.abs(parseFloat(prev.sku.replace(',', '.')) - targetCost);
-        const currDiff = Math.abs(parseFloat(curr.sku.replace(',', '.')) - targetCost);
+        const prevDiff = Math.abs(prev.compare_at_price - targetCost);
+        const currDiff = Math.abs(curr.compare_at_price - targetCost);
         return currDiff < prevDiff ? curr : prev;
       });
     }

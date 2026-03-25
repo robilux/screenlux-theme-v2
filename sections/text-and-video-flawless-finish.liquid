@@ -318,13 +318,34 @@
 
       if (!video || !toggleBtn) return;
 
+      function updateButton() {
+        if (video.paused) {
+          toggleBtn.classList.remove('is-playing');
+        } else {
+          toggleBtn.classList.add('is-playing');
+        }
+      }
+
+      video.addEventListener('play', updateButton);
+      video.addEventListener('pause', updateButton);
+
+      // Verify state initially in case autoplay was blocked
+      var playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.then(function() {
+          updateButton();
+        }).catch(function(error) {
+          updateButton();
+        });
+      } else {
+        updateButton();
+      }
+
       toggleBtn.addEventListener('click', function () {
         if (video.paused) {
           video.play();
-          toggleBtn.classList.add('is-playing');
         } else {
           video.pause();
-          toggleBtn.classList.remove('is-playing');
         }
       });
     })();
