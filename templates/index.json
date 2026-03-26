@@ -46,7 +46,8 @@
         "button"
       ],
       "settings": {
-        "image_overlay_opacity": 30,
+        "video": "shopify://files/videos/Screenlux-zipscreens-moving-down.mp4",
+        "image_overlay_opacity": 60,
         "image_height": "medium",
         "image_behavior": "none",
         "desktop_content_position": "middle-center",
