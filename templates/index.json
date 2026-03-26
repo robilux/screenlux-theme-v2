@@ -399,7 +399,8 @@
       "settings": {
         "heading": "Solarbetriebener Motor. Leise, effizient und ganz ohne Stromanschluss.",
         "description": "",
-        "fallback_image": "shopify://shop_images/Screen_indoor_view.png",
+        "video": "shopify://files/videos/video-solarbetriebener-motor.mp4",
+        "fallback_image": "shopify://shop_images/img-solarbetriebner-motor-fallback.jpg",
         "button_label": "Konfigurieren",
         "button_link": "/products/zip-screen-configurator",
         "price_label": "Ab nur <strong>395 €</strong>",
@@ -416,7 +417,7 @@
         "card_Jxyzid": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/img-card-section-01_-_replacement_-_Vlados_Render.jpg",
+            "image": "shopify://shop_images/img-card-section-02.png",
             "title": "Hocheffizient bei extrem wenig Licht.",
             "description": "High-End-IBC-Solarpaneele gewinnen Energie selbst an stark bewölkten Tagen."
           }
@@ -424,7 +425,7 @@
         "card_XjWrHM": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/img-card-section-02.png",
+            "image": "shopify://shop_images/img-card-battery.jpg",
             "title": "Massiver 5200 mAh Akku.",
             "description": "Eine Akkuladung reicht für bis zu 30 Tage Betrieb."
           }
@@ -442,7 +443,7 @@
           "settings": {
             "image": "shopify://shop_images/img-card-section-04-replacement.jpg",
             "title": "Optional auch kabelgebunden",
-            "description": "Keine Sonne? Kein Problem. Entscheide dich für die festverdrahtete Version."
+            "description": "Fenster ohne Sonne? Kein Problem. Entscheide dich für die festverdrahtete Version."
           }
         }
       },
