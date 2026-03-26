@@ -1531,17 +1531,14 @@ a.product__text {
 
 @media screen and (max-width: 749px) {
   .configurator-group-box {
-    padding: 16px;
-    margin-left: -1.5rem;
-    margin-right: -1.5rem;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: calc(50vw - 50% + 16px);
+    padding-right: calc(50vw - 50% + 16px);
     border-radius: 0;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    margin-bottom: 0;
-  }
-  .configurator-group-box:last-of-type {
-    border-bottom: 1px solid #E5E5E5;
+    border: none;
     margin-bottom: 24px;
   }
 }
