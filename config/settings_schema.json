@@ -1495,13 +1495,13 @@
         "type": "number",
         "id": "configurator_surcharge_cassette",
         "label": "Cassette Surcharge (cents)",
-        "default": 5000
+        "default": 4600
       },
       {
         "type": "number",
         "id": "configurator_surcharge_solar",
         "label": "Solar Surcharge (cents)",
-        "default": 4200
+        "default": 13800
       }
     ]
   }

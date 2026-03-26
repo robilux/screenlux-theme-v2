@@ -56,7 +56,7 @@ window.ScreenluxEngine = {
     const sqm = widthM * heightM;
 
     // 2. Fabric Cost
-    const fabricPricePerSqm = config.fabricType === 'blackout' ? 7500 : 6500;
+    const fabricPricePerSqm = config.fabricType === 'blackout' ? 6500 : 6500;
     total += Math.round(sqm * fabricPricePerSqm);
 
     // 3. Size Cost (Width and Height)
@@ -66,12 +66,12 @@ window.ScreenluxEngine = {
 
     // 4. Cassette Type Cost
     if (config.cassetteSize === 'large') {
-      total += parseInt((rules || {}).surcharge_cassette) || 4000;
+      total += parseInt((rules || {}).surcharge_cassette) || 4600;
     }
 
     // 5. Motor Surcharge
     if (config.motor === 'solar') {
-      total += parseInt((rules || {}).surcharge_solar) || 4200;
+      total += parseInt((rules || {}).surcharge_solar) || 13800;
     }
 
     return total;

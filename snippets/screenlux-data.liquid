@@ -218,7 +218,7 @@
     ],
     motorOptions: [
       { id: 'wired', title: {{ 'configurator.data.motorOptions.wired.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.wired.desc' | t | json }}, image: {{ 'img-cassette-wired.png' | asset_img_url: '400x' | json }}, surcharge: 0 },
-      { id: 'solar', title: {{ 'configurator.data.motorOptions.solar.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.solar.desc' | t | json }}, image: {{ 'img-cassette-solar-panel.png' | asset_img_url: '400x' | json }}, surcharge: 10000 }
+      { id: 'solar', title: {{ 'configurator.data.motorOptions.solar.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.solar.desc' | t | json }}, image: {{ 'img-cassette-solar-panel.png' | asset_img_url: '400x' | json }}, surcharge: 13800 }
     ],
 
     assets: {
@@ -267,8 +267,8 @@
        price_per_sqm: {{ settings.configurator_price_per_sqm | default: 0 }},
        min_billable_sqm: {{ settings.configurator_min_billable | default: 0 }},
        base_includes_sqm: {{ settings.configurator_base_includes | default: 0 }},
-       surcharge_solar: {{ settings.configurator_surcharge_solar | default: 4200 }},
-       surcharge_cassette: {{ settings.configurator_surcharge_cassette | default: 5000 }}
+       surcharge_solar: {{ settings.configurator_surcharge_solar | default: 13800 }},
+       surcharge_cassette: {{ settings.configurator_surcharge_cassette | default: 4600 }}
     }
   };
 </script>
