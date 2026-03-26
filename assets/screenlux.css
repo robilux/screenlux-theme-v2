@@ -851,7 +851,7 @@ details[open] .accordion-chevron {
 .info-card-tip {
   /* Added based on usage but not defined previously */
   background: white;
-  border: 1px solid var(--sl-border-default);
+  border: none;
   border-radius: var(--sl-radius-lg);
   padding: 16px;
   margin-top: 16px;
