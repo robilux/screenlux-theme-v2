@@ -567,7 +567,6 @@
         "review_card_d7arg9": {
           "type": "review_card",
           "settings": {
-            "review_image": "shopify://shop_images/img-review-4.png",
             "initials": "CS",
             "author_name": "Christian S.",
             "date": "17 Jan. 2026",
