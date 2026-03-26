@@ -414,6 +414,14 @@
     "cards_section_w4dayx": {
       "type": "cards-section",
       "blocks": {
+        "card_XjWrHM": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/img-card-battery_3ea96de6-36be-49a0-8dcf-2156069528f2.jpg",
+            "title": "Massiver 5200 mAh Akku.",
+            "description": "Eine Akkuladung reicht für bis zu 30 Tage Betrieb."
+          }
+        },
         "card_Jxyzid": {
           "type": "card",
           "settings": {
@@ -422,18 +430,10 @@
             "description": "High-End-IBC-Solarpaneele gewinnen Energie selbst an stark bewölkten Tagen."
           }
         },
-        "card_XjWrHM": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/img-card-battery.jpg",
-            "title": "Massiver 5200 mAh Akku.",
-            "description": "Eine Akkuladung reicht für bis zu 30 Tage Betrieb."
-          }
-        },
         "card_CNwPce": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/img-card-section-03.png",
+            "image": "shopify://shop_images/img-card-section-chariging.jpg",
             "title": "Notfall-Ladeanschluss.",
             "description": "Falls nötig, lässt sich das System in wenigen Minuten manuell nachladen."
           }
@@ -448,8 +448,8 @@
         }
       },
       "block_order": [
-        "card_Jxyzid",
         "card_XjWrHM",
+        "card_Jxyzid",
         "card_CNwPce",
         "card_PwDajx"
       ],
@@ -467,7 +467,7 @@
       "settings": {
         "heading": "Smart Home. Ohne Umdenken.",
         "description": "<p>Funktioniert mit Apple Home, Amazon Alexa und Google Home.</p>",
-        "video": "shopify://files/videos/alexa-homepage-video.mp4",
+        "video": "shopify://files/videos/video-alexa-smart-home.mp4",
         "button_label": "Konfigurieren",
         "button_link": "/products/zip-screen-configurator",
         "price_label": "Ab nur <strong>395 €</strong>",
