@@ -16,12 +16,12 @@
       "name": "Top Bar",
       "settings": {
         "bg_color": "#171717",
-        "text_color": "#FFFFFF",
+        "text_color": "#ffffff",
         "rating_stars": 5,
         "rating_text": "4.9/5",
         "phone_number": "+49 155 67240587",
         "phone_link": "",
-        "profile_image": "shopify://shop_images/Kevin_headshot_website.png"
+        "profile_image": "shopify://shop_images/sales-face.png"
       }
     },
     "header_usp_bar": {
