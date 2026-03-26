@@ -306,7 +306,8 @@
     }
 
     .receipt {
-      flex: 0 0 270px;
+      flex: 0 0 85vw;
+      max-width: 320px;
       scroll-snap-align: center;
       border-radius: 12px 12px 0 0;
     }
@@ -345,6 +346,9 @@
 
     .receipt__line-label {
       font-size: 13px;
+      white-space: normal;
+      flex-shrink: 1;
+      line-height: 1.4;
     }
 
     .receipt__line-value {
