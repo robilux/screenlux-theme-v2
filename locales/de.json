@@ -551,7 +551,7 @@
     "switch_to_solar": "Auf Solar wechseln",
     "installation_diy": {
       "title": "Selbstmontage (DIY)",
-      "desc": "Problemlose Selbstmontage mithilfe unserer Montageanleitung und Video-Tutorials.\n• Geschätzte Montagezeit:\n• 30 Minuten pro solarbetriebenem Screen\n• 5 Stunden pro kabelgebundenem Screen",
+      "desc": "Problemlose Montage per Anleitung.\n• Solarbetrieb: 30 Min. / Screen\n• Kabelgebunden: 5 Std. / Screen",
       "price": "Kostenlos"
     },
     "installation_professional": {

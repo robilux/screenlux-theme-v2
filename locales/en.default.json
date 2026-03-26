@@ -552,7 +552,7 @@
     "switch_to_solar": "Switch to Solar",
     "installation_diy": {
       "title": "Self-installation (DIY)",
-      "desc": "Hassle-free self-assembly using our assembly manual and video guides.\n• Estimated assembly time:\n• 30 minutes per Solar driven screen\n• 5 hours per wired screen",
+      "desc": "Hassle-free assembly via manual.\n• Solar driven: 30 Min. / Screen\n• Wired: 5 Hrs. / Screen",
       "price": "Free"
     },
     "installation_professional": {
