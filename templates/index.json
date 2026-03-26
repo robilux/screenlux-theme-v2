@@ -97,7 +97,7 @@
           "type": "card",
           "name": "Living room",
           "settings": {
-            "image": "shopify://shop_images/img-situation-livingroom.png",
+            "image": "shopify://shop_images/img-situation-livingroom-2_png.jpg",
             "title": "Wohnzimmer",
             "description": "<b> Natürliches Licht. Weniger Blendung. </b>\nDer <b>5 % Screen</b> reduziert starke Sonneneinstrahlung und hält den Raum angenehm hell."
           }
@@ -115,7 +115,7 @@
           "type": "card",
           "name": "Kitchen",
           "settings": {
-            "image": "shopify://shop_images/img-situation-kitchen.png",
+            "image": "shopify://shop_images/img-situation-kitchen-2_png.jpg",
             "title": "Küche",
             "description": "<b>Hell & kühl. </b> Der <b>5 % Öffnungsfaktor </b> lässt angenehmes Tageslicht hinein und hält harte Mittagssonne draußen."
           }
