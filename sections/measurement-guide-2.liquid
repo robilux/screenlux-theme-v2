@@ -1,0 +1,657 @@
+{% schema %}
+{
+  "name": "Measurement Guide V2",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Wie finde ich die passenden Maße für meinen Screen?"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Measurement Guide V2"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+/* Base Styles */
+.mg2-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  color: var(--sl-text-primary, #111827);
+  font-family: var(--sl-font-family, inherit);
+}
+
+/* Typography */
+.mg2-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: var(--sl-text-h1, 36px);
+  font-weight: 700;
+  color: var(--sl-text-primary, #111827);
+}
+.mg2-step-title {
+  font-size: var(--sl-text-h3, 26px);
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--sl-text-primary, #111827);
+}
+.mg2-step-desc {
+  font-size: var(--sl-text-body, 17px);
+  color: var(--sl-text-secondary, #4B5563);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Progress Bar */
+.mg2-progress-wrapper {
+  margin-bottom: 40px;
+  display: none; /* hidden until wizard starts */
+}
+.mg2-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.mg2-progress::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--sl-border-default, #E5E7EB);
+  z-index: 1;
+  transform: translateY(-50%);
+}
+.mg2-progress-fill {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 2px;
+  background: var(--sl-color-primary, #5b5bf9);
+  z-index: 1;
+  transform: translateY(-50%);
+  transition: width 0.3s ease;
+  width: 0%; /* updated via JS */
+}
+.mg2-step-indicator {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--sl-border-default, #E5E7EB);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--sl-text-tertiary, #9CA3AF);
+  transition: all 0.3s ease;
+}
+.mg2-step-indicator.active {
+  border-color: var(--sl-color-primary, #5b5bf9);
+  color: var(--sl-color-primary, #5b5bf9);
+}
+.mg2-step-indicator.completed {
+  background: var(--sl-color-primary, #5b5bf9);
+  border-color: var(--sl-color-primary, #5b5bf9);
+  color: #fff;
+}
+.mg2-step-labels {
+  display: flex;
+  justify-content: space-between;
+  max-width: 500px;
+  margin: 12px auto 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sl-text-secondary, #6B7280);
+}
+.mg2-step-label {
+  flex: 1;
+  text-align: center;
+}
+.mg2-step-label.active {
+  color: var(--sl-text-primary, #111827);
+  font-weight: 600;
+}
+
+/* Wizard Box */
+.mg2-wizard-box {
+  background: var(--sl-color-white, #ffffff);
+  border: 1px solid var(--sl-border-default, #E5E7EB);
+  border-radius: var(--sl-radius-xl, 24px);
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+@media (max-width: 600px) {
+  .mg2-wizard-box {
+    padding: 24px;
+  }
+}
+
+/* Steps Containment */
+.mg2-step-content {
+  display: none;
+  animation: mgFadeIn 0.3s ease-out forwards;
+}
+.mg2-step-content.active {
+  display: block;
+}
+@keyframes mgFadeIn {
+  from { opacity: 0; transform: translateX(15px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Cards Grid */
+.mg2-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+@media (max-width: 600px) {
+  .mg2-options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards */
+.mg2-card {
+  background: var(--sl-color-white, #ffffff);
+  border: 2px solid var(--sl-border-default, #E5E7EB);
+  border-radius: var(--sl-radius-lg, 16px);
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  user-select: none;
+}
+.mg2-card:hover {
+  border-color: var(--sl-color-gray-300, #D1D5DB);
+}
+.mg2-card.selected {
+  border-color: var(--sl-color-primary, #5b5bf9);
+  background: var(--sl-color-primary-light, #EEF2FF);
+}
+.mg2-card-title {
+  font-size: var(--sl-text-h4, 20px);
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+  color: var(--sl-text-primary, #111827);
+}
+.mg2-card-desc {
+  font-size: var(--sl-text-sm, 15px);
+  color: var(--sl-text-secondary, #4B5563);
+  line-height: 1.5;
+}
+
+/* Info Boxes */
+.mg2-info-box {
+  background: var(--sl-color-gray-50, #F9FAFB);
+  border-radius: var(--sl-radius-md, 10px);
+  padding: 24px;
+  margin-top: 24px;
+  font-size: var(--sl-text-body, 17px);
+  line-height: 1.6;
+}
+.mg2-info-box.warning {
+  background: #FFFBEB;
+}
+.mg2-list {
+  padding-left: 20px;
+  margin-top: 12px;
+  margin-bottom: 0;
+  list-style-type: disc;
+}
+.mg2-list li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: var(--sl-text-secondary, #4B5563);
+}
+
+/* Navigation Footer */
+.mg2-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--sl-border-default, #E5E7EB);
+}
+.mg2-btn {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+}
+.mg2-btn-primary {
+  background: var(--sl-color-primary, #5b5bf9);
+  color: #fff;
+  border: none;
+}
+.mg2-btn-primary:hover:not(:disabled) {
+  background: var(--sl-color-primary-hover, #4F46E5);
+}
+.mg2-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mg2-btn-secondary {
+  background: transparent;
+  color: var(--sl-text-secondary, #6B7280);
+  border: 1px solid var(--sl-border-default, #E5E7EB);
+}
+.mg2-btn-secondary:hover:not(:disabled) {
+  background: var(--sl-color-gray-50, #F9FAFB);
+  color: var(--sl-text-primary, #111827);
+}
+
+.mg2-hidden {
+  display: none !important;
+}
+</style>
+
+<div class="mg2-container">
+  {% if section.settings.heading != blank %}
+    <h1 class="mg2-title">{{ section.settings.heading }}</h1>
+  {% endif %}
+
+  <!-- Progress Bar (Hidden on Intro / Beratung) -->
+  <div class="mg2-progress-wrapper" id="wizard-progress">
+    <div class="mg2-progress">
+      <div class="mg2-progress-fill" id="progress-fill"></div>
+      <div class="mg2-step-indicator step-ind-1" data-step="1">1</div>
+      <div class="mg2-step-indicator step-ind-2" data-step="2">2</div>
+      <div class="mg2-step-indicator step-ind-3" data-step="3">3</div>
+    </div>
+    <div class="mg2-step-labels">
+      <div class="mg2-step-label label-1">Montageart</div>
+      <div class="mg2-step-label label-2">Verschraubung</div>
+      <div class="mg2-step-label label-3">Messen</div>
+    </div>
+  </div>
+
+  <div class="mg2-wizard-box">
+    
+    <!-- STEP 0: Intro (Path Selection) -->
+    <div class="mg2-step-content active" id="step-0">
+      <h2 class="mg2-step-title">Wie möchtest du vorgehen?</h2>
+      <p class="mg2-step-desc">Wähle, ob wir dir helfen sollen oder ob du selbst messen möchtest.</p>
+      
+      <div class="mg2-options-grid" id="opts-step0">
+        <div class="mg2-card" data-choice="beratung">
+          <span class="mg2-card-title">👨‍🔧 Kostenlose Beratung</span>
+          <span class="mg2-card-desc">Wir helfen dir persönlich und schnell weiter. Meist sogar innerhalb weniger Minuten!</span>
+        </div>
+        <div class="mg2-card" data-choice="selber">
+          <span class="mg2-card-title">📏 Selber herausfinden</span>
+          <span class="mg2-card-desc">Ermittle in nur 3 einfachen Schritten die perfekten Maße für deinen Screen.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP: Beratung Flow -->
+    <div class="mg2-step-content" id="step-beratung">
+      <h2 class="mg2-step-title">👨‍🔧 Kostenlose Beratung</h2>
+      <p class="mg2-step-desc">Sende uns ein Bild und wir melden uns innerhalb von 24 Stunden mit unserer empfohlenen Lösung bei dir. (In der Regel erhältst du schon innerhalb von wenigen Minuten eine Antwort.)</p>
+      <div style="margin-top: 32px;">
+        <iframe data-tally-src="https://tally.so/embed/lbLgWV?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="479" frameborder="0" marginheight="0" marginwidth="0" title="Bild hochladen"></iframe>
+      </div>
+    </div>
+
+    <!-- STEP 1: Montageart (Laibung) -->
+    <div class="mg2-step-content" id="step-1">
+      <h2 class="mg2-step-title">Schritt 1: Montageart bestimmen</h2>
+      <p class="mg2-step-desc">Miss die Tiefe deiner Laibung (Entfernung von der vorderen Wandkante bis zum Fensterrahmen).</p>
+      
+      <div class="mg2-options-grid" id="opts-step1">
+        <div class="mg2-card" data-choice="innen">
+          <span class="mg2-card-title">≥ 4 cm Tiefe</span>
+          <span class="mg2-card-desc">Perfekt für die Montage innerhalb der Laibung</span>
+        </div>
+        <div class="mg2-card" data-choice="aussen">
+          <span class="mg2-card-title">&lt; 4 cm Tiefe</span>
+          <span class="mg2-card-desc">Ideal für die Montage auf dem Mauerwerk</span>
+        </div>
+      </div>
+
+      <div class="mg2-info-box">
+        <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">💡 Unsere Empfehlung: Montage innerhalb der Laibung</strong>
+        <span style="color: var(--sl-text-secondary, #4B5563); display:block; margin-bottom: 16px;">Diese Variante wirkt besonders sauber, hochwertig und integriert sich perfekt in dein Zuhause.</span>
+        
+        <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">Tipp zur Kassette:</strong>
+        <span style="color: var(--sl-text-secondary, #4B5563);">Bei einer Laibung unter 95 mm steht die Kassette minimal hervor. Das ist optisch völlig normal und sieht in der Regel noch eleganter aus als eine Montage auf dem Mauerwerk.</span>
+      </div>
+    </div>
+
+    <!-- STEP 2: Verschraubung -->
+    <div class="mg2-step-content" id="step-2">
+      <h2 class="mg2-step-title">Schritt 2: Art der Verschraubung</h2>
+      <p class="mg2-step-desc">Wähle, wie die Führungsschienen befestigt werden sollen.</p>
+      
+      <!-- Inside Options -->
+      <div id="step2-innen-container" style="display:none;">
+        <div class="mg2-options-grid" id="opts-step2-innen">
+          <div class="mg2-card" data-choice="A">
+            <span class="mg2-card-title">A. Auf dem Fensterrahmen</span>
+            <span class="mg2-card-desc">Die beste Lösung! Wähle dies, wenn der Rahmen seitlich ≥ 4 cm breit ist.</span>
+          </div>
+          <div class="mg2-card" data-choice="A2">
+            <span class="mg2-card-title">A2. Seitlich in der Laibung</span>
+            <span class="mg2-card-desc">Die clevere Alternative, falls der Fensterrahmen zu schmal ist.</span>
+          </div>
+        </div>
+
+        <div id="info-2-A" class="mg2-info-box warning" style="display:none;">
+          <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">✨ Deine Vorteile bei dieser Wahl:</strong>
+          <ul class="mg2-list">
+            <li>Super einfache und schnelle Montage</li>
+            <li>Fehlerverzeihend beim Messen – stressfrei für dich</li>
+            <li>Besonders sauberes Endergebnis</li>
+          </ul>
+        </div>
+        <div id="info-2-A2" class="mg2-info-box warning" style="display:none;">
+          <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">📌 Gut zu wissen:</strong>
+          <ul class="mg2-list">
+            <li>Da der Screen direkt in der Öffnung sitzt, ist präzises Messen wichtig.</li>
+            <li>Folge einfach unserer Messanleitung im nächsten Schritt!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Outside Options -->
+      <div id="step2-aussen-container" style="display:none;">
+        <div class="mg2-options-grid" id="opts-step2-aussen">
+           <div class="mg2-card selected" data-choice="B">
+             <span class="mg2-card-title">B. Auf dem Mauerwerk</span>
+             <span class="mg2-card-desc">Der Screen wird formschön vor dem Fenster platziert, die Schienen liegen auf der Wand auf.</span>
+           </div>
+         </div>
+         <div class="mg2-info-box warning">
+          <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">✨ Deine Vorteile bei dieser Wahl:</strong>
+          <ul class="mg2-list">
+            <li>Sehr einfache Anbringung</li>
+            <li>Viel Spielraum und hohe Fehlertoleranz beim Messen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Messen -->
+    <div class="mg2-step-content" id="step-3">
+      <h2 class="mg2-step-title">Schritt 3: Richtig Messen</h2>
+      <p class="mg2-step-desc">Folge dieser Anleitung, um deine finalen Bestellmaße zu erhalten.</p>
+      
+      <!-- Measure Flow A -->
+      <div id="measure-A" style="display: none;">
+        <ul class="mg2-list">
+          <li><strong>Öffnung:</strong> Bitte einmal genau die Breite und Höhe der Öffnung messen.</li>
+        </ul>
+        <div class="mg2-info-box warning">
+          <strong style="display:block; margin-bottom: 8px; font-size: 18px; color: var(--sl-text-primary, #111827);">Dein errechnetes Bestellmaß:</strong>
+          <ul class="mg2-list" style="margin-bottom:0;">
+            <li><strong>Breite:</strong> Gemessenes Maß &ndash; 10 mm</li>
+            <li><strong>Höhe:</strong> Gemessenes Maß &ndash; 10 mm</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Measure Flow A2 -->
+      <div id="measure-A2" style="display: none;">
+        <ul class="mg2-list">
+          <li><strong>Breite messen:</strong> Oben, Mitte und Unten messen. Notiere das <em>kleinste</em> Maß.</li>
+          <li><strong>Höhe messen:</strong> Links, Mitte und Rechts messen. Notiere das <em>kleinste</em> Maß.</li>
+        </ul>
+        <div class="mg2-info-box warning">
+          <strong style="display:block; margin-bottom: 8px; font-size: 18px; color: var(--sl-text-primary, #111827);">Dein errechnetes Bestellmaß:</strong>
+          <ul class="mg2-list" style="margin-bottom:0;">
+            <li><strong>Breite:</strong> Kleinstes Maß &ndash; 3 mm</li>
+            <li><strong>Höhe:</strong> Kleinstes Maß &ndash; 3 mm</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Measure Flow B -->
+      <div id="measure-B" style="display: none;">
+        <ul class="mg2-list">
+          <li><strong>Fensteröffnung:</strong> Außen vollständig messen.</li>
+          <li>Messe hierbei immer bis zur äußersten Kante.</li>
+        </ul>
+        <div class="mg2-info-box warning">
+          <strong style="display:block; margin-bottom: 8px; font-size: 18px; color: var(--sl-text-primary, #111827);">Dein errechnetes Bestellmaß:</strong>
+           <ul class="mg2-list" style="margin-bottom:0;">
+            <li><strong>Breite:</strong> Gemessenes Maß + 64 mm</li>
+            <li><strong>Höhe:</strong> Gemessenes Maß + 105 mm</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mg2-info-box" style="margin-top: 32px;">
+        <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">Wichtige Hinweise zum Messen</strong>
+        <ul class="mg2-list" style="margin-bottom: 0;">
+          <li>Ungerade Wände sind normal – nimm immer mehrere Messpunkte, um sicherzugehen.</li>
+          <li>Wenn du unsicher bist: Schick uns einfach ein Foto und deine Maße, wir helfen gerne!</li>
+        </ul>
+      </div>
+
+       <div style="margin-top: 32px; display: flex; justify-content: center;">
+         <a href="/products/screenlux-sonnenschutz" class="mg2-btn mg2-btn-primary">Jetzt Screen konfigurieren &rarr;</a>
+       </div>
+    </div>
+
+
+    <!-- Navigation Footer -->
+    <div class="mg2-nav" id="wizard-nav">
+      <button class="mg2-btn mg2-btn-secondary" id="btn-back" style="visibility: hidden;">&larr; Zurück</button>
+      <button class="mg2-btn mg2-btn-primary" id="btn-next" disabled>Weiter</button>
+    </div>
+
+  </div> <!-- end wizard box -->
+</div>
+
+<!-- Tally Form Embed Script -->
+<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+<!-- Wizard Logic -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // State
+  let currentStep = 0; // 0=Intro, 1=Laibung, 2=Verschraubung, 3=Messen, 99=Beratung
+  const selections = {
+    method: null,      // beratung | selber
+    montageart: null,  // innen | aussen
+    verschraubung: null// A | A2 | B
+  };
+
+  // DOM Elements
+  const progWrapper = document.getElementById('wizard-progress');
+  const progFill = document.getElementById('progress-fill');
+  const indicators = [
+    document.querySelector('.step-ind-1'),
+    document.querySelector('.step-ind-2'),
+    document.querySelector('.step-ind-3')
+  ];
+  const labels = [
+    document.querySelector('.label-1'),
+    document.querySelector('.label-2'),
+    document.querySelector('.label-3')
+  ];
+
+  const steps = {
+    0: document.getElementById('step-0'),
+    1: document.getElementById('step-1'),
+    2: document.getElementById('step-2'),
+    3: document.getElementById('step-3'),
+    99: document.getElementById('step-beratung')
+  };
+
+  const nav = document.getElementById('wizard-nav');
+  const btnNext = document.getElementById('btn-next');
+  const btnBack = document.getElementById('btn-back');
+
+  // Option Grids
+  const optsStep0 = document.getElementById('opts-step0').querySelectorAll('.mg2-card');
+  const optsStep1 = document.getElementById('opts-step1').querySelectorAll('.mg2-card');
+  const optsStep2Innen = document.getElementById('opts-step2-innen').querySelectorAll('.mg2-card');
+  
+  // Specific blocks
+  const step2InnenContainer = document.getElementById('step2-innen-container');
+  const step2AussenContainer = document.getElementById('step2-aussen-container');
+  const info2A = document.getElementById('info-2-A');
+  const info2A2 = document.getElementById('info-2-A2');
+  
+  const measureBlocks = {
+    A: document.getElementById('measure-A'),
+    A2: document.getElementById('measure-A2'),
+    B: document.getElementById('measure-B')
+  };
+
+  // --- Handlers ---
+  
+  const bindCards = (cardElements, key, callback) => {
+    cardElements.forEach(card => {
+      card.addEventListener('click', () => {
+        cardElements.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selections[key] = card.getAttribute('data-choice');
+        checkNextStatus();
+        if(callback) callback();
+      });
+    });
+  };
+
+  bindCards(optsStep0, 'method');
+  bindCards(optsStep1, 'montageart');
+  bindCards(optsStep2Innen, 'verschraubung', () => {
+    if(info2A) info2A.style.display = selections.verschraubung === 'A' ? 'block' : 'none';
+    if(info2A2) info2A2.style.display = selections.verschraubung === 'A2' ? 'block' : 'none';
+  });
+
+  // Evaluate "Next" button state
+  const checkNextStatus = () => {
+    let disabled = true;
+    if (currentStep === 0 && selections.method) disabled = false;
+    if (currentStep === 1 && selections.montageart) disabled = false;
+    if (currentStep === 2 && selections.verschraubung) disabled = false;
+    btnNext.disabled = disabled;
+  };
+
+  // Render the current step
+  const renderStep = () => {
+    // Hide all contents
+    Object.values(steps).forEach(el => el.classList.remove('active'));
+    
+    // Show active step
+    if (steps[currentStep]) steps[currentStep].classList.add('active');
+
+    // Display / Hide Progress Bar
+    if (currentStep === 0 || currentStep === 99) {
+      progWrapper.style.display = 'none';
+    } else {
+      progWrapper.style.display = 'block';
+      updateProgressFill(currentStep);
+    }
+
+    // Logic for Step 2 branching based on Step 1
+    if (currentStep === 2) {
+      if (selections.montageart === 'innen') {
+        step2InnenContainer.style.display = 'block';
+        step2AussenContainer.style.display = 'none';
+        // force user to pick inside step 2 A or A2 unless already picked
+      } else {
+        step2InnenContainer.style.display = 'none';
+        step2AussenContainer.style.display = 'block';
+        selections.verschraubung = 'B'; // auto assign
+      }
+    }
+
+    // Logic for Step 3 measuring details based on Step 2
+    if (currentStep === 3) {
+      Object.values(measureBlocks).forEach(b => b.style.display = 'none');
+      if(measureBlocks[selections.verschraubung]) measureBlocks[selections.verschraubung].style.display = 'block';
+    }
+
+    // Navigation Buttons configuration
+    if (currentStep === 0) {
+      btnBack.style.visibility = 'hidden';
+      btnNext.style.display = 'inline-flex';
+      btnNext.textContent = 'Weiter';
+    } else if (currentStep === 99) {
+      btnBack.style.visibility = 'visible';
+      btnNext.style.display = 'none'; // End of form for beratung
+    } else if (currentStep === 3) {
+      btnBack.style.visibility = 'visible';
+      btnNext.style.display = 'none'; // End of wizard
+    } else {
+      btnBack.style.visibility = 'visible';
+      btnNext.style.display = 'inline-flex';
+      btnNext.textContent = 'Weiter';
+    }
+
+    checkNextStatus();
+  };
+
+  const updateProgressFill = (step) => {
+    // 1 -> 0%, 2 -> 50%, 3 -> 100%
+    const percentage = (step - 1) * 50;
+    progFill.style.width = percentage + '%';
+
+    indicators.forEach((ind, i) => {
+      ind.classList.remove('active', 'completed');
+      labels[i].classList.remove('active');
+      
+      const indStep = i + 1;
+      if (indStep < step) {
+        ind.classList.add('completed');
+      } else if (indStep === step) {
+        ind.classList.add('active');
+        labels[i].classList.add('active');
+      }
+    });
+  };
+
+  btnNext.addEventListener('click', () => {
+    if (currentStep === 0) {
+      if (selections.method === 'beratung') currentStep = 99;
+      else currentStep = 1;
+    } else if (currentStep < 3) {
+      currentStep++;
+    }
+    renderStep();
+  });
+
+  btnBack.addEventListener('click', () => {
+    if (currentStep === 99) {
+      currentStep = 0;
+    } else if (currentStep > 0) {
+      currentStep--;
+    }
+    renderStep();
+  });
+
+  // Init
+  renderStep();
+});
+</script>

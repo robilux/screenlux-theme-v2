@@ -1,0 +1,461 @@
+{% schema %}
+{
+  "name": "Measurement Guide",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Wie finde ich die passenden Maße für meinen Screen?"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Measurement Guide"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+/* Measurement Guide Base Styles */
+.mg-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  color: var(--sl-text-primary, #111827);
+  font-family: var(--sl-font-family, inherit);
+}
+.mg-step {
+  display: none;
+  animation: mgFadeIn 0.3s ease-in-out;
+}
+.mg-step.active {
+  display: block;
+}
+@keyframes mgFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Layout Utilities */
+.mg-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+@media (max-width: 600px) {
+  .mg-options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Selection Cards matching 'configurator-group-box' style */
+.mg-card {
+  background: var(--sl-color-white, #ffffff);
+  border: 1px solid var(--sl-border-default, #E5E7EB);
+  border-radius: var(--sl-radius-lg, 16px);
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+  user-select: none;
+}
+.mg-card:hover {
+  border-color: var(--sl-color-gray-300, #D1D5DB);
+}
+.mg-card.selected {
+  border-color: var(--sl-color-primary, #5b5bf9);
+  background: var(--sl-color-primary-light, #EEF2FF);
+  box-shadow: inset 0 0 0 1px var(--sl-color-primary, #5b5bf9);
+}
+
+.mg-card-title {
+  font-size: var(--sl-text-h4, 20px);
+  font-weight: var(--sl-weight-semibold, 600);
+  margin-bottom: 8px;
+  display: block;
+  color: var(--sl-text-primary, #111827);
+}
+.mg-card-desc {
+  font-size: var(--sl-text-sm, 15px);
+  color: var(--sl-text-secondary, #4B5563);
+  line-height: 1.5;
+}
+
+/* Content Boxes */
+.mg-box {
+  background: var(--sl-color-white, #ffffff);
+  border: 1px solid var(--sl-border-default, #E5E7EB);
+  border-radius: var(--sl-radius-xl, 24px);
+  padding: 32px;
+  margin-bottom: 24px;
+}
+@media (max-width: 600px) {
+  .mg-box {
+    padding: 24px;
+  }
+}
+
+.mg-box-header {
+  margin-bottom: 20px;
+}
+
+/* Sub-Info Boxes */
+.mg-info-box {
+  background: var(--sl-color-gray-50, #F9FAFB);
+  border-radius: var(--sl-radius-md, 10px);
+  padding: 24px;
+  margin-top: 24px;
+  font-size: var(--sl-text-body, 17px);
+  line-height: 1.6;
+}
+.mg-info-box--warning {
+  background: #FFFBEB; /* Light yellow */
+}
+
+/* Typography */
+.mg-section-title {
+  font-size: var(--sl-text-h3, 26px);
+  font-weight: var(--sl-weight-bold, 700);
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--sl-text-primary, #111827);
+  line-height: 1.2;
+}
+.mg-section-desc {
+  font-size: var(--sl-text-body, 17px);
+  color: var(--sl-text-secondary, #4B5563);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.mg-step-heading {
+  font-size: var(--sl-text-h4, 20px);
+  font-weight: var(--sl-weight-semibold, 600);
+  margin-bottom: 12px;
+  margin-top: 0;
+  color: var(--sl-text-primary, #111827);
+}
+
+.mg-list {
+  padding-left: 20px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  list-style-type: disc;
+}
+.mg-list li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: var(--sl-text-secondary, #4B5563);
+}
+.mg-list li strong {
+  color: var(--sl-text-primary, #111827);
+}
+</style>
+
+<div class="mg-container">
+  {% if section.settings.heading != blank %}
+    <h1 style="text-align: center; margin-bottom: 48px; font-size: var(--sl-text-h1, 36px); font-weight: 700; color: var(--sl-text-primary, #111827);">{{ section.settings.heading }}</h1>
+  {% endif %}
+
+  <!-- Initial Choice -->
+  <div class="mg-box">
+    <div class="mg-box-header">
+      <h2 class="mg-section-title">Wie möchtest du vorgehen?</h2>
+    </div>
+    <div class="mg-options-grid" id="mg-main-choice">
+      <div class="mg-card" data-choice="beratung">
+        <span class="mg-card-title">👨‍🔧 Kostenlose Beratung</span>
+        <span class="mg-card-desc">Wir helfen dir persönlich und schnell weiter. Meist sogar innerhalb weniger Minuten!</span>
+      </div>
+      <div class="mg-card" data-choice="selber">
+        <span class="mg-card-title">📏 Selber herausfinden</span>
+        <span class="mg-card-desc">Ermittle in nur 3 einfachen Schritten die perfekten Maße für deinen Screen.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOW: Beratung -->
+  <div id="flow-beratung" class="mg-step mg-box">
+    <h2 class="mg-section-title">Kostenlose Beratung</h2>
+    <p class="mg-section-desc">Sende uns ein Bild und wir melden uns innerhalb von 24 Stunden mit unserer empfohlenen Lösung bei dir. (In der Regel erhältst du schon innerhalb von wenigen Minuten eine Antwort.)</p>
+    <div style="margin-top: 32px;">
+      <!-- Tally Form Embed -->
+      <iframe data-tally-src="https://tally.so/embed/lbLgWV?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="479" frameborder="0" marginheight="0" marginwidth="0" title="Bild hochladen"></iframe>
+    </div>
+  </div>
+
+  <!-- FLOW: Selber herausfinden -->
+  <div id="flow-selber" class="mg-step">
+    
+    <!-- Step 1: Montageart -->
+    <div class="mg-box">
+      <h2 class="mg-section-title">1. Montageart</h2>
+      <p class="mg-section-desc">Miss die Tiefe deiner Laibung:</p>
+      
+      <div class="mg-options-grid" id="mg-step1">
+        <div class="mg-card" data-choice="innen">
+          <span class="mg-card-title">≥ 4 cm Tiefe</span>
+          <span class="mg-card-desc">Perfekt für die Montage innerhalb der Laibung</span>
+        </div>
+        <div class="mg-card" data-choice="aussen">
+          <span class="mg-card-title">&lt; 4 cm Tiefe</span>
+          <span class="mg-card-desc">Ideal für die Montage auf dem Mauerwerk</span>
+        </div>
+      </div>
+
+      <div class="mg-info-box">
+        <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">💡 Unsere Empfehlung: Montage innerhalb der Laibung</strong>
+        <span style="color: var(--sl-text-secondary, #4B5563); display:block; margin-bottom: 16px;">Diese Variante wirkt besonders sauber, hochwertig und integriert sich perfekt in dein Zuhause.</span>
+        
+        <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">Tipp zur Kassette:</strong>
+        <span style="color: var(--sl-text-secondary, #4B5563);">Bei einer Laibung unter 95 mm steht die Kassette minimal hervor. Das ist optisch völlig normal und sieht in der Regel noch eleganter aus als eine Montage auf dem Mauerwerk.</span>
+      </div>
+    </div>
+
+    <!-- Step 2: Verschraubung -->
+    <div id="mg-step2-container" class="mg-step mg-box">
+      <h2 class="mg-section-title">2. Verschraubung</h2>
+      
+      <!-- Inside Laibung Options -->
+      <div id="step2-innen-flow" style="display: none;">
+        <p class="mg-section-desc">Wähle die Art der Verschraubung für die Montage innerhalb der Laibung:</p>
+        <div class="mg-options-grid" id="mg-step2-innen-opts">
+          <div class="mg-card" data-choice="A">
+            <span class="mg-card-title">A. Auf dem Fensterrahmen</span>
+            <span class="mg-card-desc">Die beste Lösung! Wähle dies, wenn der Rahmen seitlich ≥ 4 cm breit ist und nichts im Weg steht.</span>
+          </div>
+          <div class="mg-card" data-choice="A2">
+            <span class="mg-card-title">A2. Seitlich in der Laibung</span>
+            <span class="mg-card-desc">Die clevere Alternative, falls der Fensterrahmen zu schmal ist.</span>
+          </div>
+        </div>
+        
+        <div id="info-A" class="mg-info-box mg-info-box--warning" style="display:none;">
+          <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">✨ Deine Vorteile bei dieser Wahl:</strong>
+          <ul class="mg-list" style="margin-bottom:0;">
+            <li>Super einfache und schnelle Montage</li>
+            <li>Fehlerverzeihend beim Messen – stressfrei für dich</li>
+            <li>Besonders sauberes Endergebnis</li>
+          </ul>
+        </div>
+        <div id="info-A2" class="mg-info-box mg-info-box--warning" style="display:none;">
+          <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">📌 Gut zu wissen:</strong>
+          <ul class="mg-list" style="margin-bottom:0;">
+            <li>Da der Screen direkt in der Öffnung sitzt, ist präzises Messen wichtig.</li>
+            <li>Folge einfach unserer Messanleitung im nächsten Schritt!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Outside Mauerwerk Options -->
+      <div id="step2-aussen-flow" style="display: none;">
+         <p class="mg-section-desc">Die Montage erfolgt auf dem Mauerwerk (da nicht genug Platz in der Laibung vorhanden ist):</p>
+         <div class="mg-options-grid" id="mg-step2-aussen-opts">
+           <!-- Pre-selected as it's the only option -->
+           <div class="mg-card selected" data-choice="B">
+             <span class="mg-card-title">B. Auf dem Mauerwerk</span>
+             <span class="mg-card-desc">Der Screen wird formschön vor dem Fenster platziert, die Schienen liegen auf der Wand auf.</span>
+           </div>
+         </div>
+         <div id="info-B" class="mg-info-box mg-info-box--warning" style="display:block;">
+          <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">✨ Deine Vorteile bei dieser Wahl:</strong>
+          <ul class="mg-list" style="margin-bottom:0;">
+            <li>Sehr einfache Anbringung</li>
+            <li>Viel Spielraum und hohe Fehlertoleranz beim Messen</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Step 3: Messen -->
+    <div id="mg-step3-container" class="mg-step mg-box">
+      <h2 class="mg-section-title">3. Messen & Bestellen</h2>
+      
+      <!-- Flow A -->
+      <div id="measure-A" style="display: none;">
+        <ul class="mg-list">
+          <li><strong>Öffnung:</strong> Bitte einmal genau messen.</li>
+        </ul>
+        <div class="mg-info-box">
+          <h3 class="mg-step-heading">Dein Bestellmaß berechnen:</h3>
+          <ul class="mg-list" style="margin-bottom:0;">
+            <li><strong>Breite:</strong> Gemessenes Maß &ndash; 10 mm</li>
+            <li><strong>Höhe:</strong> Gemessenes Maß &ndash; 10 mm</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Flow A2 -->
+      <div id="measure-A2" style="display: none;">
+        <ul class="mg-list">
+          <li><strong>Breite messen:</strong> Oben, Mitte und Unten messen. Notiere das <em>kleinste</em> Maß.</li>
+          <li><strong>Höhe messen:</strong> Links, Mitte und Rechts messen. Notiere das <em>kleinste</em> Maß.</li>
+        </ul>
+        <div class="mg-info-box">
+          <h3 class="mg-step-heading">Dein Bestellmaß berechnen:</h3>
+          <ul class="mg-list" style="margin-bottom:0;">
+            <li><strong>Breite:</strong> Kleinstes Maß &ndash; 3 mm</li>
+            <li><strong>Höhe:</strong> Kleinstes Maß &ndash; 3 mm</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Flow B -->
+      <div id="measure-B" style="display: none;">
+        <ul class="mg-list">
+          <li><strong>Fensteröffnung:</strong> Außen vollständig messen.</li>
+          <li>Immer bis zur äußersten Kante.</li>
+        </ul>
+        <div class="mg-info-box">
+          <h3 class="mg-step-heading">Dein Bestellmaß berechnen:</h3>
+           <ul class="mg-list" style="margin-bottom:0;">
+            <li><strong>Breite:</strong> Gemessenes Maß + 64 mm</li>
+            <li><strong>Höhe:</strong> Gemessenes Maß + 105 mm</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Global Info Footer for "Selber herausfinden" -->
+    <div class="mg-box" style="background: var(--sl-color-primary-light, #EEF2FF); border-color: #C7D2FE;">
+      <h3 class="mg-step-heading" style="margin-top: 0;">Wichtige Hinweise zum Messen</h3>
+      <ul class="mg-list" style="margin-bottom: 0;">
+        <li>Ungerade Wände sind normal – nimm immer mehrere Messpunkte, um sicherzugehen.</li>
+        <li>Wenn du unsicher bist: Schick uns einfach ein Foto und deine Maße, wir helfen gerne!</li>
+      </ul>
+    </div>
+
+  </div> <!-- end flow-selber -->
+
+</div>
+
+<!-- Tally Form Embed Script -->
+<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+<!-- Interactive Logic -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Utility: Handle card selection in a given group
+  const initCardSelection = (containerId, callback) => {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const cards = container.querySelectorAll('.mg-card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        // Remove selected from all
+        cards.forEach(c => c.classList.remove('selected'));
+        // Add selected to clicked
+        card.classList.add('selected');
+        // Trigger callback
+        const choice = card.getAttribute('data-choice');
+        if (typeof callback === 'function') {
+          callback(choice);
+        }
+      });
+    });
+  };
+
+  // Main UI flows
+  const flowBeratung = document.getElementById('flow-beratung');
+  const flowSelber = document.getElementById('flow-selber');
+
+  // Step containers
+  const step2Container = document.getElementById('mg-step2-container');
+  const step3Container = document.getElementById('mg-step3-container');
+
+  // Step 2 inner areas
+  const step2InnenFlow = document.getElementById('step2-innen-flow');
+  const step2AussenFlow = document.getElementById('step2-aussen-flow');
+  const infoA = document.getElementById('info-A');
+  const infoA2 = document.getElementById('info-A2');
+
+  // Step 3 measure areas
+  const measureA = document.getElementById('measure-A');
+  const measureA2 = document.getElementById('measure-A2');
+  const measureB = document.getElementById('measure-B');
+
+  // Utility to hide all step 3 measurement items
+  const resetMeasureBlocks = () => {
+    [measureA, measureA2, measureB].forEach(el => {
+      if(el) el.style.display = 'none';
+    });
+  };
+
+  const showMeasureBlock = (blockId) => {
+    resetMeasureBlocks();
+    step3Container.classList.add('active'); // Reveal Step 3
+    const el = document.getElementById(blockId);
+    if(el) el.style.display = 'block';
+    
+    // Smooth scroll to step 3 when revealed
+    setTimeout(() => {
+      step3Container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  };
+
+  const deselectGroup = (containerId) => {
+    const container = document.getElementById(containerId);
+    if(!container) return;
+    container.querySelectorAll('.mg-card').forEach(c => c.classList.remove('selected'));
+  };
+
+  // 1. Listen for Main Choice
+  initCardSelection('mg-main-choice', (choice) => {
+    if (choice === 'beratung') {
+      flowBeratung.classList.add('active');
+      flowSelber.classList.remove('active');
+    } else if (choice === 'selber') {
+      flowBeratung.classList.remove('active');
+      flowSelber.classList.add('active');
+    }
+  });
+
+  // 2. Listen for Step 1 (Montageart)
+  initCardSelection('mg-step1', (choice) => {
+    step2Container.classList.add('active');
+    step3Container.classList.remove('active'); // Hide step 3 on step 1 change
+    resetMeasureBlocks();
+
+    if (choice === 'innen') {
+      // Show inside flow, hide outside
+      step2InnenFlow.style.display = 'block';
+      step2AussenFlow.style.display = 'none';
+      
+      // Reset selections in Step 2 Innen
+      deselectGroup('mg-step2-innen-opts');
+      if(infoA) infoA.style.display = 'none';
+      if(infoA2) infoA2.style.display = 'none';
+      
+    } else if (choice === 'aussen') {
+      // Show outside flow, hide inside
+      step2InnenFlow.style.display = 'none';
+      step2AussenFlow.style.display = 'block';
+      
+      // Since 'B' is the only option here, automatically trigger Step 3
+      showMeasureBlock('measure-B');
+    }
+    
+    setTimeout(() => {
+      step2Container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  });
+
+  // 3. Listen for Step 2 (Verschraubung - Inside)
+  initCardSelection('mg-step2-innen-opts', (choice) => {
+    if(infoA) infoA.style.display = choice === 'A' ? 'block' : 'none';
+    if(infoA2) infoA2.style.display = choice === 'A2' ? 'block' : 'none';
+
+    if (choice === 'A') {
+      showMeasureBlock('measure-A');
+    } else if (choice === 'A2') {
+      showMeasureBlock('measure-A2');
+    }
+  });
+});
+</script>
