@@ -29,9 +29,10 @@
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Jetzt anmelden",
+            "button_label_1": "",
             "button_link_1": "#",
             "button_style_secondary_1": true,
+            "button_style_brand_1": false,
             "is_klaviyo": true,
             "button_label_2": "Konfigurieren",
             "button_link_2": "shopify://products/zip-screen-configurator",
