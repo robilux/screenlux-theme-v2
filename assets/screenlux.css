@@ -411,6 +411,20 @@ body {
 
 /* Reusable Components */
 
+/* Buttons */
+.button--brand {
+  --color-button: var(--sl-color-primary, #5b5bf9);
+  --color-button-text: var(--sl-color-white, #ffffff);
+  background-color: var(--sl-color-primary, #5b5bf9) !important;
+  color: var(--sl-color-white, #ffffff) !important;
+  border: 1px solid var(--sl-color-primary, #5b5bf9) !important;
+}
+
+.button--brand:hover {
+  background-color: var(--sl-color-primary-hover, #4F46E5) !important;
+  border-color: var(--sl-color-primary-hover, #4F46E5) !important;
+}
+
 /* Labels */
 .field {
   display: block !important; /* Override Dawn theme's flex layout */

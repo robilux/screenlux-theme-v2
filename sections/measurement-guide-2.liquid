@@ -242,6 +242,16 @@
   .mg2-options-grid {
     grid-template-columns: 1fr;
   }
+  .mg2-card[data-choice="innen"], .mg2-card[data-choice="aussen"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 16px !important;
+  }
+  .mg2-card[data-choice="innen"] img, .mg2-card[data-choice="aussen"] img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4/3;
+  }
 }
 
 /* Cards */
@@ -573,6 +583,8 @@
       <h2 class="mg2-step-title">Schritt 1: Tiefe der Laibung</h2>
       <p class="mg2-step-desc">Miss die Tiefe deiner Laibung (Entfernung von der vorderen Wandkante bis zum Fensterrahmen). Wähle dann die entsprechende Option:</p>
       
+      <img src="https://cdn.shopify.com/s/files/1/0975/4676/4636/files/measure-guide-Tiefe_der_Laibung.jpg?v=1774615555" alt="Tiefe der Laibung Messanleitung" width="800" height="450" style="width: 100%; height: auto; border-radius: var(--sl-radius-lg, 16px); margin-bottom: 24px; display: block; object-fit: cover;">
+      
       <div class="mg2-options-grid" id="opts-step1">
         <div class="mg2-card" data-choice=">=4">
           <span class="mg2-card-title">&ge; 4 cm Tiefe</span>
@@ -592,16 +604,25 @@
       
       <!-- >= 4cm: Choice between Inside and Outside -->
       <div id="step2-choice-container" style="display:none;">
-        <div class="mg2-options-grid" id="opts-step2">
-          <div class="mg2-card" data-choice="innen">
+        <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 24px;" id="opts-step2">
+          
+          <div class="mg2-card" data-choice="innen" style="display: flex; gap: 20px; align-items: center;">
             <span class="mg2-badge">✨ Empfohlen</span>
-            <span class="mg2-card-title">In der Laibung</span>
-            <span class="mg2-card-desc">Die Box und Führungsschienen werden innerhalb der Fensternische angebracht.</span>
+            <img src="https://cdn.shopify.com/s/files/1/0975/4676/4636/files/measure-guide-In_der_laibung.jpg?v=1774615870" alt="In der Laibung" width="140" height="140" style="width: 140px; height: 140px; object-fit: cover; border-radius: var(--sl-radius-md, 12px); flex-shrink: 0;" class="hide-mobile-img">
+            <div style="flex: 1;">
+              <span class="mg2-card-title">In der Laibung</span>
+              <span class="mg2-card-desc">Die Box und Führungsschienen werden innerhalb der Fensternische angebracht.</span>
+            </div>
           </div>
-          <div class="mg2-card" data-choice="aussen">
-            <span class="mg2-card-title">Auf dem Mauerwerk</span>
-            <span class="mg2-card-desc">Der Screen wird außen vor dem Fenster direkt an die Hauswand geschraubt.</span>
+          
+          <div class="mg2-card" data-choice="aussen" style="display: flex; gap: 20px; align-items: center;">
+            <img src="https://cdn.shopify.com/s/files/1/0975/4676/4636/files/measure-guide-Auf_dem_mauerwerk.jpg?v=1774615871" alt="Auf dem Mauerwerk" width="140" height="140" style="width: 140px; height: 140px; object-fit: cover; border-radius: var(--sl-radius-md, 12px); flex-shrink: 0;" class="hide-mobile-img">
+            <div style="flex: 1;">
+              <span class="mg2-card-title">Auf dem Mauerwerk</span>
+              <span class="mg2-card-desc">Der Screen wird außen vor dem Fenster direkt an die Hauswand geschraubt.</span>
+            </div>
           </div>
+          
         </div>
 
         <!-- Info Tip for Inside mounting -->
@@ -622,11 +643,14 @@
 
       <!-- < 4cm: Only Outside is possible -->
       <div id="step2-only-outside" style="display:none;">
-        <div class="mg2-options-grid">
+        <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 24px;">
            <!-- Auto-selected -->
-           <div class="mg2-card selected" style="cursor: default;" data-choice="aussen">
-             <span class="mg2-card-title">Auf dem Mauerwerk</span>
-             <span class="mg2-card-desc">Da deine Laibung extrem schmal ist, wird der Screen formschön vor dem Fenster platziert, die Schienen liegen auf der Wand auf.</span>
+           <div class="mg2-card selected" style="cursor: default; display: flex; gap: 20px; align-items: center;" data-choice="aussen">
+             <img src="https://cdn.shopify.com/s/files/1/0975/4676/4636/files/measure-guide-Auf_dem_mauerwerk.jpg?v=1774615871" alt="Auf dem Mauerwerk" width="140" height="140" style="width: 140px; height: 140px; object-fit: cover; border-radius: var(--sl-radius-md, 12px); flex-shrink: 0;" class="hide-mobile-img">
+             <div style="flex: 1;">
+               <span class="mg2-card-title">Auf dem Mauerwerk</span>
+               <span class="mg2-card-desc">Da deine Laibung extrem schmal ist, wird der Screen formschön vor dem Fenster platziert, die Schienen liegen auf der Wand auf.</span>
+             </div>
            </div>
          </div>
       </div>

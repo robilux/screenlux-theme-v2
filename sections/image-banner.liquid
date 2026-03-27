@@ -166,7 +166,7 @@
                   {% else %}
                     href="{{ block.settings.button_link_1 }}"
                   {% endif %}
-                  class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %} {% if block.settings.is_klaviyo %} open_klaviyo {% endif %}"
+                  class="button{% if block.settings.button_style_brand_1 %} button--brand{% elsif block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %} {% if block.settings.is_klaviyo %} open_klaviyo {% endif %}"
                 >
                   {{- block.settings.button_label_1 | escape -}}
                 </a>
@@ -178,7 +178,7 @@
                   {% else %}
                     href="{{ block.settings.button_link_2 }}"
                   {% endif %}
-                  class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
+                  class="button{% if block.settings.button_style_brand_2 %} button--brand{% elsif block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
                 >
                   {{- block.settings.button_label_2 | escape -}}
                 </a>
@@ -547,6 +547,12 @@
         },
         {
           "type": "checkbox",
+          "id": "button_style_brand_1",
+          "default": false,
+          "label": "Use Brand Blue button style"
+        },
+        {
+          "type": "checkbox",
           "id": "is_klaviyo",
           "default": false,
           "label": "Enable to open klaviyo popup"
@@ -572,6 +578,12 @@
           "id": "button_style_secondary_2",
           "default": false,
           "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_2.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_brand_2",
+          "default": false,
+          "label": "Use Brand Blue button style"
         },
         {
           "type": "inline_richtext",

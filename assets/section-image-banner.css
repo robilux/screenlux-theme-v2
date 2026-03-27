@@ -503,15 +503,15 @@
   }
 
   .banner--content-align-mobile-center .banner__buttons--multiple > * {
-    flex-grow: 1;
-    min-width: 22rem;
+    flex-grow: 0;
+    min-width: auto;
   }
 }
 
 @media screen and (min-width: 750px) {
   .banner--content-align-center .banner__buttons--multiple > * {
-    flex-grow: 1;
-    min-width: 22rem;
+    flex-grow: 0;
+    min-width: auto;
   }
 
   .banner--content-align-right .banner__buttons--multiple {
@@ -616,7 +616,8 @@
 
 .banner__buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
