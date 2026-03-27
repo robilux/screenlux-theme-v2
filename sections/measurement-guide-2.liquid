@@ -906,11 +906,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (steps[currentStep]) steps[currentStep].classList.add('active');
 
     // Progress bar visibility
-    if (currentStep === 99) {
+    if (currentStep === 0 || currentStep === 99) {
       progWrapper.style.display = 'none';
     } else {
       progWrapper.style.display = 'block';
-      updateProgressFill(currentStep === 0 ? 1 : currentStep);
+      updateProgressFill(currentStep);
     }
 
     // Logic for Step 2 branching based on Step 1 (Tiefe)
