@@ -20,11 +20,15 @@
 {% endschema %}
 
 <style>
-/* Hide Site Header, Footer & Announcement */
+/* Hide Site Header, Footer & Announcement/Countdown */
 #shopify-section-header,
 .header-wrapper,
 #shopify-section-announcement-bar,
 .announcement-bar,
+#shopify-section-slim-countdown,
+.slim-countdown,
+#shopify-section-top-bar,
+.top-bar,
 #shopify-section-footer,
 .footer-block {
   display: none !important;
@@ -509,9 +513,7 @@
 
   <!-- Main Wizard Content -->
   <div class="mg2-container">
-    {% if section.settings.heading != blank %}
-      <h1 class="mg2-title">{{ section.settings.heading }}</h1>
-    {% endif %}
+    <h1 class="mg2-title">Aufmaß-Assistent</h1>
 
     <!-- Progress Bar moved to Body -->
     <div class="mg2-progress-wrapper" id="wizard-progress">
