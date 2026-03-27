@@ -20,12 +20,64 @@
 {% endschema %}
 
 <style>
+/* Hide Site Header & Footer */
+#shopify-section-header,
+.header-wrapper,
+#shopify-section-footer,
+.footer-block {
+  display: none !important;
+}
+#MainContent {
+  padding-top: 0 !important;
+}
+
 /* Base Styles */
 .mg2-wrapper {
   background-color: #F5F5F5;
   width: 100%;
-  min-height: 80vh;
+  min-height: 100vh;
   padding-bottom: 100px; /* space for sticky footer */
+  display: flex;
+  flex-direction: column;
+}
+.mg2-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  color: var(--sl-text-primary, #111827);
+  font-family: var(--sl-font-family, inherit);
+  flex-grow: 1;
+}
+
+/* Top Bar */
+.mg2-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--sl-border-default, #E5E7EB);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.mg2-exit-btn {
+  font-size: 28px;
+  color: var(--sl-text-tertiary, #9CA3AF);
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mg2-exit-btn:hover {
+  color: var(--sl-text-primary, #111827);
+}
+@media (max-width: 768px) {
+  .mg2-top-bar {
+    flex-wrap: wrap;
+  }
 }
 .mg2-container {
   max-width: 800px;
@@ -60,10 +112,20 @@
 /* Progress Bar */
 .mg2-progress-wrapper {
   position: relative;
-  margin-bottom: 50px;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 400px;
+  margin: 0 auto;
+  flex: 2;
+}
+@media (max-width: 768px) {
+  .mg2-progress-wrapper {
+    flex: 0 0 100%;
+    order: 3;
+    margin-top: 16px;
+    padding-bottom: 8px;
+  }
+  .mg2-step-label {
+    display: none;
+  }
 }
 .mg2-progress-track {
   position: absolute;
@@ -174,8 +236,8 @@
 
 /* Cards */
 .mg2-card {
-  background: #ffffff;
-  border: 2px solid transparent;
+  background: var(--sl-color-white, #ffffff);
+  border: 2px solid var(--sl-border-default, #E5E7EB);
   border-radius: var(--sl-radius-lg, 16px);
   padding: 28px 24px;
   cursor: pointer;
@@ -183,16 +245,17 @@
   text-align: left;
   user-select: none;
   position: relative;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  box-shadow: none;
 }
 .mg2-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+  border-color: var(--sl-color-gray-300, #D1D5DB);
+  transform: none;
+  box-shadow: none;
 }
 .mg2-card.selected {
   border-color: var(--sl-color-primary, #5b5bf9);
-  background: #ffffff;
-  box-shadow: 0 0 0 4px var(--sl-color-primary-light, #EEF2FF);
+  background: var(--sl-color-primary-light, #EEF2FF);
+  box-shadow: none;
 }
 .mg2-card-title {
   font-size: var(--sl-text-h4, 20px);
@@ -312,9 +375,9 @@
   border-radius: 16px;
   padding: 32px;
   margin-top: 24px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   text-align: center;
-  border-top: 6px solid var(--sl-color-primary, #5b5bf9);
+  border: 1px solid var(--sl-border-default, #E5E7EB);
 }
 .mg2-formula-title {
   font-size: 22px;
@@ -369,8 +432,8 @@
   }
 }
 .mg2-btn {
-  padding: 14px 28px;
-  border-radius: 8px;
+  padding: 16px 32px;
+  border-radius: var(--sl-radius-full, 9999px);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -378,7 +441,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 120px;
+  min-width: 140px;
   text-decoration: none;
 }
 .mg2-btn-primary {
@@ -418,35 +481,56 @@
 </style>
 
 <div class="mg2-wrapper">
-<div class="mg2-container">
-  {% if section.settings.heading != blank %}
-    <h1 class="mg2-title">{{ section.settings.heading }}</h1>
-  {% endif %}
-
-  <!-- Progress Bar (Hidden on Intro / Beratung) -->
-  <div class="mg2-progress-wrapper" id="wizard-progress">
-    <div class="mg2-progress-track">
-      <div class="mg2-progress-fill" id="progress-fill"></div>
+  
+  <!-- Custom Top Bar Header -->
+  <div class="mg2-top-bar">
+    <div class="mg2-logo" style="flex: 1;">
+      <a href="/" style="text-decoration: none; color: inherit;">
+        {%- if settings.logo != blank -%}
+          {{ settings.logo | image_url: width: 300 | image_tag: style: 'max-width: 140px; height: auto; display: block;' }}
+        {%- else -%}
+          <span style="font-weight: 700; font-size: 20px;">SCREENLUX</span>
+        {%- endif -%}
+      </a>
     </div>
-    <div class="mg2-progress-steps">
-      <div class="mg2-step-item">
-        <div class="mg2-step-indicator step-ind-1" data-step="1">1</div>
-        <div class="mg2-step-label label-1">Tiefe</div>
+
+    <!-- Progress Bar moved to Header -->
+    <div class="mg2-progress-wrapper" id="wizard-progress">
+      <div class="mg2-progress-track">
+        <div class="mg2-progress-fill" id="progress-fill"></div>
       </div>
-      <div class="mg2-step-item">
-        <div class="mg2-step-indicator step-ind-2" data-step="2">2</div>
-        <div class="mg2-step-label label-2">Montageart</div>
+      <div class="mg2-progress-steps">
+        <div class="mg2-step-item">
+          <div class="mg2-step-indicator step-ind-1" data-step="1">1</div>
+          <div class="mg2-step-label label-1">Tiefe</div>
+        </div>
+        <div class="mg2-step-item">
+          <div class="mg2-step-indicator step-ind-2" data-step="2">2</div>
+          <div class="mg2-step-label label-2">Montageart</div>
+        </div>
+        <div class="mg2-step-item">
+          <div class="mg2-step-indicator step-ind-3" data-step="3">3</div>
+          <div class="mg2-step-label label-3">Verschraubung</div>
+        </div>
+        <div class="mg2-step-item">
+          <div class="mg2-step-indicator step-ind-4" data-step="4">4</div>
+          <div class="mg2-step-label label-4">Messen</div>
+        </div>
       </div>
-      <div class="mg2-step-item">
-        <div class="mg2-step-indicator step-ind-3" data-step="3">3</div>
-        <div class="mg2-step-label label-3">Verschraubung</div>
-      </div>
-      <div class="mg2-step-item">
-        <div class="mg2-step-indicator step-ind-4" data-step="4">4</div>
-        <div class="mg2-step-label label-4">Messen</div>
-      </div>
+    </div>
+
+    <div class="mg2-exit" style="flex: 1; display: flex; justify-content: flex-end;">
+      <a href="/products/screenlux-sonnenschutz" class="mg2-exit-btn" title="Beenden">
+        <span style="font-size: 14px; font-weight: 600; margin-right: 4px;" class="hidden-mobile">Beenden</span> &times;
+      </a>
     </div>
   </div>
+
+  <!-- Main Wizard Content -->
+  <div class="mg2-container">
+    {% if section.settings.heading != blank %}
+      <h1 class="mg2-title">{{ section.settings.heading }}</h1>
+    {% endif %}
 
   <div class="mg2-wizard-box">
     
