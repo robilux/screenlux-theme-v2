@@ -735,7 +735,12 @@ class ProductConfigurator extends HTMLElement {
             <span class="card-title">${opt.title}</span>
             ${opt.ral ? `<span class="ral-code">${opt.ral}</span>` : ''}
             ${opt.desc ? `<span class="card-price">${opt.desc}</span>` : ''}
-            ${opt.extraPrice && opt.extraPrice > 0 ? `<span class="card-price" style="margin-top: 4px; display: block; font-weight: 600; font-size: 14px; color: #171717;">+${(opt.extraPrice / 100).toFixed(0)} €</span>` : ''}
+            ${opt.extraPrice && opt.extraPrice > 0 ? `
+              <div style="margin-top: 4px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
+                ${opt.extraCompareAtPrice && opt.extraCompareAtPrice > opt.extraPrice ? `<span class="card-price old-price" style="text-decoration: line-through; color: var(--sl-text-subdued); font-size: 12px; font-weight: 400;">+${(opt.extraCompareAtPrice / 100).toFixed(0)} €</span>` : ''}
+                <span class="card-price" style="font-weight: 600; font-size: 14px; color: #171717;">+${(opt.extraPrice / 100).toFixed(0)} €</span>
+              </div>
+            ` : ''}
           </div>
         </label>
       `;
@@ -772,25 +777,34 @@ class ProductConfigurator extends HTMLElement {
     const fabricColors = this.data.fabricColors || [];
     
     // Calculate extra prices for options based on actual variant sale prices (with discounts)
-    const getBasePrice = (field, optionsArray) => {
-      if (!optionsArray || optionsArray.length === 0) return 0;
+    const getBasePrices = (field, optionsArray) => {
+      if (!optionsArray || optionsArray.length === 0) return { price: 0, compareAtPrice: 0 };
       let minPrice = Infinity;
+      let minCompareAtPrice = Infinity;
       optionsArray.forEach(opt => {
         const raw = window.ScreenluxEngine.calculateScreenPrice({ ...screen, [field]: opt.id }, this.data.config);
         const variant = window.ScreenluxEngine.matchVariant(raw, this.data.screens);
         const actualPrice = variant ? variant.price : raw;
+        // Default to price if compare_at_price is not set or 0
+        const compareAtPrice = (variant && variant.compare_at_price > 0) ? variant.compare_at_price : actualPrice;
         if (actualPrice < minPrice) minPrice = actualPrice;
+        if (compareAtPrice < minCompareAtPrice) minCompareAtPrice = compareAtPrice;
       });
-      return minPrice;
+      return { price: minPrice, compareAtPrice: minCompareAtPrice };
     };
 
     const mapExtraPrice = (field, optionsArray) => {
-      const basePrice = getBasePrice(field, optionsArray);
+      const bases = getBasePrices(field, optionsArray);
       return (optionsArray || []).map(opt => {
         const raw = window.ScreenluxEngine.calculateScreenPrice({ ...screen, [field]: opt.id }, this.data.config);
         const variant = window.ScreenluxEngine.matchVariant(raw, this.data.screens);
         const actualPrice = variant ? variant.price : raw;
-        return { ...opt, extraPrice: Math.max(0, actualPrice - basePrice) };
+        const compareAtPrice = (variant && variant.compare_at_price > 0) ? variant.compare_at_price : actualPrice;
+        return { 
+          ...opt, 
+          extraPrice: Math.max(0, actualPrice - bases.price),
+          extraCompareAtPrice: Math.max(0, compareAtPrice - bases.compareAtPrice)
+        };
       });
     };
 
