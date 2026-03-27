@@ -20,9 +20,11 @@
 {% endschema %}
 
 <style>
-/* Hide Site Header & Footer */
+/* Hide Site Header, Footer & Announcement */
 #shopify-section-header,
 .header-wrapper,
+#shopify-section-announcement-bar,
+.announcement-bar,
 #shopify-section-footer,
 .footer-block {
   display: none !important;
@@ -51,15 +53,21 @@
 
 /* Top Bar */
 .mg2-top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
   background: #ffffff;
   border-bottom: 1px solid var(--sl-border-default, #E5E7EB);
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
+}
+.mg2-top-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
 }
 .mg2-exit-btn {
   font-size: 28px;
@@ -75,7 +83,7 @@
   color: var(--sl-text-primary, #111827);
 }
 @media (max-width: 768px) {
-  .mg2-top-bar {
+  .mg2-top-bar-inner {
     flex-wrap: wrap;
   }
 }
@@ -297,7 +305,6 @@
 }
 .mg2-info-box.warning {
   background: #ffffff;
-  border-left: 4px solid var(--sl-color-primary, #5b5bf9);
 }
 
 /* Standard List */
@@ -432,8 +439,8 @@
   }
 }
 .mg2-btn {
-  padding: 16px 32px;
-  border-radius: var(--sl-radius-full, 9999px);
+  padding: 14px 28px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -484,45 +491,47 @@
   
   <!-- Custom Top Bar Header -->
   <div class="mg2-top-bar">
-    <div class="mg2-logo" style="flex: 1;">
-      <a href="/" style="text-decoration: none; color: inherit;">
-        {%- if settings.logo != blank -%}
-          {{ settings.logo | image_url: width: 300 | image_tag: style: 'max-width: 140px; height: auto; display: block;' }}
-        {%- else -%}
-          <span style="font-weight: 700; font-size: 20px;">SCREENLUX</span>
-        {%- endif -%}
-      </a>
-    </div>
-
-    <!-- Progress Bar moved to Header -->
-    <div class="mg2-progress-wrapper" id="wizard-progress">
-      <div class="mg2-progress-track">
-        <div class="mg2-progress-fill" id="progress-fill"></div>
+    <div class="mg2-top-bar-inner">
+      <div class="mg2-logo" style="flex: 1;">
+        <a href="/" style="text-decoration: none; color: inherit;">
+          {%- if settings.logo != blank -%}
+            {{ settings.logo | image_url: width: 300 | image_tag: style: 'max-width: 140px; height: auto; display: block;' }}
+          {%- else -%}
+            <span style="font-weight: 700; font-size: 20px;">SCREENLUX</span>
+          {%- endif -%}
+        </a>
       </div>
-      <div class="mg2-progress-steps">
-        <div class="mg2-step-item">
-          <div class="mg2-step-indicator step-ind-1" data-step="1">1</div>
-          <div class="mg2-step-label label-1">Tiefe</div>
+
+      <!-- Progress Bar moved to Header -->
+      <div class="mg2-progress-wrapper" id="wizard-progress">
+        <div class="mg2-progress-track">
+          <div class="mg2-progress-fill" id="progress-fill"></div>
         </div>
-        <div class="mg2-step-item">
-          <div class="mg2-step-indicator step-ind-2" data-step="2">2</div>
-          <div class="mg2-step-label label-2">Montageart</div>
-        </div>
-        <div class="mg2-step-item">
-          <div class="mg2-step-indicator step-ind-3" data-step="3">3</div>
-          <div class="mg2-step-label label-3">Verschraubung</div>
-        </div>
-        <div class="mg2-step-item">
-          <div class="mg2-step-indicator step-ind-4" data-step="4">4</div>
-          <div class="mg2-step-label label-4">Messen</div>
+        <div class="mg2-progress-steps">
+          <div class="mg2-step-item">
+            <div class="mg2-step-indicator step-ind-1" data-step="1">1</div>
+            <div class="mg2-step-label label-1">Tiefe</div>
+          </div>
+          <div class="mg2-step-item">
+            <div class="mg2-step-indicator step-ind-2" data-step="2">2</div>
+            <div class="mg2-step-label label-2">Montageart</div>
+          </div>
+          <div class="mg2-step-item">
+            <div class="mg2-step-indicator step-ind-3" data-step="3">3</div>
+            <div class="mg2-step-label label-3">Verschraubung</div>
+          </div>
+          <div class="mg2-step-item">
+            <div class="mg2-step-indicator step-ind-4" data-step="4">4</div>
+            <div class="mg2-step-label label-4">Messen</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="mg2-exit" style="flex: 1; display: flex; justify-content: flex-end;">
-      <a href="/products/screenlux-sonnenschutz" class="mg2-exit-btn" title="Beenden">
-        <span style="font-size: 14px; font-weight: 600; margin-right: 4px;" class="hidden-mobile">Beenden</span> &times;
-      </a>
+      <div class="mg2-exit" style="flex: 1; display: flex; justify-content: flex-end;">
+        <a href="/products/screenlux-sonnenschutz" class="mg2-exit-btn" title="Beenden">
+          <span style="font-size: 14px; font-weight: 600; margin-right: 4px;" class="hidden-mobile">Beenden</span> &times;
+        </a>
+      </div>
     </div>
   </div>
 
@@ -840,25 +849,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Skip default/disabled cards (like the auto-selected ones)
         if(card.style.cursor === 'default') return;
         
-        // Gamification: Visual click effect
-        card.style.transform = 'scale(0.97)';
-        setTimeout(() => { card.style.transform = ''; }, 150);
-
-        cardElements.forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        selections[key] = card.getAttribute('data-choice');
-        checkNextStatus();
-        if(callback) callback();
-        
-        // Gamification: Auto-advance after selection to avoid extra clicks!
-        setTimeout(() => {
-           if(currentStep > 0 && currentStep < 4 && btnNext.disabled === false) {
-             btnNext.click();
-           }
-        }, 350);
+          cardElements.forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          selections[key] = card.getAttribute('data-choice');
+          checkNextStatus();
+          if(callback) callback();
+        });
       });
-    });
-  };
+    };
 
   bindCards(optsStep0, 'method');
   bindCards(optsStep1, 'tiefe');
@@ -910,11 +908,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (steps[currentStep]) steps[currentStep].classList.add('active');
 
     // Progress bar visibility
-    if (currentStep === 0 || currentStep === 99) {
+    if (currentStep === 99) {
       progWrapper.style.display = 'none';
     } else {
       progWrapper.style.display = 'block';
-      updateProgressFill(currentStep);
+      updateProgressFill(currentStep === 0 ? 1 : currentStep);
     }
 
     // Logic for Step 2 branching based on Step 1 (Tiefe)
