@@ -154,6 +154,29 @@
 .mg-list li strong {
   color: var(--sl-text-primary, #111827);
 }
+
+/* Button */
+.mg-btn {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  text-decoration: none;
+}
+.mg-btn-primary {
+  background: var(--sl-color-primary, #5b5bf9);
+  color: #fff;
+  border: none;
+}
+.mg-btn-primary:hover:not(:disabled) {
+  background: var(--sl-color-primary-hover, #4F46E5);
+}
 </style>
 
 <div class="mg-container">
@@ -331,6 +354,11 @@
       </ul>
     </div>
 
+    <!-- Calls to Action -->
+    <div id="mg-cta-container" class="mg-step" style="margin-top: 32px; display: flex; justify-content: center;">
+      <a href="https://www.screenlux.de/products/zip-screen-configurator" class="mg-btn mg-btn-primary">Jetzt Screen konfigurieren &rarr;</a>
+    </div>
+
   </div> <!-- end flow-selber -->
 
 </div>
@@ -441,6 +469,10 @@ document.addEventListener('DOMContentLoaded', () => {
       showMeasureBlock('measure-B');
     }
     
+    // Show CTA container since we reached step 2 / 3
+    const cta = document.getElementById('mg-cta-container');
+    if(cta) cta.classList.add('active');
+
     setTimeout(() => {
       step2Container.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 100);
