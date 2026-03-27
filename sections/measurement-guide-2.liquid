@@ -612,6 +612,12 @@
           <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">Hinweis zur Kassette:</strong>
           <span style="color: var(--sl-text-secondary, #4B5563);">Bei einer Laibung unter 95 mm steht die Kassette minimal hervor. Das ist optisch völlig normal und sieht in der Regel noch eleganter aus als eine Montage auf dem Mauerwerk.</span>
         </div>
+
+        <!-- Info Tip for Outside mounting -->
+        <div id="info-2-aussen" class="mg2-info-box" style="display:none;">
+          <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">💡 Gute Wahl!</strong>
+          <span style="color: var(--sl-text-secondary, #4B5563);">Die Montage auf dem Mauerwerk sieht optisch sehr ansprechend aus und ist in der Regel besonders einfach und schnell durchzuführen.</span>
+        </div>
       </div>
 
       <!-- < 4cm: Only Outside is possible -->
@@ -830,6 +836,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const step2ChoiceContainer = document.getElementById('step2-choice-container');
   const step2OnlyOutside = document.getElementById('step2-only-outside');
   const info2Kassette = document.getElementById('info-2-kassette');
+  const info2Aussen = document.getElementById('info-2-aussen');
   
   const step3InnenContainer = document.getElementById('step3-innen-container');
   const step3AussenContainer = document.getElementById('step3-aussen-container');
@@ -861,6 +868,7 @@ document.addEventListener('DOMContentLoaded', () => {
   bindCards(optsStep1, 'tiefe');
   bindCards(optsStep2Cards, 'montageart', () => {
     if(info2Kassette) info2Kassette.style.display = selections.montageart === 'innen' ? 'block' : 'none';
+    if(info2Aussen) info2Aussen.style.display = selections.montageart === 'aussen' ? 'block' : 'none';
   });
   bindCards(optsStep3InnenCards, 'verschraubung', () => {
     if(info3A) info3A.style.display = selections.verschraubung === 'A' ? 'block' : 'none';
