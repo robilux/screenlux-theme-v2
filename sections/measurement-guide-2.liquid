@@ -8,7 +8,7 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Wie finde ich die passenden Maße für meinen Screen?"
+      "default": "Aufmaß-Assistent"
     }
   ],
   "presets": [
@@ -55,9 +55,6 @@
 .mg2-top-bar {
   background: #ffffff;
   border-bottom: 1px solid var(--sl-border-default, #E5E7EB);
-  position: sticky;
-  top: 0;
-  z-index: 100;
   width: 100%;
 }
 .mg2-top-bar-inner {
@@ -246,7 +243,7 @@
 .mg2-card {
   background: var(--sl-color-white, #ffffff);
   border: 2px solid var(--sl-border-default, #E5E7EB);
-  border-radius: var(--sl-radius-lg, 16px);
+  border-radius: 1px;
   padding: 28px 24px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -502,31 +499,6 @@
         </a>
       </div>
 
-      <!-- Progress Bar moved to Header -->
-      <div class="mg2-progress-wrapper" id="wizard-progress">
-        <div class="mg2-progress-track">
-          <div class="mg2-progress-fill" id="progress-fill"></div>
-        </div>
-        <div class="mg2-progress-steps">
-          <div class="mg2-step-item">
-            <div class="mg2-step-indicator step-ind-1" data-step="1">1</div>
-            <div class="mg2-step-label label-1">Tiefe</div>
-          </div>
-          <div class="mg2-step-item">
-            <div class="mg2-step-indicator step-ind-2" data-step="2">2</div>
-            <div class="mg2-step-label label-2">Montageart</div>
-          </div>
-          <div class="mg2-step-item">
-            <div class="mg2-step-indicator step-ind-3" data-step="3">3</div>
-            <div class="mg2-step-label label-3">Verschraubung</div>
-          </div>
-          <div class="mg2-step-item">
-            <div class="mg2-step-indicator step-ind-4" data-step="4">4</div>
-            <div class="mg2-step-label label-4">Messen</div>
-          </div>
-        </div>
-      </div>
-
       <div class="mg2-exit" style="flex: 1; display: flex; justify-content: flex-end;">
         <a href="/products/screenlux-sonnenschutz" class="mg2-exit-btn" title="Beenden">
           <span style="font-size: 14px; font-weight: 600; margin-right: 4px;" class="hidden-mobile">Beenden</span> &times;
@@ -540,6 +512,31 @@
     {% if section.settings.heading != blank %}
       <h1 class="mg2-title">{{ section.settings.heading }}</h1>
     {% endif %}
+
+    <!-- Progress Bar moved to Body -->
+    <div class="mg2-progress-wrapper" id="wizard-progress">
+      <div class="mg2-progress-track">
+        <div class="mg2-progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="mg2-progress-steps">
+        <div class="mg2-step-item">
+          <div class="mg2-step-indicator step-ind-1" data-step="1">1</div>
+          <div class="mg2-step-label label-1">Tiefe</div>
+        </div>
+        <div class="mg2-step-item">
+          <div class="mg2-step-indicator step-ind-2" data-step="2">2</div>
+          <div class="mg2-step-label label-2">Montageart</div>
+        </div>
+        <div class="mg2-step-item">
+          <div class="mg2-step-indicator step-ind-3" data-step="3">3</div>
+          <div class="mg2-step-label label-3">Verschraubung</div>
+        </div>
+        <div class="mg2-step-item">
+          <div class="mg2-step-indicator step-ind-4" data-step="4">4</div>
+          <div class="mg2-step-label label-4">Messen</div>
+        </div>
+      </div>
+    </div>
 
   <div class="mg2-wizard-box">
     
