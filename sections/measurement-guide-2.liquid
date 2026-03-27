@@ -61,7 +61,7 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
 }
 .mg2-progress::before {
@@ -114,7 +114,7 @@
 .mg2-step-labels {
   display: flex;
   justify-content: space-between;
-  max-width: 500px;
+  max-width: 600px;
   margin: 12px auto 0;
   font-size: 13px;
   font-weight: 500;
@@ -180,6 +180,7 @@
   transition: all 0.2s ease;
   text-align: left;
   user-select: none;
+  position: relative;
 }
 .mg2-card:hover {
   border-color: var(--sl-color-gray-300, #D1D5DB);
@@ -199,6 +200,20 @@
   font-size: var(--sl-text-sm, 15px);
   color: var(--sl-text-secondary, #4B5563);
   line-height: 1.5;
+}
+
+/* Badge overlay */
+.mg2-badge {
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  background: var(--sl-color-primary, #5b5bf9);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* Info Boxes */
@@ -225,6 +240,37 @@
   color: var(--sl-text-secondary, #4B5563);
 }
 
+/* Custom Checkbox */
+.mg2-checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--sl-color-gray-50, #F9FAFB);
+  border: 1px solid var(--sl-border-default, #E5E7EB);
+  border-radius: var(--sl-radius-md, 10px);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.mg2-checkbox-container:hover {
+  background: var(--sl-color-white, #fff);
+  border-color: var(--sl-color-gray-300, #D1D5DB);
+}
+.mg2-checkbox-input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--sl-color-primary, #5b5bf9);
+}
+.mg2-checkbox-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--sl-text-primary, #111827);
+  cursor: pointer;
+  user-select: none;
+}
+
 /* Navigation Footer */
 .mg2-nav {
   display: flex;
@@ -245,6 +291,7 @@
   align-items: center;
   justify-content: center;
   min-width: 120px;
+  text-decoration: none;
 }
 .mg2-btn-primary {
   background: var(--sl-color-primary, #5b5bf9);
@@ -285,11 +332,13 @@
       <div class="mg2-step-indicator step-ind-1" data-step="1">1</div>
       <div class="mg2-step-indicator step-ind-2" data-step="2">2</div>
       <div class="mg2-step-indicator step-ind-3" data-step="3">3</div>
+      <div class="mg2-step-indicator step-ind-4" data-step="4">4</div>
     </div>
     <div class="mg2-step-labels">
-      <div class="mg2-step-label label-1">Montageart</div>
-      <div class="mg2-step-label label-2">Verschraubung</div>
-      <div class="mg2-step-label label-3">Messen</div>
+      <div class="mg2-step-label label-1">Tiefe</div>
+      <div class="mg2-step-label label-2">Montageart</div>
+      <div class="mg2-step-label label-3">Verschraubung</div>
+      <div class="mg2-step-label label-4">Messen</div>
     </div>
   </div>
 
@@ -307,12 +356,12 @@
         </div>
         <div class="mg2-card" data-choice="selber">
           <span class="mg2-card-title">📏 Selber herausfinden</span>
-          <span class="mg2-card-desc">Ermittle in nur 3 einfachen Schritten die perfekten Maße für deinen Screen.</span>
+          <span class="mg2-card-desc">Ermittle in nur wenigen einfachen Schritten die perfekten Maße für deinen Screen.</span>
         </div>
       </div>
     </div>
 
-    <!-- STEP: Beratung Flow -->
+    <!-- STEP 99: Beratung Flow -->
     <div class="mg2-step-content" id="step-beratung">
       <h2 class="mg2-step-title">👨‍🔧 Kostenlose Beratung</h2>
       <p class="mg2-step-desc">Sende uns ein Bild und wir melden uns innerhalb von 24 Stunden mit unserer empfohlenen Lösung bei dir. (In der Regel erhältst du schon innerhalb von wenigen Minuten eine Antwort.)</p>
@@ -321,50 +370,84 @@
       </div>
     </div>
 
-    <!-- STEP 1: Montageart (Laibung) -->
+    <!-- STEP 1: Laibungstiefe -->
     <div class="mg2-step-content" id="step-1">
-      <h2 class="mg2-step-title">Schritt 1: Montageart bestimmen</h2>
-      <p class="mg2-step-desc">Miss die Tiefe deiner Laibung (Entfernung von der vorderen Wandkante bis zum Fensterrahmen).</p>
+      <h2 class="mg2-step-title">Schritt 1: Tiefe der Laibung</h2>
+      <p class="mg2-step-desc">Miss die Tiefe deiner Laibung (Entfernung von der vorderen Wandkante bis zum Fensterrahmen). Wähle dann die entsprechende Option:</p>
       
       <div class="mg2-options-grid" id="opts-step1">
-        <div class="mg2-card" data-choice="innen">
-          <span class="mg2-card-title">≥ 4 cm Tiefe</span>
-          <span class="mg2-card-desc">Perfekt für die Montage innerhalb der Laibung</span>
+        <div class="mg2-card" data-choice=">=4">
+          <span class="mg2-card-title">&ge; 4 cm Tiefe</span>
+          <span class="mg2-card-desc">Die Laibung ist mindestens 4 cm tief.</span>
         </div>
-        <div class="mg2-card" data-choice="aussen">
+        <div class="mg2-card" data-choice="<4">
           <span class="mg2-card-title">&lt; 4 cm Tiefe</span>
-          <span class="mg2-card-desc">Ideal für die Montage auf dem Mauerwerk</span>
+          <span class="mg2-card-desc">Die Laibung ist weniger als 4 cm tief.</span>
         </div>
-      </div>
-
-      <div class="mg2-info-box">
-        <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">💡 Unsere Empfehlung: Montage innerhalb der Laibung</strong>
-        <span style="color: var(--sl-text-secondary, #4B5563); display:block; margin-bottom: 16px;">Diese Variante wirkt besonders sauber, hochwertig und integriert sich perfekt in dein Zuhause.</span>
-        
-        <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">Tipp zur Kassette:</strong>
-        <span style="color: var(--sl-text-secondary, #4B5563);">Bei einer Laibung unter 95 mm steht die Kassette minimal hervor. Das ist optisch völlig normal und sieht in der Regel noch eleganter aus als eine Montage auf dem Mauerwerk.</span>
       </div>
     </div>
 
-    <!-- STEP 2: Verschraubung -->
+    <!-- STEP 2: Montageart -->
     <div class="mg2-step-content" id="step-2">
-      <h2 class="mg2-step-title">Schritt 2: Art der Verschraubung</h2>
-      <p class="mg2-step-desc">Wähle, wie die Führungsschienen befestigt werden sollen.</p>
+      <h2 class="mg2-step-title">Schritt 2: Montageart wählen</h2>
+      <p class="mg2-step-desc" id="s2-desc">Entscheide dich für eine Montageart, die zu deinem Fenster passt.</p>
       
-      <!-- Inside Options -->
-      <div id="step2-innen-container" style="display:none;">
-        <div class="mg2-options-grid" id="opts-step2-innen">
-          <div class="mg2-card" data-choice="A">
-            <span class="mg2-card-title">A. Auf dem Fensterrahmen</span>
-            <span class="mg2-card-desc">Die beste Lösung! Wähle dies, wenn der Rahmen seitlich ≥ 4 cm breit ist.</span>
+      <!-- >= 4cm: Choice between Inside and Outside -->
+      <div id="step2-choice-container" style="display:none;">
+        <div class="mg2-options-grid" id="opts-step2">
+          <div class="mg2-card" data-choice="innen">
+            <span class="mg2-badge">✨ Empfohlen</span>
+            <span class="mg2-card-title">In der Laibung</span>
+            <span class="mg2-card-desc">Die Box und Führungsschienen werden innerhalb der Fensternische angebracht.</span>
           </div>
-          <div class="mg2-card" data-choice="A2">
-            <span class="mg2-card-title">A2. Seitlich in der Laibung</span>
-            <span class="mg2-card-desc">Die clevere Alternative, falls der Fensterrahmen zu schmal ist.</span>
+          <div class="mg2-card" data-choice="aussen">
+            <span class="mg2-card-title">Auf dem Mauerwerk</span>
+            <span class="mg2-card-desc">Der Screen wird außen vor dem Fenster direkt an die Hauswand geschraubt.</span>
           </div>
         </div>
 
-        <div id="info-2-A" class="mg2-info-box warning" style="display:none;">
+        <!-- Info Tip for Inside mounting -->
+        <div id="info-2-kassette" class="mg2-info-box" style="display:none;">
+          <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">💡 Unsere Empfehlung: Montage innerhalb der Laibung</strong>
+          <span style="color: var(--sl-text-secondary, #4B5563); display:block; margin-bottom: 16px;">Diese Variante wirkt besonders sauber, hochwertig und integriert sich perfekt in dein Zuhause.</span>
+          
+          <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">Hinweis zur Kassette:</strong>
+          <span style="color: var(--sl-text-secondary, #4B5563);">Bei einer Laibung unter 95 mm steht die Kassette minimal hervor. Das ist optisch völlig normal und sieht in der Regel noch eleganter aus als eine Montage auf dem Mauerwerk.</span>
+        </div>
+      </div>
+
+      <!-- < 4cm: Only Outside is possible -->
+      <div id="step2-only-outside" style="display:none;">
+        <div class="mg2-options-grid">
+           <!-- Auto-selected -->
+           <div class="mg2-card selected" style="cursor: default;" data-choice="aussen">
+             <span class="mg2-card-title">Auf dem Mauerwerk</span>
+             <span class="mg2-card-desc">Da deine Laibung extrem schmal ist, wird der Screen formschön vor dem Fenster platziert, die Schienen liegen auf der Wand auf.</span>
+           </div>
+         </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Verschraubung -->
+    <div class="mg2-step-content" id="step-3">
+      <h2 class="mg2-step-title">Schritt 3: Art der Verschraubung</h2>
+      <p class="mg2-step-desc">Wähle, wie die Führungsschienen befestigt werden sollen.</p>
+      
+      <!-- Inside Options (A / A2) -->
+      <div id="step3-innen-container" style="display:none;">
+        <div class="mg2-options-grid" id="opts-step3-innen">
+          <div class="mg2-card" data-choice="A">
+            <span class="mg2-badge">Beste Wahl</span>
+            <span class="mg2-card-title">A. Auf dem Fensterrahmen</span>
+            <span class="mg2-card-desc">Wähle dies, wenn der Rahmen seitlich ≥ 4 cm breit ist.</span>
+          </div>
+          <div class="mg2-card" data-choice="A2">
+            <span class="mg2-card-title">A2. Seitlich in der Laibung</span>
+            <span class="mg2-card-desc">Die Alternative, falls der Fensterrahmen zu schmal ist.</span>
+          </div>
+        </div>
+
+        <div id="info-3-A" class="mg2-info-box warning" style="display:none;">
           <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">✨ Deine Vorteile bei dieser Wahl:</strong>
           <ul class="mg2-list">
             <li>Super einfache und schnelle Montage</li>
@@ -372,7 +455,7 @@
             <li>Besonders sauberes Endergebnis</li>
           </ul>
         </div>
-        <div id="info-2-A2" class="mg2-info-box warning" style="display:none;">
+        <div id="info-3-A2" class="mg2-info-box warning" style="display:none;">
           <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">📌 Gut zu wissen:</strong>
           <ul class="mg2-list">
             <li>Da der Screen direkt in der Öffnung sitzt, ist präzises Messen wichtig.</li>
@@ -381,12 +464,13 @@
         </div>
       </div>
 
-      <!-- Outside Options -->
-      <div id="step2-aussen-container" style="display:none;">
-        <div class="mg2-options-grid" id="opts-step2-aussen">
-           <div class="mg2-card selected" data-choice="B">
+      <!-- Outside Options (B) -->
+      <div id="step3-aussen-container" style="display:none;">
+        <div class="mg2-options-grid">
+           <!-- Auto-selected -->
+           <div class="mg2-card selected" style="cursor: default;" data-choice="B">
              <span class="mg2-card-title">B. Auf dem Mauerwerk</span>
-             <span class="mg2-card-desc">Der Screen wird formschön vor dem Fenster platziert, die Schienen liegen auf der Wand auf.</span>
+             <span class="mg2-card-desc">Die Schienen werden flach auf die Wand geschraubt.</span>
            </div>
          </div>
          <div class="mg2-info-box warning">
@@ -399,19 +483,19 @@
       </div>
     </div>
 
-    <!-- STEP 3: Messen -->
-    <div class="mg2-step-content" id="step-3">
-      <h2 class="mg2-step-title">Schritt 3: Richtig Messen</h2>
+    <!-- STEP 4: Messen -->
+    <div class="mg2-step-content" id="step-4">
+      <h2 class="mg2-step-title">Schritt 4: Richtig Messen</h2>
       <p class="mg2-step-desc">Folge dieser Anleitung, um deine finalen Bestellmaße zu erhalten.</p>
       
       <!-- Measure Flow A -->
       <div id="measure-A" style="display: none;">
         <ul class="mg2-list">
-          <li><strong>Öffnung:</strong> Bitte einmal genau die Breite und Höhe der Öffnung messen.</li>
+          <li><strong>Öffnung:</strong> Bitte einmal genau die Breite und Höhe der gesamten Lichte-Öffnung messen.</li>
         </ul>
         <div class="mg2-info-box warning">
-          <strong style="display:block; margin-bottom: 8px; font-size: 18px; color: var(--sl-text-primary, #111827);">Dein errechnetes Bestellmaß:</strong>
-          <ul class="mg2-list" style="margin-bottom:0;">
+          <strong style="display:block; margin-bottom: 8px; font-size: 18px; color: var(--sl-text-primary, #111827);">Deine Formel für das Bestellmaß:</strong>
+          <ul class="mg2-list" style="margin-bottom:0; font-size: 18px;">
             <li><strong>Breite:</strong> Gemessenes Maß &ndash; 10 mm</li>
             <li><strong>Höhe:</strong> Gemessenes Maß &ndash; 10 mm</li>
           </ul>
@@ -425,8 +509,8 @@
           <li><strong>Höhe messen:</strong> Links, Mitte und Rechts messen. Notiere das <em>kleinste</em> Maß.</li>
         </ul>
         <div class="mg2-info-box warning">
-          <strong style="display:block; margin-bottom: 8px; font-size: 18px; color: var(--sl-text-primary, #111827);">Dein errechnetes Bestellmaß:</strong>
-          <ul class="mg2-list" style="margin-bottom:0;">
+          <strong style="display:block; margin-bottom: 8px; font-size: 18px; color: var(--sl-text-primary, #111827);">Deine Formel für das Bestellmaß:</strong>
+          <ul class="mg2-list" style="margin-bottom:0; font-size: 18px;">
             <li><strong>Breite:</strong> Kleinstes Maß &ndash; 3 mm</li>
             <li><strong>Höhe:</strong> Kleinstes Maß &ndash; 3 mm</li>
           </ul>
@@ -436,33 +520,39 @@
       <!-- Measure Flow B -->
       <div id="measure-B" style="display: none;">
         <ul class="mg2-list">
-          <li><strong>Fensteröffnung:</strong> Außen vollständig messen.</li>
-          <li>Messe hierbei immer bis zur äußersten Kante.</li>
+          <li><strong>Fensteröffnung:</strong> Außen auf dem Mauerwerk vollständig die Öffnung messen.</li>
+          <li>Messe hierbei horizontal und vertikal immer bis zur äußersten Kante der Öffnung.</li>
         </ul>
         <div class="mg2-info-box warning">
-          <strong style="display:block; margin-bottom: 8px; font-size: 18px; color: var(--sl-text-primary, #111827);">Dein errechnetes Bestellmaß:</strong>
-           <ul class="mg2-list" style="margin-bottom:0;">
+          <strong style="display:block; margin-bottom: 8px; font-size: 18px; color: var(--sl-text-primary, #111827);">Deine Formel für das Bestellmaß:</strong>
+           <ul class="mg2-list" style="margin-bottom:0; font-size: 18px;">
             <li><strong>Breite:</strong> Gemessenes Maß + 64 mm</li>
             <li><strong>Höhe:</strong> Gemessenes Maß + 105 mm</li>
           </ul>
         </div>
       </div>
 
-      <div class="mg2-info-box" style="margin-top: 32px;">
-        <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">Wichtige Hinweise zum Messen</strong>
+      <div class="mg2-info-box" style="margin-top: 32px; background: transparent; border: 1px solid var(--sl-border-default, #E5E7EB); border-left: 4px solid var(--sl-color-primary, #5b5bf9);">
+        <strong style="display:block; margin-bottom: 8px; color: var(--sl-text-primary, #111827);">Hinweise zum Messen</strong>
         <ul class="mg2-list" style="margin-bottom: 0;">
           <li>Ungerade Wände sind normal – nimm immer mehrere Messpunkte, um sicherzugehen.</li>
           <li>Wenn du unsicher bist: Schick uns einfach ein Foto und deine Maße, wir helfen gerne!</li>
         </ul>
       </div>
 
+      <!-- Confirmation Checkbox -->
+      <label class="mg2-checkbox-container">
+        <input type="checkbox" id="check-measure" class="mg2-checkbox-input">
+        <span class="mg2-checkbox-label">Ich habe mir meine Formel und die Maße notiert!</span>
+      </label>
+
        <div style="margin-top: 32px; display: flex; justify-content: center;">
-         <a href="https://www.screenlux.de/products/zip-screen-configurator" class="mg2-btn mg2-btn-primary">Jetzt Screen konfigurieren &rarr;</a>
+         <a href="https://www.screenlux.de/products/zip-screen-configurator" class="mg2-btn mg2-btn-primary" id="btn-configure" style="opacity: 0.5; pointer-events: none;">Jetzt Screen konfigurieren &rarr;</a>
        </div>
     </div>
 
 
-    <!-- Navigation Footer -->
+    <!-- Navigation Footer (Progress Controls) -->
     <div class="mg2-nav" id="wizard-nav">
       <button class="mg2-btn mg2-btn-secondary" id="btn-back" style="visibility: hidden;">&larr; Zurück</button>
       <button class="mg2-btn mg2-btn-primary" id="btn-next" disabled>Weiter</button>
@@ -477,10 +567,11 @@
 <!-- Wizard Logic -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // State
-  let currentStep = 0; // 0=Intro, 1=Laibung, 2=Verschraubung, 3=Messen, 99=Beratung
+  // Configured with 4 steps total: 1 = Tiefe, 2 = Montageart, 3 = Verschraubung, 4 = Messen
+  let currentStep = 0; // 0=Intro, 1..4=Steps, 99=Beratung
   const selections = {
     method: null,      // beratung | selber
+    tiefe: null,       // >=4 | <4
     montageart: null,  // innen | aussen
     verschraubung: null// A | A2 | B
   };
@@ -491,12 +582,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const indicators = [
     document.querySelector('.step-ind-1'),
     document.querySelector('.step-ind-2'),
-    document.querySelector('.step-ind-3')
+    document.querySelector('.step-ind-3'),
+    document.querySelector('.step-ind-4')
   ];
   const labels = [
     document.querySelector('.label-1'),
     document.querySelector('.label-2'),
-    document.querySelector('.label-3')
+    document.querySelector('.label-3'),
+    document.querySelector('.label-4')
   ];
 
   const steps = {
@@ -504,6 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
     1: document.getElementById('step-1'),
     2: document.getElementById('step-2'),
     3: document.getElementById('step-3'),
+    4: document.getElementById('step-4'),
     99: document.getElementById('step-beratung')
   };
 
@@ -511,16 +605,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnNext = document.getElementById('btn-next');
   const btnBack = document.getElementById('btn-back');
 
-  // Option Grids
+  // Interactive Options
   const optsStep0 = document.getElementById('opts-step0').querySelectorAll('.mg2-card');
   const optsStep1 = document.getElementById('opts-step1').querySelectorAll('.mg2-card');
-  const optsStep2Innen = document.getElementById('opts-step2-innen').querySelectorAll('.mg2-card');
+  const optsStep2 = document.getElementById('opts-step2');
+  const optsStep2Cards = optsStep2 ? optsStep2.querySelectorAll('.mg2-card') : [];
+  const optsStep3Innen = document.getElementById('opts-step3-innen');
+  const optsStep3InnenCards = optsStep3Innen ? optsStep3Innen.querySelectorAll('.mg2-card') : [];
+
+  // Conditional Blocks
+  const step2ChoiceContainer = document.getElementById('step2-choice-container');
+  const step2OnlyOutside = document.getElementById('step2-only-outside');
+  const info2Kassette = document.getElementById('info-2-kassette');
   
-  // Specific blocks
-  const step2InnenContainer = document.getElementById('step2-innen-container');
-  const step2AussenContainer = document.getElementById('step2-aussen-container');
-  const info2A = document.getElementById('info-2-A');
-  const info2A2 = document.getElementById('info-2-A2');
+  const step3InnenContainer = document.getElementById('step3-innen-container');
+  const step3AussenContainer = document.getElementById('step3-aussen-container');
+  const info3A = document.getElementById('info-3-A');
+  const info3A2 = document.getElementById('info-3-A2');
   
   const measureBlocks = {
     A: document.getElementById('measure-A'),
@@ -528,11 +629,29 @@ document.addEventListener('DOMContentLoaded', () => {
     B: document.getElementById('measure-B')
   };
 
+  // Checkbox logic
+  const checkMeasure = document.getElementById('check-measure');
+  const btnConfigure = document.getElementById('btn-configure');
+  if(checkMeasure && btnConfigure) {
+    checkMeasure.addEventListener('change', (e) => {
+      if(e.target.checked) {
+        btnConfigure.style.opacity = '1';
+        btnConfigure.style.pointerEvents = 'auto';
+      } else {
+        btnConfigure.style.opacity = '0.5';
+        btnConfigure.style.pointerEvents = 'none';
+      }
+    });
+  }
+
   // --- Handlers ---
   
   const bindCards = (cardElements, key, callback) => {
     cardElements.forEach(card => {
       card.addEventListener('click', () => {
+        // Skip default/disabled cards (like the auto-selected ones)
+        if(card.style.cursor === 'default') return;
+
         cardElements.forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
         selections[key] = card.getAttribute('data-choice');
@@ -543,30 +662,38 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   bindCards(optsStep0, 'method');
-  bindCards(optsStep1, 'montageart');
-  bindCards(optsStep2Innen, 'verschraubung', () => {
-    if(info2A) info2A.style.display = selections.verschraubung === 'A' ? 'block' : 'none';
-    if(info2A2) info2A2.style.display = selections.verschraubung === 'A2' ? 'block' : 'none';
+  bindCards(optsStep1, 'tiefe');
+  bindCards(optsStep2Cards, 'montageart', () => {
+    if(info2Kassette) info2Kassette.style.display = selections.montageart === 'innen' ? 'block' : 'none';
   });
+  bindCards(optsStep3InnenCards, 'verschraubung', () => {
+    if(info3A) info3A.style.display = selections.verschraubung === 'A' ? 'block' : 'none';
+    if(info3A2) info3A2.style.display = selections.verschraubung === 'A2' ? 'block' : 'none';
+  });
+
+  const deselectGroup = (cardElements) => {
+    cardElements.forEach(c => c.classList.remove('selected'));
+  };
 
   // Evaluate "Next" button state
   const checkNextStatus = () => {
     let disabled = true;
     if (currentStep === 0 && selections.method) disabled = false;
-    if (currentStep === 1 && selections.montageart) disabled = false;
-    if (currentStep === 2 && selections.verschraubung) disabled = false;
+    if (currentStep === 1 && selections.tiefe) disabled = false;
+    if (currentStep === 2 && selections.montageart) disabled = false;
+    if (currentStep === 3 && selections.verschraubung) disabled = false;
     btnNext.disabled = disabled;
   };
 
   // Render the current step
   const renderStep = () => {
-    // Hide all contents
+    // Hide all
     Object.values(steps).forEach(el => el.classList.remove('active'));
     
-    // Show active step
+    // Show active
     if (steps[currentStep]) steps[currentStep].classList.add('active');
 
-    // Display / Hide Progress Bar
+    // Progress bar visibility
     if (currentStep === 0 || currentStep === 99) {
       progWrapper.style.display = 'none';
     } else {
@@ -574,48 +701,66 @@ document.addEventListener('DOMContentLoaded', () => {
       updateProgressFill(currentStep);
     }
 
-    // Logic for Step 2 branching based on Step 1
+    // Logic for Step 2 branching based on Step 1 (Tiefe)
     if (currentStep === 2) {
+      if (selections.tiefe === '>=4') {
+        step2ChoiceContainer.style.display = 'block';
+        step2OnlyOutside.style.display = 'none';
+        // Need user to select montageart inside step2
+      } else { // <4
+        step2ChoiceContainer.style.display = 'none';
+        step2OnlyOutside.style.display = 'block';
+        selections.montageart = 'aussen'; // auto assign
+      }
+    }
+
+    // Logic for Step 3 (Verschraubung) based on Step 2 (Montageart)
+    if (currentStep === 3) {
       if (selections.montageart === 'innen') {
-        step2InnenContainer.style.display = 'block';
-        step2AussenContainer.style.display = 'none';
-        // force user to pick inside step 2 A or A2 unless already picked
+        step3InnenContainer.style.display = 'block';
+        step3AussenContainer.style.display = 'none';
+        // Need user to pick A or A2
       } else {
-        step2InnenContainer.style.display = 'none';
-        step2AussenContainer.style.display = 'block';
+        step3InnenContainer.style.display = 'none';
+        step3AussenContainer.style.display = 'block';
         selections.verschraubung = 'B'; // auto assign
       }
     }
 
-    // Logic for Step 3 measuring details based on Step 2
-    if (currentStep === 3) {
+    // Logic for Step 4 (Messen) details based on Step 3
+    if (currentStep === 4) {
       Object.values(measureBlocks).forEach(b => b.style.display = 'none');
       if(measureBlocks[selections.verschraubung]) measureBlocks[selections.verschraubung].style.display = 'block';
     }
 
-    // Navigation Buttons configuration
+    // Nav controls visibility
     if (currentStep === 0) {
       btnBack.style.visibility = 'hidden';
       btnNext.style.display = 'inline-flex';
-      btnNext.textContent = 'Weiter';
     } else if (currentStep === 99) {
       btnBack.style.visibility = 'visible';
-      btnNext.style.display = 'none'; // End of form for beratung
-    } else if (currentStep === 3) {
+      btnNext.style.display = 'none'; 
+    } else if (currentStep === 4) {
       btnBack.style.visibility = 'visible';
-      btnNext.style.display = 'none'; // End of wizard
+      btnNext.style.display = 'none'; // End of wizard uses CTA link
     } else {
       btnBack.style.visibility = 'visible';
       btnNext.style.display = 'inline-flex';
-      btnNext.textContent = 'Weiter';
     }
 
     checkNextStatus();
+    
+    // Auto scroll top slightly after step changes
+    if (currentStep > 0 && currentStep !== 99) {
+      setTimeout(() => {
+        document.querySelector('.mg2-wizard-box').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
   };
 
   const updateProgressFill = (step) => {
-    // 1 -> 0%, 2 -> 50%, 3 -> 100%
-    const percentage = (step - 1) * 50;
+    // 4 steps total: 1->0%, 2->33.3%, 3->66.6%, 4->100%
+    const percentage = (step - 1) * 33.3333;
     progFill.style.width = percentage + '%';
 
     indicators.forEach((ind, i) => {
@@ -636,7 +781,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentStep === 0) {
       if (selections.method === 'beratung') currentStep = 99;
       else currentStep = 1;
-    } else if (currentStep < 3) {
+    } else if (currentStep < 4) {
       currentStep++;
     }
     renderStep();
