@@ -65,9 +65,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
-  max-width: 1280px;
-  margin: 0 auto;
+  padding-top: 16px;
+  padding-bottom: 16px;
   width: 100%;
 }
 .mg2-exit-btn {
@@ -493,9 +492,9 @@
   
   <!-- Custom Top Bar Header -->
   <div class="mg2-top-bar">
-    <div class="mg2-top-bar-inner">
+    <div class="mg2-top-bar-inner page-width">
       <div class="mg2-logo" style="flex: 1;">
-        <a href="/" style="text-decoration: none; color: inherit;">
+        <a href="{{ routes.root_url }}" style="text-decoration: none; color: inherit;">
           {%- if settings.logo != blank -%}
             {{ settings.logo | image_url: width: 300 | image_tag: style: 'max-width: 140px; height: auto; display: block;' }}
           {%- else -%}
