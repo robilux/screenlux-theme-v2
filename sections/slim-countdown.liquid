@@ -68,7 +68,7 @@
   <div class="countdown-text">
     <span>{{ section.settings.text }}</span>
     <span class="countdown-timer" id="countdown-{{ section.id }}" data-date="{{ section.settings.countdown_date }}">
-      00t : 00m : 00s
+      00h : 00m : 00s
     </span>
   </div>
 </div>
@@ -93,7 +93,7 @@
       var distance = targetDate - now;
 
       if (distance < 0) {
-        timerEl.innerHTML = '00t : 00m : 00s';
+        timerEl.innerHTML = '00h : 00m : 00s';
         return;
       }
 
@@ -111,7 +111,7 @@
       minutes = minutes < 10 ? '0' + minutes : minutes;
       seconds = seconds < 10 ? '0' + seconds : seconds;
 
-      output += hours + 't : ' + minutes + 'm : ' + seconds + 's';
+      output += hours + 'h : ' + minutes + 'm : ' + seconds + 's';
 
       timerEl.innerHTML = output;
     };
