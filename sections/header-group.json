@@ -55,6 +55,7 @@
     },
     "slim_countdown_UwipiV": {
       "type": "slim-countdown",
+      "disabled": true,
       "name": "Slim Countdown",
       "settings": {
         "text": "Zip-Screen 2 Sale endet in:",
