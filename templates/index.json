@@ -22,13 +22,14 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "Die nächste Generation unserer Screen-Technologie. Jetzt mit Einführungspreis 20 % sichern.",
+            "text": "Die nächste Generation unserer Screen-Technologie. Jetzt mit Einführungspreis 30 % sichern.",
             "text_style": "body"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
+            "use_global_buttons": true,
             "button_label_1": "",
             "button_link_1": "#",
             "button_style_secondary_1": true,
@@ -81,6 +82,7 @@
     "compare_slider": {
       "type": "compare-slider",
       "settings": {
+        "use_global_buttons": true,
         "heading": "Hitze bleibt draußen. Licht bleibt drin.",
         "subheading": "<p>Klassische Rollläden machen dein Zuhause dunkel.</p><p>Screenlux ZIP blockt bis zu 95 % der Hitze vor dem Fenster – während natürliches Licht weiterhin in den Raum fällt.</p>",
         "image_1": "shopify://shop_images/Compare_image_Roller_Shutters.png",
@@ -156,6 +158,7 @@
         ".worlds-slimmest__feature-title,.worlds-slimmest__feature-desc {position: relative; z-index: 3;}"
       ],
       "settings": {
+        "use_global_buttons": true,
         "heading": "Entwickelt, um zu verschwinden.",
         "subheading": "Noch reduzierter. Noch unauffälliger. Für mehr Licht und freie Sicht.",
         "hero_image": "shopify://shop_images/img-screenlux_zip-screen-designed-to-dossappear-2.jpg",
@@ -371,6 +374,7 @@
         "right_del_4"
       ],
       "settings": {
+        "use_global_buttons": true,
         "heading": "Direkt vom Hersteller.",
         "subheading": "Wir verzichten bewusst auf Zwischenhändler. Dadurch bekommst du hochwertige Screenrollos zu einem deutlich besseren Preis.",
         "receipt_left_title": "Branchenstandard",
@@ -400,6 +404,7 @@
     "flawless_finish_video": {
       "type": "text-and-video-flawless-finish",
       "settings": {
+        "use_global_buttons": true,
         "heading": "Solarbetriebener Motor. Leise, effizient und ganz ohne Stromanschluss.",
         "description": "",
         "video": "shopify://files/videos/video-solarbetriebener-motor.mp4",
@@ -468,6 +473,7 @@
     "text_and_video_flawless_finish_G8EPjE": {
       "type": "text-and-video-flawless-finish",
       "settings": {
+        "use_global_buttons": true,
         "heading": "Smart Home. Ohne Umdenken.",
         "description": "<p>Funktioniert mit Apple Home, Amazon Alexa und Google Home.</p>",
         "video": "shopify://files/videos/video-alexa-smart-home.mp4",
@@ -513,6 +519,7 @@
       ],
       "name": "Installation Section",
       "settings": {
+        "use_global_buttons": true,
         "heading": "Montage: Du hast die Wahl.",
         "subheading": "Geld sparen durch einfache Selbstmontage? Oder zurücklehnen und unsere Experten übernehmen lassen?",
         "button_label": "Konfigurieren",
