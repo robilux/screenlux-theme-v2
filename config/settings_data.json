@@ -121,11 +121,12 @@
     "show_vendor": false,
     "show_cart_note": false,
     "cart_drawer_collection": "",
-    "global_primary_button_label": "Preis berechnen",
+    "global_primary_button_label": "Jetzt Preis berechnen",
     "global_primary_button_link": "#heyflow-__dI3AneD_",
     "show_global_secondary_button": false,
     "global_secondary_button_label": "Konfigurieren",
     "global_secondary_button_link": "shopify://products/zip-screen-configurator",
+    "global_price_label": "Dauert nur 60 Sekunden!",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
