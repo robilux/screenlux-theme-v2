@@ -195,8 +195,14 @@
                 </a>
               {%- endif -%}
             </div>
-            {%- if block.settings.text_below_button != blank -%}
-              <div class="banner__text-below-button">{{ block.settings.text_below_button }}</div>
+            {%- liquid
+              assign price_label = block.settings.text_below_button
+              if block.settings.use_global_buttons
+                assign price_label = settings.global_price_label
+              endif
+            -%}
+            {%- if price_label != blank -%}
+              <div class="banner__text-below-button">{{ price_label }}</div>
             {%- endif -%}
         {%- endcase -%}
       {%- endfor -%}

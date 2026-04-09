@@ -300,11 +300,28 @@
   {%- liquid
     assign cta_text = section.settings.button_label
     assign cta_url = section.settings.button_link
+    assign price_label = section.settings.price_label
+    assign price_color = section.settings.heading_color | default: '#000000'
     assign show_secondary = false
 
     if section.settings.use_global_buttons
       assign cta_text = settings.global_primary_button_label
       assign cta_url = settings.global_primary_button_link
+      assign price_label = settings.global_price_label
+      
+      if settings.global_price_label_auto_color
+        assign bg_color = section.settings.bg_color | default: '#ffffff'
+        if bg_color == blank or bg_color == 'rgba(0,0,0,0)'
+          assign bg_color = '#ffffff'
+        endif
+        assign brightness = bg_color | color_brightness
+        if brightness < 128
+          assign price_color = '#ffffff'
+        else
+          assign price_color = '#000000'
+        endif
+      endif
+
       if settings.show_global_secondary_button
         assign show_secondary = true
         assign secondary_cta_text = settings.global_secondary_button_label
@@ -326,8 +343,8 @@
         </a>
       {%- endif -%}
     </div>
-    {%- if section.settings.price_label != blank -%}
-      <p class="tv-flawless__price-label" style="margin-top: 12px;">{{ section.settings.price_label }}</p>
+    {%- if price_label != blank -%}
+      <p class="tv-flawless__price-label" style="margin-top: 12px; color: {{ price_color }};">{{ price_label }}</p>
     {%- endif -%}
   </div>
 </section>

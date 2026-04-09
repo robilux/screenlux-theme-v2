@@ -1509,12 +1509,6 @@
     "name": "Global Calls to Action",
     "settings": [
       {
-        "type": "checkbox",
-        "id": "use_global_buttons_by_default",
-        "label": "Enable Global Buttons by default across modules",
-        "default": true
-      },
-      {
         "type": "text",
         "id": "global_primary_button_label",
         "label": "Primary Button Label",
@@ -1545,6 +1539,24 @@
         "type": "url",
         "id": "global_secondary_button_link",
         "label": "Secondary Button Link"
+      },
+      {
+        "type": "header",
+        "content": "Below Button Text"
+      },
+      {
+        "type": "text",
+        "id": "global_price_label",
+        "label": "Text below buttons",
+        "default": "Ab nur 483 €",
+        "info": "This text appears under the global CTA buttons."
+      },
+      {
+        "type": "checkbox",
+        "id": "global_price_label_auto_color",
+        "label": "Auto-adapt text color for contrast",
+        "default": true,
+        "info": "If checked, this text will automatically be white or dark based on the background color brightness."
       }
     ]
   }
