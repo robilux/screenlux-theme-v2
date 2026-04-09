@@ -8,7 +8,7 @@ window.ScreenluxEngine = {
    * Validation Rules
    */
   constraints: {
-    minWidth: 600,
+    minWidth: 760,
     maxWidth: 6000,
     minHeight: 600,
     maxHeight: 5000,

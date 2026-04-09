@@ -570,19 +570,39 @@
   </div>
 
   {%- comment -%} CTA Button {%- endcomment -%}
-  {%- if section.settings.button_label != blank -%}
-    <div class="no-middlemen__cta">
-      <a
-        class="no-middlemen__button"
-        href="{{ section.settings.button_link }}"
-      >
-        {{ section.settings.button_label }}
-      </a>
-      {%- if section.settings.price_label != blank -%}
-        <p class="no-middlemen__price-label">{{ section.settings.price_label }}</p>
+  {%- liquid
+    assign cta_text = section.settings.button_label
+    assign cta_url = section.settings.button_link
+    assign show_secondary = false
+
+    if section.settings.use_global_buttons
+      assign cta_text = settings.global_primary_button_label
+      assign cta_url = settings.global_primary_button_link
+      if settings.show_global_secondary_button
+        assign show_secondary = true
+        assign secondary_cta_text = settings.global_secondary_button_label
+        assign secondary_cta_url = settings.global_secondary_button_link
+      endif
+    endif
+  -%}
+  
+  <div class="no-middlemen__cta">
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; width: 100%;">
+      {%- if cta_text != blank and cta_url != blank -%}
+        <a class="button--brand" href="{{ cta_url }}">
+          {{ cta_text }}
+        </a>
+      {%- endif -%}
+      {%- if show_secondary and secondary_cta_text != blank and secondary_cta_url != blank -%}
+        <a class="button--brand-secondary" href="{{ secondary_cta_url }}">
+          {{ secondary_cta_text }}
+        </a>
       {%- endif -%}
     </div>
-  {%- endif -%}
+    {%- if section.settings.price_label != blank -%}
+      <p class="no-middlemen__price-label" style="margin-top: 12px;">{{ section.settings.price_label }}</p>
+    {%- endif -%}
+  </div>
 </section>
 
 {% schema %}
@@ -591,6 +611,12 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_global_buttons",
+      "label": "Use Global Theme Buttons",
+      "default": true
+    },
     {
       "type": "header",
       "content": "Headline"

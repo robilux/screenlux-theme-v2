@@ -79,11 +79,33 @@
     </compare-slider>
 
     <div class="compare-cta{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-      {%- if section.settings.cta_text != blank -%}
-        <a href="{{ section.settings.cta_url }}" class="btn btn-primary">{{ section.settings.cta_text }}</a>
-      {%- endif -%}
+      {%- liquid
+        assign cta_text = section.settings.cta_text
+        assign cta_url = section.settings.cta_url
+        assign show_secondary = false
+
+        if section.settings.use_global_buttons
+          assign cta_text = settings.global_primary_button_label
+          assign cta_url = settings.global_primary_button_link
+          if settings.show_global_secondary_button
+            assign show_secondary = true
+            assign secondary_cta_text = settings.global_secondary_button_label
+            assign secondary_cta_url = settings.global_secondary_button_link
+          endif
+        endif
+      -%}
+      
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; width: 100%;">
+        {%- if cta_text != blank and cta_url != blank -%}
+          <a href="{{ cta_url }}" class="button--brand">{{ cta_text }}</a>
+        {%- endif -%}
+        {%- if show_secondary and secondary_cta_text != blank and secondary_cta_url != blank -%}
+          <a href="{{ secondary_cta_url }}" class="button--brand-secondary">{{ secondary_cta_text }}</a>
+        {%- endif -%}
+      </div>
+      
       {%- if section.settings.cta_subtext != blank -%}
-        <div class="compare-cta-subtext rte">{{ section.settings.cta_subtext }}</div>
+        <div class="compare-cta-subtext rte" style="margin-top: 12px;">{{ section.settings.cta_subtext }}</div>
       {%- endif -%}
     </div>
   </div>
@@ -95,6 +117,12 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_global_buttons",
+      "label": "Use Global Theme Buttons",
+      "default": true
+    },
     {
       "type": "text",
       "id": "heading",
@@ -121,12 +149,12 @@
       "type": "text",
       "id": "cta_text",
       "default": "Configure",
-      "label": "Button Label"
+      "label": "Local Button Label"
     },
     {
       "type": "url",
       "id": "cta_url",
-      "label": "Button Link"
+      "label": "Local Button Link"
     },
     {
       "type": "richtext",

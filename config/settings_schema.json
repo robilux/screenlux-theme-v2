@@ -1504,5 +1504,48 @@
         "default": 13800
       }
     ]
+  },
+  {
+    "name": "Global Calls to Action",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "use_global_buttons_by_default",
+        "label": "Enable Global Buttons by default across modules",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "global_primary_button_label",
+        "label": "Primary Button Label",
+        "default": "Konfigurieren"
+      },
+      {
+        "type": "url",
+        "id": "global_primary_button_link",
+        "label": "Primary Button Link"
+      },
+      {
+        "type": "header",
+        "content": "Secondary Button"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_global_secondary_button",
+        "label": "Show Secondary Button globally",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "global_secondary_button_label",
+        "label": "Secondary Button Label",
+        "default": "Mehr erfahren"
+      },
+      {
+        "type": "url",
+        "id": "global_secondary_button_link",
+        "label": "Secondary Button Link"
+      }
+    ]
   }
 ]

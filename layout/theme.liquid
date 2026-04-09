@@ -310,6 +310,9 @@
 
       gtag('config', 'AW-17965928709');
     </script>
+
+    <!-- HeyFlow Widget -->
+    <script src="https://assets.prd.heyflow.com/builder/widget/latest/webview.js"></script>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -398,6 +401,30 @@
 
           if (typeof gtag === 'function') {
             gtag('event', 'conversion', {'send_to': 'AW-17965928709/3o3MCNGkloscEIWi6fZC'});
+          }
+        }
+      });
+    </script>
+
+    <!-- HeyFlow Modal Container -->
+    <heyflow-modal-element modal-id="__dI3AneD_">
+      <heyflow-wrapper flow-id="KpxW0wjf81tgth6Ntnzf" dynamic-height scroll-up-on-navigation style-config='{"width":"800px"}' modal-id="__dI3AneD_"></heyflow-wrapper>
+    </heyflow-modal-element>
+
+    <script>
+      // Global listener to trigger HeyFlow popups from any button/link
+      // Simply set the button link to exactly: #heyflow-MODAL_ID
+      // For example: #heyflow-__dI3AneD_
+      document.addEventListener('click', function(e) {
+        var heyflowLink = e.target.closest('a[href^="#heyflow-"]');
+        if (heyflowLink) {
+          e.preventDefault();
+          var modalId = heyflowLink.getAttribute('href').replace('#heyflow-', '');
+          
+          if (modalId) {
+            window.dispatchEvent(new CustomEvent('heyflow-modal-element:open', { 
+              detail: { modalId: modalId }
+            }));
           }
         }
       });
