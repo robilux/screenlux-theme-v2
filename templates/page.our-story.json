@@ -23,15 +23,15 @@
         "heading_TrrGX8": {
           "type": "heading",
           "settings": {
-            "heading": "Deutsche Qualität. Direkt ab Werk.",
+            "heading": "Warum Screenlux",
             "heading_size": "h1"
           }
         },
         "text_Y4RCxk": {
           "type": "text",
           "settings": {
-            "text": "Premium-Qualität ohne Zwischenhändler. Hol dir High-End Screens 30 % günstiger.",
-            "text_style": "body"
+            "text": "Aus Pergolux entstanden. Über 50.000 Screens Erfahrung. Direktvertrieb ohne Umwege.",
+            "text_style": "subtitle"
           }
         }
       },
@@ -61,10 +61,10 @@
       "name": "Timeline Section",
       "settings": {
         "variant": "default",
-        "year_label": "2019",
-        "heading": "Geboren in einem nordischen Sturm.",
-        "body": "<p>2019 starteten wir mit einer fundamentalen Frage: Warum versagt Standard-Sonnenschutz, wenn es hart auf hart kommt? Wir haben ein System neu entwickelt, das extremem skandinavischem Wetter standhält. Diese unzerstörbare DNA steckt heute in Screenlux.</p>",
-        "image": "shopify://shop_images/img-story-container.png",
+        "year_label": "2020–2024",
+        "heading": "Unser Ursprung: Pergolux",
+        "body": "<p>Die Leiter unserer Produktentwicklung, Henrik Johannessen und Per Christian Epland, entwickelten bei Pergolux moderne Pergola-Systeme inklusive integrierter Zip-Screens.</p><p>Bis 2024 wurden über 50.000 Screens umgesetzt.</p><p><strong>Das Ergebnis:</strong></p><p>Ein tiefes Verständnis dafür, was bei Screens wirklich funktioniert – und was nicht.</p>",
+        "image": "shopify://shop_images/img-story-first-product.jpg",
         "button_label": "View Open Positions",
         "button_link": "",
         "show_timeline_top": false,
@@ -84,9 +84,9 @@
       "name": "Timeline Section",
       "settings": {
         "variant": "image_left",
-        "year_label": "2023",
-        "heading": "Der goldene Mittelweg fehlte.",
-        "body": "<p><strong>Die Branche war zweigeteilt:</strong> Traditionelle Marken zwingen Nutzer zu komplexen Prozessen und Elektriker-Aufwänden. Andere bauen billigste Qualitäten. Es fehlte ein professionelles, erstklassiges System, das genial einfach bleibt und das man online kaufen kann.</p>",
+        "year_label": "2024",
+        "heading": "Die Erkenntnis",
+        "body": "<p>Mit dieser Erfahrung haben wir uns den Markt für Fensterscreens genauer angesehen.</p><p>Das Bild war klar:</p><p>• Große Marken: teuer, komplex, schwer zugänglich</p><p>• Günstige Online-Lösungen: oft unzuverlässig und aufwendig zu montieren</p><p><strong>Die goldene Mitte fehlte: </strong>Ein System, das stabil ist, durchdacht konstruiert und gleichzeitig einfach zu kaufen und zu installieren.</p>",
         "image": "shopify://shop_images/img-story-middleman-de.png",
         "button_label": "View Open Positions",
         "button_link": "",
@@ -107,10 +107,10 @@
       "name": "Timeline Section",
       "settings": {
         "variant": "default",
-        "year_label": "2025",
-        "heading": "Das Ende der Zwischenhändler.",
-        "body": "<p><strong>Die Lösung war klar: Solar.</strong> Durch die Integration eines leistungsstarken Solarantriebs entfiel die Notwendigkeit für Elektriker und komplexe Installationen. So konnten wir ein High-End System entwickeln, das direkt zum Kunden geliefert wird. Ohne Zwischenhändler, ohne versteckte Kosten.</p>",
-        "image": "shopify://shop_images/img-story-first-product.jpg",
+        "year_label": "2024",
+        "heading": "Die Entscheidung",
+        "body": "<p>Wir haben uns entschieden, genau diese Lücke zu schließen.</p><p><strong>Unser Ansatz:</strong></p><p>• Entwicklung eines eigenen Screen-Systems</p><p>• Fokus auf Stabilität und einfache Montage</p><p>• Standardisierung statt unnötiger Varianten</p><p>• Direktvertrieb ohne Zwischenhändler</p><p><strong>Unser Anspruch:</strong></p><p>Ein klar definiertes System, das in der Praxis zuverlässig funktioniert – ohne unnötige Komplexität.</p>",
+        "image": "shopify://shop_images/Screenlx_development.jpg",
         "button_label": "View Open Positions",
         "button_link": "",
         "show_timeline_top": true,
@@ -130,10 +130,10 @@
       "name": "Timeline Section",
       "settings": {
         "variant": "image_left",
-        "year_label": "2025",
-        "heading": "Preisgekrönt. Vom ersten Tag an.",
-        "body": "<p>Unser allererstes Screenlux-System wurde direkt mit dem International Design Award (IDA) ausgezeichnet. Dieser Sieg bestätigte uns: Man kann Zwischenhändler überspringen und dennoch State-of-the-Art Design für sein Zuhause bekommen.</p>",
-        "image": "shopify://shop_images/img-story-german-ida.png",
+        "year_label": "2026",
+        "heading": "Zip-Screen 2",
+        "body": "<p>Basierend auf tausenden Anwendungen haben wir das System neu entwickelt.</p><p>Der Zip-Screen 2 ist das Ergebnis:</p><p>• schlanke 85 mm Kassette</p><p>• reduzierte, klare Konstruktion</p><p>• einfache und saubere Montage</p><p>• zuverlässiger Solarantrieb</p><p>Kein unnötiger Aufwand.</p><p>Keine komplizierten Systeme.</p><p>Ein Screen, der einfach funktioniert.</p>",
+        "image": "shopify://shop_images/measure-guide-Auf_dem_mauerwerk.jpg",
         "button_label": "View Open Positions",
         "button_link": "",
         "show_timeline_top": true,
@@ -154,54 +154,8 @@
       "settings": {
         "variant": "default",
         "year_label": "2026",
-        "heading": "Zip-Screen 2: Das Destillat aus über 50.000 Installationen.",
-        "body": "<p>Wir wussten genau, wie wir die Lücke zwischen 'gutem' Sonnenschutz und einer Design-Ikone schließen. Wir haben den Zip-Screen 2 entwickelt—das schlankste 85 mm System der Welt. Ohne sichtbare Schrauben und mit einem Solar-Akku, der auch in den dunkelsten deutschen Wintern durchhält.</p>",
-        "image": "shopify://shop_images/img-text-and-video-flawless-finish-fallback.png",
-        "button_label": "View Open Positions",
-        "button_link": "",
-        "show_timeline_top": true,
-        "show_timeline_bottom": true,
-        "bg_color": "#171717",
-        "year_color": "#5b5bf9",
-        "heading_color": "#ffffff",
-        "body_color": "#a3a3a3",
-        "button_bg_color": "#5b5bf9",
-        "button_text_color": "#ffffff",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "timeline_section_axp7m7": {
-      "type": "timeline-section",
-      "name": "Timeline Section",
-      "settings": {
-        "variant": "image_left",
-        "year_label": "2026",
-        "heading": "The Design Masterprize",
-        "body": "<p>Der Gewinn des Design Masterprize für den Zip-Screen 2 bewies, dass unser kompromissloser Ansatz weltweit gegen die größten Namen der Branche bestehen kann. Der Beweis, dass ein DIY-freundliches Produkt absolute Luxus-Qualität sein kann.</p>",
-        "image": "shopify://shop_images/img-story-design-masterprize.png",
-        "button_label": "View Open Positions",
-        "button_link": "",
-        "show_timeline_top": true,
-        "show_timeline_bottom": true,
-        "bg_color": "#171717",
-        "year_color": "#5b5bf9",
-        "heading_color": "#ffffff",
-        "body_color": "#a3a3a3",
-        "button_bg_color": "#5b5bf9",
-        "button_text_color": "#ffffff",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "timeline_section_Vne3xj": {
-      "type": "timeline-section",
-      "name": "Timeline Section",
-      "settings": {
-        "variant": "default",
-        "year_label": "2026",
         "heading": "German Design Award",
-        "body": "<p>Der Gewinn des German Design Award 2026 war der ultimative Stresstest für unsere Ingenieure. Dies ist das offizielle Siegel für unzerstörbares Design, das gleichzeitig ein Kunstwerk ist.</p>",
+        "body": "<p>2026 wird der Zip Screen 2 für exzellentes Design ausgezeichnet. Der Gewinn des German Design Award 2026 war der ultimative Stresstest für unsere Ingenieure. Dies ist das offizielle Siegel für unzerstörbares Design, das gleichzeitig ein Kunstwerk ist.</p>",
         "image": "shopify://shop_images/img-story-german-design-award.png",
         "button_label": "View Open Positions",
         "button_link": "",
@@ -222,10 +176,10 @@
       "name": "Timeline Section",
       "settings": {
         "variant": "end_section",
-        "year_label": "Today",
-        "heading": "Schreib die Geschichte mit uns weiter!",
-        "body": "<p>Wir haben die Pergola-Branche aufgerollt und jetzt schreiben wir die Regeln für perfekten Sonnenschutz neu. Wir suchen Macher, Visionäre und Innovatoren, die uns auf diesem Weg begleiten.</p>",
-        "button_label": "Offene Stellen ansehen",
+        "year_label": "Heute",
+        "heading": "Screenlux steht für einen klaren Ansatz",
+        "body": "<p><strong>Skandinavisches Design, durchdachte Technik, einfache Umsetzung, transparente Preise, Keine Umwege, Keine unnötige Komplexität.</strong></p>",
+        "button_label": "",
         "button_link": "",
         "show_timeline_top": true,
         "show_timeline_bottom": true,
@@ -248,8 +202,6 @@
     "timeline_section_M8a9eR",
     "timeline_section_GJawxe",
     "timeline_section_T37tFD",
-    "timeline_section_axp7m7",
-    "timeline_section_Vne3xj",
     "timeline_section_QqKgpD"
   ]
 }
