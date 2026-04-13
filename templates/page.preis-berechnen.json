@@ -11,13 +11,25 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "custom_liquid_T3YwUn": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<heyflow-wrapper flow-id=\"KpxW0wjf81tgth6Ntnzf\" dynamic-height scroll-up-on-navigation style-config='{\"width\":\"800px\"}'></heyflow-wrapper>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "custom_liquid_T3YwUn"
   ]
 }
