@@ -44,7 +44,7 @@
     {% endif %}
 
     {% if section.settings.contact_label != blank %}
-      <div class="contact-card__contact-label h5">
+      <div class="contact-card__contact-label">
         {{ section.settings.contact_label }}
       </div>
     {% endif %}
@@ -53,7 +53,7 @@
       <div class="contact-card__actions">
         {% for block in section.blocks %}
           {% if block.settings.button_text != blank %}
-            <a {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% else %}role="button"{% endif %} class="button contact-card__button {% if block.settings.button_style == 'primary' %}button--primary{% else %}button--secondary{% endif %}" {{ block.shopify_attributes }}>
+            <a {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% else %}role="button"{% endif %} class="contact-card__button {% if block.settings.button_style == 'primary' %}button--brand{% else %}button--brand-secondary{% endif %}" {{ block.shopify_attributes }}>
               {{ block.settings.button_text }}
             </a>
           {% endif %}
