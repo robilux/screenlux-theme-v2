@@ -11,13 +11,71 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "contact_card_wY3rrm": {
+      "type": "contact-card",
+      "blocks": {
+        "button_jUmR4P": {
+          "type": "button",
+          "settings": {
+            "button_text": "Book a meeting",
+            "button_link": "mailto:test@example.com",
+            "button_style": "secondary"
+          }
+        },
+        "button_wMHKzz": {
+          "type": "button",
+          "settings": {
+            "button_text": "Send e-mail",
+            "button_link": "mailto:test@example.com",
+            "button_style": "secondary"
+          }
+        },
+        "button_ch3grH": {
+          "type": "button",
+          "settings": {
+            "button_text": "Whatsapp",
+            "button_link": "https://wa.me/123456789",
+            "button_style": "secondary"
+          }
+        },
+        "button_zLcUqC": {
+          "type": "button",
+          "settings": {
+            "button_text": "Call me",
+            "button_link": "tel:+123456789",
+            "button_style": "secondary"
+          }
+        }
+      },
+      "block_order": [
+        "button_jUmR4P",
+        "button_wMHKzz",
+        "button_ch3grH",
+        "button_zLcUqC"
+      ],
+      "name": "Contact Card",
+      "settings": {
+        "section_bg_color": "transparent",
+        "card_bg_color": "#ffffff",
+        "text_color": "#121212",
+        "avatar": "shopify://shop_images/kevin-headshot.png",
+        "name": "Kevin Rebmann",
+        "role": "Sales manager",
+        "description": "Hi! Mein Ziel ist es, dein Zuhause nicht nur kühler, sondern auch schöner zu machen. Hast du Fragen zu den Stoffmustern oder deinen Maßen? Buch dir einfach einen kurzen Termin oder schreib mir direkt auf WhatsApp.",
+        "contact_label": "Contact:",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "contact_card_wY3rrm"
   ]
 }
