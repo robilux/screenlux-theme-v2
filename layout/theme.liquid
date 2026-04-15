@@ -407,8 +407,9 @@
     </script>
 
     <!-- HeyFlow Modal Container -->
+    {%- assign heyflow_id = settings.heyflow_flow_id | default: 'KpxW0wjf81tgth6Ntnzf' -%}
     <heyflow-modal-element modal-id="__dI3AneD_">
-      <heyflow-wrapper flow-id="KpxW0wjf81tgth6Ntnzf" dynamic-height scroll-up-on-navigation style-config='{"width":"480px"}' modal-id="__dI3AneD_"></heyflow-wrapper>
+      <heyflow-wrapper flow-id="{{ heyflow_id }}" dynamic-height scroll-up-on-navigation style-config='{"width":"480px"}' modal-id="__dI3AneD_"></heyflow-wrapper>
     </heyflow-modal-element>
 
     <script>

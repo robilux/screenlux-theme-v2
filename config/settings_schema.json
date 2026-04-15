@@ -1557,6 +1557,17 @@
         "label": "Auto-adapt text color for contrast",
         "default": true,
         "info": "If checked, this text will automatically be white or dark based on the background color brightness."
+      },
+      {
+        "type": "header",
+        "content": "HeyFlow Integration"
+      },
+      {
+        "type": "text",
+        "id": "heyflow_flow_id",
+        "label": "HeyFlow Flow ID",
+        "default": "KpxW0wjf81tgth6Ntnzf",
+        "info": "The HeyFlow ID to load for this market's global popup."
       }
     ]
   }
