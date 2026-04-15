@@ -237,12 +237,14 @@
         {%- endcase -%}
       {%- endfor -%}
 
-      <a
-        href="/products/zip-screen-configurator"
-        class="header__btn-order button button--primary button--small small-hide medium-hide"
-      >
-        Konfigurieren
-      </a>
+      {%- if section.settings.cta_link != blank and section.settings.cta_label != blank -%}
+        <a
+          href="{{ section.settings.cta_link }}"
+          class="header__btn-order button button--primary button--small small-hide medium-hide"
+        >
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
 
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
         <span class="svg-wrapper">
@@ -574,6 +576,21 @@
       "default": true,
       "label": "t:sections.header.settings.enable_customer_avatar.label",
       "info": "t:sections.header.settings.enable_customer_avatar.info"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Konfigurieren"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
     },
     {
       "type": "header",
