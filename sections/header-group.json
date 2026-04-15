@@ -29,6 +29,7 @@
       "disabled": true,
       "settings": {
         "usp_text": "Direkt vom Hersteller",
+        "status_text": "Wir sind erreichbar",
         "phone_label": "+4915567240587",
         "phone_number": "+4915567240587"
       }
@@ -48,6 +49,8 @@
         "enable_country_selector": true,
         "enable_language_selector": true,
         "enable_customer_avatar": true,
+        "cta_label": "Konfigurieren",
+        "cta_link": "shopify://products/zip-screen-configurator",
         "margin_bottom": 0,
         "padding_top": 24,
         "padding_bottom": 24
