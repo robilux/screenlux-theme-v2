@@ -5,7 +5,7 @@
     </div>
 
     <div class="sl-header-bar__right">
-      <span class="sl-header-bar__status">Wir sind erreichbar</span>
+      <span class="sl-header-bar__status">{{ section.settings.status_text }}</span>
       <a class="sl-header-bar__phone" href="tel:{{ section.settings.phone_number | replace: ' ', '' }}">
         {{ section.settings.phone_label }}
       </a>
@@ -128,6 +128,12 @@
       "id": "usp_text",
       "label": "USP text",
       "default": "Direkt vom Hersteller"
+    },
+    {
+      "type": "text",
+      "id": "status_text",
+      "label": "Status Text",
+      "default": "Wir sind erreichbar"
     },
     {
       "type": "text",
