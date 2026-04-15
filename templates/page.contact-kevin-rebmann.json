@@ -24,7 +24,7 @@
           "type": "button",
           "settings": {
             "button_text": "Termin buchen",
-            "button_link": "https://calendly.com/screenlux/5min",
+            "button_link": "https://calendly.com/kevin-rebmann-screenlux/5min",
             "button_style": "primary"
           }
         },
