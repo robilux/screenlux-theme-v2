@@ -544,8 +544,8 @@
         cassetteSize && (String(cassetteSize).toLowerCase().includes('large') || String(cassetteSize).includes('120'));
       const cassetteHeightMM = isLarge ? 120 : 85;
 
-      const SIDE_RAILS_MM = 64;
-      const BOTTOM_RAIL_MM = 20;
+      const SIDE_RAILS_MM = 76;
+      const BOTTOM_RAIL_MM = isLarge ? 50 : 35;
 
       const lightOpeningWidth = widthMM - SIDE_RAILS_MM;
       const lightOpeningHeight = heightMM - cassetteHeightMM - BOTTOM_RAIL_MM;

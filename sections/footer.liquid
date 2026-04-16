@@ -209,6 +209,16 @@
     color: {{ section.settings.text_color }};
   }
 
+  .footer-localization {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .footer-localization .localization-form {
+    padding: 0;
+    margin: 0;
+  }
+
   .custom-footer__payment {
     display: flex;
     align-items: center;
@@ -471,6 +481,30 @@
           {{ section.settings.intercom_text }}
         </a>
       {%- endif -%}
+
+      <div class="footer-localization">
+        {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
+          <localization-form data-prevent-hide>
+            {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
+              <div>
+                <h2 class="visually-hidden" id="FooterCountryLabel">{{ 'localization.country_label' | t }}</h2>
+                {%- render 'country-localization', localPosition: 'FooterCountry' -%}
+              </div>
+            {%- endform -%}
+          </localization-form>
+        {% endif %}
+
+        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+          <localization-form data-prevent-hide>
+            {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
+              <div>
+                <h2 class="visually-hidden" id="FooterLanguageLabel">{{ 'localization.language_label' | t }}</h2>
+                {%- render 'language-localization', localPosition: 'FooterLanguage' -%}
+              </div>
+            {%- endform -%}
+          </localization-form>
+        {%- endif -%}
+      </div>
     </div>
 
     {%- if section.settings.show_payment -%}
@@ -575,6 +609,18 @@
       "id": "intercom_text",
       "label": "Intercom Link Text",
       "default": "Support / Chat"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "default": true,
+      "label": "Enable country/region selector"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "default": true,
+      "label": "Enable language selector"
     },
     {
       "type": "checkbox",
