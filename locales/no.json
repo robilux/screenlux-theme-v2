@@ -16,5 +16,72 @@
     "error": "Feil",
     "loading": "Laster ...",
     "skip_to_product_info": "Til produktinformasjon"
+  },
+  "configurator": {
+    "title": "Konfigurer screens",
+    "add_another_one": "Legg til en til",
+    "installation_title": "Montering",
+    "tip_title": "Tips",
+    "tip_message_html": "Bytt til <strong>solcelledrevne</strong> screens for enklere montering og lavere kostnader.",
+    "tip_benefits": {
+      "no_wiring": "Ingen kabling",
+      "no_wall_drilling": "Ingen boring for strømtilkobling",
+      "no_electrician": "Ingen elektriker nødvendig"
+    },
+    "tip_footer_html": "Bytt nå og spar <strong>12.000kr</strong> på profesjonell montering.",
+    "switch_to_solar": "Bytt til solcelledrift",
+    "installation_diy": {
+      "title": "Selvmontering (DIY)",
+      "desc": "Uproblematisk montering med veiledning.\n• Solcelledrift: 30 min / screen\n• Kabeltilkoblet: 5 timer / screen",
+      "price": "Gratis"
+    },
+    "installation_professional": {
+      "title": "Profesjonell montering",
+      "desc": "La en av våre profesjonelle montører ta seg av installasjonen.",
+      "price": "+ 20.350 kr",
+      "note": "Spar 12.000 kr ved å bytte til solcelledrevne screens."
+    },
+    "steuerung_title": "Styring",
+    "no_steuerung": "Ingen styring tilgjengelig.",
+    "automatisierung_title": "Automatisering",
+    "no_automatisierung": "Ingen automatisering tilgjengelig.",
+    "add": "Legg til",
+    "order_summary_title": "Bestillingsoversikt",
+    "order_summary": {
+      "zip_screens": "Zip‑screens",
+      "steuerung": "Styring",
+      "automatisierung": "Automatisering",
+      "warning_no_steuerung": "Det er ikke valgt noen styring!",
+      "professional_installation": "Profesjonell montering",
+      "total": "Totalt",
+      "free_delivery": "Gratis levering",
+      "arrives_in": "Levering om 5–7 uker",
+      "continue_to_payment": "Fortsett til betaling",
+      "please_check_dimensions": "Vennligst kontrollér målene",
+      "per_screen": "per screen"
+    },
+    "awards": {
+      "award_title": "Vinner av German Design Award 2026!",
+      "award_text": "Den stilrene kombinasjonen av slank kassett og smart teknologi skaper en estetisk gjennomført solskjerming som smelter harmonisk inn i moderne miljøer. Med denne karaktersterke løsningen setter prosjektet en imponerende standard for utendørsdesign på gullnivå."
+    },
+    "dimensions": {
+      "width": "Bredde (mm)",
+      "height": "Høyde (mm)",
+      "invalid": "Ugyldige mål"
+    },
+    "options": {
+      "cassette_size": "Kassettstørrelse",
+      "frame_color": "Rammefarge",
+      "fabric_color": "Stoffarge",
+      "fabric_transparency": "Stoffets transparens",
+      "motor": "Motor"
+    },
+    "actions": {
+      "remove_screen": "Fjern screen",
+      "duplicate_screen": "Dupliser screen",
+      "open_screen": "Åpne screen",
+      "close_screen": "Lukk screen",
+      "show_measurements": "Vis mål"
+    }
   }
 }
