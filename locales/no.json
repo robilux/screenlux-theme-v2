@@ -137,5 +137,9 @@
         }
       }
     }
+  },
+  "localization": {
+    "country_label": "Land",
+    "language_label": "Språk"
   }
 }
