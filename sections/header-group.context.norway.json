@@ -12,5 +12,12 @@
     "market": "norway"
   },
   "parent": "header-group.json",
-  "sections": {}
+  "sections": {
+    "header": {
+      "settings": {
+        "menu": "main-menu-no"
+      },
+      "blocks": {}
+    }
+  }
 }
