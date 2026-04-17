@@ -2,8 +2,8 @@
   Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=247-1819&t=wFPeUcomx0ymvDdH-4
 {% endcomment %}
 
-<div class="info-modal-section page-width section-{{ section.id }}-padding" id="info-modal-{{ section.id }}">
-  <div class="info-modal-list">
+<div class="info-modal-section page-width section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient" id="info-modal-{{ section.id }}">
+  <info-modal-list class="info-modal-list">
     {% for block in section.blocks %}
       <!-- Accordion Button -->
       <button 
@@ -75,7 +75,7 @@
         </div>
       </dialog>
     {% endfor %}
-  </div>
+  </info-modal-list>
 </div>
 
 {% style %}
@@ -170,7 +170,6 @@
     position: relative;
     background: var(--sl-color-white, #fff);
     border-radius: var(--sl-radius-xl, 24px);
-    box-shadow: 0 24px 64px -8px rgba(0,0,0,0.3);
     overflow: hidden;
     transform: scale(0.95);
     opacity: 0;
@@ -306,51 +305,54 @@
 {% endstyle %}
 
 {% javascript %}
-  document.addEventListener('DOMContentLoaded', () => {
-    const dialogs = document.querySelectorAll('.info-modal-dialog');
-    const triggers = document.querySelectorAll('.info-modal-trigger');
-    
-    triggers.forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const targetId = trigger.getAttribute('data-modal-target');
-        const dialog = document.getElementById(targetId);
-        if (dialog) {
-          dialog.showModal();
-          trigger.setAttribute('aria-expanded', 'true');
-          document.body.style.overflow = 'hidden';
-        }
-      });
-    });
-
-    dialogs.forEach(dialog => {
-      const closeBtns = dialog.querySelectorAll('[data-modal-close]');
-      closeBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          closeDialog(dialog);
+  class InfoModalList extends HTMLElement {
+    constructor() {
+      super();
+      this.dialogs = this.querySelectorAll('.info-modal-dialog');
+      this.triggers = this.querySelectorAll('.info-modal-trigger');
+      
+      this.triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const targetId = trigger.getAttribute('data-modal-target');
+          const dialog = document.getElementById(targetId);
+          if (dialog) {
+            dialog.showModal();
+            trigger.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+          }
         });
       });
 
-      dialog.addEventListener('click', (e) => {
-        const rect = dialog.getBoundingClientRect();
-        const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height
-          && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-        
-        if (!isInDialog) {
-          closeDialog(dialog);
-        }
-      });
+      this.dialogs.forEach(dialog => {
+        const closeBtns = dialog.querySelectorAll('[data-modal-close]');
+        closeBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            this.closeDialog(dialog);
+          });
+        });
 
-      dialog.addEventListener('cancel', (e) => {
-        e.preventDefault();
-        closeDialog(dialog);
-      });
-    });
+        dialog.addEventListener('click', (e) => {
+          const rect = dialog.getBoundingClientRect();
+          const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height
+            && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+          
+          if (!isInDialog) {
+            this.closeDialog(dialog);
+          }
+        });
 
-    function closeDialog(dialog) {
+        dialog.addEventListener('cancel', (e) => {
+          e.preventDefault();
+          this.closeDialog(dialog);
+        });
+      });
+    }
+
+    closeDialog(dialog) {
       const videos = dialog.querySelectorAll('video');
       videos.forEach(v => v.pause());
       
-      const trigger = document.querySelector(`[data-modal-target="${dialog.id}"]`);
+      const trigger = this.querySelector(`[data-modal-target="${dialog.getAttribute('id')}"]`);
       if (trigger) {
         trigger.setAttribute('aria-expanded', 'false');
       }
@@ -358,7 +360,11 @@
       dialog.close();
       document.body.style.overflow = '';
     }
-  });
+  }
+
+  if (!customElements.get('info-modal-list')) {
+    customElements.define('info-modal-list', InfoModalList);
+  }
 {% endjavascript %}
 
 {% schema %}
@@ -386,6 +392,12 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
     }
   ],
   "blocks": [
