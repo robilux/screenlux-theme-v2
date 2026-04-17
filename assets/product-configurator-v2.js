@@ -884,14 +884,18 @@ class ProductConfigurator extends HTMLElement {
              </div>
            </div>
            
-           <div style="margin-top: 8px; text-align: left;">
-             <a href="https://www.screenlux.de/pages/messanleitung" target="_blank" style="font-size: 13px; color: var(--sl-text-secondary); text-decoration: underline; display: inline-flex; align-items: center; gap: 4px;">
+           ${
+             window.ScreenluxTranslations.measurementGuide && window.ScreenluxTranslations.measurementGuide.text && window.ScreenluxTranslations.measurementGuide.link
+               ? `<div style="margin-top: 8px; text-align: left;">
+             <a href="${window.ScreenluxTranslations.measurementGuide.link}" target="_blank" style="font-size: 13px; color: var(--sl-text-secondary); text-decoration: underline; display: inline-flex; align-items: center; gap: 4px;">
                <svg fill="currentColor" width="14" height="14" viewBox="0 0 20 20" style="flex-shrink:0;">
                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
                </svg>
-               Unsicher beim Messen? Nutze die Messanleitung
+               ${window.ScreenluxTranslations.measurementGuide.text}
              </a>
-           </div>
+           </div>`
+               : ''
+           }
            
            ${
              !screen.valid
@@ -1331,10 +1335,26 @@ class ProductConfigurator extends HTMLElement {
     if (!screens || screens.length === 0) return 0;
     const hasWired = screens.some((s) => s.motor !== 'solar');
     const numScreens = screens.length;
-    if (hasWired) {
-      return 69900 + (numScreens - 1) * 25000;
+    
+    const config = window.ScreenluxData?.config || {};
+    let wiredBase, wiredExtra, solarBase, solarExtra;
+
+    if (config.currencyCode === 'NOK') {
+      wiredBase = config.install_wired_base_nok || 799900;
+      wiredExtra = config.install_wired_extra_nok || 280000;
+      solarBase = config.install_solar_base_nok || 340000;
+      solarExtra = config.install_solar_extra_nok || 115000;
     } else {
-      return 29900 + numScreens * 10000;
+      wiredBase = config.install_wired_base_eur || 69900;
+      wiredExtra = config.install_wired_extra_eur || 25000;
+      solarBase = config.install_solar_base_eur || 29900;
+      solarExtra = config.install_solar_extra_eur || 10000;
+    }
+
+    if (hasWired) {
+      return wiredBase + (numScreens - 1) * wiredExtra;
+    } else {
+      return solarBase + numScreens * solarExtra;
     }
   }
 
@@ -1632,11 +1652,11 @@ class ProductConfigurator extends HTMLElement {
       <img src="${this.data.assets.german_badge}" alt="German Design Award Winner 2026" style="width: 100px; height: auto; object-fit: contain; margin-bottom: 8px;">
       <div style="display: flex; flex-direction: column; gap: 8px;">
          <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #1F2937; line-height: 1.2;">
-           Excellent Product Design 2026 Winner!
+           ${window.ScreenluxTranslations?.awards?.awardTitle || 'Excellent Product Design 2026 Winner!'}
          </h4>
          <div style="font-size: 14px; color: #4B5563; line-height: 1.5;">
            <p style="margin: 0;">
-             Die stilsichere Kombination aus schlankem Gehäuse und smarter Technologie schafft einen ästhetisch anspruchsvollen Sonnenschutz, der sich harmonisch in moderne Umgebungen einfügt. Mit dieser charakterstarken Lösung setzt das Projekt einen beeindrauckenden Maßstab für hochwertiges Outdoor-Design auf Gold-Niveau.
+             ${window.ScreenluxTranslations?.awards?.awardText || 'Die stilsichere Kombination aus schlankem Gehäuse und smarter Technologie schafft einen ästhetisch anspruchsvollen Sonnenschutz, der sich harmonisch in moderne Umgebungen einfügt. Mit dieser charakterstarken Lösung setzt das Projekt einen beeindruckenden Maßstab für hochwertiges Outdoor-Design auf Gold-Niveau.'}
            </p>
          </div>
       </div>

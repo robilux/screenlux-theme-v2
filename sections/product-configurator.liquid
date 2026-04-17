@@ -76,15 +76,18 @@
       <h1 class="product-title">{{ product.title }}</h1>
     </div>
 
+    {% assign show_flag = 'configurator.misc.developed_in_germany_flag' | t %}
     <div class="de-badge-container">
-      <img
-        src="{{ 'img-sl-de-badge.png' | asset_url }}"
-        alt="{{ 'configurator.misc.developed_in_germany' | t }}"
-        class="de-badge-icon"
-        width="22"
-        height="22"
-        loading="lazy"
-      >
+      {% if show_flag != 'false' %}
+        <img
+          src="{{ 'img-sl-de-badge.png' | asset_url }}"
+          alt="{{ 'configurator.misc.developed_in_germany' | t }}"
+          class="de-badge-icon"
+          width="22"
+          height="22"
+          loading="lazy"
+        >
+      {% endif %}
       <span class="de-badge-text">{{ 'configurator.misc.developed_in_germany' | t }}</span>
     </div>
 

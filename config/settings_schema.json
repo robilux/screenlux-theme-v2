@@ -1502,6 +1502,70 @@
         "id": "configurator_surcharge_solar",
         "label": "Solar Surcharge (cents)",
         "default": 13800
+      },
+      {
+        "type": "header",
+        "content": "Installation Pricing (EUR)"
+      },
+      {
+        "type": "paragraph",
+        "content": "Estimated prices for professional installation in Euro markets. Enter values in cents (e.g., 69900 for 699)."
+      },
+      {
+        "type": "number",
+        "id": "configurator_install_wired_base_eur",
+        "label": "Wired Base (€ cents)",
+        "default": 69900
+      },
+      {
+        "type": "number",
+        "id": "configurator_install_wired_extra_eur",
+        "label": "Wired Extra Screen (€ cents)",
+        "default": 25000
+      },
+      {
+        "type": "number",
+        "id": "configurator_install_solar_base_eur",
+        "label": "Solar Base (€ cents)",
+        "default": 29900
+      },
+      {
+        "type": "number",
+        "id": "configurator_install_solar_extra_eur",
+        "label": "Solar Extra Screen (€ cents)",
+        "default": 10000
+      },
+      {
+        "type": "header",
+        "content": "Installation Pricing (NOK)"
+      },
+      {
+        "type": "paragraph",
+        "content": "Estimated prices for professional installation when currency is NOK (kr). Enter values in cents (e.g., 799900 for 7999kr)."
+      },
+      {
+        "type": "number",
+        "id": "configurator_install_wired_base_nok",
+        "label": "Wired Base (NOK cents)",
+        "default": 799900
+      },
+      {
+        "type": "number",
+        "id": "configurator_install_wired_extra_nok",
+        "label": "Wired Extra Screen (NOK cents)",
+        "default": 280000
+      },
+      {
+        "type": "number",
+        "id": "configurator_install_solar_base_nok",
+        "label": "Solar Base (NOK cents)",
+        "default": 340000
+      },
+      {
+        "type": "number",
+        "id": "configurator_install_solar_extra_nok",
+        "label": "Solar Extra Screen (NOK cents)",
+        "default": 115000
       }
     ]
   },

@@ -585,6 +585,10 @@
       "award_title": "Excellent Product Design 2026 Winner!",
       "award_text": "Die stilsichere Kombination aus schlankem Gehäuse und smarter Technologie schafft einen ästhetisch anspruchsvollen Sonnenschutz, der sich harmonisch in moderne Umgebungen einfügt. Mit dieser charakterstarken Lösung setzt das Projekt einen beeindrauckenden Maßstab für hochwertiges Outdoor-Design auf Gold-Niveau."
     },
+    "measurement_guide": {
+      "text": "Unsure how to measure? Use the measurement guide",
+      "link": "https://www.screenlux.de/pages/messanleitung"
+    },
     "dimensions": {
       "width": "Width (mm)",
       "height": "Height (mm)",
@@ -617,7 +621,8 @@
       "loading": "Configuration Loading...",
       "loading_desc": "If this does not disappear, no products were found in the \"main-product\" collection.",
       "loading_desc_sub": "(Check Console for details)",
-      "developed_in_germany": "Developed in Germany"
+      "developed_in_germany": "Developed in Germany",
+      "developed_in_germany_flag": "true"
     },
     "data": {
       "frameColors": {

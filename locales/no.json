@@ -64,6 +64,10 @@
       "award_title": "Vinner av German Design Award 2026!",
       "award_text": "Den stilrene kombinasjonen av slank kassett og smart teknologi skaper en estetisk gjennomført solskjerming som smelter harmonisk inn i moderne miljøer. Med denne karaktersterke løsningen setter prosjektet en imponerende standard for utendørsdesign på gullnivå."
     },
+    "measurement_guide": {
+      "text": "",
+      "link": ""
+    },
     "dimensions": {
       "width": "Bredde (mm)",
       "height": "Høyde (mm)",
@@ -96,7 +100,8 @@
       "loading": "Konfigurator laster …",
       "loading_desc": "Hvis denne teksten ikke forsvinner, ble det ikke funnet noen produkter i kolleksjonen «main-product».",
       "loading_desc_sub": "(Kontroller detaljer i konsollen)",
-      "developed_in_germany": "Utviklet i Tyskland"
+      "developed_in_germany": "Utviklet i Tyskland",
+      "developed_in_germany_flag": "false"
     },
     "data": {
       "frameColors": {
