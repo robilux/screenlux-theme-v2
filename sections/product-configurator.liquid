@@ -76,19 +76,35 @@
       <h1 class="product-title">{{ product.title }}</h1>
     </div>
 
-    {% assign show_flag = 'configurator.misc.developed_in_germany_flag' | t %}
+    {% assign badge_text = section.settings.badge_text | default: nil %}
+    {% if badge_text == blank %}
+      {% assign badge_text = 'configurator.misc.developed_in_germany' | t %}
+    {% endif %}
+
     <div class="de-badge-container">
-      {% if show_flag != 'false' %}
+      {% if section.settings.badge_image != blank %}
         <img
-          src="{{ 'img-sl-de-badge.png' | asset_url }}"
-          alt="{{ 'configurator.misc.developed_in_germany' | t }}"
+          src="{{ section.settings.badge_image | image_url: width: 44 }}"
+          alt="{{ badge_text | escape }}"
           class="de-badge-icon"
           width="22"
           height="22"
           loading="lazy"
         >
+      {% elsif section.settings.badge_text == blank %}
+        {% assign show_flag = 'configurator.misc.developed_in_germany_flag' | t %}
+        {% if show_flag != 'false' %}
+          <img
+            src="{{ 'img-sl-de-badge.png' | asset_url }}"
+            alt="{{ badge_text | escape }}"
+            class="de-badge-icon"
+            width="22"
+            height="22"
+            loading="lazy"
+          >
+        {% endif %}
       {% endif %}
-      <span class="de-badge-text">{{ 'configurator.misc.developed_in_germany' | t }}</span>
+      <span class="de-badge-text">{{ badge_text }}</span>
     </div>
 
     {%- comment -%}
@@ -142,6 +158,22 @@
       "label": "Delivery Time Text",
       "info": "Leave blank to use default translation.",
       "default": "Lieferung in 5-7 Werktagen"
+    },
+    {
+      "type": "header",
+      "content": "Badge (Developed in ...)"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "info": "Overrides the default 'Developed in Germany' translation. Leave blank to use default."
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge Image",
+      "info": "Custom flag or icon. Leave blank to use default if Badge Text is empty."
     }
   ]
 }
