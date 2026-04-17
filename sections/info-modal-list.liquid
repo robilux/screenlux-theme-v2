@@ -2,8 +2,9 @@
   Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=247-1819&t=wFPeUcomx0ymvDdH-4
 {% endcomment %}
 
-<div class="info-modal-section page-width section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient" id="info-modal-{{ section.id }}">
-  <info-modal-list class="info-modal-list">
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="info-modal-section page-width section-{{ section.id }}-padding" id="info-modal-{{ section.id }}">
+    <info-modal-list class="info-modal-list">
     {% for block in section.blocks %}
       <!-- Accordion Button -->
       <button 
@@ -76,6 +77,7 @@
       </dialog>
     {% endfor %}
   </info-modal-list>
+  </div>
 </div>
 
 {% style %}
