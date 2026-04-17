@@ -121,6 +121,8 @@
     "show_vendor": false,
     "show_cart_note": false,
     "cart_drawer_collection": "",
+    "configurator_install_wired_base_nok": 799900,
+    "configurator_install_solar_extra_nok": 150001,
     "global_primary_button_label": "Jetzt Preis berechnen",
     "global_primary_button_link": "#heyflow-__dI3AneD_",
     "show_global_secondary_button": false,
