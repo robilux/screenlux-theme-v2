@@ -1,0 +1,541 @@
+{% comment %}
+  Figma Source: https://www.figma.com/design/aN5Y2pkIVBDAWQLbNWnr9U/Screenlux-Website?node-id=247-1819&t=wFPeUcomx0ymvDdH-4
+{% endcomment %}
+
+<div class="info-modal-section page-width section-{{ section.id }}-padding" id="info-modal-{{ section.id }}">
+  <div class="info-modal-list">
+    {% for block in section.blocks %}
+      <!-- Accordion Button -->
+      <button 
+        type="button" 
+        class="info-modal-trigger" 
+        data-modal-target="Modal-{{ block.id }}" 
+        aria-expanded="false" 
+        {{ block.shopify_attributes }}
+      >
+        <span class="info-modal-trigger__text">{{ block.settings.button_text | escape }}</span>
+        <span class="info-modal-trigger__icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 4.16669V15.8334M4.16669 10H15.8334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </button>
+
+      <!-- Apple-style Modal -->
+      <dialog id="Modal-{{ block.id }}" class="info-modal-dialog">
+        <div class="info-modal-dialog__backdrop" data-modal-close></div>
+        <div class="info-modal-dialog__content">
+          <button type="button" class="info-modal-dialog__close" data-modal-close aria-label="{{ 'accessibility.close' | t | default: 'Close' }}">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
+          <div class="info-modal-dialog__body">
+            {% if block.settings.modal_title != blank %}
+              <h2 class="info-modal-dialog__title">{{ block.settings.modal_title | escape }}</h2>
+            {% endif %}
+
+            {% if block.settings.modal_video != blank %}
+              <div class="info-modal-dialog__media">
+                {{ block.settings.modal_video | video_tag: controls: true, autoplay: false, muted: false, class: 'modal-video' }}
+              </div>
+            {% elsif block.settings.modal_image != blank %}
+              <div class="info-modal-dialog__media">
+                {{ block.settings.modal_image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'modal-image' }}
+              </div>
+            {% endif %}
+
+            {% if block.settings.modal_text != blank %}
+              <div class="info-modal-dialog__text rte">
+                {{ block.settings.modal_text }}
+              </div>
+            {% endif %}
+
+            <div class="info-modal-dialog__downloads">
+              {% for i in (1..8) %}
+                {% assign download_text_key = 'download_' | append: i | append: '_text' %}
+                {% assign download_file_key = 'download_' | append: i | append: '_file' %}
+                
+                {% assign download_text = block.settings[download_text_key] %}
+                {% assign download_file = block.settings[download_file_key] %}
+
+                {% if download_text != blank and download_file != blank %}
+                  <a href="{{ download_file }}" class="info-modal-dialog__download-btn button--brand-secondary" target="_blank" rel="noopener noreferrer">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="download-icon">
+                      <path d="M10 14.1667V3.33334M10 14.1667L14.1667 10M10 14.1667L5.83334 10M17.5 16.6667v.8333H2.5v-.8333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>{{ download_text | escape }}</span>
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+      </dialog>
+    {% endfor %}
+  </div>
+</div>
+
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* Info Modal Triggers List */
+  .info-modal-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sl-spacing-3, 12px);
+    width: 100%;
+    margin: 0 auto;
+    max-width: 600px;
+  }
+
+  .info-modal-trigger {
+    width: 100%;
+    min-width: 180px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--sl-color-white, #fff);
+    border: 1px solid var(--sl-color-gray-300, #d4d4d4);
+    border-radius: var(--sl-radius-md, 12px);
+    box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .info-modal-trigger:hover {
+    border-color: var(--sl-color-gray-400, #9CA3AF);
+    box-shadow: 2px 4px 12px 0px rgba(0,0,0,0.2);
+  }
+
+  .info-modal-trigger__text {
+    font-family: var(--sl-font-family, 'Inter', sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--sl-color-black, #000);
+    line-height: normal;
+  }
+
+  .info-modal-trigger__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sl-color-black, #000);
+  }
+
+  /* Modals (Apple Style) */
+  .info-modal-dialog {
+    padding: 0;
+    border: none;
+    border-radius: var(--sl-radius-xl, 24px);
+    background: transparent;
+    max-width: 800px;
+    width: 90%;
+    margin: auto;
+    overflow: visible;
+  }
+
+  .info-modal-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .info-modal-dialog[open]::backdrop {
+    opacity: 1;
+  }
+
+  .info-modal-dialog__backdrop {
+    display: none;
+  }
+
+  .info-modal-dialog__content {
+    position: relative;
+    background: var(--sl-color-white, #fff);
+    border-radius: var(--sl-radius-xl, 24px);
+    box-shadow: 0 24px 64px -8px rgba(0,0,0,0.3);
+    overflow: hidden;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .info-modal-dialog[open] .info-modal-dialog__content {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .info-modal-dialog__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.05);
+    cursor: pointer;
+    z-index: 10;
+    color: var(--sl-color-gray-600, #4b5563);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .info-modal-dialog__close:hover {
+    background: rgba(0,0,0,0.1);
+    color: var(--sl-color-black, #000);
+  }
+
+  .info-modal-dialog__body {
+    padding: 40px;
+    max-height: 85vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .info-modal-dialog__body::-webkit-scrollbar {
+    width: 8px;
+  }
+  .info-modal-dialog__body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .info-modal-dialog__body::-webkit-scrollbar-thumb {
+    background-color: var(--sl-color-gray-300, #d4d4d4);
+    border-radius: 20px;
+  }
+
+  .info-modal-dialog__title {
+    margin: 0;
+    font-size: var(--sl-text-h2, 30px);
+    font-weight: 600;
+    padding-right: 32px;
+  }
+
+  .info-modal-dialog__media {
+    width: 100%;
+    border-radius: var(--sl-radius-md, 12px);
+    overflow: hidden;
+    background: var(--sl-color-gray-100, #f3f4f6);
+  }
+
+  .info-modal-dialog__media video,
+  .info-modal-dialog__media img,
+  .info-modal-dialog__media .modal-video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .info-modal-dialog__text {
+    font-size: var(--sl-text-body, 17px);
+    line-height: 1.6;
+    color: var(--sl-text-secondary, #4b5563);
+  }
+
+  .info-modal-dialog__text h3, 
+  .info-modal-dialog__text h4 {
+    color: var(--sl-text-primary, #111827);
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .info-modal-dialog__downloads {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .info-modal-dialog__download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+    background: var(--sl-color-white, #fff);
+    border: 1px solid var(--sl-border-default, #e5e7eb);
+    border-radius: 8px;
+    color: var(--sl-text-primary, #111827);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .info-modal-dialog__download-btn:hover {
+    background: var(--sl-color-gray-50, #f9fafb);
+    border-color: var(--sl-color-gray-300, #d1d5db);
+  }
+
+  @media screen and (max-width: 749px) {
+    .info-modal-trigger {
+      padding: 12px 16px;
+    }
+    
+    .info-modal-dialog__body {
+      padding: 24px;
+      padding-top: 32px;
+    }
+
+    .info-modal-dialog__title {
+      font-size: var(--sl-text-h3, 24px);
+    }
+  }
+{% endstyle %}
+
+{% javascript %}
+  document.addEventListener('DOMContentLoaded', () => {
+    const dialogs = document.querySelectorAll('.info-modal-dialog');
+    const triggers = document.querySelectorAll('.info-modal-trigger');
+    
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const targetId = trigger.getAttribute('data-modal-target');
+        const dialog = document.getElementById(targetId);
+        if (dialog) {
+          dialog.showModal();
+          trigger.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    dialogs.forEach(dialog => {
+      const closeBtns = dialog.querySelectorAll('[data-modal-close]');
+      closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          closeDialog(dialog);
+        });
+      });
+
+      dialog.addEventListener('click', (e) => {
+        const rect = dialog.getBoundingClientRect();
+        const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height
+          && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+        
+        if (!isInDialog) {
+          closeDialog(dialog);
+        }
+      });
+
+      dialog.addEventListener('cancel', (e) => {
+        e.preventDefault();
+        closeDialog(dialog);
+      });
+    });
+
+    function closeDialog(dialog) {
+      const videos = dialog.querySelectorAll('video');
+      videos.forEach(v => v.pause());
+      
+      const trigger = document.querySelector(`[data-modal-target="${dialog.id}"]`);
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+
+      dialog.close();
+      document.body.style.overflow = '';
+    }
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Info Modal List",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_modal",
+      "name": "Info Modal",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button / Trigger Text",
+          "default": "Technical information"
+        },
+        {
+          "type": "text",
+          "id": "modal_title",
+          "label": "Modal Title",
+          "default": "Technical information"
+        },
+        {
+          "type": "video",
+          "id": "modal_video",
+          "label": "Shopify Hosted Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "modal_image",
+          "label": "Fallback/Static Image",
+          "info": "Displays if no video is provided"
+        },
+        {
+          "type": "richtext",
+          "id": "modal_text",
+          "label": "Body Text",
+          "default": "<p>Provide technical details, assembly instructions, or delivery information here.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Downloadable Files"
+        },
+        {
+          "type": "text",
+          "id": "download_1_text",
+          "label": "Download 1 Title"
+        },
+        {
+          "type": "url",
+          "id": "download_1_file",
+          "label": "Download 1 File / URL"
+        },
+        {
+          "type": "text",
+          "id": "download_2_text",
+          "label": "Download 2 Title"
+        },
+        {
+          "type": "url",
+          "id": "download_2_file",
+          "label": "Download 2 File / URL"
+        },
+        {
+          "type": "text",
+          "id": "download_3_text",
+          "label": "Download 3 Title"
+        },
+        {
+          "type": "url",
+          "id": "download_3_file",
+          "label": "Download 3 File / URL"
+        },
+        {
+          "type": "text",
+          "id": "download_4_text",
+          "label": "Download 4 Title"
+        },
+        {
+          "type": "url",
+          "id": "download_4_file",
+          "label": "Download 4 File / URL"
+        },
+        {
+          "type": "text",
+          "id": "download_5_text",
+          "label": "Download 5 Title"
+        },
+        {
+          "type": "url",
+          "id": "download_5_file",
+          "label": "Download 5 File / URL"
+        },
+        {
+          "type": "text",
+          "id": "download_6_text",
+          "label": "Download 6 Title"
+        },
+        {
+          "type": "url",
+          "id": "download_6_file",
+          "label": "Download 6 File / URL"
+        },
+        {
+          "type": "text",
+          "id": "download_7_text",
+          "label": "Download 7 Title"
+        },
+        {
+          "type": "url",
+          "id": "download_7_file",
+          "label": "Download 7 File / URL"
+        },
+        {
+          "type": "text",
+          "id": "download_8_text",
+          "label": "Download 8 Title"
+        },
+        {
+          "type": "url",
+          "id": "download_8_file",
+          "label": "Download 8 File / URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Info Modal List",
+      "blocks": [
+        {
+          "type": "info_modal",
+          "settings": {
+            "button_text": "Technical information",
+            "modal_title": "Technical information"
+          }
+        },
+        {
+          "type": "info_modal",
+          "settings": {
+            "button_text": "Assembly instructions",
+            "modal_title": "Assembly instructions"
+          }
+        },
+        {
+          "type": "info_modal",
+          "settings": {
+            "button_text": "Delivery information",
+            "modal_title": "Delivery information"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

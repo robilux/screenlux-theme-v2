@@ -161,18 +161,15 @@ window.ScreenluxEngine = {
       }
     }
 
-    // 3. Brackets (DIY Only)
-    // Assumes 1 bracket per screen
-    if (state.installationType === 'diy') {
-      // Find the selected bracket variant ID from state (mocking selection here)
-      // Ideally state.bracketId is set.
-      if (state.bracketId) {
+    // 3. Brackets
+    Object.entries(state.brackets || {}).forEach(([id, qty]) => {
+      if (qty > 0) {
         items.push({
-          id: state.bracketId,
-          quantity: state.screens.length,
+          id: parseInt(id),
+          quantity: qty,
         });
       }
-    }
+    });
 
     // 4. Steuerung
     Object.entries(state.steuerung || {}).forEach(([id, qty]) => {

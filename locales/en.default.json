@@ -561,6 +561,8 @@
       "price": "+ 2350 €",
       "note": "Save 1200 € by switching to Solar driven screens."
     },
+    "brackets_title": "Installation brackets",
+    "no_brackets": "No installation brackets available.",
     "steuerung_title": "Steuerung",
     "no_steuerung": "No Steuerung available.",
     "automatisierung_title": "Automatisierung",
@@ -569,6 +571,7 @@
     "order_summary_title": "Order summary",
     "order_summary": {
       "zip_screens": "Zip-Screens",
+      "brackets": "Installation brackets",
       "steuerung": "Steuerung",
       "automatisierung": "Automatisierung",
       "warning_no_steuerung": "No Steuerung has been selected!",

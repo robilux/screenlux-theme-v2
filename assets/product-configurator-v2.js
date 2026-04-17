@@ -6,6 +6,7 @@ class ProductConfigurator extends HTMLElement {
     this.state = {
       screens: [], // Array of screen objects
       installationType: 'diy',
+      brackets: {}, // { prodId: qty }
       steuerung: {}, // { prodId: qty }
       automatisierung: {}, // { prodId: qty }
     };
@@ -672,7 +673,13 @@ class ProductConfigurator extends HTMLElement {
     // 4. Installation Section
     container.appendChild(this.renderInstallationSection());
 
-    // 5. Steuerung Section
+    // 5. Brackets Section
+    const bracketsSection = this.renderExtraSection('brackets', window.ScreenluxTranslations.bracketsTitle, window.ScreenluxTranslations.noBrackets, true);
+    if (bracketsSection) {
+      container.appendChild(bracketsSection);
+    }
+
+    // 6. Steuerung Section
     container.appendChild(this.renderExtraSection('steuerung', window.ScreenluxTranslations.steuerungTitle, window.ScreenluxTranslations.noSteuerung));
 
     // 5.1 Automatisierung Section
@@ -1234,11 +1241,15 @@ class ProductConfigurator extends HTMLElement {
     return label;
   }
 
-  renderExtraSection(dataKey, title, emptyText) {
+  renderExtraSection(dataKey, title, emptyText, hideIfEmpty = false) {
+    const items = this.data[dataKey] || [];
+    if (items.length === 0 && hideIfEmpty) {
+      return null;
+    }
+
     const section = document.createElement('div');
     section.className = 'configurator-group-box';
 
-    const items = this.data[dataKey] || [];
     if (items.length === 0) {
       section.innerHTML = `<label class="grouping-title">${title}</label><p class="text-subdued"><em>${emptyText}</em></p>`;
       return section;
@@ -1386,6 +1397,14 @@ class ProductConfigurator extends HTMLElement {
       installTotal = 0;
     }
 
+    let bracketsTotal = 0;
+    if (this.state.brackets) {
+      Object.entries(this.state.brackets).forEach(([id, qty]) => {
+        const product = this.data.brackets.find((p) => p.id == id);
+        if (product) bracketsTotal += product.price * qty;
+      });
+    }
+
     let steuerungTotal = 0;
     if (this.state.steuerung) {
       Object.entries(this.state.steuerung).forEach(([id, qty]) => {
@@ -1402,13 +1421,14 @@ class ProductConfigurator extends HTMLElement {
       });
     }
 
-    const extraTotal = steuerungTotal + automatisierungTotal;
+    const extraTotal = bracketsTotal + steuerungTotal + automatisierungTotal;
     const grandTotal = screensTotal + installTotal + extraTotal;
     const oldGrandTotal = oldScreensTotal + installTotal + extraTotal;
     return {
       screensTotal,
       oldScreensTotal,
       installTotal,
+      bracketsTotal,
       steuerungTotal,
       automatisierungTotal,
       estimatedInstallTotal,
@@ -1511,6 +1531,9 @@ class ProductConfigurator extends HTMLElement {
       screensCategory.appendChild(screensDetails);
     }
     list.appendChild(screensCategory);
+
+    // 1.5 Brackets Categories
+    this.renderExtraCategorySummary(list, totals.bracketsTotal, 'brackets', window.ScreenluxTranslations.orderSummary.brackets, 'bracketsExpanded');
 
     // 2. Steuerung Categories
     this.renderExtraCategorySummary(list, totals.steuerungTotal, 'steuerung', window.ScreenluxTranslations.orderSummary.steuerung, 'steuerungExpanded');

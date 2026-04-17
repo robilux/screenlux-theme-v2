@@ -560,6 +560,8 @@
       "price": "+ 2350 €",
       "note": "Spare 1200 €, indem du zu solarbetriebenen Screens wechselst."
     },
+    "brackets_title": "Montagebügel",
+    "no_brackets": "Keine Montagebügel verfügbar.",
     "steuerung_title": "Steuerung",
     "no_steuerung": "Keine Steuerung verfügbar.",
     "automatisierung_title": "Automatisierung",
@@ -568,6 +570,7 @@
     "order_summary_title": "Bestellübersicht",
     "order_summary": {
       "zip_screens": "Zip-Screens",
+      "brackets": "Montagebügel",
       "steuerung": "Steuerung",
       "automatisierung": "Automatisierung",
       "warning_no_steuerung": "Es wurde keine Steuerung ausgewählt!",
