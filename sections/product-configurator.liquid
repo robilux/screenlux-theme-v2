@@ -91,7 +91,7 @@
           height="22"
           loading="lazy"
         >
-      {% elsif section.settings.badge_text == blank %}
+      {% else %}
         {% assign show_flag = 'configurator.misc.developed_in_germany_flag' | t %}
         {% if show_flag != 'false' %}
           <img
