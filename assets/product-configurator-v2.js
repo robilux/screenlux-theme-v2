@@ -737,8 +737,8 @@ class ProductConfigurator extends HTMLElement {
             ${opt.desc ? `<span class="card-price">${opt.desc}</span>` : ''}
             ${opt.extraPrice && opt.extraPrice > 0 ? `
               <div style="margin-top: 4px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
-                ${opt.extraCompareAtPrice && opt.extraCompareAtPrice > opt.extraPrice ? `<span class="card-price old-price" style="text-decoration: line-through; color: var(--sl-text-subdued); font-size: 12px; font-weight: 400;">+${(opt.extraCompareAtPrice / 100).toFixed(0)} €</span>` : ''}
-                <span class="card-price" style="font-weight: 600; font-size: 14px; color: #171717;">+${(opt.extraPrice / 100).toFixed(0)} €</span>
+                ${opt.extraCompareAtPrice && opt.extraCompareAtPrice > opt.extraPrice ? `<span class="card-price old-price" style="text-decoration: line-through; color: var(--sl-text-subdued); font-size: 12px; font-weight: 400;">+${(opt.extraCompareAtPrice / 100).toFixed(0)} ${window.ScreenluxData?.config?.currencySymbol || '€'}</span>` : ''}
+                <span class="card-price" style="font-weight: 600; font-size: 14px; color: #171717;">+${(opt.extraPrice / 100).toFixed(0)} ${window.ScreenluxData?.config?.currencySymbol || '€'}</span>
               </div>
             ` : ''}
           </div>
@@ -856,8 +856,8 @@ class ProductConfigurator extends HTMLElement {
              </div>
              <div class="screen-price-container" style="display:flex; align-items:center;">
                  <div class="price-group" style="display:flex; flex-direction:column; align-items:flex-end; margin-right:8px;">
-                     ${compareAtPrice > price ? `<span class="price-old" style="font-size:12px; text-decoration:line-through; color:var(--sl-text-subdued); line-height:1; margin-bottom:2px;">${(compareAtPrice / 100).toFixed(0)} €</span>` : ''}
-                     <span class="screen-price" style="line-height:1;">${(price / 100).toFixed(0)} €</span>
+                     ${compareAtPrice > price ? `<span class="price-old" style="font-size:12px; text-decoration:line-through; color:var(--sl-text-subdued); line-height:1; margin-bottom:2px;">${(compareAtPrice / 100).toFixed(0)} ${window.ScreenluxData?.config?.currencySymbol || '€'}</span>` : ''}
+                     <span class="screen-price" style="line-height:1;">${(price / 100).toFixed(0)} ${window.ScreenluxData?.config?.currencySymbol || '€'}</span>
                  </div>
                  <svg class="accordion-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 9L12 15L18 9" stroke="#171717" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1069,7 +1069,7 @@ class ProductConfigurator extends HTMLElement {
              </li>
            </ul>
            <div class="info-card-footer">
-             <span class="info-card-footer-text">${window.ScreenluxTranslations.tipFooterHtml.replace(/1200|1\.200€|1,200€/g, '~ ' + (savings / 100).toFixed(0))}</span>
+             <span class="info-card-footer-text">${window.ScreenluxTranslations.tipFooterHtml.replace(/12\.000\s?kr|1200\s?€|1\.200\s?€|1,200\s?€|1200/g, '~ ' + (savings / 100).toFixed(0) + ' ' + (window.ScreenluxData?.config?.currencySymbol || '€'))}</span>
              <button type="button" class="info-card-btn">${window.ScreenluxTranslations.switchToSolar}</button>
            </div>
         </div>
@@ -1090,10 +1090,10 @@ class ProductConfigurator extends HTMLElement {
     const savingsOptions = estInstallPrice > allSolarEstForOptions ? estInstallPrice - allSolarEstForOptions : 0;
 
     const profDesc = 'Geschätzter Preis. Unser Partner wird dich nach der Bestellung zur Bestätigung kontaktieren.';
-    const profPriceFormat = `~ ${(estInstallPrice / 100).toFixed(0)} €`;
+    const profPriceFormat = `~ ${(estInstallPrice / 100).toFixed(0)} ${window.ScreenluxData?.config?.currencySymbol || '€'}`;
     const profNote =
       savingsOptions > 0
-        ? `Spare ~ ${(savingsOptions / 100).toFixed(0)} € durch den Wechsel zu solarbetriebenen Screens.`
+        ? `Spare ~ ${(savingsOptions / 100).toFixed(0)} ${window.ScreenluxData?.config?.currencySymbol || '€'} durch den Wechsel zu solarbetriebenen Screens.`
         : '';
 
     // Installation type options
@@ -1182,7 +1182,7 @@ class ProductConfigurator extends HTMLElement {
     const priceText =
       bracket.price === 0
         ? '<span style="background-color: #A7F3D0; color: #064E3B; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Free</span>'
-        : `${(bracket.price / 100).toFixed(0)} € per screen`;
+        : `${(bracket.price / 100).toFixed(0)} ${window.ScreenluxData?.config?.currencySymbol || '€'} per screen`;
 
     // Custom image for Unsure or bracket image
     let imageHtml = '';
@@ -1276,8 +1276,8 @@ class ProductConfigurator extends HTMLElement {
         <div class="product-card__title">${item.title}</div>
         <div class="product-card__desc">${item.description || ''}</div>
         <div class="product-card__price-wrapper" style="display:flex; flex-direction:column; align-items:flex-start; margin-top:4px;">
-           ${item.compare_at_price > item.price ? `<span class="price-old" style="font-size:12px; text-decoration:line-through; color:var(--sl-text-subdued); line-height:1; margin-bottom:2px;">${displayCompareAtPrice} €</span>` : ''}
-           <div class="product-card__price" style="line-height:1;">${displayPrice} €</div>
+           ${item.compare_at_price > item.price ? `<span class="price-old" style="font-size:12px; text-decoration:line-through; color:var(--sl-text-subdued); line-height:1; margin-bottom:2px;">${displayCompareAtPrice} ${window.ScreenluxData?.config?.currencySymbol || '€'}</span>` : ''}
+           <div class="product-card__price" style="line-height:1;">${displayPrice} ${window.ScreenluxData?.config?.currencySymbol || '€'}</div>
         </div>
         
         <div class="product-card__actions">
@@ -1399,7 +1399,7 @@ class ProductConfigurator extends HTMLElement {
 
   renderExtraCategorySummary(list, totalsData, dataKey, titleKey, expandedKey) {
     const itemsCount = Object.values(this.state[dataKey] || {}).reduce((a, b) => a + b, 0);
-    const fmt = (cents) => `€${(cents / 100).toFixed(2)}`;
+    const fmt = (cents) => `${(cents / 100).toFixed(2)} ${window.ScreenluxData?.config?.currencySymbol || '€'}`;
     
     if (itemsCount > 0) {
       const category = document.createElement('div');
@@ -1444,7 +1444,7 @@ class ProductConfigurator extends HTMLElement {
 
   renderOrderSummary() {
     const totals = this.calculateTotals();
-    const fmt = (cents) => `€${(cents / 100).toFixed(2)}`;
+    const fmt = (cents) => `${(cents / 100).toFixed(2)} ${window.ScreenluxData?.config?.currencySymbol || '€'}`;
 
     const section = document.createElement('div');
     section.className = 'order-summary-box margin-top-lg';
@@ -1483,7 +1483,7 @@ class ProductConfigurator extends HTMLElement {
         const detailRow = document.createElement('div');
         detailRow.className = 'summary-row detail-row';
         detailRow.innerHTML = `
-          <span class="detail-label">1x Zip Screen ${s.width}×${s.height}mm</span>
+          <span class="detail-label">Screen ${i + 1}: ${s.width}×${s.height}mm</span>
           <span class="detail-price">${fmt(sPrice)}</span>
         `;
         screensDetails.appendChild(detailRow);
@@ -1721,7 +1721,7 @@ class ProductConfigurator extends HTMLElement {
     const oldPriceEl = bar.querySelector('.sticky-bar-price-old');
     const priceEl = bar.querySelector('.sticky-bar-price');
     const arrowEl = bar.querySelector('.sticky-bar-arrow');
-    const fmt = (cents) => `${(cents / 100).toFixed(0)} €`;
+    const fmt = (cents) => `${(cents / 100).toFixed(0)} ${window.ScreenluxData?.config?.currencySymbol || '€'}`;
 
     if (isPastScreens) {
       const totals = this.calculateTotals();

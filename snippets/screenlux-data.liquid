@@ -268,7 +268,8 @@
        min_billable_sqm: {{ settings.configurator_min_billable | default: 0 }},
        base_includes_sqm: {{ settings.configurator_base_includes | default: 0 }},
        surcharge_solar: {{ settings.configurator_surcharge_solar | default: 13800 }},
-       surcharge_cassette: {{ settings.configurator_surcharge_cassette | default: 4600 }}
+       surcharge_cassette: {{ settings.configurator_surcharge_cassette | default: 4600 }},
+       currencySymbol: {{ cart.currency.symbol | json }}
     }
   };
 </script>
