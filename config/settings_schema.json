@@ -1489,6 +1489,17 @@
       },
       {
         "type": "header",
+        "content": "Market Conversions"
+      },
+      {
+        "type": "text",
+        "id": "configurator_exchange_rate_nok",
+        "label": "NOK Exchange Rate",
+        "info": "Multiplier to convert EUR base prices to NOK to match variant pricing (e.g. 11.5).",
+        "default": "11.5"
+      },
+      {
+        "type": "header",
         "content": "Surcharges"
       },
       {

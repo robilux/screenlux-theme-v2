@@ -278,6 +278,7 @@
        surcharge_cassette: {{ settings.configurator_surcharge_cassette | default: 4600 }},
        currencySymbol: {{ cart.currency.symbol | json }},
        currencyCode: {{ cart.currency.iso_code | json }},
+       exchange_rate_nok: {{ settings.configurator_exchange_rate_nok | default: '11.5' | json }},
        install_wired_base_eur: {{ settings.configurator_install_wired_base_eur | default: 69900 }},
        install_wired_extra_eur: {{ settings.configurator_install_wired_extra_eur | default: 25000 }},
        install_solar_base_eur: {{ settings.configurator_install_solar_base_eur | default: 29900 }},

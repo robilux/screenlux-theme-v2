@@ -74,6 +74,12 @@ window.ScreenluxEngine = {
       total += parseInt((rules || {}).surcharge_solar) || 13800;
     }
 
+    // 6. Currency Conversion
+    if (rules && rules.currencyCode === 'NOK') {
+      const nokRate = parseFloat(rules.exchange_rate_nok) || 11.5;
+      total = Math.round(total * nokRate);
+    }
+
     return total;
   },
 
