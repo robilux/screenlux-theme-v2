@@ -11,9 +11,6 @@
   "markets": {
     "de": {
       "parent": "@default"
-    },
-    "norway": {
-      "parent": "@default"
     }
   }
 }
