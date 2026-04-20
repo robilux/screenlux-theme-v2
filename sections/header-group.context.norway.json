@@ -8,12 +8,16 @@
  * ------------------------------------------------------------
  */
 {
-  "markets": {
-    "de": {
-      "parent": "@default"
-    },
-    "norway": {
-      "parent": "@default"
+  "context": {
+    "market": "norway"
+  },
+  "parent": "header-group.json",
+  "sections": {
+    "header": {
+      "settings": {
+        "menu": "main-menu-no"
+      },
+      "blocks": {}
     }
   }
 }
