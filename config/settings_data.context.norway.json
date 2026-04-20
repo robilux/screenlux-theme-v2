@@ -11,5 +11,27 @@
   "context": {
     "market": "norway"
   },
-  "current": {}
+  "current": {
+    "global_primary_button_label": "Meld deg på",
+    "show_global_secondary_button": true,
+    "global_secondary_button_label": "Konfigurer",
+    "heyflow_flow_id": "a2Kibxsu6lCa21a2u5uO",
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {}
+      },
+      "scheme-2": {
+        "settings": {}
+      },
+      "scheme-3": {
+        "settings": {}
+      },
+      "scheme-4": {
+        "settings": {}
+      },
+      "scheme-5": {
+        "settings": {}
+      }
+    }
+  }
 }
