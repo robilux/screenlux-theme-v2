@@ -75,6 +75,87 @@
         "card_w3nWx"
       ],
       "name": "Cards Section - NO"
+    },
+    "cards_section_aCrkkK": {
+      "disabled": true,
+      "settings": {
+        "bg_color": "#f3f3f3"
+      },
+      "blocks": {}
+    },
+    "logo_bar": {
+      "settings": {
+        "color_scheme": "scheme-2"
+      },
+      "blocks": {}
+    },
+    "cards_section_zwkwX": {
+      "type": "cards-section",
+      "disabled": false,
+      "settings": {
+        "header-92d0fafdad78fade12603f985df03e85": null,
+        "heading": "Effektiv solskjerming for moderne hjem",
+        "subheading": "Screenlux Zip-screen monteres utvendig og stopper opptil 95% av solvarmen før den treffer glasset. Resultatet er et kjøligere inneklima, mindre blending og bedre skjerming mot innsyn – samtidig som fasaden beholder et lett og moderne uttrykk.",
+        "header-686e2db540428b9c16b5cdb71f5fd74a": null,
+        "bg_color": "#f5f5f5",
+        "heading_color": "#000000",
+        "subheading_color": "#525252"
+      },
+      "blocks": {
+        "card_fmyrY": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/img-situation-livingroom-2_png.jpg",
+            "title": "Reduserer varme inne",
+            "description": "Zip-screenen stopper opptil 95 % av solvarmen før den treffer glasset. Det gir et betydelig kjøligere inneklima på varme dager."
+          }
+        },
+        "card_kCGp8": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/img-situations-bathroom.png",
+            "title": "Skermer mot innsyn",
+            "description": "Blackout‑duken hindrer innsyn – selv når lyset er på i rommet og det er mørkt ute."
+          }
+        },
+        "card_zBaGj": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/office_f3a95689-82f8-44df-8fb9-fa379c94360e.png",
+            "title": "Demper blending",
+            "description": "Zip-screenen demper plagsom blending uten å gjøre rommet mørkt, slik at du får et behagelig arbeidsmiljø og kan konsentrere deg bedre gjennom hele dagen."
+          }
+        },
+        "card_y8CQk": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/img-situation-kitchen-2_png.jpg",
+            "title": "Bevarer dagslys og utsyn",
+            "description": "Tekstilen stopper den harde solvarmen, men slipper fortsatt behagelig dagslys inn. Du bevarer utsikten og følelsen av et lyst og åpent rom – uten plagsom varme og blending."
+          }
+        },
+        "card_CCiA4": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/use-cases-big-office-facade.jpg",
+            "title": "Gir et strammere fasadeuttrykk",
+            "description": "Zip-screenen strammer opp linjene rundt vinduene og gir fasaden et helhetlig, moderne uttrykk. En ren og diskret løsning som glir naturlig inn i arkitekturen både på bolig og kontorbygg."
+          }
+        }
+      },
+      "block_order": [
+        "card_fmyrY",
+        "card_kCGp8",
+        "card_zBaGj",
+        "card_y8CQk",
+        "card_CCiA4"
+      ],
+      "name": "Cards Section"
     }
   },
   "order": [
@@ -82,6 +163,7 @@
     "logo_bar",
     "compare_slider",
     "cards_section_MWNcK",
+    "cards_section_zwkwX",
     "cards_section_aCrkkK",
     "worlds_slimmest",
     "no_middlemen",
