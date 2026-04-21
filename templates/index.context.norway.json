@@ -315,7 +315,9 @@
     "flawless_finish_video": {
       "settings": {
         "video": "shopify://files/videos/screenlux screens moving down norway.mp4",
-        "fallback_image": "shopify://shop_images/screenlux_screens_moving_down_norway.jpg"
+        "fallback_image": "shopify://shop_images/screenlux_screens_moving_down_norway.jpg",
+        "heading": "Solcelledrevet motor",
+        "description": "<p>En stillegående solcelldrevet motor sørger for at du kan nyte et kjøligere inneklima uten sjenerende motorlyd – helt uten strømtilkobling.</p>"
       },
       "blocks": {}
     }
