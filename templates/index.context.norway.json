@@ -160,17 +160,17 @@
     "worlds_slimmest": {
       "settings": {
         "heading": "Priskronet design",
+        "subheading": "Design som glir sømløst inn i fasaden, uansett om det er et klassisk trehus eller et moderne kontorbygg.",
         "hero_image": "shopify://shop_images/Screenlux-design.png",
         "badge_1": "shopify://shop_images/German_design_award_ec475510-1729-40a0-8cda-3dfe08ce7bf4.png",
-        "badge_3": "shopify://shop_images/IDA_Desiged_in_Norway.png",
         "badge_2": "shopify://shop_images/IDA.png",
+        "badge_3": "shopify://shop_images/IDA_Desiged_in_Norway.png",
+        "feature_1_image": "shopify://shop_images/Screenlux-design-wooden_house.png",
         "feature_1_title": "For boligen",
         "feature_1_desc": "Diskré og elegant",
-        "feature_1_image": "shopify://shop_images/Screenlux-design-wooden_house.png",
         "feature_2_image": "shopify://shop_images/Screenlux_design_-_office_building.png",
         "feature_2_title": "For kontoret",
-        "feature_2_desc": "Profesjonelt uttrykk",
-        "subheading": "Design som glir sømløst inn i fasaden, uansett om det er et klassisk trehus eller et moderne kontorbygg."
+        "feature_2_desc": "Profesjonelt uttrykk"
       },
       "blocks": {}
     },
@@ -188,6 +188,121 @@
           }
         }
       }
+    },
+    "no_middlemen": {
+      "settings": {
+        "heading": "Ingen fordyrende mellomledd",
+        "subheading": "Tradisjonelt selges screens gjennom flere ledd og manuelle prosesser. Vi sender deg produktene direkte fra produksjonen uten mellomledd.",
+        "left_group1_title": "Mellomledd",
+        "left_group2_title": "Produksjonskostnader",
+        "left_group3_title": "Mellomledd",
+        "right_group1_title": "",
+        "right_group2_title": "",
+        "right_group3_title": "",
+        "receipt_left_title": "Klassisk modell",
+        "left_total_label": "TOTALPRIS",
+        "left_total_value": "💸💸💸💸💸💸",
+        "right_total_label": "DIN PRIS",
+        "right_total_value": "💸💸💸",
+        "right_total_badge": "Spar ~50%"
+      },
+      "blocks": {
+        "left_mid_1": {
+          "name": "Left: Middleman line",
+          "settings": {
+            "label": "Provisjon til selger",
+            "value": "💸💸💸"
+          }
+        },
+        "left_mid_2": {
+          "settings": {
+            "label": "\"Gratis\" befaring",
+            "value": "💸💸"
+          }
+        },
+        "left_mid_3": {
+          "settings": {
+            "label": "Showroom-kostnader",
+            "value": "💸💸"
+          }
+        },
+        "left_fac_2": {
+          "settings": {
+            "label": "Produksjon",
+            "value": "💸💸💸"
+          }
+        },
+        "left_fac_3": {
+          "settings": {
+            "label": "Frakt til forhandler",
+            "value": "💸"
+          }
+        },
+        "left_del_1": {
+          "settings": {
+            "label": "Lagerhåndtering",
+            "value": "💸"
+          }
+        },
+        "left_del_2": {
+          "settings": {
+            "label": "Levering",
+            "value": "💸"
+          }
+        },
+        "left_del_3": {
+          "settings": {
+            "label": "Montasjeservice",
+            "value": "💸💸💸"
+          }
+        },
+        "left_del_4": {
+          "settings": {
+            "label": "Elektriker",
+            "value": "💸💸"
+          }
+        },
+        "right_sal_2": {
+          "settings": {
+            "label": "Bestill online",
+            "badge": "Gratis"
+          }
+        },
+        "right_sales_line_pkhzcr": {
+          "type": "right_sales_line",
+          "disabled": false,
+          "settings": {
+            "label": "Levering til døren",
+            "value": "",
+            "badge": "Gratis",
+            "struck": false
+          }
+        },
+        "right_sales_line_Gfk7hm": {
+          "type": "right_sales_line",
+          "disabled": false,
+          "settings": {
+            "label": "Enkel selvmontasje",
+            "value": "",
+            "badge": "Gratis",
+            "struck": false
+          }
+        }
+      },
+      "block_order": [
+        "left_mid_1",
+        "left_mid_2",
+        "left_mid_3",
+        "left_fac_2",
+        "left_fac_3",
+        "left_del_1",
+        "left_del_2",
+        "left_del_3",
+        "left_del_4",
+        "right_sal_2",
+        "right_sales_line_pkhzcr",
+        "right_sales_line_Gfk7hm"
+      ]
     }
   },
   "order": [
