@@ -193,15 +193,15 @@
       "settings": {
         "heading": "Ingen fordyrende mellomledd",
         "subheading": "Tradisjonelt selges screens gjennom flere ledd og manuelle prosesser. Vi sender deg produktene direkte fra produksjonen uten mellomledd.",
+        "receipt_left_title": "Klassisk modell",
         "left_group1_title": "Mellomledd",
         "left_group2_title": "Produksjonskostnader",
         "left_group3_title": "Mellomledd",
+        "left_total_label": "TOTALPRIS",
+        "left_total_value": "💸💸💸💸💸💸",
         "right_group1_title": "",
         "right_group2_title": "",
         "right_group3_title": "",
-        "receipt_left_title": "Klassisk modell",
-        "left_total_label": "TOTALPRIS",
-        "left_total_value": "💸💸💸💸💸💸",
         "right_total_label": "DIN PRIS",
         "right_total_value": "💸💸💸",
         "right_total_badge": "Spar ~50%"
