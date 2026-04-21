@@ -12,9 +12,10 @@
     "market": "norway"
   },
   "current": {
-    "global_primary_button_label": "Meld deg på",
-    "show_global_secondary_button": true,
+    "global_primary_button_label": "Meld deg på & spar",
+    "show_global_secondary_button": false,
     "global_secondary_button_label": "Konfigurer",
+    "global_price_label": "Kun for de første 100 kunder!",
     "heyflow_flow_id": "a2Kibxsu6lCa21a2u5uO",
     "color_schemes": {
       "scheme-1": {

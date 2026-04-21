@@ -13,19 +13,14 @@
   },
   "parent": "index.json",
   "sections": {
-    "compare_slider": {
-      "disabled": true,
-      "settings": {},
-      "blocks": {}
-    },
     "cards_section_MWNcK": {
       "type": "cards-section",
       "disabled": false,
       "settings": {
-        "header-92d0fafdad78fade12603f985df03e85": null,
+        "header-73da0405374eec60a8383bf7bead96bf": null,
         "heading": "Hvorfor velge Screenlux?",
         "subheading": "",
-        "header-686e2db540428b9c16b5cdb71f5fd74a": null,
+        "header-e9a5cb6a4b4e5b27c89e0787ed0b4289": null,
         "bg_color": "#ffffff",
         "heading_color": "#000000",
         "subheading_color": "#525252"
@@ -76,27 +71,14 @@
       ],
       "name": "Cards Section - NO"
     },
-    "cards_section_aCrkkK": {
-      "disabled": true,
-      "settings": {
-        "bg_color": "#f3f3f3"
-      },
-      "blocks": {}
-    },
-    "logo_bar": {
-      "settings": {
-        "color_scheme": "scheme-2"
-      },
-      "blocks": {}
-    },
     "cards_section_zwkwX": {
       "type": "cards-section",
       "disabled": false,
       "settings": {
-        "header-92d0fafdad78fade12603f985df03e85": null,
+        "header-7696a5b95ed9e69c428e4c3a34e03cac": null,
         "heading": "Effektiv solskjerming for moderne hjem",
         "subheading": "Screenlux Zip-screen monteres utvendig og stopper opptil 95% av solvarmen før den treffer glasset. Resultatet er et kjøligere inneklima, mindre blending og bedre skjerming mot innsyn – samtidig som fasaden beholder et lett og moderne uttrykk.",
-        "header-686e2db540428b9c16b5cdb71f5fd74a": null,
+        "header-387ee3332a22ecddb534ef1f8e469826": null,
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
         "subheading_color": "#525252"
@@ -156,6 +138,56 @@
         "card_CCiA4"
       ],
       "name": "Cards Section"
+    },
+    "logo_bar": {
+      "settings": {
+        "color_scheme": "scheme-2"
+      },
+      "blocks": {}
+    },
+    "compare_slider": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
+    },
+    "cards_section_aCrkkK": {
+      "disabled": true,
+      "settings": {
+        "bg_color": "#f3f3f3"
+      },
+      "blocks": {}
+    },
+    "worlds_slimmest": {
+      "settings": {
+        "heading": "Priskronet design",
+        "hero_image": "shopify://shop_images/Screenlux-design.png",
+        "badge_1": "shopify://shop_images/German_design_award_ec475510-1729-40a0-8cda-3dfe08ce7bf4.png",
+        "badge_3": "shopify://shop_images/IDA_Desiged_in_Norway.png",
+        "badge_2": "shopify://shop_images/IDA.png",
+        "feature_1_title": "For boligen",
+        "feature_1_desc": "Diskré og elegant",
+        "feature_1_image": "shopify://shop_images/Screenlux-design-wooden_house.png",
+        "feature_2_image": "shopify://shop_images/Screenlux_design_-_office_building.png",
+        "feature_2_title": "For kontoret",
+        "feature_2_desc": "Profesjonelt uttrykk",
+        "subheading": "Design som glir sømløst inn i fasaden, uansett om det er et klassisk trehus eller et moderne kontorbygg."
+      },
+      "blocks": {}
+    },
+    "image_banner": {
+      "settings": {},
+      "blocks": {
+        "heading": {
+          "settings": {
+            "heading": "Premium Zip-screens på mål. Enklere å kjøpe, enklere å montere."
+          }
+        },
+        "text": {
+          "settings": {
+            "text": "Utviklet i Norge for norske forhold. Konfigurer online og monter selv eller med våre partnere. <strong>Meld deg på i dag og få 30% lanseringsrabatt!</strong>"
+          }
+        }
+      }
     }
   },
   "order": [
