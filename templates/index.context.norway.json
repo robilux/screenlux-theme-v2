@@ -303,6 +303,21 @@
         "right_sales_line_pkhzcr",
         "right_sales_line_Gfk7hm"
       ]
+    },
+    "text_and_video_flawless_finish_G8EPjE": {
+      "settings": {
+        "heading": "Modærne SmartHome teknologi",
+        "description": "<p>Fungerer sømløst med Apple Home, Samsung MyThings og Google Home.</p>",
+        "video": "shopify://files/videos/Screenlux Smart Home - NO.mp4"
+      },
+      "blocks": {}
+    },
+    "flawless_finish_video": {
+      "settings": {
+        "video": "shopify://files/videos/screenlux screens moving down norway.mp4",
+        "fallback_image": "shopify://shop_images/screenlux_screens_moving_down_norway.jpg"
+      },
+      "blocks": {}
     }
   },
   "order": [
