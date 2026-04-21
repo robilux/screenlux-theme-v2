@@ -17,6 +17,79 @@
       "disabled": true,
       "settings": {},
       "blocks": {}
+    },
+    "cards_section_MWNcK": {
+      "type": "cards-section",
+      "disabled": false,
+      "settings": {
+        "header-92d0fafdad78fade12603f985df03e85": null,
+        "heading": "Hvorfor velge Screenlux?",
+        "subheading": "",
+        "header-686e2db540428b9c16b5cdb71f5fd74a": null,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "subheading_color": "#525252"
+      },
+      "blocks": {
+        "card_6m7Jh": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/serge-fararri-fabrux.png",
+            "title": "Soltis Veozip duk",
+            "description": "En duk utviklet spesielt for zip screens og valgt for sitt stramme, moderne og eksklusive uttrykk."
+          }
+        },
+        "card_PRYx9": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/solar-panel.png",
+            "title": "Solar uten elektrisk tilkobling",
+            "description": "Våre solcelledrevne screens gjør montasjen enklere og mer fleksibel, uten behov for elektrisk tilkobling."
+          }
+        },
+        "card_yhfGy": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/img-story-first-product.jpg",
+            "title": "Utviklet i Norge, produsert i Europa",
+            "description": "Våre norske ingeniører holder til i Stavanger, og all produksjon skjer i Europa. Det gir oss full kontroll på kvalitet, finish og detaljer – fra første skisse til ferdig Zip‑screen."
+          }
+        },
+        "card_w3nWx": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/screenlux-configuration-behind.jpg",
+            "title": "Online konfigurasjon",
+            "description": "Du konfigurerer og bestiller selv på nett, med teknisk hjelp tilgjengelig når du trenger det."
+          }
+        }
+      },
+      "block_order": [
+        "card_6m7Jh",
+        "card_PRYx9",
+        "card_yhfGy",
+        "card_w3nWx"
+      ],
+      "name": "Cards Section - NO"
     }
-  }
+  },
+  "order": [
+    "image_banner",
+    "logo_bar",
+    "compare_slider",
+    "cards_section_MWNcK",
+    "cards_section_aCrkkK",
+    "worlds_slimmest",
+    "no_middlemen",
+    "flawless_finish_video",
+    "cards_section_w4dayx",
+    "text_and_video_flawless_finish_G8EPjE",
+    "installation_section_iNT83q",
+    "reviews_EndBfQ",
+    "faq_9eQ79V"
+  ]
 }
