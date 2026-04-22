@@ -12,5 +12,14 @@
     "market": "norway"
   },
   "parent": "product.configurator.json",
-  "sections": {}
+  "sections": {
+    "main": {
+      "settings": {
+        "badge_text": "Designet og utviklet i Norge",
+        "badge_image": "shopify://shop_images/Norge_mini-badge.png",
+        "delivery_time": "5-7 ukers levering"
+      },
+      "blocks": {}
+    }
+  }
 }
