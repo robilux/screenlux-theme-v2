@@ -196,8 +196,9 @@
 
     // 5. Hardcoded Design Options (For Visual Configurator)
     frameColors: [
-      { id: 'anthracite', title: {{ 'configurator.data.frameColors.anthracite' | t | json }}, hex: '#373F47', ral: 'RAL 7016', selected: true },
-      { id: 'white', title: {{ 'configurator.data.frameColors.white' | t | json }}, hex: '#FFFFFF', ral: 'RAL 9016', selected: false }
+      { id: 'anthracite', title: {{ 'configurator.data.frameColors.anthracite' | t | json }}, hex: '#373F47', selected: true },
+      { id: 'white', title: {{ 'configurator.data.frameColors.white' | t | json }}, hex: '#FFFFFF', selected: false },
+      { id: 'black', title: {{ 'configurator.data.frameColors.black' | t | json }}, hex: '#1A1A1A', selected: false }
     ],
     fabricColors: [
       { id: 'graphite', title: {{ 'configurator.data.fabricColors.graphite' | t | json }}, image: {{ 'img_fabric_graphite.png' | asset_img_url: '400x' | json }} },
@@ -232,39 +233,62 @@
       german_badge: {{ 'img-gda26-winner-screenlux.png' | asset_url | json }},
       truck_icon: {{ 'icon-sl-truck.svg' | asset_url | json }},
       // Dynamic product images for all option combinations
+      // Key format: {motor}-{profile}-{fabric}-{transparency}
       productImages: {
-        'AC-AN-EWH-5OPEN': {{ 'img-variantSLX85-AC-AN-EWH-5OPEN.jpg' | asset_url | json }},
-        'AC-AN-EWH-BLACKOUT': {{ 'img-variantSLX85-AC-AN-WH-EWH-BLACKOUT.jpg' | asset_url | json }},
-        'AC-AN-GRP-5OPEN': {{ 'img-variantSLX85-AC-AN-GRP-5OPEN.jpg' | asset_url | json }},
-        'AC-AN-GRP-BLACKOUT': {{ 'img-variantSLX85-AC-AN-WH-GRP-BLACKOUT.jpg' | asset_url | json }},
-        'AC-AN-NAT-5OPEN': {{ 'img-variantSLX85-AC-AN-NAT-5OPEN.jpg' | asset_url | json }},
-        'AC-AN-NAT-BLACKOUT': {{ 'img-variantSLX85-AC-AN-WH-NAT-BLACKOUT.jpg' | asset_url | json }},
-        'AC-AN-PEP-5OPEN': {{ 'img-variantSLX85-AC-AN-PEP-5OPEN.jpg' | asset_url | json }},
-        'AC-AN-PEP-BLACKOUT': {{ 'img-variantSLX85-AC-AN-WH-PEP-BLACKOUT.jpg' | asset_url | json }},
-        'AC-WH-EWH-5OPEN': {{ 'img-variantSLX85-AC-WH-EWH-5OPEN.jpg' | asset_url | json }},
-        'AC-WH-EWH-BLACKOUT': {{ 'img-variantSLX85-AC-WH-EWH-BLACKOUT.jpg' | asset_url | json }},
-        'AC-WH-GRP-5OPEN': {{ 'img-variantSLX85-AC-WH-GRP-5OPEN.jpg' | asset_url | json }},
-        'AC-WH-GRP-BLACKOUT': {{ 'img-variantSLX85-AC-WH-GRP-BLACKOUT.jpg' | asset_url | json }},
-        'AC-WH-NAT-5OPEN': {{ 'img-variantSLX85-AC-WH-NAT-5OPEN.jpg' | asset_url | json }},
-        'AC-WH-NAT-BLACKOUT': {{ 'img-variantSLX85-AC-WH-NAT-BLACKOUT.jpg' | asset_url | json }},
-        'AC-WH-PEP-5OPEN': {{ 'img-variantSLX85-AC-WH-PEP-5OPEN.jpg' | asset_url | json }},
-        'AC-WH-PEP-BLACKOUT': {{ 'img-variantSLX85-AC-WH-PEP-BLACKOUT.jpg' | asset_url | json }},
-        'DC-AN-EWH-5OPEN': {{ 'img-variantSLX85-DC-AN-EWH-5OPEN.jpg' | asset_url | json }},
-        'DC-AN-EWH-BLACKOUT': {{ 'img-variantSLX85-DC-AN-EWH-BLAC-AN-BLACKOUT.jpg' | asset_url | json }},
-        'DC-AN-GRP-5OPEN': {{ 'img-variantSLX85-DC-AN-GRP-5OPEN.jpg' | asset_url | json }},
-        'DC-AN-GRP-BLACKOUT': {{ 'img-variantSLX85-DC-AN-GRP-BLAC-AN-BLACKOUT.jpg' | asset_url | json }},
-        'DC-AN-NAT-5OPEN': {{ 'img-variantSLX85-DC-AN-NAT-5OPEN.jpg' | asset_url | json }},
-        'DC-AN-NAT-BLACKOUT': {{ 'img-variantSLX85-DC-AN-NAT-BLAC-AN-BLACKOUT.jpg' | asset_url | json }},
-        'DC-AN-PEP-5OPEN': {{ 'img-variantSLX85-DC-AN-PEP-5OPEN.jpg' | asset_url | json }},
-        'DC-AN-PEP-BLACKOUT': {{ 'img-variantSLX85-DC-AN-PEP-BLAC-AN-BLACKOUT.jpg' | asset_url | json }},
-        'DC-WH-EWH-5OPEN': {{ 'img-variantSLX85-DC-WH-EWH-5OPEN.jpg' | asset_url | json }},
-        'DC-WH-EWH-BLACKOUT': {{ 'img-variantSLX85-DC-WH-EWH-BLAC-BLACKOUT.jpg' | asset_url | json }},
-        'DC-WH-GRP-5OPEN': {{ 'img-variantSLX85-DC-WH-GRP-5OPEN.jpg' | asset_url | json }},
-        'DC-WH-GRP-BLACKOUT': {{ 'img-variantSLX85-DC-WH-GRP-BLAC-BLACKOUT.jpg' | asset_url | json }},
-        'DC-WH-NAT-5OPEN': {{ 'img-variantSLX85-DC-WH-NAT-5OPEN.jpg' | asset_url | json }},
-        'DC-WH-NAT-BLACKOUT': {{ 'img-variantSLX85-DC-WH-NAT-BLAC-BLACKOUT.jpg' | asset_url | json }},
-        'DC-WH-PEP-5OPEN': {{ 'img-variantSLX85-DC-WH-PEP-5OPEN.jpg' | asset_url | json }},
-        'DC-WH-PEP-BLACKOUT': {{ 'img-variantSLX85-DC-WH-PEP-BLAC-BLACKOUT.jpg' | asset_url | json }}
+        // Anthracite + AC (Wired)
+        'AC-AN-BLG-5': {{ 'img-slx85_profile-AN_power-AC_fabric-BLG-5.jpg' | asset_url | json }},
+        'AC-AN-BLG-0': {{ 'img-slx85_profile-AN_power-AC_fabric-BLG-0.jpg' | asset_url | json }},
+        'AC-AN-GRP-5': {{ 'img-slx85_profile-AN_power-AC_fabric-GRP-5.jpg' | asset_url | json }},
+        'AC-AN-GRP-0': {{ 'img-slx85_profile-AN_power-AC_fabric-GRP-0.jpg' | asset_url | json }},
+        'AC-AN-NAT-5': {{ 'img-slx85_profile-AN_power-AC_fabric-NAT-5.jpg' | asset_url | json }},
+        'AC-AN-NAT-0': {{ 'img-slx85_profile-AN_power-AC_fabric-NAT-0.jpg' | asset_url | json }},
+        'AC-AN-EWH-5': {{ 'img-slx85_profile-AN_power-AC_fabric-EWH-5.jpg' | asset_url | json }},
+        'AC-AN-EWH-0': {{ 'img-slx85_profile-AN_power-AC_fabric-EWH-0.jpg' | asset_url | json }},
+        // Anthracite + DC (Solar)
+        'DC-AN-BLG-5': {{ 'img-slx85_profile-AN_power-DC_fabric-BLG-5.jpg' | asset_url | json }},
+        'DC-AN-BLG-0': {{ 'img-slx85_profile-AN_power-DC_fabric-BLG-0.jpg' | asset_url | json }},
+        'DC-AN-GRP-5': {{ 'img-slx85_profile-AN_power-DC_fabric-GRP-5.jpg' | asset_url | json }},
+        'DC-AN-GRP-0': {{ 'img-slx85_profile-AN_power-DC_fabric-GRP-0.jpg' | asset_url | json }},
+        'DC-AN-NAT-5': {{ 'img-slx85_profile-AN_power-DC_fabric-NAT-5.jpg' | asset_url | json }},
+        'DC-AN-NAT-0': {{ 'img-slx85_profile-AN_power-DC_fabric-NAT-0.jpg' | asset_url | json }},
+        'DC-AN-EWH-5': {{ 'img-slx85_profile-AN_power-DC_fabric-EWH-5.jpg' | asset_url | json }},
+        'DC-AN-EWH-0': {{ 'img-slx85_profile-AN_power-DC_fabric-EWH-0.jpg' | asset_url | json }},
+        // White + AC (Wired)
+        'AC-WH-BLG-5': {{ 'img-slx85_profile-WH_power-AC_fabric-BLG-5.jpg' | asset_url | json }},
+        'AC-WH-BLG-0': {{ 'img-slx85_profile-WH_power-AC_fabric-BLG-0.jpg' | asset_url | json }},
+        'AC-WH-GRP-5': {{ 'img-slx85_profile-WH_power-AC_fabric-GRP-5.jpg' | asset_url | json }},
+        'AC-WH-GRP-0': {{ 'img-slx85_profile-WH_power-AC_fabric-GRP-0.jpg' | asset_url | json }},
+        'AC-WH-NAT-5': {{ 'img-slx85_profile-WH_power-AC_fabric-NAT-5.jpg' | asset_url | json }},
+        'AC-WH-NAT-0': {{ 'img-slx85_profile-WH_power-AC_fabric-NAT-0.jpg' | asset_url | json }},
+        'AC-WH-EWH-5': {{ 'img-slx85_profile-WH_power-AC_fabric-EWH-5.jpg' | asset_url | json }},
+        'AC-WH-EWH-0': {{ 'img-slx85_profile-WH_power-AC_fabric-EWH-0.jpg' | asset_url | json }},
+        // White + DC (Solar)
+        'DC-WH-BLG-5': {{ 'img-slx85_profile-WH_power-DC_fabric-BLG-5.jpg' | asset_url | json }},
+        'DC-WH-BLG-0': {{ 'img-slx85_profile-WH_power-DC_fabric-BLG-0.jpg' | asset_url | json }},
+        'DC-WH-GRP-5': {{ 'img-slx85_profile-WH_power-DC_fabric-GRP-5.jpg' | asset_url | json }},
+        'DC-WH-GRP-0': {{ 'img-slx85_profile-WH_power-DC_fabric-GRP-0.jpg' | asset_url | json }},
+        'DC-WH-NAT-5': {{ 'img-slx85_profile-WH_power-DC_fabric-NAT-5.jpg' | asset_url | json }},
+        'DC-WH-NAT-0': {{ 'img-slx85_profile-WH_power-DC_fabric-NAT-0.jpg' | asset_url | json }},
+        'DC-WH-EWH-5': {{ 'img-slx85_profile-WH_power-DC_fabric-EWH-5.jpg' | asset_url | json }},
+        'DC-WH-EWH-0': {{ 'img-slx85_profile-WH_power-DC_fabric-EWH-0.jpg' | asset_url | json }},
+        // Black + AC (Wired)
+        'AC-BL-BLG-5': {{ 'img-slx85_profile-BL_power-AC_fabric-BLG-5.jpg' | asset_url | json }},
+        'AC-BL-BLG-0': {{ 'img-slx85_profile-BL_power-AC_fabric-BLG-0.jpg' | asset_url | json }},
+        'AC-BL-GRP-5': {{ 'img-slx85_profile-BL_power-AC_fabric-GRP-5.jpg' | asset_url | json }},
+        'AC-BL-GRP-0': {{ 'img-slx85_profile-BL_power-AC_fabric-GRP-0.jpg' | asset_url | json }},
+        'AC-BL-NAT-5': {{ 'img-slx85_profile-BL_power-AC_fabric-NAT-5.jpg' | asset_url | json }},
+        'AC-BL-NAT-0': {{ 'img-slx85_profile-BL_power-AC_fabric-NAT-0.jpg' | asset_url | json }},
+        'AC-BL-EWH-5': {{ 'img-slx85_profile-BL_power-AC_fabric-EWH-5.jpg' | asset_url | json }},
+        'AC-BL-EWH-0': {{ 'img-slx85_profile-BL_power-AC_fabric-EWH-0.jpg' | asset_url | json }},
+        // Black + DC (Solar)
+        'DC-BL-BLG-5': {{ 'img-slx85_profile-BL_power-DC_fabric-BLG-5.jpg' | asset_url | json }},
+        'DC-BL-BLG-0': {{ 'img-slx85_profile-BL_power-DC_fabric-BLG-0.jpg' | asset_url | json }},
+        'DC-BL-GRP-5': {{ 'img-slx85_profile-BL_power-DC_fabric-GRP-5.jpg' | asset_url | json }},
+        'DC-BL-GRP-0': {{ 'img-slx85_profile-BL_power-DC_fabric-GRP-0.jpg' | asset_url | json }},
+        'DC-BL-NAT-5': {{ 'img-slx85_profile-BL_power-DC_fabric-NAT-5.jpg' | asset_url | json }},
+        'DC-BL-NAT-0': {{ 'img-slx85_profile-BL_power-DC_fabric-NAT-0.jpg' | asset_url | json }},
+        'DC-BL-EWH-5': {{ 'img-slx85_profile-BL_power-DC_fabric-EWH-5.jpg' | asset_url | json }},
+        'DC-BL-EWH-0': {{ 'img-slx85_profile-BL_power-DC_fabric-EWH-0.jpg' | asset_url | json }}
       }
     },
     // Configuration Constants

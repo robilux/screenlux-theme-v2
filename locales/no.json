@@ -109,7 +109,8 @@
     "data": {
       "frameColors": {
         "anthracite": "Antrasitt",
-        "white": "Hvit"
+        "white": "Hvit",
+        "black": "Svart"
       },
       "fabricColors": {
         "graphite": "Grafitt",

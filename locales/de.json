@@ -629,7 +629,8 @@
     "data": {
       "frameColors": {
         "anthracite": "Anthrazit",
-        "white": "Weiß"
+        "white": "Weiß",
+        "black": "Schwarz"
       },
       "fabricColors": {
         "graphite": "Graphit",

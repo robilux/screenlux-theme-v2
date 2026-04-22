@@ -97,18 +97,19 @@ class ProductConfigurator extends HTMLElement {
     const frameCodeMap = {
       anthracite: 'AN',
       white: 'WH',
+      black: 'BL',
     };
 
     const fabricColorCodeMap = {
-      graphite: 'GRP',
-      'gray-pepper': 'PEP',
+      graphite: 'BLG',
+      'gray-pepper': 'GRP',
       natural: 'NAT',
       edelweiss: 'EWH',
     };
 
     const fabricTypeCodeMap = {
-      '5-percent': '5OPEN',
-      blackout: 'BLACKOUT',
+      '5-percent': '5',
+      blackout: '0',
     };
 
     const motorCodeMap = {
@@ -118,8 +119,8 @@ class ProductConfigurator extends HTMLElement {
 
     // Get codes with defaults
     const frameCode = frameCodeMap[screen.frameColor] || 'AN';
-    const fabricColorCode = fabricColorCodeMap[screen.fabricColor] || 'GRP';
-    const fabricTypeCode = fabricTypeCodeMap[screen.fabricType] || '5OPEN';
+    const fabricColorCode = fabricColorCodeMap[screen.fabricColor] || 'BLG';
+    const fabricTypeCode = fabricTypeCodeMap[screen.fabricType] || '5';
     const motorCode = motorCodeMap[screen.motor] || 'DC';
 
     // Build the key to look up in productImages
@@ -740,7 +741,6 @@ class ProductConfigurator extends HTMLElement {
           ${visual}
           <div class="card-text-wrapper">
             <span class="card-title">${opt.title}</span>
-            ${opt.ral ? `<span class="ral-code">${opt.ral}</span>` : ''}
             ${opt.desc ? `<span class="card-price">${opt.desc}</span>` : ''}
             ${opt.extraPrice && opt.extraPrice > 0 ? `
               <div style="margin-top: 4px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">

@@ -35,6 +35,9 @@
         FRAME_WHITE: '#F5F5F5',
         FRAME_WHITE_DARK: '#F0F0F0',
         FRAME_WHITE_DARKER: '#E5E5E5',
+        FRAME_BLACK: '#1A1A1A',
+        FRAME_BLACK_DARK: '#111111',
+        FRAME_BLACK_DARKER: '#080808',
         FABRIC_DEFAULT: '#707070',
         SOLAR_PANEL_ACTIVE: '#373F47',
       };
@@ -336,11 +339,23 @@
 
     getColors(frameColor, fabricColor, motor) {
       const isWhite = frameColor === 'white';
+      const isBlack = frameColor === 'black';
       const isSolar = motor === 'solar';
 
-      const frame = isWhite ? this.COLORS.FRAME_WHITE : this.COLORS.FRAME_ANTHRACITE;
-      const frameDark = isWhite ? this.COLORS.FRAME_WHITE_DARK : this.COLORS.FRAME_ANTHRACITE_DARK;
-      const frameDarker = isWhite ? this.COLORS.FRAME_WHITE_DARKER : this.COLORS.FRAME_ANTHRACITE_DARKER;
+      let frame, frameDark, frameDarker;
+      if (isBlack) {
+        frame = this.COLORS.FRAME_BLACK;
+        frameDark = this.COLORS.FRAME_BLACK_DARK;
+        frameDarker = this.COLORS.FRAME_BLACK_DARKER;
+      } else if (isWhite) {
+        frame = this.COLORS.FRAME_WHITE;
+        frameDark = this.COLORS.FRAME_WHITE_DARK;
+        frameDarker = this.COLORS.FRAME_WHITE_DARKER;
+      } else {
+        frame = this.COLORS.FRAME_ANTHRACITE;
+        frameDark = this.COLORS.FRAME_ANTHRACITE_DARK;
+        frameDarker = this.COLORS.FRAME_ANTHRACITE_DARKER;
+      }
 
       const solarPanel = isSolar ? this.COLORS.SOLAR_PANEL_ACTIVE : frame;
 
