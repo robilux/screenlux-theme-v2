@@ -523,6 +523,68 @@
         "review_card_zjhqNc",
         "review_card_fBJAA9"
       ]
+    },
+    "faq_9eQ79V": {
+      "settings": {
+        "heading": "Ofte stilte spørsmål"
+      },
+      "blocks": {
+        "question_KPYegH": {
+          "settings": {
+            "question": "Hva er fordelen med solar screen?",
+            "answer": "<p>Den største fordelen er at screenen kan monteres uten elektrisk tilkobling. Det gjør installasjonen enklere, reduserer behovet for inngrep og gir større fleksibilitet.</p>"
+          }
+        },
+        "question_qWpMiK": {
+          "settings": {
+            "question": "Hvorfor bruker dere Soltis Veozip?",
+            "answer": "<p>Fordi duken er utviklet spesielt for zip screens og gir et mer eksklusivt og gjennomført uttrykk. For oss er både funksjon og estetikk viktig.</p>"
+          }
+        },
+        "question_qUWi8C": {
+          "settings": {
+            "question": "Hva betyr det at produktet er produsert i Europa?",
+            "answer": "<p>Det betyr bedre kontroll på kvalitet, finish og produksjon, og bidrar til et mer gjennomført sluttprodukt.</p>"
+          }
+        },
+        "question_mMrhR7": {
+          "settings": {
+            "question": "Hvordan måler jeg riktig?",
+            "answer": "<p>Vi jobber med en oppdatert måleveiledning for vår nye Zip-screen serie 2. Trenger du hjelp med å måle hjelper vi deg veldig gjerne; ta kontakt via telefon, chat eller e-post.</p>"
+          }
+        },
+        "question_aKKMFe": {
+          "settings": {
+            "question": "Kan jeg få hjelp før jeg bestiller?",
+            "answer": "<p>Ja. Vi hjelper mer enn gjerne med tekniske spørsmål, produktvalg og vurderinger før kjøp.</p>"
+          }
+        },
+        "question_CGGf4": {
+          "type": "question",
+          "disabled": false,
+          "settings": {
+            "question": "Hvorfor er dere rimeligere enn mange andre?",
+            "answer": "<p>Fordi vi har bygget en mer effektiv modell med digital konfigurering og færre fordyrende ledd.</p>"
+          }
+        },
+        "question_h633K": {
+          "type": "question",
+          "disabled": false,
+          "settings": {
+            "question": "Kan jeg montere selv?",
+            "answer": "<p>Ja, vi har utviklet produktene med fokus på enklere montering og tilbyr veiledning ved behov.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_KPYegH",
+        "question_h633K",
+        "question_CGGf4",
+        "question_qWpMiK",
+        "question_qUWi8C",
+        "question_mMrhR7",
+        "question_aKKMFe"
+      ]
     }
   },
   "order": [

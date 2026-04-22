@@ -12,5 +12,24 @@
     "market": "norway"
   },
   "parent": "footer-group.json",
-  "sections": {}
+  "sections": {
+    "footer_custom_YJARaj": {
+      "settings": {
+        "newsletter_enable": false
+      },
+      "blocks": {
+        "link_column_JfyQA9": {
+          "settings": {
+            "heading": "Om Screenlux"
+          }
+        },
+        "link_column_TBGmEC": {
+          "settings": {
+            "heading": "Hurtiglenker",
+            "menu": "main-menu-no"
+          }
+        }
+      }
+    }
+  }
 }
