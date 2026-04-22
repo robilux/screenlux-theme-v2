@@ -447,18 +447,20 @@
       }
     },
     "reviews_EndBfQ": {
-      "settings": {},
+      "settings": {
+        "heading": "Kundeomtaler"
+      },
       "blocks": {
-        "review_card_ERfWpL": {
-          "settings": {
-            "review_title": "Ser veldig bra ut!",
-            "review_body": "Veldig bra teknisk løsning! Var redd det skulle bli klumpete. Nå som jeg ser hvor slankt det er, er jeg imponert over hvordan all teknikken får plass der inne."
-          }
-        },
         "review_card_y7Dcge": {
           "settings": {
             "review_title": "Var skeptisk til solarpanel...",
             "review_body": "Jeg bor i nord og var ærlig talt i tvil om dette i det hele tatt kom til å fungere om vinteren. Men så langt fungerer alt som det skal. Takk for god rådgivning :)"
+          }
+        },
+        "review_card_ERfWpL": {
+          "settings": {
+            "review_title": "Ser veldig bra ut!",
+            "review_body": "Veldig bra teknisk løsning! Var redd det skulle bli klumpete. Nå som jeg ser hvor slankt det er, er jeg imponert over hvordan all teknikken får plass der inne."
           }
         },
         "review_card_zjhqNc": {
