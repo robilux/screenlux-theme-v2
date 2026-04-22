@@ -720,6 +720,7 @@ class ProductConfigurator extends HTMLElement {
 
     options.forEach((opt) => {
       const isSelected = selectedValue === opt.id;
+      const isDisabled = opt.disabled === true;
       const cardClass = layout === 'vertical' ? 'selection-card selection-card--vertical' : 'selection-card';
 
       let visual = '';
@@ -734,10 +735,10 @@ class ProductConfigurator extends HTMLElement {
       }
 
       html += `
-        <label class="${cardClass} ${isSelected ? 'selected' : ''}">
+        <label class="${cardClass} ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}" ${isDisabled ? 'style="opacity: 0.4; pointer-events: none;"' : ''}>
           <input type="radio" name="${fieldName}_${index}" value="${opt.id}" data-field="${fieldName}" ${
             isSelected ? 'checked' : ''
-          } class="hidden-input">
+          } ${isDisabled ? 'disabled' : ''} class="hidden-input">
           ${visual}
           <div class="card-text-wrapper">
             <span class="card-title">${opt.title}</span>
@@ -913,15 +914,32 @@ class ProductConfigurator extends HTMLElement {
            }
            
            <!-- Cassette Size Selector -->
-           ${this.renderSelectionGrid(
-             window.ScreenluxTranslations.options.cassetteSize,
-             'cassetteSize',
-             cassetteSizes,
-             screen.cassetteSize,
-             index,
-             'image',
-             'vertical',
-           )}
+           ${(() => {
+              // Calculate screen area in sqm
+              const areaSqm = (screen.width / 1000) * (screen.height / 1000);
+              const maxSlimArea = 5; // 5 sqm limit for slim cassette
+
+              // Mark slim as disabled if area exceeds 5 sqm
+              const cassetteSizesWithAvailability = cassetteSizes.map(opt => ({
+                ...opt,
+                disabled: opt.id === 'slim' && areaSqm > maxSlimArea
+              }));
+
+              // Auto-switch to large if slim is selected but disabled
+              if (screen.cassetteSize === 'slim' && areaSqm > maxSlimArea) {
+                screen.cassetteSize = 'large';
+              }
+
+              return this.renderSelectionGrid(
+                window.ScreenluxTranslations.options.cassetteSize,
+                'cassetteSize',
+                cassetteSizesWithAvailability,
+                screen.cassetteSize,
+                index,
+                'image',
+                'vertical',
+              );
+            })()}
 
            <!-- Frame Color Selector -->
            ${this.renderSelectionGrid(
