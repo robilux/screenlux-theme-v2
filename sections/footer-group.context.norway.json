@@ -15,7 +15,9 @@
   "sections": {
     "footer_custom_YJARaj": {
       "settings": {
-        "newsletter_enable": false
+        "newsletter_enable": false,
+        "copyright_text": "Screenlux GmbH NUF, Org. Nr.: 937 112 912",
+        "tagline": "Utviklet i Norge. Uten fordyrende mellomledd."
       },
       "blocks": {
         "link_column_JfyQA9": {
