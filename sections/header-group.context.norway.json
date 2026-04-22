@@ -18,6 +18,12 @@
         "menu": "main-menu-no"
       },
       "blocks": {}
+    },
+    "slim_countdown_UwipiV": {
+      "settings": {
+        "text": "Lanseringssalget slutter om:"
+      },
+      "blocks": {}
     }
   }
 }
