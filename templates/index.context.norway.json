@@ -405,16 +405,16 @@
         },
         "card_Jxyzid": {
           "settings": {
-            "title": "Lader selv om det er overskyet",
-            "description": "Høyteknologiske IBC‑solcellepaneler henter inn energi selv på overskyede dager.",
-            "image": "shopify://shop_images/Norwegian_house_winter.jpg"
+            "image": "shopify://shop_images/Norwegian_house_winter.jpg",
+            "title": "Lader selv på dager uten direkte sollys",
+            "description": "Høyteknologiske IBC‑solcellepaneler henter inn energi selv på overskyede dager."
           }
         },
         "card_PwDajx": {
           "settings": {
+            "image": "shopify://shop_images/screenlux_window_wired_97ae58a5-b4ab-44a5-94bf-5c907f1111f2.jpg",
             "title": "Strømtilkobling også mulig",
-            "description": "Vindu uten sol? Ikke noe problem. Velg den fast tilkoblede, kabeldrevne varianten.",
-            "image": "shopify://shop_images/screenlux_window_wired_97ae58a5-b4ab-44a5-94bf-5c907f1111f2.jpg"
+            "description": "Vindu uten sol? Ikke noe problem. Velg den fast tilkoblede, kabeldrevne varianten."
           }
         },
         "card_MYjQCQ": {
