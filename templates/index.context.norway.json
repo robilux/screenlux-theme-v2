@@ -422,9 +422,64 @@
     },
     "installation_section_iNT83q": {
       "settings": {
-        "heading": "Montasje? Du har valget"
+        "heading": "Monter selv eller bruk fagfolk",
+        "subheading": "Spar penger med superenkel montasje eller len deg tilbake og bruk fagfolk."
       },
-      "blocks": {}
+      "blocks": {
+        "installation_card_HJLazM": {
+          "settings": {
+            "card_title": "Superenkel montasje",
+            "card_description": "For deg som liker å gjøre det selv.",
+            "check_1": "Spar ca. 2000kr per vindu",
+            "check_2": "Fest skinnene og klikk kassetten på plass - ferdig!",
+            "check_3": "Solar-modeller krever ingen elektrisk tilkobling"
+          }
+        },
+        "installation_card_JJHdKk": {
+          "settings": {
+            "card_title": "Montering av fagfolk",
+            "card_description": "Et godt valg for deg som ønsker en enkel og trygg totalopplevelse.",
+            "check_1": "Lave faste priser uten skjulte kostnader",
+            "check_2": "Ekstra trygghet og garanti",
+            "check_3": "Sparer deg tid og koordinering"
+          }
+        }
+      }
+    },
+    "reviews_EndBfQ": {
+      "settings": {},
+      "blocks": {
+        "review_card_ERfWpL": {
+          "settings": {
+            "review_title": "Ser veldig bra ut!",
+            "review_body": "Veldig bra teknisk løsning! Var redd det skulle bli klumpete. Nå som jeg ser hvor slankt det er, er jeg imponert over hvordan all teknikken får plass der inne."
+          }
+        },
+        "review_card_y7Dcge": {
+          "settings": {
+            "review_title": "Var skeptisk til solarpanel...",
+            "review_body": "Jeg bor i nord og var ærlig talt i tvil om dette i det hele tatt kom til å fungere om vinteren. Men så langt fungerer alt som det skal. Takk for god rådgivning :)"
+          }
+        },
+        "review_card_zjhqNc": {
+          "settings": {
+            "review_title": "\"Genialt konsept\"",
+            "review_body": "Monteringen gikk virkelig kjempefint. Jeg hadde sett for meg at det skulle være mye mer komplisert. Ser veldig integrert og ryddig ut. Supert konsept!"
+          }
+        },
+        "review_card_d7arg9": {
+          "settings": {
+            "review_title": "Takk til montasjeteamet!",
+            "review_body": "Jeg har hatt en helt suveren opplevelse med montasjeservicen. De bruker ordentlige fagfolk. Veldig profesjonelt utført og raskt gjort!"
+          }
+        },
+        "review_card_fBJAA9": {
+          "settings": {
+            "review_title": "Virker solid og god kvailiet.",
+            "review_body": "Har tålt vinteren veldig bra. Må være et effektivt system når det klarer seg med så lite sol."
+          }
+        }
+      }
     }
   },
   "order": [
