@@ -465,43 +465,58 @@
         "heading": "Kundeomtaler"
       },
       "blocks": {
+        "review_card_Ee3AD": {
+          "type": "review_card",
+          "disabled": false,
+          "settings": {
+            "review_image": "shopify://shop_images/Ove._a.jpg",
+            "initials": "OA",
+            "author_name": "Ove A.",
+            "date": "22 Apr. 2026",
+            "avatar_color": "#f9dde1",
+            "stars": 5,
+            "review_title": "Perfekt kombi av funksjon og design",
+            "review_body": "Vi har store vindusflater og ønsket effektiv solskjerming uten å ødelegge utsikten. Screenlux ga oss akkurat den kombinasjonen av funksjon og design vi var ute etter. Vi gleder oss til å få det montert."
+          }
+        },
         "review_card_y7Dcge": {
           "settings": {
+            "review_image": "shopify://shop_images/Screenlux-design-wooden_house.png",
             "review_title": "Var skeptisk til solarpanel...",
-            "review_body": "Jeg bor i nord og var ærlig talt i tvil om dette i det hele tatt kom til å fungere om vinteren. Men så langt fungerer alt som det skal. Takk for god rådgivning :)",
-            "review_image": "shopify://shop_images/Screenlux-design-wooden_house.png"
+            "review_body": "Jeg bor i nord og var ærlig talt i tvil om dette i det hele tatt kom til å fungere om vinteren. Men så langt fungerer alt som det skal. Takk for god rådgivning :)"
           }
         },
         "review_card_ERfWpL": {
           "settings": {
+            "review_image": "shopify://shop_images/Screenlux_customer_review_Norway_1.jpg",
             "review_title": "Ser veldig bra ut!",
-            "review_body": "Veldig bra teknisk løsning! Var redd det skulle bli klumpete. Nå som jeg ser hvor slankt det er, er jeg imponert over hvordan all teknikken får plass der inne.",
-            "review_image": "shopify://shop_images/Screenlux_customer_review_Norway_1.jpg"
-          }
-        },
-        "review_card_zjhqNc": {
-          "settings": {
-            "review_title": "Genialt konsept",
-            "review_body": "Monteringen gikk virkelig kjempefint. Jeg hadde sett for meg at det skulle være mye mer komplisert. Ser veldig integrert og ryddig ut. Supert konsept!",
-            "review_image": "shopify://shop_images/Screenlux_customer_review_Norway_2.png"
+            "review_body": "Veldig bra teknisk løsning! Var redd det skulle bli klumpete. Nå som jeg ser hvor slankt det er, er jeg imponert over hvordan all teknikken får plass der inne."
           }
         },
         "review_card_d7arg9": {
           "settings": {
+            "review_image": "shopify://shop_images/Screenlux_customer_review_Norway_7.jpg",
             "review_title": "Takk til montasjeteamet!",
-            "review_body": "Jeg har hatt en helt suveren opplevelse med montasjeservicen. De bruker ordentlige fagfolk. Veldig profesjonelt utført og raskt gjort!",
-            "review_image": "shopify://shop_images/Screenlux_customer_review_Norway_7.jpg"
+            "review_body": "Jeg har hatt en helt suveren opplevelse med montasjeservicen. De bruker ordentlige fagfolk. Veldig profesjonelt utført og raskt gjort!"
+          }
+        },
+        "review_card_zjhqNc": {
+          "settings": {
+            "review_image": "shopify://shop_images/Screenlux_customer_review_Norway_2.png",
+            "review_title": "Genialt konsept",
+            "review_body": "Monteringen gikk virkelig kjempefint. Jeg hadde sett for meg at det skulle være mye mer komplisert. Ser veldig integrert og ryddig ut. Supert konsept!"
           }
         },
         "review_card_fBJAA9": {
           "settings": {
+            "review_image": "shopify://shop_images/elena_f.jpg",
             "review_title": "Virker solid og god kvailiet.",
-            "review_body": "Har tålt vinteren veldig bra. Må være et effektivt system når det klarer seg med så lite sol.",
-            "review_image": "shopify://shop_images/elena_f.jpg"
+            "review_body": "Har tålt vinteren veldig bra. Må være et effektivt system når det klarer seg med så lite sol."
           }
         }
       },
       "block_order": [
+        "review_card_Ee3AD",
         "review_card_y7Dcge",
         "review_card_ERfWpL",
         "review_card_d7arg9",
