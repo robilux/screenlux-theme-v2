@@ -221,8 +221,8 @@
       }
     ],
     cassetteSizes: [
-      { id: 'slim', title: {{ 'configurator.data.cassetteSizes.slim.title' | t | json }}, desc: {{ 'configurator.data.cassetteSizes.slim.desc' | t | json }}, image: 'https://cdn.shopify.com/s/files/1/0975/4676/4636/files/cassette-slim.jpg?v=1768220919' },
-      { id: 'large', title: {{ 'configurator.data.cassetteSizes.large.title' | t | json }}, desc: {{ 'configurator.data.cassetteSizes.large.desc' | t | json }}, image: 'https://cdn.shopify.com/s/files/1/0975/4676/4636/files/cassette-large.jpg?v=1768220918' }
+      { id: 'slim', title: {{ 'configurator.data.cassetteSizes.slim.title' | t | json }}, desc: {{ 'configurator.data.cassetteSizes.slim.desc' | t | json }}, image: {{ 'img-swatch-cassette-size.jpg' | asset_url | json }} },
+      { id: 'large', title: {{ 'configurator.data.cassetteSizes.large.title' | t | json }}, desc: {{ 'configurator.data.cassetteSizes.large.desc' | t | json }}, image: {{ 'img-swatch-cassette-size.jpg' | asset_url | json }} }
     ],
     motorOptions: [
       { id: 'wired', title: {{ 'configurator.data.motorOptions.wired.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.wired.desc' | t | json }}, image: {{ 'img-cassette-wired.png' | asset_img_url: '400x' | json }}, surcharge: 0 },
