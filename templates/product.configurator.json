@@ -15,9 +15,99 @@
         "delivery_time": "Lieferung in 5-7 Wochen",
         "badge_text": "Entwickelt in Deutschland"
       }
+    },
+    "info_modal_list_LETCP3": {
+      "type": "info-modal-list",
+      "blocks": {
+        "info_modal_M9pgQf": {
+          "type": "info_modal",
+          "settings": {
+            "button_text": "Technical information",
+            "modal_title": "Technical information",
+            "modal_text": "<p>Provide technical details, assembly instructions, or delivery information here.</p>",
+            "download_1_text": "",
+            "download_1_file": "",
+            "download_2_text": "",
+            "download_2_file": "",
+            "download_3_text": "",
+            "download_3_file": "",
+            "download_4_text": "",
+            "download_4_file": "",
+            "download_5_text": "",
+            "download_5_file": "",
+            "download_6_text": "",
+            "download_6_file": "",
+            "download_7_text": "",
+            "download_7_file": "",
+            "download_8_text": "",
+            "download_8_file": ""
+          }
+        },
+        "info_modal_67VNKm": {
+          "type": "info_modal",
+          "settings": {
+            "button_text": "Assembly instructions",
+            "modal_title": "Assembly instructions",
+            "modal_text": "<p>Provide technical details, assembly instructions, or delivery information here.</p>",
+            "download_1_text": "",
+            "download_1_file": "",
+            "download_2_text": "",
+            "download_2_file": "",
+            "download_3_text": "",
+            "download_3_file": "",
+            "download_4_text": "",
+            "download_4_file": "",
+            "download_5_text": "",
+            "download_5_file": "",
+            "download_6_text": "",
+            "download_6_file": "",
+            "download_7_text": "",
+            "download_7_file": "",
+            "download_8_text": "",
+            "download_8_file": ""
+          }
+        },
+        "info_modal_nccqKV": {
+          "type": "info_modal",
+          "settings": {
+            "button_text": "Delivery information",
+            "modal_title": "Delivery information",
+            "modal_text": "<p>Provide technical details, assembly instructions, or delivery information here.</p>",
+            "download_1_text": "",
+            "download_1_file": "",
+            "download_2_text": "",
+            "download_2_file": "",
+            "download_3_text": "",
+            "download_3_file": "",
+            "download_4_text": "",
+            "download_4_file": "",
+            "download_5_text": "",
+            "download_5_file": "",
+            "download_6_text": "",
+            "download_6_file": "",
+            "download_7_text": "",
+            "download_7_file": "",
+            "download_8_text": "",
+            "download_8_file": ""
+          }
+        }
+      },
+      "block_order": [
+        "info_modal_M9pgQf",
+        "info_modal_67VNKm",
+        "info_modal_nccqKV"
+      ],
+      "disabled": true,
+      "name": "Info Modal List",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "color_scheme": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "info_modal_list_LETCP3"
   ]
 }
