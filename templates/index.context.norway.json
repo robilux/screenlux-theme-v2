@@ -17,10 +17,10 @@
       "type": "cards-section",
       "disabled": false,
       "settings": {
-        "header-7586498c5503b32620cbe64a85bf2aa2": null,
+        "header-103cae95f1c8e0c043f0e179b19c272a": null,
         "heading": "Hvorfor velge Screenlux?",
         "subheading": "",
-        "header-81a79767a5d8a890d281bf9dcbea5f25": null,
+        "header-a3b1e5970a41b683ea27cea43358b70d": null,
         "bg_color": "#ffffff",
         "heading_color": "#000000",
         "subheading_color": "#525252"
@@ -75,10 +75,10 @@
       "type": "cards-section",
       "disabled": true,
       "settings": {
-        "header-e3dba89b2ca19a18b95a5b4ef71dbb9c": null,
+        "header-bb9ee6f7598d2a5fb31853eb071985fd": null,
         "heading": "Effektiv solskjerming for moderne hjem",
         "subheading": "Screenlux Zip-screen monteres utvendig og stopper opptil 95% av solvarmen før den treffer glasset. Resultatet er et kjøligere inneklima, mindre blending og bedre skjerming mot innsyn – samtidig som fasaden beholder et lett og moderne uttrykk.",
-        "header-87eaf2e98684ff44c5b492aac92b28dd": null,
+        "header-bf4a0932f2fcce71013ac8d6ae55ad5c": null,
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
         "subheading_color": "#525252"
@@ -138,6 +138,74 @@
         "card_CCiA4"
       ],
       "name": "Cards Section"
+    },
+    "cards_section_LUtdr": {
+      "type": "cards-section",
+      "disabled": false,
+      "settings": {
+        "header-4cc856bd3ddf82601cefe10deb1eef10": null,
+        "heading": "Effektiv solskjerming for moderne hjem",
+        "subheading": "Screenlux Zip-screen monteres utvendig og stopper opptil 95% av solvarmen før den treffer glasset. Resultatet er et kjøligere inneklima, mindre blending og bedre skjerming mot innsyn – samtidig som fasaden beholder et lett og moderne uttrykk.",
+        "header-b29d5fbc0db0a06eb00cb2eddbaa122d": null,
+        "bg_color": "#f5f5f5",
+        "heading_color": "#000000",
+        "subheading_color": "#525252"
+      },
+      "blocks": {
+        "card_DjJEL": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/img-situation-livingroom-2_png.jpg",
+            "title": "Reduserer varme inne",
+            "description": "Zip-screenen stopper opptil 95 % av solvarmen før den treffer glasset. Det gir et betydelig kjøligere inneklima på varme dager."
+          }
+        },
+        "card_MQia3": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/img-situations-bathroom.png",
+            "title": "Skermer mot innsyn",
+            "description": "Blackout‑duken hindrer innsyn – selv når lyset er på i rommet og det er mørkt ute."
+          }
+        },
+        "card_KrGTq": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/office.jpg",
+            "title": "Demper blending",
+            "description": "Zip-screenen demper plagsom blending uten å gjøre rommet mørkt, slik at du får et behagelig arbeidsmiljø og kan konsentrere deg bedre gjennom hele dagen."
+          }
+        },
+        "card_JPCn9": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/img-situation-kitchen-2_png.jpg",
+            "title": "Bevarer dagslys og utsyn",
+            "description": "Tekstilen stopper den harde solvarmen, men slipper fortsatt behagelig dagslys inn. Du bevarer utsikten og følelsen av et lyst og åpent rom – uten plagsom varme og blending."
+          }
+        },
+        "card_ViyzQ": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/use-cases-big-office-facade.jpg",
+            "title": "Gir et strammere fasadeuttrykk",
+            "description": "Zip-screenen strammer opp linjene rundt vinduene og gir fasaden et helhetlig, moderne uttrykk. En ren og diskret løsning som glir naturlig inn i arkitekturen både på bolig og kontorbygg."
+          }
+        }
+      },
+      "block_order": [
+        "card_DjJEL",
+        "card_MQia3",
+        "card_KrGTq",
+        "card_JPCn9",
+        "card_ViyzQ"
+      ],
+      "name": "Cards Section - NO"
     },
     "image_banner": {
       "settings": {},
@@ -316,78 +384,47 @@
     "text_and_video_flawless_finish_G8EPjE": {
       "settings": {
         "heading": "Modærne SmartHome teknologi",
-        "description": "<p>Fungerer sømløst med Apple Home, Samsung MyThings og Google Home.</p>",
+        "description": "<p>Fungerer sømløst med Apple Home, Samsung SmartThings og Google Home. Kan også styres via Screenlux-appen (kommer snart!).</p>",
         "video": "shopify://files/videos/Screenlux Smart Home - NO.mp4"
       },
       "blocks": {}
     },
-    "cards_section_LUtdr": {
-      "type": "cards-section",
-      "disabled": false,
+    "cards_section_w4dayx": {
       "settings": {
-        "header-e3dba89b2ca19a18b95a5b4ef71dbb9c": null,
-        "heading": "Effektiv solskjerming for moderne hjem",
-        "subheading": "Screenlux Zip-screen monteres utvendig og stopper opptil 95% av solvarmen før den treffer glasset. Resultatet er et kjøligere inneklima, mindre blending og bedre skjerming mot innsyn – samtidig som fasaden beholder et lett og moderne uttrykk.",
-        "header-87eaf2e98684ff44c5b492aac92b28dd": null,
-        "bg_color": "#f5f5f5",
-        "heading_color": "#000000",
-        "subheading_color": "#525252"
+        "heading": "Pålitelig, også om vinteren.",
+        "subheading": "En effektiv motor, kraftige IBC-solceller og et langvarig batteri sørger for at screenen er pålitelig selv på overskyede vinterdager."
       },
       "blocks": {
-        "card_DjJEL": {
-          "type": "card",
-          "disabled": false,
+        "card_XjWrHM": {
           "settings": {
-            "image": "shopify://shop_images/img-situation-livingroom-2_png.jpg",
-            "title": "Reduserer varme inne",
-            "description": "Zip-screenen stopper opptil 95 % av solvarmen før den treffer glasset. Det gir et betydelig kjøligere inneklima på varme dager."
+            "title": "Massivt 5200 mAh‑batteri",
+            "description": "Et kraftig 5200 mAh batteri gir opptil 30 dagers drift på én lading."
           }
         },
-        "card_MQia3": {
-          "type": "card",
-          "disabled": false,
+        "card_Jxyzid": {
           "settings": {
-            "image": "shopify://shop_images/img-situations-bathroom.png",
-            "title": "Skermer mot innsyn",
-            "description": "Blackout‑duken hindrer innsyn – selv når lyset er på i rommet og det er mørkt ute."
+            "title": "Effektiv selv med lite lys",
+            "description": "IBC‑solcellepaneler henter inn energi selv på overskyede dager."
           }
         },
-        "card_KrGTq": {
-          "type": "card",
-          "disabled": false,
+        "card_PwDajx": {
           "settings": {
-            "image": "shopify://shop_images/office.jpg",
-            "title": "Demper blending",
-            "description": "Zip-screenen demper plagsom blending uten å gjøre rommet mørkt, slik at du får et behagelig arbeidsmiljø og kan konsentrere deg bedre gjennom hele dagen."
-          }
-        },
-        "card_JPCn9": {
-          "type": "card",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/img-situation-kitchen-2_png.jpg",
-            "title": "Bevarer dagslys og utsyn",
-            "description": "Tekstilen stopper den harde solvarmen, men slipper fortsatt behagelig dagslys inn. Du bevarer utsikten og følelsen av et lyst og åpent rom – uten plagsom varme og blending."
-          }
-        },
-        "card_ViyzQ": {
-          "type": "card",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/use-cases-big-office-facade.jpg",
-            "title": "Gir et strammere fasadeuttrykk",
-            "description": "Zip-screenen strammer opp linjene rundt vinduene og gir fasaden et helhetlig, moderne uttrykk. En ren og diskret løsning som glir naturlig inn i arkitekturen både på bolig og kontorbygg."
+            "title": "Strømtilkobling også mulig",
+            "description": "indu uten sol? Ikke noe problem. Velg den fast tilkoblede, kabeldrevne varianten."
           }
         }
       },
       "block_order": [
-        "card_DjJEL",
-        "card_MQia3",
-        "card_KrGTq",
-        "card_JPCn9",
-        "card_ViyzQ"
-      ],
-      "name": "Cards Section - NO"
+        "card_XjWrHM",
+        "card_Jxyzid",
+        "card_PwDajx"
+      ]
+    },
+    "installation_section_iNT83q": {
+      "settings": {
+        "heading": "Montasje? Du har valget"
+      },
+      "blocks": {}
     }
   },
   "order": [
