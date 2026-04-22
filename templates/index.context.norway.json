@@ -208,7 +208,9 @@
       "name": "Cards Section - NO"
     },
     "image_banner": {
-      "settings": {},
+      "settings": {
+        "video": "shopify://files/videos/Screenlux screens down norwegian house loop.mp4"
+      },
       "blocks": {
         "heading": {
           "settings": {
@@ -376,7 +378,7 @@
       "settings": {
         "heading": "Solcelledrevet motor",
         "description": "<p>En stillegående solcelldrevet motor sørger for at du kan nyte et kjøligere inneklima uten sjenerende motorlyd – helt uten strømtilkobling.</p>",
-        "video": "shopify://files/videos/screenlux screens moving down norway.mp4",
+        "video": "shopify://files/videos/Screenlux screens down norwegian house loop.mp4",
         "fallback_image": "shopify://shop_images/screenlux_screens_moving_down_norway.jpg"
       },
       "blocks": {}
@@ -391,8 +393,8 @@
     },
     "cards_section_w4dayx": {
       "settings": {
-        "heading": "Pålitelig, også om vinteren.",
-        "subheading": "En effektiv motor, kraftige IBC-solceller og et langvarig batteri sørger for at screenen er pålitelig selv på overskyede vinterdager."
+        "heading": "Pålitelig uansett vær",
+        "subheading": "En effektiv motor, kraftige IBC-solceller, et langvarig batteri og smarte tilbehør sørger for at screenen er pålitelig uansett vær."
       },
       "blocks": {
         "card_XjWrHM": {
@@ -403,21 +405,33 @@
         },
         "card_Jxyzid": {
           "settings": {
-            "title": "Effektiv selv med lite lys",
-            "description": "IBC‑solcellepaneler henter inn energi selv på overskyede dager."
+            "title": "Lader selv om det er overskyet",
+            "description": "Høyteknologiske IBC‑solcellepaneler henter inn energi selv på overskyede dager.",
+            "image": "shopify://shop_images/Norwegian_house_winter.jpg"
           }
         },
         "card_PwDajx": {
           "settings": {
             "title": "Strømtilkobling også mulig",
-            "description": "indu uten sol? Ikke noe problem. Velg den fast tilkoblede, kabeldrevne varianten."
+            "description": "Vindu uten sol? Ikke noe problem. Velg den fast tilkoblede, kabeldrevne varianten.",
+            "image": "shopify://shop_images/screenlux_window_wired_97ae58a5-b4ab-44a5-94bf-5c907f1111f2.jpg"
+          }
+        },
+        "card_MYjQCQ": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Screenlux_wind_and_sun-sensor.jpg",
+            "title": "Storm og bortreist? Null stress",
+            "description": "Vind- og solsensoren sørger for at screensene går automatisk opp ved kraftig vind."
           }
         }
       },
       "block_order": [
         "card_XjWrHM",
         "card_Jxyzid",
-        "card_PwDajx"
+        "card_PwDajx",
+        "card_MYjQCQ"
       ]
     },
     "installation_section_iNT83q": {

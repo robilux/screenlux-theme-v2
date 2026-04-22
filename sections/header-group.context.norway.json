@@ -15,7 +15,8 @@
   "sections": {
     "header": {
       "settings": {
-        "menu": "main-menu-no"
+        "menu": "main-menu-no",
+        "cta_label": "Konfigurer nå"
       },
       "blocks": {}
     },
