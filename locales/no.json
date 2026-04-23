@@ -19,7 +19,7 @@
   },
   "configurator": {
     "title": "Konfigurer screens",
-    "add_another_one": "Legg til en til",
+    "add_another_one": "Legg til ny screen",
     "installation_title": "Montering",
     "tip_title": "Tips",
     "tip_message_html": "Bytt til <strong>solcelledrevne</strong> screens for enklere montering og lavere kostnader.",
@@ -61,7 +61,9 @@
       "arrives_in": "Levering om 5–7 uker",
       "continue_to_payment": "Fortsett til betaling",
       "please_check_dimensions": "Vennligst kontrollér målene",
-      "per_screen": "per screen"
+      "per_screen": "per screen",
+      "installation_notice": "Faktureres separat av vår montasjepartner etter montasje er avtalt.",
+      "zip_screen_detail": "1x Zip-Screen"
     },
     "awards": {
       "award_title": "Vinner av German Design Award 2026!",
