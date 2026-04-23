@@ -129,10 +129,12 @@
       },
       "cassetteSizes": {
         "slim": {
-          "desc": "Vår standardkassett. For screens opptil 5 m²."
+          "title": "Slim (85×85mm)",
+          "desc": "Vår super-slanke kassett, for screens opptil 3000 x 2300 mm."
         },
         "large": {
-          "desc": "Når Slim‑kassetten ikke er stor nok."
+          "title": "Standard (120×120mm)",
+          "desc": "Vår standardkassett. For screens større enn 3000 x 2300 mm."
         }
       },
       "motorOptions": {

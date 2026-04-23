@@ -652,11 +652,11 @@
       "cassetteSizes": {
         "slim": {
           "title": "Slim (85×85mm)",
-          "desc": "Our slim standard cassette. For screens up to 5m²."
+          "desc": "Our super-slim cassette, for screens up to 3000 x 2300 mm."
         },
         "large": {
-          "title": "Large (120×120mm)",
-          "desc": "When the slim cassette no longer fits."
+          "title": "Standard (120×120mm)",
+          "desc": "Our standard cassette. For screens larger than 3000 x 2300 mm."
         }
       },
       "motorOptions": {
