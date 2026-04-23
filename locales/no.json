@@ -116,25 +116,28 @@
       },
       "fabricColors": {
         "graphite": "Grafitt",
-        "gray_pepper": "Grey Pepper",
-        "natural": "Natur",
-        "edelweiss": "Hvit"
+        "gray_pepper": "Grå pepper",
+        "natural": "Beige",
+        "edelweiss": "Dempet hvit"
       },
       "fabrics": {
         "per_5_openness": {
-          "title": "5 % åpenhet"
+          "title": "5 % åpningsfaktor",
+          "desc": "Perfekt for stuen, kontoret og åpne rom."
         },
         "blackout": {
           "title": "Blackout",
-          "desc": "Perfekt for stue og åpne oppholdsrom."
+          "desc": "Populært for bad- og soverom."
         }
       },
       "cassetteSizes": {
         "slim": {
-          "desc": "Vår standardkassett. For screens opptil 5 m²."
+          "desc": "Vår super-slim kassett. Passer screens opptil 5 m².",
+          "title": "Super-slim (85×85mm)"
         },
         "large": {
-          "desc": "Når Slim‑kassetten ikke er stor nok."
+          "desc": "Vår standard kassett. Perfekt for større vindusflater over 5 m².",
+          "title": "Standard (120×120mm)"
         }
       },
       "motorOptions": {
