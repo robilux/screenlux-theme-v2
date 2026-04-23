@@ -1571,61 +1571,30 @@ class ProductConfigurator extends HTMLElement {
     // 3. Automatisierung Categories
     this.renderExtraCategorySummary(list, totals.automatisierungTotal, 'automatisierung', window.ScreenluxTranslations.orderSummary.automatisierung, 'automatisierungExpanded');
 
-    // 3. Installation Category
-    if (totals.installTotal > 0 || totals.estimatedInstallTotal > 0 || this.state.installationType === 'professional') {
-      let installCount = 0;
-      if (this.state.installationType === 'professional') {
-        installCount = 1;
-      }
-
+    // 3. Installation Category — only show in summary for DIY brackets (real cost)
+    if (totals.installTotal > 0 && this.state.installationType === 'diy') {
       const installCategory = document.createElement('div');
       installCategory.className = `summary-category ${this.state.installationExpanded ? 'expanded' : ''}`;
-      const label = window.ScreenluxTranslations.orderSummary.professionalInstallation;
-
-      const installDisplayTotal =
-        this.state.installationType === 'professional'
-          ? `~ ${fmt(totals.estimatedInstallTotal)}`
-          : fmt(totals.installTotal);
+      const label = window.ScreenluxTranslations.orderSummary.brackets || 'Montagebügel';
 
       const installHeader = document.createElement('div');
       installHeader.className = 'summary-row category-header';
       installHeader.innerHTML = `
         <div class="category-title">
-          <span>${label} (${installCount})</span>
+          <span>${label}</span>
           <svg class="chevron-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <span class="category-price">${installDisplayTotal}</span>
+        <span class="category-price">${fmt(totals.installTotal)}</span>
       `;
       installHeader.onclick = () => {
         this.state.installationExpanded = !this.state.installationExpanded;
         this.render();
       };
       installCategory.appendChild(installHeader);
-
-      if (this.state.installationExpanded) {
-        const installDetails = document.createElement('div');
-        installDetails.className = 'category-details';
-
-        if (this.state.installationType === 'professional') {
-          const hasWired = this.state.screens.some((s) => s.motor !== 'solar');
-          const targetLabel = hasWired ? 'Wired' : 'Solar';
-          const svc = this.data.services.find((s) => s.title.includes(targetLabel));
-          if (svc) {
-            const detailRow = document.createElement('div');
-            detailRow.className = 'summary-row detail-row';
-            detailRow.innerHTML = `
-              <span class="detail-label">1x ${svc.title} (Estimated)</span>
-              <span class="detail-price">~ ${fmt(totals.estimatedInstallTotal)}</span>
-            `;
-            installDetails.appendChild(detailRow);
-          }
-        }
-        installCategory.appendChild(installDetails);
-      }
       list.appendChild(installCategory);
     }
 
-    // 4. Total
+    // 4. Total (excludes professional installation — that's billed separately)
     const totalRow = document.createElement('div');
     totalRow.className = 'summary-row total';
     totalRow.innerHTML = `
@@ -1637,14 +1606,20 @@ class ProductConfigurator extends HTMLElement {
     `;
     list.appendChild(totalRow);
 
-    if (this.state.installationType === 'professional') {
-      const invoiceNotice = document.createElement('div');
-      invoiceNotice.className = 'margin-top-xs text-subdued';
-      invoiceNotice.style.fontSize = '12px';
-      invoiceNotice.style.textAlign = 'right';
-      invoiceNotice.style.color = 'var(--sl-text-secondary)';
-      invoiceNotice.innerText = 'Die Fachmontage wird später direkt vom Montagepartner in Rechnung gestellt.';
-      list.appendChild(invoiceNotice);
+    // 4b. Professional Installation — separate card below total
+    if (this.state.installationType === 'professional' && totals.estimatedInstallTotal > 0) {
+      const installCard = document.createElement('div');
+      installCard.className = 'installation-separate-card margin-top-md';
+      installCard.innerHTML = `
+        <div class="installation-separate-header">
+          <div class="installation-separate-info">
+            <span class="installation-separate-title">${window.ScreenluxTranslations.orderSummary.professionalInstallation}</span>
+            <span class="installation-separate-price">~ ${fmt(totals.estimatedInstallTotal)}</span>
+          </div>
+        </div>
+        <p class="installation-separate-desc">${window.ScreenluxTranslations.orderSummary?.installationNotice || 'Wird separat durch unseren Montagepartner in Rechnung gestellt nach Aufmaß vor Ort.'}</p>
+      `;
+      list.appendChild(installCard);
     }
 
     section.appendChild(list);
@@ -1665,7 +1640,7 @@ class ProductConfigurator extends HTMLElement {
     const cartBtn = document.createElement('button');
     cartBtn.className = `btn btn-primary margin-top-md ${!allValid ? 'btn-disabled' : ''}`;
     cartBtn.innerText = allValid
-      ? window.ScreenluxTranslations.orderSummary.continueToPayment
+      ? `${window.ScreenluxTranslations.orderSummary.continueToPayment} — ${fmt(totals.grandTotal)}`
       : window.ScreenluxTranslations.orderSummary.pleaseCheckDimensions;
     cartBtn.onclick = allValid ? this.handleAddToCart : null;
 

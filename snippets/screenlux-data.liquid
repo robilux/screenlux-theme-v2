@@ -53,6 +53,7 @@
       arrivesIn: {{ delivery_time | default: default_delivery_text | json }},
       continueToPayment: {{ 'configurator.order_summary.continue_to_payment' | t | json }},
       pleaseCheckDimensions: {{ 'configurator.order_summary.please_check_dimensions' | t | json }},
+      installationNotice: {{ 'configurator.order_summary.installation_notice' | t | json }},
       zipScreenDetail: {{ 'configurator.order_summary.zip_screen_detail' | t | json }},
       perScreen: {{ 'configurator.order_summary.per_screen' | t | json }}
     },

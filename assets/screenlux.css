@@ -1038,6 +1038,24 @@ details[open] .accordion-chevron {
   background: #fff;
 }
 
+@media screen and (max-width: 749px) {
+  details-accordion {
+    margin-top: 16px;
+  }
+
+  details-accordion details {
+    border-radius: var(--sl-radius-md);
+  }
+
+  details-accordion summary {
+    padding: 14px 16px;
+  }
+
+  .accordion-body {
+    padding: 16px;
+  }
+}
+
 /* Order Summary */
 .order-summary-box {
   background: var(--sl-color-white);
@@ -1142,6 +1160,61 @@ details[open] .accordion-chevron {
 
 .price-current {
     font-weight: var(--sl-weight-semibold);
+}
+
+/* Installation Separate Card (billed by partner) */
+.installation-separate-card {
+  border: 1px dashed var(--sl-border-default);
+  border-radius: var(--sl-radius-md);
+  padding: 16px;
+  background: var(--sl-color-gray-50, #F9FAFB);
+}
+
+.installation-separate-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.installation-separate-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: var(--sl-radius-md);
+  border: 1px solid var(--sl-border-default);
+  color: var(--sl-text-secondary);
+}
+
+.installation-separate-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  min-height: 36px;
+}
+
+.installation-separate-title {
+  font-size: var(--sl-text-body);
+  font-weight: var(--sl-weight-medium);
+  color: var(--sl-text-primary);
+}
+
+.installation-separate-price {
+  font-size: var(--sl-text-body);
+  font-weight: var(--sl-weight-medium);
+  color: var(--sl-text-secondary);
+  white-space: nowrap;
+}
+
+.installation-separate-desc {
+  margin: 10px 0 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--sl-text-secondary);
 }
 
 .shipping-info-row {
