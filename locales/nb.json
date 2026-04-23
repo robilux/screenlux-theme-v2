@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -525,6 +534,143 @@
       "send_on_label": "Send (valgfritt)",
       "expanded": "Utvidet skjema for gavekortmottaker",
       "collapsed": "Lukket skjema for gavekortmottaker"
+    }
+  },
+  "configurator": {
+    "title": "Konfigurer dine screens",
+    "add_another_one": "Legg til en til",
+    "installation_title": "Installasjon",
+    "tip_title": "Tips",
+    "tip_message_html": "Bytt til <strong>solcelledrevne</strong> screens for enklere installasjon og lavere kostnader.",
+    "tip_benefits": {
+      "no_wiring": "Ingen kabling",
+      "no_wall_drilling": "Ingen boring for strøm",
+      "no_electrician": "Ingen elektriker nødvendig"
+    },
+    "tip_footer_html": "Bytt nå og spar <strong>12 000 kr</strong> på profesjonell montering.",
+    "switch_to_solar": "Bytt til solcelle",
+    "installation_diy": {
+      "title": "Selvmontering (DIY)",
+      "desc": "Enkel montering med veiledning.\n• Solcelle: 30 min. / screen\n• Kablet: 5 timer / screen",
+      "price": "Gratis"
+    },
+    "installation_professional": {
+      "title": "Profesjonell montering",
+      "desc": "La en av våre profesjonelle monteringspartnere installere screenen.",
+      "price": "+ 23 500 kr",
+      "note": "Spar 12 000 kr ved å bytte til solcelledrevne screens."
+    },
+    "brackets_title": "Monteringsbraketter",
+    "no_brackets": "Ingen monteringsbraketter tilgjengelig.",
+    "steuerung_title": "Styring",
+    "no_steuerung": "Ingen styring tilgjengelig.",
+    "automatisierung_title": "Automatisering",
+    "no_automatisierung": "Ingen automatisering tilgjengelig.",
+    "add": "Legg til",
+    "order_summary_title": "Bestillingsoversikt",
+    "order_summary": {
+      "zip_screens": "Zip-Screens",
+      "brackets": "Monteringsbraketter",
+      "steuerung": "Styring",
+      "automatisierung": "Automatisering",
+      "warning_no_steuerung": "Ingen styring er valgt!",
+      "professional_installation": "Profesjonell montering",
+      "total": "Totalsum",
+      "free_delivery": "Gratis levering",
+      "arrives_in": "Levering innen 5-7 virkedager",
+      "continue_to_payment": "Gå til betaling",
+      "please_check_dimensions": "Vennligst sjekk målene",
+      "installation_notice": "Faktureres separat av vår monteringspartner etter oppmåling på stedet.",
+      "zip_screen_detail": "1x Zip-Screen",
+      "per_screen": "per screen"
+    },
+    "awards": {
+      "award_title": "Vinner av German Design Award 2026!",
+      "award_text": "Den stilsikre kombinasjonen av slankt kabinett og smart teknologi skaper en estetisk krevende solskjerming som passer harmonisk inn i moderne omgivelser."
+    },
+    "measurement_guide": {
+      "text": "",
+      "link": ""
+    },
+    "dimensions": {
+      "width": "Bredde (mm)",
+      "height": "Høyde (mm)",
+      "invalid": "Ugyldige mål"
+    },
+    "options": {
+      "reference": "Referanse",
+      "screen_prefix": "Screen",
+      "cassette_size": "Kassettestørrelse",
+      "frame_color": "Rammefarge",
+      "fabric_color": "Stofffarge",
+      "fabric_transparency": "Stofftype",
+      "motor": "Motor"
+    },
+    "actions": {
+      "remove_screen": "Fjern screen",
+      "duplicate_screen": "Dupliser screen",
+      "open_screen": "Åpne screen",
+      "close_screen": "Lukk screen",
+      "show_measurements": "Vis mål",
+      "hide_measurements": "Skjul mål"
+    },
+    "screen_summary": {
+      "prefix": "Screen",
+      "dimensions_not_set": "Mål ikke satt",
+      "no_cassette": "Ingen kassettestørrelse valgt",
+      "no_frame": "Ingen rammefarge valgt",
+      "no_fabric": "Ingen stoff valgt",
+      "no_motor": "Ingen motor valgt"
+    },
+    "misc": {
+      "loading": "Konfiguratoren lastes...",
+      "loading_desc": "Hvis denne teksten ikke forsvinner, ble ingen produkter funnet i samlingen \"main-product\".",
+      "loading_desc_sub": "(Sjekk detaljer i konsollen)",
+      "developed_in_germany": "Designet i Norge",
+      "developed_in_germany_flag": "false"
+    },
+    "data": {
+      "frameColors": {
+        "anthracite": "Antrasitt",
+        "white": "Hvit",
+        "black": "Svart"
+      },
+      "fabricColors": {
+        "graphite": "Grafitt",
+        "gray_pepper": "Grå-pepper",
+        "natural": "Beige",
+        "edelweiss": "Dempet hvit"
+      },
+      "fabrics": {
+        "per_5_openness": {
+          "title": "5% åpningsfaktor",
+          "desc": "Perfekt for stuer og åpne rom."
+        },
+        "blackout": {
+          "title": "Blackout",
+          "desc": "Ofte valgt for bad og soverom."
+        }
+      },
+      "cassetteSizes": {
+        "slim": {
+          "title": "Slim (85×85mm)",
+          "desc": "Vår standardkassett. For screens opp til 5m²."
+        },
+        "large": {
+          "title": "Large (120×120mm)",
+          "desc": "Når slim-kassetten ikke lenger passer."
+        }
+      },
+      "motorOptions": {
+        "solar": {
+          "title": "Solcelledrevet",
+          "desc": "Enkel montering med solcellepanel."
+        },
+        "wired": {
+          "title": "Kablet",
+          "desc": "Tradisjonell og pålitelig."
+        }
+      }
     }
   }
 }

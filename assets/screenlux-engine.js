@@ -140,9 +140,9 @@ window.ScreenluxEngine = {
         properties: {
           '_Screen ID': index + 1,
           '_hide_variant': 'true',
-          'Referenz': `Screen ${index + 1}`,
-          [(window.ScreenluxTranslations && window.ScreenluxTranslations.dimensions && window.ScreenluxTranslations.dimensions.width) || 'Breite']: `${screen.width} mm`,
-          [(window.ScreenluxTranslations && window.ScreenluxTranslations.dimensions && window.ScreenluxTranslations.dimensions.height) || 'H\u00f6he']: `${screen.height} mm`,
+          [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.reference) || 'Referenz']: `${(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.screenPrefix) || 'Screen'} ${index + 1}`,
+          [(window.ScreenluxTranslations && window.ScreenluxTranslations.dimensions && window.ScreenluxTranslations.dimensions.width) || 'Breite']: `${screen.width}`,
+          [(window.ScreenluxTranslations && window.ScreenluxTranslations.dimensions && window.ScreenluxTranslations.dimensions.height) || 'H\u00f6he']: `${screen.height}`,
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.frameColor) || 'Gestellfarbe']: findTitle(data.frameColors, screen.frameColor),
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.fabricColor) || 'Stofffarbe']: findTitle(data.fabricColors, screen.fabricColor),
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.fabricTransparency) || 'Stoff']: findTitle(data.fabrics, screen.fabricType),

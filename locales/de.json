@@ -598,6 +598,8 @@
       "invalid": "Ungültige Maße"
     },
     "options": {
+      "reference": "Referenz",
+      "screen_prefix": "Screen",
       "cassette_size": "Kassettengröße",
       "frame_color": "Rahmenfarbe",
       "fabric_color": "Stofffarbe",

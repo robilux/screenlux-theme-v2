@@ -71,6 +71,8 @@
       link: {{ 'configurator.measurement_guide.link' | t | default: '' | json }}
     },
     options: {
+      reference: {{ 'configurator.options.reference' | t | json }},
+      screenPrefix: {{ 'configurator.options.screen_prefix' | t | json }},
       cassetteSize: {{ 'configurator.options.cassette_size' | t | json }},
       frameColor: {{ 'configurator.options.frame_color' | t | json }},
       fabricColor: {{ 'configurator.options.fabric_color' | t | json }},

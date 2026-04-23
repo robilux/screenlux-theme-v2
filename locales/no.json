@@ -19,7 +19,7 @@
   },
   "configurator": {
     "title": "Konfigurer screens",
-    "add_another_one": "Legg til ny screen",
+    "add_another_one": "Legg til en til",
     "installation_title": "Montering",
     "tip_title": "Tips",
     "tip_message_html": "Bytt til <strong>solcelledrevne</strong> screens for enklere montering og lavere kostnader.",
@@ -61,9 +61,7 @@
       "arrives_in": "Levering om 5–7 uker",
       "continue_to_payment": "Fortsett til betaling",
       "please_check_dimensions": "Vennligst kontrollér målene",
-      "per_screen": "per screen",
-      "installation_notice": "Faktureres separat av vår montasjepartner etter montasje er avtalt.",
-      "zip_screen_detail": "1x Zip-Screen"
+      "per_screen": "per screen"
     },
     "awards": {
       "award_title": "Vinner av German Design Award 2026!",
@@ -116,28 +114,25 @@
       },
       "fabricColors": {
         "graphite": "Grafitt",
-        "gray_pepper": "Grå pepper",
-        "natural": "Beige",
-        "edelweiss": "Dempet hvit"
+        "gray_pepper": "Grey Pepper",
+        "natural": "Natur",
+        "edelweiss": "Hvit"
       },
       "fabrics": {
         "per_5_openness": {
-          "title": "5 % åpningsfaktor",
-          "desc": "Perfekt for stuen, kontoret og åpne rom."
+          "title": "5 % åpenhet"
         },
         "blackout": {
           "title": "Blackout",
-          "desc": "Populært for bad- og soverom."
+          "desc": "Perfekt for stue og åpne oppholdsrom."
         }
       },
       "cassetteSizes": {
         "slim": {
-          "desc": "Vår super-slim kassett. Passer screens opptil 5 m².",
-          "title": "Super-slim (85×85mm)"
+          "desc": "Vår standardkassett. For screens opptil 5 m²."
         },
         "large": {
-          "desc": "Vår standard kassett. Perfekt for større vindusflater over 5 m².",
-          "title": "Standard (120×120mm)"
+          "desc": "Når Slim‑kassetten ikke er stor nok."
         }
       },
       "motorOptions": {
