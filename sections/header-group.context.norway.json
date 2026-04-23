@@ -30,7 +30,8 @@
     "top_bar_g7Mk6r": {
       "settings": {
         "phone_number": "+47 474 86 033",
-        "phone_link": "tel:+4747486033"
+        "phone_link": "tel:+4747486033",
+        "rating_text": "4.9/5"
       },
       "blocks": {}
     }
