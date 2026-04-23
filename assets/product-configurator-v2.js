@@ -915,18 +915,16 @@ class ProductConfigurator extends HTMLElement {
            
            <!-- Cassette Size Selector -->
            ${(() => {
-              // Calculate screen area in sqm
-              const areaSqm = (screen.width / 1000) * (screen.height / 1000);
-              const maxSlimArea = 5; // 5 sqm limit for slim cassette
+               // Mark slim as disabled if dimensions exceed 3000x2300mm
+               const isTooLargeForSlim = screen.width > 3000 || screen.height > 2300;
 
-              // Mark slim as disabled if area exceeds 5 sqm
-              const cassetteSizesWithAvailability = cassetteSizes.map(opt => ({
-                ...opt,
-                disabled: opt.id === 'slim' && areaSqm > maxSlimArea
-              }));
+               const cassetteSizesWithAvailability = cassetteSizes.map(opt => ({
+                 ...opt,
+                 disabled: opt.id === 'slim' && isTooLargeForSlim
+               }));
 
-              // Auto-switch to large if slim is selected but disabled
-              if (screen.cassetteSize === 'slim' && areaSqm > maxSlimArea) {
+               // Auto-switch to large if slim is selected but disabled
+               if (screen.cassetteSize === 'slim' && isTooLargeForSlim) {
                 screen.cassetteSize = 'large';
               }
 

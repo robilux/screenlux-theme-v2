@@ -9,9 +9,9 @@ window.ScreenluxEngine = {
    */
   constraints: {
     minWidth: 760,
-    maxWidth: 6000,
+    maxWidth: 5000,
     minHeight: 600,
-    maxHeight: 5000,
+    maxHeight: 3000,
   },
 
   /**
