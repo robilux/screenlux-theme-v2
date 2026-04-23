@@ -46,8 +46,6 @@
         "show_line_separator": true,
         "color_scheme": "scheme-1",
         "menu_color_scheme": "",
-        "enable_country_selector": true,
-        "enable_language_selector": true,
         "enable_customer_avatar": true,
         "cta_label": "Konfigurieren",
         "cta_link": "shopify://products/zip-screen-configurator",
@@ -61,7 +59,7 @@
       "name": "Slim Countdown",
       "settings": {
         "text": "Zip-Screen 2 Sale endet in:",
-        "countdown_date": "2026-04-22T23:59:59",
+        "countdown_date": "2026-04-28T23:59:59",
         "bg_color": "#1a1a1a",
         "text_color": "#ffffff",
         "show_icon": true,
