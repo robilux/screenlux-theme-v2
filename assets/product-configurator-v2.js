@@ -784,7 +784,7 @@ class ProductConfigurator extends HTMLElement {
     const frameOptions = this.data.frameColors || [];
     const fabricColors = this.data.fabricColors || [];
     
-    // Calculate extra prices for options based on actual variant sale prices (with discounts)
+    // Calculate extra prices for options based on raw calculated formulas so UI perfectly reflects settings
     const getBasePrices = (field, optionsArray) => {
       if (!optionsArray || optionsArray.length === 0) return { price: 0, compareAtPrice: 0 };
       let minPrice = Infinity;
@@ -795,8 +795,8 @@ class ProductConfigurator extends HTMLElement {
         const actualPrice = variant ? variant.price : raw;
         // Default to price if compare_at_price is not set or 0
         const compareAtPrice = (variant && variant.compare_at_price > 0) ? variant.compare_at_price : actualPrice;
-        if (actualPrice < minPrice) minPrice = actualPrice;
-        if (compareAtPrice < minCompareAtPrice) minCompareAtPrice = compareAtPrice;
+        if (raw < minPrice) minPrice = raw; // Use raw for UI display
+        if (raw < minCompareAtPrice) minCompareAtPrice = raw; 
       });
       return { price: minPrice, compareAtPrice: minCompareAtPrice };
     };
@@ -810,8 +810,8 @@ class ProductConfigurator extends HTMLElement {
         const compareAtPrice = (variant && variant.compare_at_price > 0) ? variant.compare_at_price : actualPrice;
         return { 
           ...opt, 
-          extraPrice: Math.max(0, actualPrice - bases.price),
-          extraCompareAtPrice: Math.max(0, compareAtPrice - bases.compareAtPrice)
+          extraPrice: Math.max(0, raw - bases.price),
+          extraCompareAtPrice: Math.max(0, raw - bases.compareAtPrice)
         };
       });
     };
