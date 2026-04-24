@@ -17,10 +17,10 @@
       "type": "cards-section",
       "disabled": false,
       "settings": {
-        "header-4b328b7ff89c8dcb0da0982e32030774": null,
+        "header-103cae95f1c8e0c043f0e179b19c272a": null,
         "heading": "Hvorfor velge Screenlux?",
         "subheading": "",
-        "header-49530ff44b50b2b29dddfd9ffdb6076b": null,
+        "header-a3b1e5970a41b683ea27cea43358b70d": null,
         "bg_color": "#ffffff",
         "heading_color": "#000000",
         "subheading_color": "#525252"
@@ -75,10 +75,10 @@
       "type": "cards-section",
       "disabled": true,
       "settings": {
-        "header-9187e02c0e57596558611e00a4d3861e": null,
+        "header-bb9ee6f7598d2a5fb31853eb071985fd": null,
         "heading": "Effektiv solskjerming for moderne hjem",
         "subheading": "Screenlux Zip-screen monteres utvendig og stopper opptil 95% av solvarmen før den treffer glasset. Resultatet er et kjøligere inneklima, mindre blending og bedre skjerming mot innsyn – samtidig som fasaden beholder et lett og moderne uttrykk.",
-        "header-c782b0332878047023b5dbda97fdc89e": null,
+        "header-bf4a0932f2fcce71013ac8d6ae55ad5c": null,
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
         "subheading_color": "#525252"
@@ -143,10 +143,10 @@
       "type": "cards-section",
       "disabled": false,
       "settings": {
-        "header-205814151840d07e95b3523927bb06bf": null,
+        "header-4cc856bd3ddf82601cefe10deb1eef10": null,
         "heading": "Effektiv solskjerming for moderne hjem",
         "subheading": "Screenlux Zip-screen monteres utvendig og stopper opptil 95% av solvarmen før den treffer glasset. Resultatet er et kjøligere inneklima, mindre blending og bedre skjerming mot innsyn – samtidig som fasaden beholder et lett og moderne uttrykk.",
-        "header-b5a06a827981117c6cf09357537c28b9": null,
+        "header-b29d5fbc0db0a06eb00cb2eddbaa122d": null,
         "bg_color": "#f5f5f5",
         "heading_color": "#000000",
         "subheading_color": "#525252"
@@ -226,8 +226,7 @@
     },
     "logo_bar": {
       "settings": {
-        "color_scheme": "scheme-2",
-        "image_badge": "shopify://shop_images/Screenlux_Designet_og_utviklet_i_Norge.png"
+        "color_scheme": "scheme-2"
       },
       "blocks": {}
     },
@@ -384,6 +383,14 @@
       },
       "blocks": {}
     },
+    "text_and_video_flawless_finish_G8EPjE": {
+      "settings": {
+        "heading": "Modærne SmartHome teknologi",
+        "description": "<p>Fungerer sømløst med Apple Home, Samsung SmartThings og Google Home. Kan også styres via Screenlux-appen (kommer snart!).</p>",
+        "video": "shopify://files/videos/Screenlux Smart Home - NO.mp4"
+      },
+      "blocks": {}
+    },
     "cards_section_w4dayx": {
       "settings": {
         "heading": "Pålitelig uansett vær",
@@ -426,14 +433,6 @@
         "card_PwDajx",
         "card_MYjQCQ"
       ]
-    },
-    "text_and_video_flawless_finish_G8EPjE": {
-      "settings": {
-        "heading": "Modærne SmartHome teknologi",
-        "description": "<p>Fungerer sømløst med Apple Home, Samsung SmartThings og Google Home. Kan også styres via Screenlux-appen (kommer snart!).</p>",
-        "video": "shopify://files/videos/Screenlux Smart Home - NO.mp4"
-      },
-      "blocks": {}
     },
     "installation_section_iNT83q": {
       "settings": {
@@ -536,22 +535,6 @@
             "answer": "<p>Den største fordelen er at screenen kan monteres uten elektrisk tilkobling. Det gjør installasjonen enklere, reduserer behovet for inngrep og gir større fleksibilitet.</p>"
           }
         },
-        "question_h633K": {
-          "type": "question",
-          "disabled": false,
-          "settings": {
-            "question": "Kan jeg montere selv?",
-            "answer": "<p>Ja, vi har utviklet produktene med fokus på enklere montering og tilbyr veiledning ved behov.</p>"
-          }
-        },
-        "question_CGGf4": {
-          "type": "question",
-          "disabled": false,
-          "settings": {
-            "question": "Hvorfor er dere rimeligere enn mange andre?",
-            "answer": "<p>Fordi vi har bygget en mer effektiv modell med digital konfigurering og færre fordyrende ledd.</p>"
-          }
-        },
         "question_qWpMiK": {
           "settings": {
             "question": "Hvorfor bruker dere Soltis Veozip?",
@@ -574,6 +557,22 @@
           "settings": {
             "question": "Kan jeg få hjelp før jeg bestiller?",
             "answer": "<p>Ja. Vi hjelper mer enn gjerne med tekniske spørsmål, produktvalg og vurderinger før kjøp.</p>"
+          }
+        },
+        "question_CGGf4": {
+          "type": "question",
+          "disabled": false,
+          "settings": {
+            "question": "Hvorfor er dere rimeligere enn mange andre?",
+            "answer": "<p>Fordi vi har bygget en mer effektiv modell med digital konfigurering og færre fordyrende ledd.</p>"
+          }
+        },
+        "question_h633K": {
+          "type": "question",
+          "disabled": false,
+          "settings": {
+            "question": "Kan jeg montere selv?",
+            "answer": "<p>Ja, vi har utviklet produktene med fokus på enklere montering og tilbyr veiledning ved behov.</p>"
           }
         }
       },
