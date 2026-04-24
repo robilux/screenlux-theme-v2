@@ -15,14 +15,15 @@
   "sections": {
     "footer_custom_YJARaj": {
       "settings": {
+        "tagline": "Utviklet i Norge. Uten fordyrende mellomledd.",
         "newsletter_enable": false,
-        "copyright_text": "Screenlux GmbH NUF, Org. Nr.: 937 112 912",
-        "tagline": "Utviklet i Norge. Uten fordyrende mellomledd."
+        "copyright_text": "Screenlux GmbH NUF, Org. Nr.: 937 112 912"
       },
       "blocks": {
         "link_column_JfyQA9": {
           "settings": {
-            "heading": "Om Screenlux"
+            "heading": "Om Screenlux",
+            "menu": "no-company"
           }
         },
         "link_column_TBGmEC": {
