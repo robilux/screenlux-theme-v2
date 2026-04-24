@@ -31,6 +31,11 @@
             "heading": "Hurtiglenker",
             "menu": "main-menu-no"
           }
+        },
+        "link_column_qMmGVc": {
+          "settings": {
+            "menu": "no-footer-contact"
+          }
         }
       }
     }
