@@ -59,7 +59,7 @@
       "name": "Slim Countdown",
       "settings": {
         "text": "Zip-Screen 2 Sale endet in:",
-        "countdown_date": "2026-04-22T23:59:59",
+        "countdown_date": "2026-04-31T23:59:59",
         "bg_color": "#1a1a1a",
         "text_color": "#ffffff",
         "show_icon": true,
