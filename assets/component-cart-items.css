@@ -470,10 +470,8 @@ cart-remove-button .icon-remove {
   
   .cart-item__media {
     display: flex !important;
-    justify-content: center;
-    background: #f9fafb;
-    border-radius: 8px;
-    padding: 12px;
+    justify-content: flex-start;
+    padding: 0;
     margin-bottom: 8px;
     width: 100% !important;
   }
@@ -481,7 +479,11 @@ cart-remove-button .icon-remove {
   .cart-item__media .cart-item__image-container {
     width: 100%;
     max-width: 150px;
-    justify-content: center;
+    justify-content: flex-start;
+  }
+  
+  .cart-item__image {
+    border-radius: 8px;
   }
 
   .cart-item__details {
