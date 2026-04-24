@@ -48,7 +48,7 @@ window.ScreenluxEngine = {
     if (!validation.valid) return 0;
 
     // 1. Base Price
-    let total = 37500; // 375€
+    let total = 44500; // 445€
 
     // Calculate dimensions
     const widthM = config.width / 1000;
@@ -56,17 +56,17 @@ window.ScreenluxEngine = {
     const sqm = widthM * heightM;
 
     // 2. Fabric Cost
-    const fabricPricePerSqm = config.fabricType === 'blackout' ? 6500 : 6500;
+    const fabricPricePerSqm = config.fabricType === 'blackout' ? 7400 : 7400;
     total += Math.round(sqm * fabricPricePerSqm);
 
     // 3. Size Cost (Width and Height)
-    const widthPrice = 9800; // €98.00 per meter
-    const heightPrice = 3800; // €38.00 per meter
+    const widthPrice = 11500; // €115.00 per meter
+    const heightPrice = 4500; // €45.00 per meter
     total += Math.round(widthM * widthPrice + heightM * heightPrice);
 
     // 4. Cassette Type Cost
     if (config.cassetteSize === 'large') {
-      total += parseInt((rules || {}).surcharge_cassette) || 4600;
+      total += parseInt((rules || {}).surcharge_cassette) || 5200;
     }
 
     // 5. Motor Surcharge
