@@ -66,7 +66,7 @@ window.ScreenluxEngine = {
 
     // 4. Cassette Type Cost
     if (config.cassetteSize === 'large') {
-      total += parseInt((rules || {}).surcharge_cassette) || 5200;
+      total += parseInt((rules || {}).surcharge_cassette) || 4600;
     }
 
     // 5. Motor Surcharge

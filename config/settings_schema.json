@@ -1506,7 +1506,7 @@
         "type": "number",
         "id": "configurator_surcharge_cassette",
         "label": "Cassette Surcharge (cents)",
-        "default": 5200
+        "default": 4600
       },
       {
         "type": "number",
