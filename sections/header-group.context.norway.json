@@ -22,7 +22,8 @@
     },
     "slim_countdown_UwipiV": {
       "settings": {
-        "text": "Lanseringssalget slutter om:"
+        "text": "Lanseringssalget slutter om:",
+        "countdown_date": "2026-04-31T23:59:59"
       },
       "blocks": {}
     }
