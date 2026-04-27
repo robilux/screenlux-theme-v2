@@ -402,8 +402,8 @@
       "blocks": {
         "card_XjWrHM": {
           "settings": {
-            "title": "Massivt 5200 mAh‑batteri",
-            "description": "Et kraftig 5200 mAh batteri gir opptil 30 dagers drift på én lading."
+            "title": "Automatisk lading med solcellepanel",
+            "description": "Solcellepanelet holder det kraftige batteriet ladet, så du slipper å tenke på lading. Med 5200 mAh har du massevis av kraft."
           }
         },
         "card_Jxyzid": {
@@ -439,8 +439,8 @@
     },
     "text_and_video_flawless_finish_G8EPjE": {
       "settings": {
-        "heading": "Modærne SmartHome teknologi",
-        "description": "<p>Fungerer sømløst med Apple Home, Samsung SmartThings og Google Home. Kan også styres via Screenlux-appen (kommer snart!).</p>",
+        "heading": "Moderne SmartHome teknologi",
+        "description": "<p>Matter teknologi sørger for at den fungerer sømløst med de aller fleste SmartHome løsninger, inkludert Apple Home, Samsung SmartThings og Google Home.</p>",
         "video": "shopify://files/videos/Screenlux Smart Home - NO.mp4"
       },
       "blocks": {}
