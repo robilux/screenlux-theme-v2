@@ -387,8 +387,8 @@
     },
     "flawless_finish_video": {
       "settings": {
-        "heading": "Solcelledrevet motor",
-        "description": "<p>En stillegående solcelldrevet motor sørger for at du kan nyte et kjøligere inneklima uten sjenerende motorlyd – helt uten strømtilkobling.</p>",
+        "heading": "Batteridrevet motor med solcellelading",
+        "description": "<p>En stillegående DC-motor drives av batteri som lades via solcellepanel – helt uten behov for fast strømtilkobling.</p>",
         "video": "shopify://files/videos/Screenlux screens down norwegian house loop.mp4",
         "fallback_image": "shopify://shop_images/screenlux_screens_moving_down_norway.jpg"
       },
