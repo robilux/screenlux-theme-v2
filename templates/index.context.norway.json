@@ -166,7 +166,7 @@
           "disabled": false,
           "settings": {
             "image": "shopify://shop_images/img-situations-bathroom.png",
-            "title": "Skermer mot innsyn",
+            "title": "Skjermer mot innsyn",
             "description": "Blackout‑duken hindrer innsyn – selv når lyset er på i rommet og det er mørkt ute."
           }
         },
@@ -244,7 +244,7 @@
     },
     "worlds_slimmest": {
       "settings": {
-        "heading": "Priskronet design",
+        "heading": "Prisvinnende design",
         "subheading": "Design som glir sømløst inn i fasaden, uansett om det er et klassisk trehus eller et moderne kontorbygg.",
         "hero_image": "shopify://shop_images/Screenlux-design.png",
         "badge_1": "shopify://shop_images/German_design_award_ec475510-1729-40a0-8cda-3dfe08ce7bf4.png",
@@ -292,7 +292,7 @@
         },
         "left_mid_3": {
           "settings": {
-            "label": "Showroom-kostnader",
+            "label": "Showroom og lager",
             "value": "💸💸"
           }
         },
@@ -338,6 +338,16 @@
             "badge": "Gratis"
           }
         },
+        "right_sales_line_KeEcng": {
+          "type": "right_sales_line",
+          "disabled": false,
+          "settings": {
+            "label": "<b>Produksjon</b>",
+            "value": "💸💸💸",
+            "badge": "",
+            "struck": false
+          }
+        },
         "right_sales_line_pkhzcr": {
           "type": "right_sales_line",
           "disabled": false,
@@ -370,6 +380,7 @@
         "left_del_3",
         "left_del_4",
         "right_sal_2",
+        "right_sales_line_KeEcng",
         "right_sales_line_pkhzcr",
         "right_sales_line_Gfk7hm"
       ]
