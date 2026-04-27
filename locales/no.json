@@ -551,12 +551,12 @@
     "switch_to_solar": "Bytt til solcelledrift",
     "installation_diy": {
       "title": "Selvmontering (DIY)",
-      "desc": "Uproblematisk montering med veiledning.\n• Solcelledrift: 30 min / screen\n• Kabeltilkoblet: 5 timer / screen",
+      "desc": "Enkel løsning med veiledning.\n• Smart for lett tilgjengelige vinduer\n• Solar gjør montasjen enda enklere\n• Full kontroll på kostnaden",
       "price": "Gratis"
     },
     "installation_professional": {
-      "title": "Profesjonell montering",
-      "desc": "La en av våre profesjonelle montører ta seg av installasjonen.",
+      "title": "Montering av fagfolk",
+      "desc": " Utføres av fagfolk gjennom vår monteringspartner.\n• Pris: Fra kr 1875,- pr screens (inkl mva)\n• Funksjonstest før overlevering\n• Tidspunkt avtales direkte etter bestilling\n• Reklamasjon følges opp raskt ved behov",
       "price": "+ 20.350 kr",
       "note": "Spar 12.000 kr ved å bytte til solcelledrevne screens."
     },
