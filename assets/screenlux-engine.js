@@ -89,19 +89,25 @@ window.ScreenluxEngine = {
    * @param {Array} variants - list of {id, price, sku} from ScreenluxData.screens
    * @returns {object|null} matching variant object
    */
-  matchVariant(calculatedPrice, variants) {
-    if (!variants || variants.length === 0) return null;
-    let closestVariant = variants[0];
-    let minDiff = Math.abs(closestVariant.price - calculatedPrice);
-    for (const variant of variants) {
-      if (!variant.title.includes('Zip-screen') && !variant.title.includes('Zip-Screen')) continue;
-      const diff = Math.abs(variant.price - calculatedPrice);
-      if (diff < minDiff) {
-        minDiff = diff;
-        closestVariant = variant;
-      }
+  matchVariant(rawPrice, variants) {
+    const targetCost = rawPrice;
+
+    // First try exact match on compare_at_price
+    const match = variants.find((v) => v.compare_at_price === targetCost);
+    if (match) return match;
+
+    // Fallback: find nearest by compare_at_price
+    const validVariants = variants.filter((v) => typeof v.compare_at_price === 'number');
+    if (validVariants.length > 0) {
+      return validVariants.reduce((prev, curr) => {
+        const prevDiff = Math.abs(prev.compare_at_price - targetCost);
+        const currDiff = Math.abs(curr.compare_at_price - targetCost);
+        return currDiff < prevDiff ? curr : prev;
+      });
     }
-    return closestVariant;
+
+    // Default fallback
+    return variants[0] || null;
   },
 
   /**
