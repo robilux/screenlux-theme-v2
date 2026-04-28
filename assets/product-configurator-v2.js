@@ -1391,10 +1391,11 @@ class ProductConfigurator extends HTMLElement {
     this.state.screens.forEach((s) => {
       const rawCost = window.ScreenluxEngine.calculateScreenPrice(s, this.data.config);
       const variant = window.ScreenluxEngine.matchVariant(rawCost, this.data.screens);
-      if (variant) {
-        screensTotal += variant.price;
-        oldScreensTotal += variant.compare_at_price || variant.price;
-      }
+      const price = variant ? variant.price : rawCost;
+      const compareAtPrice = variant && variant.compare_at_price > 0 ? variant.compare_at_price : price;
+      
+      screensTotal += price;
+      oldScreensTotal += compareAtPrice;
     });
 
     let installTotal = 0;
