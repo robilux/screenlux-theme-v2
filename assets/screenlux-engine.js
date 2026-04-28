@@ -48,7 +48,7 @@ window.ScreenluxEngine = {
     if (!validation.valid) return 0;
 
     // 1. Base Price
-    let total = 44500; // 445€
+    let total = 47500; // 475€
 
     // Calculate dimensions
     const widthM = config.width / 1000;
@@ -56,7 +56,7 @@ window.ScreenluxEngine = {
     const sqm = widthM * heightM;
 
     // 2. Fabric Cost
-    const fabricPricePerSqm = config.fabricType === 'blackout' ? 7400 : 7400;
+    const fabricPricePerSqm = config.fabricType === 'blackout' ? 8000 : 8000;
     total += Math.round(sqm * fabricPricePerSqm);
 
     // 3. Size Cost (Width and Height)
@@ -66,17 +66,17 @@ window.ScreenluxEngine = {
 
     // 4. Cassette Type Cost
     if (config.cassetteSize === 'large') {
-      total += parseInt((rules || {}).surcharge_cassette) || 4600;
+      total += 4600;
     }
 
     // 5. Motor Surcharge
     if (config.motor === 'solar') {
-      total += parseInt((rules || {}).surcharge_solar) || 13800;
+      total += 13800;
     }
 
     // 6. Currency Conversion
     if (rules && rules.currencyCode === 'NOK') {
-      const nokRate = parseFloat(rules.exchange_rate_nok) || 11.5;
+      const nokRate = 12;
       total = Math.round(total * nokRate);
     }
 
@@ -127,10 +127,11 @@ window.ScreenluxEngine = {
     // 1. Screens
     state.screens.forEach((screen, index) => {
       const rawPrice = this.calculateScreenPrice(screen, data.config);
-      const variant = this.matchVariant(rawPrice, data.screens);
+      // Find the BASE variant by SKU "SLX"
+      const variant = data.screens.find(v => v.sku === 'SLX') || data.screens[0];
 
       if (!variant) {
-        console.error('No matching price variant found for:', rawPrice);
+        console.error('No matching price variant found. Please create a variant with SKU SLX');
         return;
       }
 
@@ -138,6 +139,12 @@ window.ScreenluxEngine = {
         id: variant.id,
         quantity: 1,
         properties: {
+          '_slx_width': `${screen.width}`,
+          '_slx_height': `${screen.height}`,
+          '_slx_cassette': `${screen.cassetteSize}`,
+          '_slx_motor': `${screen.motor}`,
+          '_slx_fabric_type': `${screen.fabricType}`,
+          '_CalculatedPrice': `${rawPrice}`,
           '_Screen ID': index + 1,
           '_hide_variant': 'true',
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.reference) || 'Referenz']: `${(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.screenPrefix) || 'Screen'} ${index + 1}`,
@@ -148,7 +155,6 @@ window.ScreenluxEngine = {
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.fabricTransparency) || 'Stoff']: findTitle(data.fabrics, screen.fabricType),
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.cassetteSize) || 'Kassettengr\u00f6\u00dfe']: findTitle(data.cassetteSizes, screen.cassetteSize),
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.motor) || 'Antrieb']: findTitle(data.motorOptions, screen.motor),
-          //'_Calculated Price': `€${(rawPrice / 100).toFixed(2)}`,
         },
       });
     });
