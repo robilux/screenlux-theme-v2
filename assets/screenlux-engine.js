@@ -149,12 +149,6 @@ window.ScreenluxEngine = {
         id: variant.id,
         quantity: 1,
         properties: {
-          '_slx_width': `${screen.width}`,
-          '_slx_height': `${screen.height}`,
-          '_slx_cassette': `${screen.cassetteSize}`,
-          '_slx_motor': `${screen.motor}`,
-          '_slx_fabric_type': `${screen.fabricType}`,
-          '_CalculatedPrice': `${rawPrice}`,
           '_Screen ID': index + 1,
           '_hide_variant': 'true',
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.reference) || 'Referenz']: `${(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.screenPrefix) || 'Screen'} ${index + 1}`,
