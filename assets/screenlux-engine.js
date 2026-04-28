@@ -89,10 +89,19 @@ window.ScreenluxEngine = {
    * @param {Array} variants - list of {id, price, sku} from ScreenluxData.screens
    * @returns {object|null} matching variant object
    */
-  matchVariant(rawPrice, variants) {
-    // V2 Dynamic Pricing: Bypass variant snapping completely.
-    // The UI will now use the exact `rawPrice`.
-    return null;
+  matchVariant(calculatedPrice, variants) {
+    if (!variants || variants.length === 0) return null;
+    let closestVariant = variants[0];
+    let minDiff = Math.abs(closestVariant.price - calculatedPrice);
+    for (const variant of variants) {
+      if (!variant.title.includes('Zip-screen') && !variant.title.includes('Zip-Screen')) continue;
+      const diff = Math.abs(variant.price - calculatedPrice);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestVariant = variant;
+      }
+    }
+    return closestVariant;
   },
 
   /**
@@ -111,12 +120,12 @@ window.ScreenluxEngine = {
 
     // 1. Screens
     state.screens.forEach((screen, index) => {
+      // 1. Screens
       const rawPrice = this.calculateScreenPrice(screen, data.config);
-      // Find the BASE variant by SKU "SLX"
-      const variant = data.screens.find(v => v.sku === 'SLX') || data.screens[0];
+      const variant = this.matchVariant(rawPrice, data.screens);
 
       if (!variant) {
-        console.error('No matching price variant found. Please create a variant with SKU SLX');
+        console.error('No matching price variant found for price', rawPrice);
         return;
       }
 
