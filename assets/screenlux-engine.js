@@ -96,13 +96,23 @@ window.ScreenluxEngine = {
     const match = variants.find((v) => v.compare_at_price === targetCost);
     if (match) return match;
 
-    // Fallback: find nearest by compare_at_price
+    // Filter valid variants that have a number compare_at_price
     const validVariants = variants.filter((v) => typeof v.compare_at_price === 'number');
+
+    // Find all variants where compare_at_price >= targetCost (snap upwards)
+    const equalOrHigherVariants = validVariants.filter((v) => v.compare_at_price >= targetCost);
+
+    if (equalOrHigherVariants.length > 0) {
+      // Find the one with the smallest compare_at_price among the higher variants
+      return equalOrHigherVariants.reduce((prev, curr) => {
+        return curr.compare_at_price < prev.compare_at_price ? curr : prev;
+      });
+    }
+
+    // Fallback: if calculated price is higher than all variants, snap to the highest available variant
     if (validVariants.length > 0) {
       return validVariants.reduce((prev, curr) => {
-        const prevDiff = Math.abs(prev.compare_at_price - targetCost);
-        const currDiff = Math.abs(curr.compare_at_price - targetCost);
-        return currDiff < prevDiff ? curr : prev;
+        return curr.compare_at_price > prev.compare_at_price ? curr : prev;
       });
     }
 
