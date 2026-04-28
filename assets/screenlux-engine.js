@@ -90,24 +90,9 @@ window.ScreenluxEngine = {
    * @returns {object|null} matching variant object
    */
   matchVariant(rawPrice, variants) {
-    const targetCost = rawPrice;
-
-    // First try exact match on compare_at_price
-    const match = variants.find((v) => v.compare_at_price === targetCost);
-    if (match) return match;
-
-    // Fallback: find nearest by compare_at_price
-    const validVariants = variants.filter((v) => typeof v.compare_at_price === 'number');
-    if (validVariants.length > 0) {
-      return validVariants.reduce((prev, curr) => {
-        const prevDiff = Math.abs(prev.compare_at_price - targetCost);
-        const currDiff = Math.abs(curr.compare_at_price - targetCost);
-        return currDiff < prevDiff ? curr : prev;
-      });
-    }
-
-    // Default fallback
-    return variants[0] || null;
+    // V2 Dynamic Pricing: Bypass variant snapping completely.
+    // The UI will now use the exact `rawPrice`.
+    return null;
   },
 
   /**
