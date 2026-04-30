@@ -559,7 +559,9 @@
       "title": "Professional Installation",
       "desc": "Get the screen assembled by one of our professional installation companies.",
       "price": "+ 2350 €",
-      "note": "Save 1200 € by switching to Solar driven screens."
+      "note": "Save 1200 € by switching to Solar driven screens.",
+      "desc_estimated": "Estimated price. Our partner will contact you after ordering for confirmation.",
+      "note_savings": "Save ~ [SAVINGS] by switching to solar powered screens."
     },
     "brackets_title": "Installation brackets",
     "no_brackets": "No installation brackets available.",

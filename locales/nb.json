@@ -558,7 +558,9 @@
       "title": "Profesjonell montering",
       "desc": "La en av våre profesjonelle monteringspartnere installere screenen.",
       "price": "+ 23 500 kr",
-      "note": "Spar 12 000 kr ved å bytte til solcelledrevne screens."
+      "note": "Spar 12 000 kr ved å bytte til solcelledrevne screens.",
+      "desc_estimated": "Estimert pris. Vår partner vil kontakte deg etter bestilling for bekreftelse.",
+      "note_savings": "Spar ~ [SAVINGS] ved å bytte til solcelledrevne screens."
     },
     "brackets_title": "Monteringsbraketter",
     "no_brackets": "Ingen monteringsbraketter tilgjengelig.",

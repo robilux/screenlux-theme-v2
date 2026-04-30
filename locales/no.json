@@ -558,7 +558,9 @@
       "title": "Montering av fagfolk",
       "desc": " Utføres av fagfolk gjennom vår monteringspartner.\n• Pris: Fra kr 1875,- pr screens (inkl mva)\n• Funksjonstest før overlevering\n• Tidspunkt avtales direkte etter bestilling\n• Reklamasjon følges opp raskt ved behov",
       "price": "+ 20.350 kr",
-      "note": "Spar 12.000 kr ved å bytte til solcelledrevne screens."
+      "note": "Spar 12.000 kr ved å bytte til solcelledrevne screens.",
+      "desc_estimated": "Estimert pris. Vår partner vil kontakte deg etter bestilling for bekreftelse.",
+      "note_savings": "Spar ~ [SAVINGS] ved å bytte til solcelledrevne screens."
     },
     "brackets_title": "Monteringsbraketter",
     "no_brackets": "Ingen monteringsbraketter tilgjengelig.",

@@ -558,7 +558,9 @@
       "title": "Professionelle Montage",
       "desc": "Lass den Screen von einem unserer professionellen Montageunternehmen montieren.",
       "price": "+ 2350 €",
-      "note": "Spare 1200 €, indem du zu solarbetriebenen Screens wechselst."
+      "note": "Spare 1200 €, indem du zu solarbetriebenen Screens wechselst.",
+      "desc_estimated": "Geschätzter Preis. Unser Partner wird dich nach der Bestellung zur Bestätigung kontaktieren.",
+      "note_savings": "Spare ~ [SAVINGS] durch den Wechsel zu solarbetriebenen Screens."
     },
     "brackets_title": "Montagebügel",
     "no_brackets": "Keine Montagebügel verfügbar.",
