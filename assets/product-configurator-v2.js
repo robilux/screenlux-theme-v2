@@ -1116,12 +1116,9 @@ class ProductConfigurator extends HTMLElement {
     const allSolarEstForOptions = this.getEstimatedInstallationPrice(allSolarScreensForOptions);
     const savingsOptions = estInstallPrice > allSolarEstForOptions ? estInstallPrice - allSolarEstForOptions : 0;
 
-    const profDesc = window.ScreenluxTranslations.installationProfessional.desc_estimated || 'Geschätzter Preis. Unser Partner wird dich nach der Bestellung zur Bestätigung kontaktieren.';
+    const profDesc = window.ScreenluxTranslations.installationProfessional.desc;
     const profPriceFormat = `~ ${(estInstallPrice / 100).toFixed(0)} ${window.ScreenluxData?.config?.currencySymbol || '€'}`;
-    const profNote =
-      savingsOptions > 0
-        ? (window.ScreenluxTranslations.installationProfessional.note_savings || 'Spare ~ [SAVINGS] durch den Wechsel zu solarbetriebenen Screens.').replace('[SAVINGS]', `${(savingsOptions / 100).toFixed(0)} ${window.ScreenluxData?.config?.currencySymbol || '€'}`)
-        : '';
+    const profNote = savingsOptions > 0 ? window.ScreenluxTranslations.installationProfessional.note : '';
 
     // Installation type options
     const installationOptions = [
