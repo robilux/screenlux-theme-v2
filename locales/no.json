@@ -547,7 +547,7 @@
       "no_wall_drilling": "Ingen boring for strømtilkobling",
       "no_electrician": "Ingen elektriker nødvendig"
     },
-    "switch_to_solar": "Bytt til solar screens",
+    "switch_to_solar": "Bytt til solcelledrevne screens",
     "installation_diy": {
       "title": "Selvmontering (DIY)",
       "desc": "Enkel løsning med veiledning.\n• Smart for lett tilgjengelige vinduer\n• Solar gjør montasjen enda enklere\n• Full kontroll på kostnaden",
@@ -673,7 +673,7 @@
         }
       }
     },
-    "tip_footer_html": "Bytt til solar og spar tid og penger"
+    "tip_footer_html": "Bytt til solcelledrevne screens og spar tid og penger"
   },
   "shopify": {
     "checkout": {
