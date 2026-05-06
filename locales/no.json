@@ -674,5 +674,12 @@
         }
       }
     }
+  },
+  "shopify": {
+    "checkout": {
+      "order_summary": {
+        "vat_label_html": "inkl. %{amount} mva"
+      }
+    }
   }
 }
