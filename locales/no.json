@@ -681,7 +681,7 @@
         "vat_label_html": "inkl. %{amount} mva"
       },
       "payment_gateway": {
-        "bank_deposit_label": "Direkte bankoverføring"
+        "bank_deposit_label": "Bankoverføring"
       }
     }
   }
