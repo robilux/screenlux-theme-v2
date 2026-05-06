@@ -672,7 +672,8 @@
           "desc": "Tradisjonelt og trygt."
         }
       }
-    }
+    },
+    "tip_footer_html": "Bytt til solar og spar tid og penger"
   },
   "shopify": {
     "checkout": {
