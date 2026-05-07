@@ -662,7 +662,7 @@
         },
         "large": {
           "title": "Standard (120×120mm)",
-          "desc": "Unsere Standard-Kassette. Für Screens größer als 3000 x 2300 mm."
+          "desc": "Unsere Standard-Kassette. Für Screens bis zu 5000 x 3000 mm."
         }
       },
       "motorOptions": {
