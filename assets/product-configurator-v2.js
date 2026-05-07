@@ -427,6 +427,7 @@ class ProductConfigurator extends HTMLElement {
       cassetteSize: firstCassetteSize,
       motor: firstMotor,
       cableExit: firstCableExit,
+      mountingBracket: 'none',
       expanded: true,
       valid: true,
       errors: {},
@@ -996,7 +997,8 @@ class ProductConfigurator extends HTMLElement {
                const actualPrice = variant ? variant.price : raw;
                const compareAtPrice = (variant && variant.compare_at_price > 0) ? variant.compare_at_price : actualPrice;
                return { 
-                 ...opt, 
+                 ...opt,
+                 desc: opt.id !== 'none' ? `Sett med ${screen.height > 2700 ? 8 : 6}x ${opt.title.toLowerCase()}` : undefined,
                  extraPrice: Math.max(0, actualPrice - bases.price),
                  extraCompareAtPrice: Math.max(0, compareAtPrice - bases.compareAtPrice)
                };
