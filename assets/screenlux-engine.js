@@ -77,9 +77,9 @@ window.ScreenluxEngine = {
     // 5.5 Brackets (NO Market Only)
     if (rules && rules.currencyCode === 'NOK' && config.mountingBracket) {
       if (config.mountingBracket === 'fixed') {
-        total += 9200; // €92
+        total += 11500; // €115
       } else if (config.mountingBracket === 'flexible') {
-        total += 13800; // €138
+        total += 18100; // €181
       }
     }
 
