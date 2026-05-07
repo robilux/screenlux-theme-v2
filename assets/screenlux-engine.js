@@ -170,7 +170,7 @@ window.ScreenluxEngine = {
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.motor) || 'Antrieb']: findTitle(data.motorOptions, screen.motor),
           ...(screen.motor === 'wired' && screen.cableExit ? { [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.cableExit) || 'Kabelausgang']: findTitle(data.cableExitOptions, screen.cableExit) } : {}),
           ...((data.config && data.config.currencyCode === 'NOK' && screen.mountingBracket && screen.mountingBracket !== 'none') ? { 
-            [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.mountingBrackets) || 'Monteringsbraketter']: `Sett med ${screen.height > 2700 ? 8 : 6}x ${findTitle(data.bracketOptions, screen.mountingBracket)}`
+            [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.mountingBrackets) || 'Monteringsbraketter']: `${(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.setOf) || 'Sett med'} ${screen.height > 2700 ? 8 : 6}x ${findTitle(data.bracketOptions, screen.mountingBracket).replace(/ \\(sett\\)$/i, '').toLowerCase()}`
           } : {})
         },
       });

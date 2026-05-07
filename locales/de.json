@@ -609,7 +609,8 @@
       "motor": "Motor",
       "cable_exit_direction": "Richtung des Kabelausgangs",
       "cable_exit": "Kabelausgang",
-      "mounting_brackets": "Montagehalterungen"
+      "mounting_brackets": "Montagehalterungen",
+      "set_of": "Set mit"
     },
     "actions": {
       "remove_screen": "Screen entfernen",

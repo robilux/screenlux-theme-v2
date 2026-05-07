@@ -607,7 +607,8 @@
       "fabric_color": "Stofffarge",
       "fabric_transparency": "Stofftype",
       "motor": "Motor",
-      "mounting_brackets": "Monteringsbraketter"
+      "mounting_brackets": "Monteringsbraketter",
+      "set_of": "Sett med"
     },
     "actions": {
       "remove_screen": "Fjern screen",
@@ -679,10 +680,10 @@
           "title": "Ingen braketter (standard)"
         },
         "fixed": {
-          "title": "Fast brakett 50 mm"
+          "title": "Faste braketter 50 mm (sett)"
         },
         "flexible": {
-          "title": "Justerbar brakett 60-100 mm"
+          "title": "Justerbare braketter 60-100 mm (sett)"
         }
       }
     }

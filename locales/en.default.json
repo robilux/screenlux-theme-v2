@@ -607,7 +607,8 @@
       "motor": "Motor",
       "cable_exit_direction": "Cable exit direction",
       "cable_exit": "Cable exit",
-      "mounting_brackets": "Mounting brackets"
+      "mounting_brackets": "Mounting brackets",
+      "set_of": "Set of"
     },
     "actions": {
       "remove_screen": "Remove screen",
