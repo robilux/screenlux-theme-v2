@@ -604,7 +604,9 @@
       "frame_color": "Frame color",
       "fabric_color": "Fabric color",
       "fabric_transparency": "Fabric transparency",
-      "motor": "Motor"
+      "motor": "Motor",
+      "cable_exit_direction": "Cable exit direction",
+      "cable_exit": "Cable exit"
     },
     "actions": {
       "remove_screen": "Remove screen",
@@ -669,6 +671,28 @@
         "wired": {
           "title": "Wired screen",
           "desc": "Traditional and safe."
+        }
+      },
+      "cableExitOptions": {
+        "back": {
+          "title": "Back",
+          "desc": "Towards the wall"
+        },
+        "top": {
+          "title": "Top",
+          "desc": "Straight up"
+        },
+        "bottom": {
+          "title": "Bottom",
+          "desc": "Straight down"
+        },
+        "side": {
+          "title": "Side",
+          "desc": "Out the side"
+        },
+        "front": {
+          "title": "Front",
+          "desc": "Towards the front"
         }
       }
     }

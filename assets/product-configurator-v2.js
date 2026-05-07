@@ -400,6 +400,7 @@ class ProductConfigurator extends HTMLElement {
           fabricType: screen.fabricType,
           cassetteSize: screen.cassetteSize,
           motor: screen.motor,
+          cableExit: screen.cableExit,
         },
       }),
     );
@@ -414,6 +415,7 @@ class ProductConfigurator extends HTMLElement {
     const firstFabricType = this.data.fabrics?.length > 0 ? this.data.fabrics[0].id : null;
     const firstCassetteSize = this.data.cassetteSizes?.length > 0 ? this.data.cassetteSizes[0].id : null;
     const firstMotor = this.data.motorOptions?.length > 0 ? this.data.motorOptions[0].id : null;
+    const firstCableExit = this.data.cableExitOptions?.length > 0 ? this.data.cableExitOptions[0].id : 'back';
 
     this.state.screens.push({
       id: newId,
@@ -424,6 +426,7 @@ class ProductConfigurator extends HTMLElement {
       fabricType: firstFabricType,
       cassetteSize: firstCassetteSize,
       motor: firstMotor,
+      cableExit: firstCableExit,
       expanded: true,
       valid: true,
       errors: {},
@@ -819,6 +822,7 @@ class ProductConfigurator extends HTMLElement {
     const fabricTypes = mapExtraPrice('fabricType', this.data.fabrics);
     const cassetteSizes = mapExtraPrice('cassetteSize', this.data.cassetteSizes);
     const motorOptions = mapExtraPrice('motor', this.data.motorOptions);
+    const cableExitOptions = this.data.cableExitOptions || [];
 
     // --- Summary Data Preparation ---
     // Helper to get title or null if not selected
@@ -974,6 +978,9 @@ class ProductConfigurator extends HTMLElement {
 
            <!-- Motor Selector -->
            ${this.renderSelectionGrid(window.ScreenluxTranslations.options.motor, 'motor', motorOptions, screen.motor, index, 'image', 'vertical')}
+
+           <!-- Cable Exit Selector -->
+           ${screen.motor === 'wired' && cableExitOptions.length > 0 ? this.renderSelectionGrid(window.ScreenluxTranslations.options.cableExitDirection, 'cableExit', cableExitOptions, screen.cableExit, index, 'image', 'vertical') : ''}
            
            <!-- Actions -->
            <div class="margin-top-md" style="display:flex; justify-content: space-between; align-items: center;">

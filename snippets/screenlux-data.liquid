@@ -79,7 +79,9 @@
       frameColor: {{ 'configurator.options.frame_color' | t | json }},
       fabricColor: {{ 'configurator.options.fabric_color' | t | json }},
       fabricTransparency: {{ 'configurator.options.fabric_transparency' | t | json }},
-      motor: {{ 'configurator.options.motor' | t | json }}
+      motor: {{ 'configurator.options.motor' | t | json }},
+      cableExitDirection: {{ 'configurator.options.cable_exit_direction' | t | json }},
+      cableExit: {{ 'configurator.options.cable_exit' | t | json }}
     },
     actions: {
       removeScreen: {{ 'configurator.actions.remove_screen' | t | json }},
@@ -232,6 +234,13 @@
     motorOptions: [
       { id: 'wired', title: {{ 'configurator.data.motorOptions.wired.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.wired.desc' | t | json }}, image: {{ 'img-cassette-wired.png' | asset_img_url: '400x' | json }}, surcharge: 0 },
       { id: 'solar', title: {{ 'configurator.data.motorOptions.solar.title' | t | json }}, desc: {{ 'configurator.data.motorOptions.solar.desc' | t | json }}, image: {{ 'img-cassette-solar-panel.png' | asset_img_url: '400x' | json }}, surcharge: 13800 }
+    ],
+    cableExitOptions: [
+      { id: 'back', title: {{ 'configurator.data.cableExitOptions.back.title' | t | json }}, desc: {{ 'configurator.data.cableExitOptions.back.desc' | t | json }}, image: {{ 'img-swatch-cable-back.jpg' | asset_url | json }} },
+      { id: 'top', title: {{ 'configurator.data.cableExitOptions.top.title' | t | json }}, desc: {{ 'configurator.data.cableExitOptions.top.desc' | t | json }}, image: {{ 'img-swatch-cable-top.jpg' | asset_url | json }} },
+      { id: 'bottom', title: {{ 'configurator.data.cableExitOptions.bottom.title' | t | json }}, desc: {{ 'configurator.data.cableExitOptions.bottom.desc' | t | json }}, image: {{ 'img-swatch-cable-bottom.jpg' | asset_url | json }} },
+      { id: 'side', title: {{ 'configurator.data.cableExitOptions.side.title' | t | json }}, desc: {{ 'configurator.data.cableExitOptions.side.desc' | t | json }}, image: {{ 'img-swatch-cable-side.jpg' | asset_url | json }} },
+      { id: 'front', title: {{ 'configurator.data.cableExitOptions.front.title' | t | json }}, desc: {{ 'configurator.data.cableExitOptions.front.desc' | t | json }}, image: {{ 'img-swatch-cable-front.jpg' | asset_url | json }} }
     ],
 
     assets: {

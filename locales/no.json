@@ -605,7 +605,9 @@
       "fabric_transparency": "Stoffets transparens",
       "motor": "Motor",
       "reference": "Referanse",
-      "screen_prefix": "Screen"
+      "screen_prefix": "Screen",
+      "cable_exit_direction": "Retning på kabelutgang",
+      "cable_exit": "Kabelutgang"
     },
     "actions": {
       "remove_screen": "Fjern screen",
@@ -670,6 +672,28 @@
         "wired": {
           "title": "Kablet screen",
           "desc": "Tradisjonelt og trygt."
+        }
+      },
+      "cableExitOptions": {
+        "back": {
+          "title": "Bak",
+          "desc": "Mot vegg"
+        },
+        "top": {
+          "title": "Topp",
+          "desc": "Rett opp"
+        },
+        "bottom": {
+          "title": "Bunn",
+          "desc": "Rett ned"
+        },
+        "side": {
+          "title": "Side",
+          "desc": "Ut på siden"
+        },
+        "front": {
+          "title": "Front",
+          "desc": "Ut på forsiden"
         }
       }
     },

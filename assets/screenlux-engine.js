@@ -159,6 +159,7 @@ window.ScreenluxEngine = {
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.fabricTransparency) || 'Stoff']: findTitle(data.fabrics, screen.fabricType),
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.cassetteSize) || 'Kassettengr\u00f6\u00dfe']: findTitle(data.cassetteSizes, screen.cassetteSize),
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.motor) || 'Antrieb']: findTitle(data.motorOptions, screen.motor),
+          ...(screen.motor === 'wired' && screen.cableExit ? { [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.cableExit) || 'Kabelausgang']: findTitle(data.cableExitOptions, screen.cableExit) } : {}),
         },
       });
     });

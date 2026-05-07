@@ -606,7 +606,9 @@
       "frame_color": "Rahmenfarbe",
       "fabric_color": "Stofffarbe",
       "fabric_transparency": "Stofftransparenz",
-      "motor": "Motor"
+      "motor": "Motor",
+      "cable_exit_direction": "Richtung des Kabelausgangs",
+      "cable_exit": "Kabelausgang"
     },
     "actions": {
       "remove_screen": "Screen entfernen",
@@ -671,6 +673,28 @@
         "wired": {
           "title": "Kabelgebundener Screen",
           "desc": "Traditionell und sicher."
+        }
+      },
+      "cableExitOptions": {
+        "back": {
+          "title": "Hinten",
+          "desc": "Zur Wand"
+        },
+        "top": {
+          "title": "Oben",
+          "desc": "Gerade nach oben"
+        },
+        "bottom": {
+          "title": "Unten",
+          "desc": "Gerade nach unten"
+        },
+        "side": {
+          "title": "Seitlich",
+          "desc": "Zur Seite heraus"
+        },
+        "front": {
+          "title": "Vorne",
+          "desc": "Zur Vorderseite"
         }
       }
     }
