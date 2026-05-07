@@ -607,7 +607,8 @@
       "reference": "Referanse",
       "screen_prefix": "Screen",
       "cable_exit_direction": "Retning på kabelutgang",
-      "cable_exit": "Kabelutgang"
+      "cable_exit": "Kabelutgang",
+      "mounting_brackets": "Monteringsbraketter"
     },
     "actions": {
       "remove_screen": "Fjern screen",
@@ -694,6 +695,17 @@
         "front": {
           "title": "Front",
           "desc": "Ut på forsiden"
+        }
+      },
+      "bracketOptions": {
+        "none": {
+          "title": "Ingen braketter (standard)"
+        },
+        "fixed": {
+          "title": "Fast brakett 50 mm"
+        },
+        "flexible": {
+          "title": "Justerbar brakett 60-100 mm"
         }
       }
     },

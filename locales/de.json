@@ -608,7 +608,8 @@
       "fabric_transparency": "Stofftransparenz",
       "motor": "Motor",
       "cable_exit_direction": "Richtung des Kabelausgangs",
-      "cable_exit": "Kabelausgang"
+      "cable_exit": "Kabelausgang",
+      "mounting_brackets": "Montagehalterungen"
     },
     "actions": {
       "remove_screen": "Screen entfernen",
@@ -695,6 +696,17 @@
         "front": {
           "title": "Vorne",
           "desc": "Zur Vorderseite"
+        }
+      },
+      "bracketOptions": {
+        "none": {
+          "title": "Keine Halter (standard)"
+        },
+        "fixed": {
+          "title": "Fester Halter 50 mm"
+        },
+        "flexible": {
+          "title": "Verstellbarer Halter 60–100 mm"
         }
       }
     }

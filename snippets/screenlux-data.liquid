@@ -81,7 +81,8 @@
       fabricTransparency: {{ 'configurator.options.fabric_transparency' | t | json }},
       motor: {{ 'configurator.options.motor' | t | json }},
       cableExitDirection: {{ 'configurator.options.cable_exit_direction' | t | json }},
-      cableExit: {{ 'configurator.options.cable_exit' | t | json }}
+      cableExit: {{ 'configurator.options.cable_exit' | t | json }},
+      mountingBrackets: {{ 'configurator.options.mounting_brackets' | t | json }}
     },
     actions: {
       removeScreen: {{ 'configurator.actions.remove_screen' | t | json }},
@@ -242,8 +243,25 @@
       { id: 'side', title: {{ 'configurator.data.cableExitOptions.side.title' | t | json }}, desc: {{ 'configurator.data.cableExitOptions.side.desc' | t | json }}, image: {{ 'img-swatch-cable-side.jpg' | asset_url | json }} },
       { id: 'front', title: {{ 'configurator.data.cableExitOptions.front.title' | t | json }}, desc: {{ 'configurator.data.cableExitOptions.front.desc' | t | json }}, image: {{ 'img-swatch-cable-front.jpg' | asset_url | json }} }
     ],
+    bracketOptions: [
+      { id: 'none', title: {{ 'configurator.data.bracketOptions.none.title' | t | json }} },
+      { id: 'fixed', title: {{ 'configurator.data.bracketOptions.fixed.title' | t | json }} },
+      { id: 'flexible', title: {{ 'configurator.data.bracketOptions.flexible.title' | t | json }} }
+    ],
 
     assets: {
+      bracketImages: {
+        fixed: {
+          anthracite: {{ 'img-swatch-mounting-bracket-fixed-anthracite.png' | asset_url | json }},
+          white: {{ 'img-swatch-mounting-bracket-fixed-white.png' | asset_url | json }},
+          black: {{ 'img-swatch-mounting-bracket-fixed-black.png' | asset_url | json }}
+        },
+        flexible: {
+          anthracite: {{ 'img-swatch-mounting-bracket-flexible-anthracite.png' | asset_url | json }},
+          white: {{ 'img-swatch-mounting-bracket-flexible-white.png' | asset_url | json }},
+          black: {{ 'img-swatch-mounting-bracket-flexible-black.png' | asset_url | json }}
+        }
+      },
       german_badge: {{ 'img-gda26-winner-screenlux.png' | asset_url | json }},
       truck_icon: {{ 'icon-sl-truck.svg' | asset_url | json }},
       // Dynamic product images for all option combinations

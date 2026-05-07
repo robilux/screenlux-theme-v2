@@ -74,6 +74,15 @@ window.ScreenluxEngine = {
       total += 13800;
     }
 
+    // 5.5 Brackets (NO Market Only)
+    if (rules && rules.currencyCode === 'NOK' && config.mountingBracket) {
+      if (config.mountingBracket === 'fixed') {
+        total += 9200; // €92
+      } else if (config.mountingBracket === 'flexible') {
+        total += 13800; // €138
+      }
+    }
+
     // 6. Currency Conversion
     if (rules && rules.currencyCode === 'NOK') {
       const nokRate = 12;
@@ -160,6 +169,9 @@ window.ScreenluxEngine = {
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.cassetteSize) || 'Kassettengr\u00f6\u00dfe']: findTitle(data.cassetteSizes, screen.cassetteSize),
           [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.motor) || 'Antrieb']: findTitle(data.motorOptions, screen.motor),
           ...(screen.motor === 'wired' && screen.cableExit ? { [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.cableExit) || 'Kabelausgang']: findTitle(data.cableExitOptions, screen.cableExit) } : {}),
+          ...((data.config && data.config.currencyCode === 'NOK' && screen.mountingBracket && screen.mountingBracket !== 'none') ? { 
+            [(window.ScreenluxTranslations && window.ScreenluxTranslations.options && window.ScreenluxTranslations.options.mountingBrackets) || 'Monteringsbraketter']: `Sett med ${screen.height > 2700 ? 8 : 6}x ${findTitle(data.bracketOptions, screen.mountingBracket)}`
+          } : {})
         },
       });
     });
@@ -178,15 +190,7 @@ window.ScreenluxEngine = {
       }
     }
 
-    // 3. Brackets
-    Object.entries(state.brackets || {}).forEach(([id, qty]) => {
-      if (qty > 0) {
-        items.push({
-          id: parseInt(id),
-          quantity: qty,
-        });
-      }
-    });
+    // 3. Brackets (Removed - now handled per screen)
 
     // 4. Steuerung
     Object.entries(state.steuerung || {}).forEach(([id, qty]) => {

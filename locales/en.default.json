@@ -606,7 +606,8 @@
       "fabric_transparency": "Fabric transparency",
       "motor": "Motor",
       "cable_exit_direction": "Cable exit direction",
-      "cable_exit": "Cable exit"
+      "cable_exit": "Cable exit",
+      "mounting_brackets": "Mounting brackets"
     },
     "actions": {
       "remove_screen": "Remove screen",
@@ -693,6 +694,17 @@
         "front": {
           "title": "Front",
           "desc": "Towards the front"
+        }
+      },
+      "bracketOptions": {
+        "none": {
+          "title": "None (standard)"
+        },
+        "fixed": {
+          "title": "Fixed bracket 50 mm"
+        },
+        "flexible": {
+          "title": "Flexible bracket 60-100 mm"
         }
       }
     }

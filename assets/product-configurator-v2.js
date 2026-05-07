@@ -677,11 +677,7 @@ class ProductConfigurator extends HTMLElement {
     // 4. Installation Section
     container.appendChild(this.renderInstallationSection());
 
-    // 5. Brackets Section
-    const bracketsSection = this.renderExtraSection('brackets', window.ScreenluxTranslations.bracketsTitle, window.ScreenluxTranslations.noBrackets, true);
-    if (bracketsSection) {
-      container.appendChild(bracketsSection);
-    }
+    // 5. Brackets Section removed
 
     // 6. Steuerung Section
     container.appendChild(this.renderExtraSection('steuerung', window.ScreenluxTranslations.steuerungTitle, window.ScreenluxTranslations.noSteuerung));
@@ -981,6 +977,41 @@ class ProductConfigurator extends HTMLElement {
 
            <!-- Cable Exit Selector -->
            ${screen.motor === 'wired' && cableExitOptions.length > 0 ? this.renderSelectionGrid(window.ScreenluxTranslations.options.cableExitDirection, 'cableExit', cableExitOptions, screen.cableExit, index, 'image', 'vertical') : ''}
+           
+           <!-- Mounting Bracket Selector (NO Market Only) -->
+           ${(window.ScreenluxData.config && window.ScreenluxData.config.currencyCode === 'NOK') ? (() => {
+             const frameColor = screen.frameColor || 'anthracite';
+             const bracketOptions = (this.data.bracketOptions || []).map(opt => {
+               let img = null;
+               if (opt.id !== 'none' && this.data.assets && this.data.assets.bracketImages && this.data.assets.bracketImages[opt.id]) {
+                 img = this.data.assets.bracketImages[opt.id][frameColor];
+               }
+               return { ...opt, image: img };
+             });
+             
+             const bases = getBasePrices('mountingBracket', bracketOptions);
+             const bracketOptionsWithPrice = bracketOptions.map(opt => {
+               const raw = window.ScreenluxEngine.calculateScreenPrice({ ...screen, mountingBracket: opt.id }, this.data.config);
+               const variant = window.ScreenluxEngine.matchVariant(raw, this.data.screens);
+               const actualPrice = variant ? variant.price : raw;
+               const compareAtPrice = (variant && variant.compare_at_price > 0) ? variant.compare_at_price : actualPrice;
+               return { 
+                 ...opt, 
+                 extraPrice: Math.max(0, actualPrice - bases.price),
+                 extraCompareAtPrice: Math.max(0, compareAtPrice - bases.compareAtPrice)
+               };
+             });
+
+             return this.renderSelectionGrid(
+               window.ScreenluxTranslations.options.mountingBrackets || 'Monteringsbraketter',
+               'mountingBracket',
+               bracketOptionsWithPrice,
+               screen.mountingBracket,
+               index,
+               'image',
+               'vertical'
+             );
+           })() : ''}
            
            <!-- Actions -->
            <div class="margin-top-md" style="display:flex; justify-content: space-between; align-items: center;">
@@ -1420,12 +1451,6 @@ class ProductConfigurator extends HTMLElement {
     }
 
     let bracketsTotal = 0;
-    if (this.state.brackets) {
-      Object.entries(this.state.brackets).forEach(([id, qty]) => {
-        const product = this.data.brackets.find((p) => p.id == id);
-        if (product) bracketsTotal += product.price * qty;
-      });
-    }
 
     let steuerungTotal = 0;
     if (this.state.steuerung) {
@@ -1554,8 +1579,7 @@ class ProductConfigurator extends HTMLElement {
     }
     list.appendChild(screensCategory);
 
-    // 1.5 Brackets Categories
-    this.renderExtraCategorySummary(list, totals.bracketsTotal, 'brackets', window.ScreenluxTranslations.orderSummary.brackets, 'bracketsExpanded');
+    // 1.5 Brackets Categories removed
 
     // 2. Steuerung Categories
     this.renderExtraCategorySummary(list, totals.steuerungTotal, 'steuerung', window.ScreenluxTranslations.orderSummary.steuerung, 'steuerungExpanded');
@@ -1579,7 +1603,7 @@ class ProductConfigurator extends HTMLElement {
     if (totals.installTotal > 0 && this.state.installationType === 'diy') {
       const installCategory = document.createElement('div');
       installCategory.className = `summary-category ${this.state.installationExpanded ? 'expanded' : ''}`;
-      const label = window.ScreenluxTranslations.orderSummary.brackets || 'Montagebügel';
+      const label = window.ScreenluxTranslations.orderSummary.installation || 'Montage';
 
       const installHeader = document.createElement('div');
       installHeader.className = 'summary-row category-header';

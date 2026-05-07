@@ -606,7 +606,8 @@
       "frame_color": "Rammefarge",
       "fabric_color": "Stofffarge",
       "fabric_transparency": "Stofftype",
-      "motor": "Motor"
+      "motor": "Motor",
+      "mounting_brackets": "Monteringsbraketter"
     },
     "actions": {
       "remove_screen": "Fjern screen",
@@ -671,6 +672,17 @@
         "wired": {
           "title": "Kablet",
           "desc": "Tradisjonell og pålitelig."
+        }
+      },
+      "bracketOptions": {
+        "none": {
+          "title": "Ingen braketter (standard)"
+        },
+        "fixed": {
+          "title": "Fast brakett 50 mm"
+        },
+        "flexible": {
+          "title": "Justerbar brakett 60-100 mm"
         }
       }
     }
