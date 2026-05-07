@@ -680,10 +680,10 @@
           "title": "Ingen braketter (standard)"
         },
         "fixed": {
-          "title": "Faste braketter 50 mm (sett)"
+          "title": "Faste braketter 50 mm"
         },
         "flexible": {
-          "title": "Justerbare braketter 60-100 mm (sett)"
+          "title": "Justerbare braketter 60-100 mm"
         }
       }
     }

@@ -998,7 +998,7 @@ class ProductConfigurator extends HTMLElement {
                const compareAtPrice = (variant && variant.compare_at_price > 0) ? variant.compare_at_price : actualPrice;
                return { 
                  ...opt,
-                 desc: opt.id !== 'none' ? `${window.ScreenluxTranslations.options.setOf || 'Sett med'} ${screen.height > 2700 ? 8 : 6}x ${opt.title.replace(/ \\(sett\\)$/i, '').toLowerCase()}` : undefined,
+                 desc: opt.id !== 'none' ? `${window.ScreenluxTranslations.options.setOf || 'Sett med'} ${screen.height > 2700 ? 8 : 6}x ${opt.title.toLowerCase()}` : undefined,
                  extraPrice: Math.max(0, actualPrice - bases.price),
                  extraCompareAtPrice: Math.max(0, compareAtPrice - bases.compareAtPrice)
                };
