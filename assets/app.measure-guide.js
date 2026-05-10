@@ -200,6 +200,7 @@ const MeasureApp = () => {
       <div class="measure-header">
         <h1>Velg vindustype</h1>
       </div>
+      ${renderProgressBar()}
       <div class="measure-content options-grid">
         <div class="option-card ${draftWindow.type === 'Uten ramme' ? 'selected' : ''}" 
              onClick=${() => setDraftWindow({...draftWindow, type: 'Uten ramme'})}>
@@ -231,6 +232,7 @@ const MeasureApp = () => {
       <div class="measure-header">
         <h1>Innvendig eller utvendig montering?</h1>
       </div>
+      ${renderProgressBar()}
       <div class="measure-content options-grid">
         <div class="option-card ${draftWindow.mountType === 'Innvendig' ? 'selected' : ''}" 
              onClick=${() => setDraftWindow({...draftWindow, mountType: 'Innvendig'})}>
@@ -257,6 +259,7 @@ const MeasureApp = () => {
       <div class="measure-header">
         <h1>Mål bredden</h1>
       </div>
+      ${renderProgressBar()}
       <div class="measure-content">
         <div class="instruction-image">
           <img src=${window.MeasureAppConfig.assets.measureWidth} alt="Mål bredde" />
@@ -291,6 +294,7 @@ const MeasureApp = () => {
       <div class="measure-header">
         <h1>Mål høyden</h1>
       </div>
+      ${renderProgressBar()}
       <div class="measure-content">
         <div class="instruction-image">
           <img src=${window.MeasureAppConfig.assets.measureHeight} alt="Mål høyde" />
@@ -334,6 +338,7 @@ const MeasureApp = () => {
       <div class="measure-header">
         <h1>Gi vinduet ditt et navn og et bilde for å holde orden</h1>
       </div>
+      ${renderProgressBar()}
       <div class="measure-content">
         <div class="input-group">
           <label class="field-label">Navn (valgfritt)</label>
@@ -398,7 +403,6 @@ const MeasureApp = () => {
   // Main Render Switch
   return html`
     <div class="measure-app-wrapper">
-      ${renderProgressBar()}
       ${renderCurrentStep()}
     </div>
   `;
