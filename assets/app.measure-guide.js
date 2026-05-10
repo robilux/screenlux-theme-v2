@@ -172,7 +172,7 @@ const MeasureApp = () => {
                     <p style="margin: 0; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">Bredde (T/M/B): ${win.widthTop || '?'} / ${win.widthMiddle || '?'} / ${win.widthBottom || '?'} mm</p>
                     <p style="margin: 0; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">Høyde (V/H): ${win.heightLeft || '?'} / ${win.heightRight || '?'} mm</p>
                     ${win.type ? html`<p style="margin: 0; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">${win.type === 'Uten ramme' ? 'Vindu uten ramme eller vannbord i topp' : win.type === 'Med vannbord' ? 'Vindu med vannbord og/eller omramming' : 'Skyvedør eller andre typer'}</p>` : ''}
-                    ${win.mountType ? html`<p style="margin: 0; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">${win.mountType === 'Innvendig' ? 'Zip-Screen monteres INNI nisje' : 'Zip-Screen monteres UTENPÅ omramming / på vegg'}</p>` : ''}
+                    ${win.mountType ? html`<p style="margin: 0; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">${win.mountType === 'Innvendig' ? 'Zip-Screen monteres INNI nisje' : 'Zip-Screen monteres UTENFOR nisje'}</p>` : ''}
                   </div>
                 </div>
                 <div class="window-card-actions">
@@ -240,7 +240,7 @@ const MeasureApp = () => {
         <div class="option-card ${draftWindow.mountType === 'Utvendig' ? 'selected' : ''}"
              onClick=${() => setDraftWindow({...draftWindow, mountType: 'Utvendig'})}>
           <img src=${window.MeasureAppConfig.assets.zipScreenUtenpaa} alt="Montering utenpå" />
-          <h3>Zip-Screen monteres UTENPÅ omramming / på vegg</h3>
+          <h3>Zip-Screen monteres UTENFOR nisje</h3>
         </div>
       </div>
       <div class="measure-footer measure-footer-buttons">
