@@ -65,11 +65,12 @@
 }
 
 .ruler-icon-wrapper {
-  background: rgba(var(--color-button), 0.1);
   color: rgb(var(--color-button));
-  width: 64px;
-  height: 64px;
+  background: transparent;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
+  border: 1px solid rgb(var(--color-button));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,24 +78,35 @@
 }
 
 .ruler-icon-wrapper svg {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
+}
+
+.requirements-box {
+  background: rgba(var(--color-foreground), 0.02);
+  border: 1px solid rgba(var(--color-foreground), 0.05);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
 }
 
 .info-list {
   text-align: left;
-  background: rgba(var(--color-foreground), 0.03);
-  padding: 20px 20px 20px 40px;
-  border-radius: 8px;
-  margin: 24px 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .info-list li {
-  margin-bottom: 12px;
-  font-size: 16px;
-}
-.info-list li:last-child {
   margin-bottom: 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(var(--color-foreground), 0.8);
 }
 
 /* Buttons */

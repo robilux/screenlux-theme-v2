@@ -41,6 +41,13 @@ const UploadIcon = () => html`
   </svg>
 `;
 
+const CheckCircleIcon = () => html`
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+  </svg>
+`;
+
 // App Component
 const MeasureApp = () => {
   // State
@@ -120,18 +127,21 @@ const MeasureApp = () => {
   // Step renderers
   const renderStart = () => html`
     <div class="measure-container">
-      <div class="measure-header">
-        <h1>Oppmålingsguide</h1>
-      </div>
       <div class="measure-card intro-card">
         <div class="ruler-icon-wrapper"><${RulerIcon} /></div>
-        <h2>Det du trenger:</h2>
-        <ul class="info-list">
-          <li>Målebånd (helst stål/laser)</li>
-          <li>Noe å skrive på/med</li>
-          <li>Omtrent 5-10 minutter</li>
-        </ul>
-        <button class="measure-btn primary full-width" onClick=${() => setStep('overview')}>Start oppmåling</button>
+        <div class="measure-header" style="text-align: center; border-bottom: none; padding-bottom: 0;">
+          <h1>Mål vinduene dine</h1>
+          <p style="color: rgba(var(--color-foreground), 0.7); line-height: 1.5; margin-top: 12px;">Få den perfekte passformen for dine zip-screens med noen få enkle trinn. Vi veileder deg gjennom målingen av hvert vindu for å sikre riktige mål.</p>
+        </div>
+        <div class="requirements-box">
+          <h2 style="text-align: center; font-size: 18px; margin-bottom: 16px;">Det du trenger:</h2>
+          <ul class="info-list">
+            <li><${CheckCircleIcon} /> Målebånd eller lasermåler</li>
+            <li><${CheckCircleIcon} /> En mobiltelefon</li>
+            <li><${CheckCircleIcon} /> 5-10 minutter per vindu</li>
+          </ul>
+        </div>
+        <button class="button--brand full-width" style="margin-top: 24px;" onClick=${() => setStep('overview')}>Start nå!</button>
       </div>
     </div>
   `;
