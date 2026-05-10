@@ -403,7 +403,9 @@ const MeasureApp = () => {
   // Main Render Switch
   return html`
     <div class="measure-app-wrapper">
-      ${renderCurrentStep()}
+      <div key=${step} class="measure-step-animate">
+        ${renderCurrentStep()}
+      </div>
     </div>
   `;
 };
