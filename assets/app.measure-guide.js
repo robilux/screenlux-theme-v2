@@ -221,7 +221,7 @@ const MeasureApp = () => {
         <button class="button--brand-secondary" onClick=${() => setStep('overview')}>Tilbake</button>
         <button class="button--brand" 
                 disabled=${!draftWindow.type}
-                onClick=${() => setStep('mount')}>Neste</button>
+                onClick=${() => setStep('width')}>Neste</button>
       </div>
     </div>
   `;
@@ -244,10 +244,10 @@ const MeasureApp = () => {
         </div>
       </div>
       <div class="measure-footer measure-footer-buttons">
-        <button class="button--brand-secondary" onClick=${() => setStep('type')}>Tilbake</button>
+        <button class="button--brand-secondary" onClick=${() => setStep('height')}>Tilbake</button>
         <button class="button--brand" 
                 disabled=${!draftWindow.mountType}
-                onClick=${() => setStep('width')}>Neste</button>
+                onClick=${() => setStep('name')}>Neste</button>
       </div>
     </div>
   `;
@@ -278,7 +278,7 @@ const MeasureApp = () => {
         </div>
       </div>
       <div class="measure-footer measure-footer-buttons">
-        <button class="button--brand-secondary" onClick=${() => setStep('mount')}>Tilbake</button>
+        <button class="button--brand-secondary" onClick=${() => setStep('type')}>Tilbake</button>
         <button class="button--brand" 
                 disabled=${!draftWindow.widthTop || !draftWindow.widthMiddle || !draftWindow.widthBottom}
                 onClick=${() => setStep('height')}>Neste</button>
@@ -310,7 +310,7 @@ const MeasureApp = () => {
         <button class="button--brand-secondary" onClick=${() => setStep('width')}>Tilbake</button>
         <button class="button--brand" 
                 disabled=${!draftWindow.heightLeft || !draftWindow.heightRight}
-                onClick=${() => setStep('name')}>Neste</button>
+                onClick=${() => setStep('mount')}>Neste</button>
       </div>
     </div>
   `;
