@@ -7,6 +7,29 @@
   color: var(--color-foreground);
 }
 
+/* Progress Bar */
+.measure-progress-bar {
+  width: 100vw;
+  height: 6px;
+  background: #E5E8F9;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  margin-top: -40px;
+  margin-bottom: 34px;
+}
+
+.measure-progress-fill {
+  height: 100%;
+  background: var(--color-primary, #4F46E5); /* fallback to a nice blue if not defined */
+  background: rgb(var(--color-button));
+  transition: width 0.3s ease;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
 .measure-container {
   background: rgb(var(--color-background));
   border-radius: 12px;

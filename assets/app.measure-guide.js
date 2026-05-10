@@ -362,17 +362,46 @@ const MeasureApp = () => {
     </div>
   `;
 
+  const getProgress = () => {
+    switch(step) {
+      case 'type': return 20;
+      case 'width': return 40;
+      case 'height': return 60;
+      case 'mount': return 80;
+      case 'name': return 100;
+      default: return 0;
+    }
+  };
+
+  const renderProgressBar = () => {
+    if (['start', 'overview'].includes(step)) return null;
+    return html`
+      <div class="measure-progress-bar">
+        <div class="measure-progress-fill" style="width: ${getProgress()}%"></div>
+      </div>
+    `;
+  };
+
+  const renderCurrentStep = () => {
+    switch(step) {
+      case 'start': return renderStart();
+      case 'overview': return renderOverview();
+      case 'type': return renderTypeSelection();
+      case 'width': return renderWidth();
+      case 'height': return renderHeight();
+      case 'mount': return renderMountSelection();
+      case 'name': return renderName();
+      default: return renderStart();
+    }
+  };
+
   // Main Render Switch
-  switch(step) {
-    case 'start': return renderStart();
-    case 'overview': return renderOverview();
-    case 'type': return renderTypeSelection();
-    case 'mount': return renderMountSelection();
-    case 'width': return renderWidth();
-    case 'height': return renderHeight();
-    case 'name': return renderName();
-    default: return renderStart();
-  }
+  return html`
+    <div class="measure-app-wrapper">
+      ${renderProgressBar()}
+      ${renderCurrentStep()}
+    </div>
+  `;
 };
 
 // Mount the App
