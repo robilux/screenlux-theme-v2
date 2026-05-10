@@ -188,7 +188,7 @@ const MeasureApp = () => {
           <hr class="measure-divider" />
           
           <div class="measure-footer" style="padding: 24px 0 0 0; border: none; background: none; margin-top: 0;">
-            <button class="button--brand full-width" onClick=${() => { alert('Konfigurer screens'); }}>Konfigurer screens</button>
+            <button class="button--brand full-width" style="width: 100%;" onClick=${() => { alert('Konfigurer screens'); }}>Konfigurer screens</button>
           </div>
         `}
       </div>
