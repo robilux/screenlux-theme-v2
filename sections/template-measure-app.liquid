@@ -1,0 +1,34 @@
+{{ 'measure-app.css' | asset_url | stylesheet_tag }}
+
+<div id="measure-app-root"></div>
+
+<script type="module">
+  // Pass configuration and liquid assets to the app
+  window.MeasureAppConfig = {
+    assets: {
+      windowUtenRamme: {{ 'Screenlux-window-uten-ramme.png' | asset_url | json }},
+      windowMedVannbord: {{ 'Screenlux-window-med-vannbord.png' | asset_url | json }},
+      windowSkyvedor: {{ 'Screenlux-window-skyvedor-eller-andre-typer.png' | asset_url | json }},
+      measureWidth: {{ 'vindu-uten-ramme-measure-width.png' | asset_url | json }},
+      measureHeight: {{ 'vindu-uten-ramme-measure-height.png' | asset_url | json }},
+      zipScreenInni: {{ 'zip-screen-inni.png' | asset_url | json }},
+      zipScreenUtenpaa: {{ 'zip-screen-utenpaa.png' | asset_url | json }}
+    }
+  };
+</script>
+
+<script type="module" src="{{ 'app.measure-guide.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Measure App",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Measure App"
+    }
+  ]
+}
+{% endschema %}
