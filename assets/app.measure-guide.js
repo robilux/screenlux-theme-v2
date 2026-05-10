@@ -381,8 +381,10 @@ const MeasureApp = () => {
   const renderProgressBar = () => {
     if (['start', 'overview'].includes(step)) return null;
     return html`
-      <div class="measure-progress-bar">
-        <div class="measure-progress-fill measure-progress-${getProgress()}"></div>
+      <div class="measure-progress-bar" style="width: 100%; height: 6px; background: #E5E8F9; border-radius: 3px; overflow: hidden;">
+        <div class="measure-progress-fill" 
+             ref=${el => { if (el) { el.style.width = getProgress() + '%'; el.style.height = '100%'; el.style.backgroundColor = '#5B5BF9'; } }}>
+        </div>
       </div>
     `;
   };
