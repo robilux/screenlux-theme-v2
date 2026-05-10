@@ -153,9 +153,12 @@ const MeasureApp = () => {
                   <div class="window-card-image">
                     <img src=${win.image || window.MeasureAppConfig.assets.windowUtenRamme} alt="Vindu" />
                   </div>
-                  <div class="window-card-details">
-                    <h3>${win.name || `Vindu ${i + 1}`}</h3>
-                    <p>${Math.min(win.widthTop, win.widthMiddle, win.widthBottom) || '?'} × ${Math.min(win.heightLeft, win.heightRight) || '?'} mm</p>
+                  <div class="window-card-details" style="display: flex; flex-direction: column; gap: 4px;">
+                    <h3 style="margin: 0;">${win.name || `Vindu ${i + 1}`}</h3>
+                    <p style="margin: 0; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">Bredde (T/M/B): ${win.widthTop || '?'} / ${win.widthMiddle || '?'} / ${win.widthBottom || '?'} mm</p>
+                    <p style="margin: 0; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">Høyde (V/H): ${win.heightLeft || '?'} / ${win.heightRight || '?'} mm</p>
+                    ${win.type ? html`<p style="margin: 0; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">${win.type === 'Uten ramme' ? 'Vindu uten ramme eller vannbord i topp' : win.type === 'Med vannbord' ? 'Vindu med vannbord og/eller omramming' : 'Skyvedør eller andre typer'}</p>` : ''}
+                    ${win.mountType ? html`<p style="margin: 0; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">${win.mountType === 'Innvendig' ? 'Zip-Screen monteres INNI nisje' : 'Zip-Screen monteres UTENPÅ omramming / på vegg'}</p>` : ''}
                   </div>
                 </div>
                 <div class="window-card-actions">
