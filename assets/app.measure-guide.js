@@ -144,7 +144,7 @@ const MeasureApp = () => {
       <div class="measure-content">
         ${windows.length === 0 ? html`
           <p class="empty-state">Kom i gang og legg til ditt første vindu!</p>
-          <button class="btn-add-extra full-width" onClick=${startNewWindow}>+ Legg til vindu</button>
+          <button class="dashed-add-btn full-width" onClick=${startNewWindow}>+ Legg til vindu</button>
         ` : html`
           <div class="windows-list">
             ${windows.map((win, i) => html`
@@ -166,10 +166,12 @@ const MeasureApp = () => {
               </div>
             `)}
           </div>
-          <button class="btn-add-extra full-width" onClick=${startNewWindow}>+ Legg til et til</button>
+          <button class="dashed-add-btn full-width" onClick=${startNewWindow}>+ Legg til et til</button>
           
-          <div class="measure-footer" style="padding: 24px 0 0 0; border: none; background: none; margin-top: 16px;">
-            <button class="button--brand full-width" onClick=${() => { alert('Konfigurer screens'); }}>Konfigurer screens for vinduer</button>
+          <hr class="measure-divider" />
+          
+          <div class="measure-footer" style="padding: 24px 0 0 0; border: none; background: none; margin-top: 0;">
+            <button class="button--brand full-width" onClick=${() => { alert('Konfigurer screens'); }}>Konfigurer screens</button>
           </div>
         `}
       </div>

@@ -381,6 +381,12 @@
   font-size: 15px;
 }
 
+.measure-divider {
+  border: 0;
+  border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  margin: 32px 0 0 0;
+}
+
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   #measure-app-root {
