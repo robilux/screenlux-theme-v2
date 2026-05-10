@@ -188,7 +188,7 @@
 
 .option-card {
   border: 1px solid #E5E7EB;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 16px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -203,8 +203,8 @@
 }
 
 .option-card.selected {
-  border-color: rgb(var(--color-button));
-  box-shadow: inset 0 0 0 1px rgb(var(--color-button));
+  border-color: var(--sl-color-primary, #5B5BF9);
+  box-shadow: inset 0 0 0 1px var(--sl-color-primary, #5B5BF9);
   background: #FAFAFF;
 }
 
