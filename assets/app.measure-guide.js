@@ -29,6 +29,21 @@ const TrashIcon = () => html`
   </svg>
 `;
 
+const CopyIcon = () => html`
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+  </svg>
+`;
+
+const UploadIcon = () => html`
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+    <polyline points="17 8 12 3 7 8"></polyline>
+    <line x1="12" y1="3" x2="12" y2="15"></line>
+  </svg>
+`;
+
 // App Component
 const MeasureApp = () => {
   // State
@@ -86,6 +101,13 @@ const MeasureApp = () => {
     }
   };
 
+  const duplicateWindow = (id) => {
+    const win = windows.find(w => w.id === id);
+    if (win) {
+      saveToStorage([...windows, { ...win, id: Date.now().toString(), name: win.name ? win.name + ' (Kopi)' : '' }]);
+    }
+  };
+
   // Step renderers
   const renderStart = () => html`
     <div class="measure-container">
@@ -112,7 +134,8 @@ const MeasureApp = () => {
       </div>
       <div class="measure-content">
         ${windows.length === 0 ? html`
-          <p class="empty-state">Du har ikke lagt til noen vinduer enda.</p>
+          <p class="empty-state">Kom i gang og legg til ditt første vindu!</p>
+          <button class="dashed-add-btn full-width" onClick=${startNewWindow}>+ Legg til vindu</button>
         ` : html`
           <div class="windows-list">
             ${windows.map((win, i) => html`
@@ -123,18 +146,23 @@ const MeasureApp = () => {
                   </div>
                   <div class="window-card-details">
                     <h3>${win.name || `Vindu ${i + 1}`}</h3>
-                    <p>${win.type} • B: ${Math.min(win.widthTop, win.widthMiddle, win.widthBottom) || '?'} mm • H: ${Math.min(win.heightLeft, win.heightRight) || '?'} mm</p>
+                    <p>${Math.min(win.widthTop, win.widthMiddle, win.widthBottom) || '?'} × ${Math.min(win.heightLeft, win.heightRight) || '?'} mm</p>
                   </div>
                 </div>
                 <div class="window-card-actions">
                   <button class="text-btn" onClick=${() => editWindow(win.id)}><${EditIcon} /> Rediger</button>
-                  <button class="text-btn text-btn-danger" onClick=${() => removeWindow(win.id)}><${TrashIcon} /> Slett</button>
+                  <button class="text-btn" onClick=${() => duplicateWindow(win.id)}><${CopyIcon} /> Dupliser</button>
+                  <button class="text-btn text-btn-danger" onClick=${() => removeWindow(win.id)}><${TrashIcon} /> Fjern</button>
                 </div>
               </div>
             `)}
           </div>
+          <button class="dashed-add-btn full-width" onClick=${startNewWindow}>+ Legg til et til</button>
+          
+          <div class="measure-footer" style="padding: 24px 0 0 0; border: none; background: none; margin-top: 16px;">
+            <button class="button--brand full-width" onClick=${() => { alert('Konfigurer screens'); }}>Konfigurer screens</button>
+          </div>
         `}
-        <button class="measure-btn secondary full-width" onClick=${startNewWindow}>+ Legg til vindu</button>
       </div>
     </div>
   `;
@@ -199,31 +227,31 @@ const MeasureApp = () => {
   const renderWidth = () => html`
     <div class="measure-container">
       <div class="measure-header">
-        <h1>Mål bredde</h1>
-        <button class="back-btn" onClick=${() => setStep('mount')}>Tilbake</button>
+        <h1>Mål bredden</h1>
       </div>
       <div class="measure-content">
         <div class="instruction-image">
           <img src=${window.MeasureAppConfig.assets.measureWidth} alt="Mål bredde" />
         </div>
         <div class="input-group">
-          <label>Bredde topp (mm)</label>
-          <input type="number" placeholder="F.eks. 1200" value=${draftWindow.widthTop} 
+          <label class="field-label">Topp (mm)</label>
+          <input class="sl-input" type="number" placeholder="F. eks 3000" value=${draftWindow.widthTop} 
                  onInput=${e => setDraftWindow({...draftWindow, widthTop: e.target.value})} />
         </div>
         <div class="input-group">
-          <label>Bredde midten (mm)</label>
-          <input type="number" placeholder="F.eks. 1202" value=${draftWindow.widthMiddle} 
+          <label class="field-label">Midten (mm)</label>
+          <input class="sl-input" type="number" placeholder="F. eks 3007" value=${draftWindow.widthMiddle} 
                  onInput=${e => setDraftWindow({...draftWindow, widthMiddle: e.target.value})} />
         </div>
         <div class="input-group">
-          <label>Bredde bunn (mm)</label>
-          <input type="number" placeholder="F.eks. 1198" value=${draftWindow.widthBottom} 
+          <label class="field-label">Bunn (mm)</label>
+          <input class="sl-input" type="number" placeholder="F. eks 3012" value=${draftWindow.widthBottom} 
                  onInput=${e => setDraftWindow({...draftWindow, widthBottom: e.target.value})} />
         </div>
       </div>
-      <div class="measure-footer">
-        <button class="measure-btn primary full-width" 
+      <div class="measure-footer measure-footer-buttons">
+        <button class="button--brand-secondary" onClick=${() => setStep('mount')}>Tilbake</button>
+        <button class="button--brand" 
                 disabled=${!draftWindow.widthTop || !draftWindow.widthMiddle || !draftWindow.widthBottom}
                 onClick=${() => setStep('height')}>Neste</button>
       </div>
@@ -233,26 +261,26 @@ const MeasureApp = () => {
   const renderHeight = () => html`
     <div class="measure-container">
       <div class="measure-header">
-        <h1>Mål høyde</h1>
-        <button class="back-btn" onClick=${() => setStep('width')}>Tilbake</button>
+        <h1>Mål høyden</h1>
       </div>
       <div class="measure-content">
         <div class="instruction-image">
           <img src=${window.MeasureAppConfig.assets.measureHeight} alt="Mål høyde" />
         </div>
         <div class="input-group">
-          <label>Høyde venstre (mm)</label>
-          <input type="number" placeholder="F.eks. 1500" value=${draftWindow.heightLeft} 
+          <label class="field-label">Venstre (mm)</label>
+          <input class="sl-input" type="number" placeholder="F. eks 2000" value=${draftWindow.heightLeft} 
                  onInput=${e => setDraftWindow({...draftWindow, heightLeft: e.target.value})} />
         </div>
         <div class="input-group">
-          <label>Høyde høyre (mm)</label>
-          <input type="number" placeholder="F.eks. 1502" value=${draftWindow.heightRight} 
+          <label class="field-label">Høyre (mm)</label>
+          <input class="sl-input" type="number" placeholder="F. eks 2002" value=${draftWindow.heightRight} 
                  onInput=${e => setDraftWindow({...draftWindow, heightRight: e.target.value})} />
         </div>
       </div>
-      <div class="measure-footer">
-        <button class="measure-btn primary full-width" 
+      <div class="measure-footer measure-footer-buttons">
+        <button class="button--brand-secondary" onClick=${() => setStep('width')}>Tilbake</button>
+        <button class="button--brand" 
                 disabled=${!draftWindow.heightLeft || !draftWindow.heightRight}
                 onClick=${() => setStep('name')}>Neste</button>
       </div>
@@ -276,20 +304,27 @@ const MeasureApp = () => {
   const renderName = () => html`
     <div class="measure-container">
       <div class="measure-header">
-        <h1>Navngi og lagre</h1>
-        <button class="back-btn" onClick=${() => setStep('height')}>Tilbake</button>
+        <h1>Give your screen a name and image to stay organized</h1>
       </div>
       <div class="measure-content">
         <div class="input-group">
-          <label>Hva skal vinduet hete?</label>
-          <input type="text" placeholder="F.eks. Stue Vindu Venstre" value=${draftWindow.name} 
+          <label class="field-label">Name (optional)</label>
+          <input class="sl-input" type="text" placeholder="F.eks. Kjøkken venstre" value=${draftWindow.name} 
                  onInput=${e => setDraftWindow({...draftWindow, name: e.target.value})} />
         </div>
+        
+        <div class="input-group" style="margin-top: 32px;">
+          <label class="field-label">Image (optional)</label>
+          <div class="image-upload-area">
+            <${UploadIcon} />
+            <p>Slipp bildet her, eller klikk for å laste opp</p>
+          </div>
+        </div>
       </div>
-      <div class="measure-footer">
-        <button class="measure-btn primary full-width" 
-                disabled=${!draftWindow.name}
-                onClick=${saveCurrentDraft}>Lagre målene</button>
+      <div class="measure-footer measure-footer-buttons">
+        <button class="button--brand-secondary" onClick=${() => setStep('height')}>Back</button>
+        <button class="button--brand" 
+                onClick=${saveCurrentDraft}>Next</button>
       </div>
     </div>
   `;
