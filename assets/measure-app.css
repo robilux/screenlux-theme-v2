@@ -16,7 +16,8 @@
 
 .measure-progress-fill {
   height: 100%;
-  background: var(--color-button, var(--sl-color-primary, #5B5BF9));
+  background-color: #5B5BF9; /* solid fallback */
+  background-color: var(--sl-color-primary, #5B5BF9);
   transition: width 0.3s ease;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
