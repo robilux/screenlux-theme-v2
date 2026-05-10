@@ -226,22 +226,6 @@
   font-size: 14px;
 }
 
-.input-group input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 1px solid rgba(var(--color-foreground), 0.2);
-  border-radius: 8px;
-  font-size: 16px;
-  font-family: inherit;
-  transition: border-color 0.2s;
-  box-sizing: border-box;
-}
-
-.input-group input:focus {
-  outline: none;
-  border-color: rgb(var(--color-button));
-  box-shadow: 0 0 0 1px rgb(var(--color-button));
-}
 
 /* Instruction Image */
 .instruction-image {
