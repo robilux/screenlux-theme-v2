@@ -70,6 +70,11 @@ const MeasureApp = () => {
     }
   }, []);
 
+  // Scroll to top on step change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [step]);
+
   const saveToStorage = (newWindows) => {
     setWindows(newWindows);
     localStorage.setItem('screenlux_measurements', JSON.stringify(newWindows));
