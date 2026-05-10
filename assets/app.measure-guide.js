@@ -7,11 +7,8 @@ const html = htm.bind(h);
 
 // Icons
 const RulerIcon = () => html`
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21.3 15.3l-3.6-3.6a2 2 0 0 0-2.8 0l-9.6 9.6a2 2 0 0 0 0 2.8l3.6 3.6a2 2 0 0 0 2.8 0l9.6-9.6a2 2 0 0 0 0-2.8z"></path>
-    <path d="M14.5 10.5l4-4"></path>
-    <path d="M10.5 14.5l4-4"></path>
-    <path d="M6.5 18.5l4-4"></path>
+  <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M51.4752 16.0498L39.9493 4.52602C39.6243 4.20093 39.2384 3.94305 38.8137 3.76711C38.389 3.59117 37.9338 3.50061 37.4741 3.50061C37.0144 3.50061 36.5592 3.59117 36.1346 3.76711C35.7099 3.94305 35.324 4.20093 34.999 4.52602L4.52272 35.0001C4.19763 35.3251 3.93975 35.711 3.76381 36.1357C3.58787 36.5603 3.49731 37.0155 3.49731 37.4752C3.49731 37.9349 3.58787 38.3901 3.76381 38.8148C3.93975 39.2395 4.19763 39.6254 4.52272 39.9504L16.0487 51.4741C16.3737 51.7992 16.7595 52.0571 17.1842 52.2331C17.6089 52.409 18.0641 52.4995 18.5238 52.4995C18.9835 52.4995 19.4387 52.409 19.8634 52.2331C20.2881 52.0571 20.674 51.7992 20.999 51.4741L51.4752 21.0001C51.8003 20.6751 52.0582 20.2892 52.2341 19.8645C52.4101 19.4398 52.5006 18.9846 52.5006 18.5249C52.5006 18.0652 52.4101 17.61 52.2341 17.1853C52.0582 16.7607 51.8003 16.3748 51.4752 16.0498ZM18.5227 49.0001L6.99897 37.4741L13.999 30.4741L19.7608 36.2382C19.9234 36.4008 20.1165 36.5298 20.3289 36.6178C20.5413 36.7058 20.769 36.7511 20.999 36.7511C21.2289 36.7511 21.4566 36.7058 21.669 36.6178C21.8815 36.5298 22.0745 36.4008 22.2371 36.2382C22.3997 36.0756 22.5287 35.8826 22.6167 35.6701C22.7047 35.4577 22.7499 35.23 22.7499 35.0001C22.7499 34.7701 22.7047 34.5424 22.6167 34.33C22.5287 34.1176 22.3997 33.9245 22.2371 33.762L16.473 28.0001L20.999 23.4741L26.7608 29.2382C27.0892 29.5666 27.5346 29.7511 27.999 29.7511C28.4634 29.7511 28.9087 29.5666 29.2371 29.2382C29.5655 28.9098 29.7499 28.4645 29.7499 28.0001C29.7499 27.5357 29.5655 27.0903 29.2371 26.762L23.473 21.0001L27.999 16.4741L33.7608 22.2382C33.9234 22.4008 34.1165 22.5298 34.3289 22.6178C34.5413 22.7058 34.769 22.7511 34.999 22.7511C35.2289 22.7511 35.4566 22.7058 35.669 22.6178C35.8815 22.5298 36.0745 22.4008 36.2371 22.2382C36.3997 22.0756 36.5287 21.8826 36.6167 21.6701C36.7047 21.4577 36.7499 21.23 36.7499 21.0001C36.7499 20.7701 36.7047 20.5424 36.6167 20.33C36.5287 20.1176 36.3997 19.9245 36.2371 19.762L30.473 14.0001L37.473 7.00008L48.999 18.526L18.5227 49.0001Z" fill="#5B5BF9"/>
   </svg>
 `;
 
@@ -82,7 +79,8 @@ const MeasureApp = () => {
       widthBottom: '',
       heightLeft: '',
       heightRight: '',
-      name: ''
+      name: '',
+      image: null
     });
     setStep('type');
   };
@@ -105,6 +103,17 @@ const MeasureApp = () => {
     const win = windows.find(w => w.id === id);
     if (win) {
       saveToStorage([...windows, { ...win, id: Date.now().toString(), name: win.name ? win.name + ' (Kopi)' : '' }]);
+    }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setDraftWindow({...draftWindow, image: event.target.result});
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -135,14 +144,14 @@ const MeasureApp = () => {
       <div class="measure-content">
         ${windows.length === 0 ? html`
           <p class="empty-state">Kom i gang og legg til ditt første vindu!</p>
-          <button class="dashed-add-btn full-width" onClick=${startNewWindow}>+ Legg til vindu</button>
+          <button class="btn-add-extra full-width" onClick=${startNewWindow}>+ Legg til vindu</button>
         ` : html`
           <div class="windows-list">
             ${windows.map((win, i) => html`
               <div class="window-card">
                 <div class="window-card-info">
                   <div class="window-card-image">
-                    <img src=${window.MeasureAppConfig.assets.windowUtenRamme} alt="Vindu" />
+                    <img src=${win.image || window.MeasureAppConfig.assets.windowUtenRamme} alt="Vindu" />
                   </div>
                   <div class="window-card-details">
                     <h3>${win.name || `Vindu ${i + 1}`}</h3>
@@ -157,10 +166,10 @@ const MeasureApp = () => {
               </div>
             `)}
           </div>
-          <button class="dashed-add-btn full-width" onClick=${startNewWindow}>+ Legg til et til</button>
+          <button class="btn-add-extra full-width" onClick=${startNewWindow}>+ Legg til et til</button>
           
           <div class="measure-footer" style="padding: 24px 0 0 0; border: none; background: none; margin-top: 16px;">
-            <button class="button--brand full-width" onClick=${() => { alert('Konfigurer screens'); }}>Konfigurer screens</button>
+            <button class="button--brand full-width" onClick=${() => { alert('Konfigurer screens'); }}>Konfigurer screens for vinduer</button>
           </div>
         `}
       </div>
@@ -171,7 +180,6 @@ const MeasureApp = () => {
     <div class="measure-container">
       <div class="measure-header">
         <h1>Velg vindustype</h1>
-        <button class="back-btn" onClick=${() => setStep('overview')}>Tilbake</button>
       </div>
       <div class="measure-content options-grid">
         <div class="option-card ${draftWindow.type === 'Uten ramme' ? 'selected' : ''}" 
@@ -190,8 +198,9 @@ const MeasureApp = () => {
           <h3>Skyvedør eller andre typer</h3>
         </div>
       </div>
-      <div class="measure-footer">
-        <button class="measure-btn primary full-width" 
+      <div class="measure-footer measure-footer-buttons">
+        <button class="button--brand-secondary" onClick=${() => setStep('overview')}>Tilbake</button>
+        <button class="button--brand" 
                 disabled=${!draftWindow.type}
                 onClick=${() => setStep('mount')}>Neste</button>
       </div>
@@ -202,7 +211,6 @@ const MeasureApp = () => {
     <div class="measure-container">
       <div class="measure-header">
         <h1>Innvendig eller utvendig montering?</h1>
-        <button class="back-btn" onClick=${() => setStep('type')}>Tilbake</button>
       </div>
       <div class="measure-content options-grid">
         <div class="option-card ${draftWindow.mountType === 'Innvendig' ? 'selected' : ''}" 
@@ -216,8 +224,9 @@ const MeasureApp = () => {
           <h3>Zip-Screen monteres UTENPÅ omramming / på vegg</h3>
         </div>
       </div>
-      <div class="measure-footer">
-        <button class="measure-btn primary full-width" 
+      <div class="measure-footer measure-footer-buttons">
+        <button class="button--brand-secondary" onClick=${() => setStep('type')}>Tilbake</button>
+        <button class="button--brand" 
                 disabled=${!draftWindow.mountType}
                 onClick=${() => setStep('width')}>Neste</button>
       </div>
@@ -304,27 +313,32 @@ const MeasureApp = () => {
   const renderName = () => html`
     <div class="measure-container">
       <div class="measure-header">
-        <h1>Give your screen a name and image to stay organized</h1>
+        <h1>Gi vinduet ditt et navn og et bilde for å holde orden</h1>
       </div>
       <div class="measure-content">
         <div class="input-group">
-          <label class="field-label">Name (optional)</label>
+          <label class="field-label">Navn (valgfritt)</label>
           <input class="sl-input" type="text" placeholder="F.eks. Kjøkken venstre" value=${draftWindow.name} 
                  onInput=${e => setDraftWindow({...draftWindow, name: e.target.value})} />
         </div>
         
         <div class="input-group" style="margin-top: 32px;">
-          <label class="field-label">Image (optional)</label>
-          <div class="image-upload-area">
-            <${UploadIcon} />
-            <p>Slipp bildet her, eller klikk for å laste opp</p>
-          </div>
+          <label class="field-label">Bilde (valgfritt)</label>
+          <label class="image-upload-area" style="display: flex; cursor: pointer;">
+            <input type="file" accept="image/*" style="display: none;" onChange=${handleImageUpload} />
+            ${draftWindow.image ? html`
+              <img src=${draftWindow.image} style="max-height: 150px; border-radius: 8px; object-fit: contain;" alt="Opplastet bilde" />
+            ` : html`
+              <${UploadIcon} />
+              <p>Slipp bildet her, eller klikk for å laste opp</p>
+            `}
+          </label>
         </div>
       </div>
       <div class="measure-footer measure-footer-buttons">
-        <button class="button--brand-secondary" onClick=${() => setStep('height')}>Back</button>
+        <button class="button--brand-secondary" onClick=${() => setStep('height')}>Tilbake</button>
         <button class="button--brand" 
-                onClick=${saveCurrentDraft}>Next</button>
+                onClick=${saveCurrentDraft}>Lagre målene</button>
       </div>
     </div>
   `;
