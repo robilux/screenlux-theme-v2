@@ -382,7 +382,7 @@ const MeasureApp = () => {
     if (['start', 'overview'].includes(step)) return null;
     return html`
       <div class="measure-progress-bar">
-        <div class="measure-progress-fill" style=${{ width: `${getProgress()}%` }}></div>
+        <div class="measure-progress-fill measure-progress-${getProgress()}"></div>
       </div>
     `;
   };

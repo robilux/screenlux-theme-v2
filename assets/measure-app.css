@@ -23,6 +23,13 @@
   border-bottom-right-radius: 0;
 }
 
+.measure-progress-0 { width: 0%; }
+.measure-progress-20 { width: 20%; }
+.measure-progress-40 { width: 40%; }
+.measure-progress-60 { width: 60%; }
+.measure-progress-80 { width: 80%; }
+.measure-progress-100 { width: 100%; }
+
 .measure-container {
   background: rgb(var(--color-background));
   border-radius: 12px;
