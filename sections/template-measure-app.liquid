@@ -13,6 +13,10 @@
       measureHeight: {{ 'vindu-uten-ramme-measure-height.png' | asset_url | json }},
       zipScreenInni: {{ 'zip-screen-inni.png' | asset_url | json }},
       zipScreenUtenpaa: {{ 'zip-screen-utenpaa.png' | asset_url | json }}
+    },
+    customer: {
+      id: {% if customer %}{{ customer.id | json }}{% else %}null{% endif %},
+      hasAccount: {% if customer %}true{% else %}false{% endif %}
     }
   };
 </script>

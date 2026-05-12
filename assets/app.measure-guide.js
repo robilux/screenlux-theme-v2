@@ -54,20 +54,71 @@ const MeasureApp = () => {
   const [windows, setWindows] = useState([]);
   const [draftWindow, setDraftWindow] = useState(null);
   
-  // Local storage sync
+  const [isSaving, setIsSaving] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+  const customer = window.MeasureAppConfig?.customer;
+
+  // Initialize and sync windows
   useEffect(() => {
-    const saved = localStorage.getItem('screenlux_measurements');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setWindows(parsed);
-        if (parsed.length > 0) {
-          setStep('overview');
+    const initWindows = async () => {
+      const saved = localStorage.getItem('screenlux_measurements');
+      let localWindows = [];
+      if (saved) {
+        try {
+          localWindows = JSON.parse(saved);
+        } catch (e) {
+          console.error('Failed to parse saved measurements');
         }
-      } catch (e) {
-        console.error('Failed to parse saved measurements');
       }
-    }
+
+      if (customer?.hasAccount) {
+        setIsFetching(true);
+        try {
+          // Fetch from app proxy
+          const res = await fetch('/apps/measurements');
+          if (res.ok) {
+            const data = await res.json();
+            const remoteWindows = data.windows || [];
+            
+            // Merge local and remote
+            const merged = [...remoteWindows];
+            let needsSave = false;
+            
+            localWindows.forEach(lw => {
+              const existingIndex = merged.findIndex(mw => mw.id === lw.id);
+              if (existingIndex > -1) {
+                // local might be an edit of remote
+                merged[existingIndex] = lw;
+                needsSave = true;
+              } else {
+                merged.push(lw);
+                needsSave = true;
+              }
+            });
+
+            setWindows(merged);
+            if (merged.length > 0) setStep('overview');
+            
+            if (needsSave) {
+              await saveToRemote(merged);
+            } else {
+              localStorage.setItem('screenlux_measurements', JSON.stringify(merged));
+            }
+          }
+        } catch (e) {
+          console.error("Failed to fetch windows from customer profile", e);
+          setWindows(localWindows);
+          if (localWindows.length > 0) setStep('overview');
+        } finally {
+          setIsFetching(false);
+        }
+      } else {
+        setWindows(localWindows);
+        if (localWindows.length > 0) setStep('overview');
+      }
+    };
+
+    initWindows();
   }, []);
 
   // Scroll to top on step change
@@ -75,9 +126,29 @@ const MeasureApp = () => {
     window.scrollTo(0, 0);
   }, [step]);
 
-  const saveToStorage = (newWindows) => {
+  const saveToRemote = async (windowsToSave) => {
+    setIsSaving(true);
+    try {
+      await fetch('/apps/measurements', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ windows: windowsToSave })
+      });
+      localStorage.setItem('screenlux_measurements', JSON.stringify(windowsToSave));
+    } catch(e) {
+      console.error('Failed to save to profile', e);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const saveToStorage = async (newWindows) => {
     setWindows(newWindows);
     localStorage.setItem('screenlux_measurements', JSON.stringify(newWindows));
+    
+    if (customer?.hasAccount) {
+      await saveToRemote(newWindows);
+    }
   };
 
   const startNewWindow = () => {
@@ -150,10 +221,26 @@ const MeasureApp = () => {
     </div>
   `;
 
-  const renderOverview = () => html`
+  const renderOverview = () => {
+    if (isFetching) {
+      return html`
+        <div class="measure-container">
+          <div class="measure-header" style="text-align: center; padding: 60px 20px;">
+            <p style="color: rgba(var(--color-foreground), 0.7);">Henter lagrede vinduer fra din profil...</p>
+          </div>
+        </div>
+      `;
+    }
+
+    return html`
     <div class="measure-container">
-      <div class="measure-header">
-        <h1>Dine vinduer</h1>
+      <div class="measure-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <h1 style="margin: 0;">Dine vinduer</h1>
+        ${customer?.hasAccount ? html`
+          <span style="font-size: 12px; background: #E5E8F9; color: #5B5BF9; padding: 4px 8px; border-radius: 12px; font-weight: 500;">
+            ✓ Lagret på profil
+          </span>
+        ` : ''}
       </div>
       <div class="measure-content">
         ${windows.length === 0 ? html`
@@ -194,6 +281,7 @@ const MeasureApp = () => {
       </div>
     </div>
   `;
+  };
 
   const renderTypeSelection = () => html`
     <div class="measure-container">
@@ -330,7 +418,12 @@ const MeasureApp = () => {
     }
     
     saveToStorage(updatedWindows);
-    setStep('overview');
+    
+    if (!customer?.hasAccount) {
+      window.location.href = '/account/login?checkout_url=/pages/measure-guide';
+    } else {
+      setStep('overview');
+    }
   };
 
   const renderName = () => html`
@@ -362,7 +455,9 @@ const MeasureApp = () => {
       <div class="measure-footer measure-footer-buttons">
         <button class="button--brand-secondary" onClick=${() => setStep('height')}>Tilbake</button>
         <button class="button--brand" 
-                onClick=${saveCurrentDraft}>Lagre målene</button>
+                onClick=${saveCurrentDraft} disabled=${isSaving}>
+          ${isSaving ? 'Lagrer...' : (customer?.hasAccount ? 'Lagre målene' : 'Lagre & Logg inn')}
+        </button>
       </div>
     </div>
   `;
