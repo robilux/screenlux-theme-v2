@@ -608,7 +608,9 @@
       "fabric_transparency": "Stofftype",
       "motor": "Motor",
       "mounting_brackets": "Monteringsbraketter",
-      "set_of": "Sett med"
+      "set_of": "Sett med",
+      "cable_exit_direction": "Retning på kabelutgang",
+      "cable_exit": "Kabelutgang"
     },
     "actions": {
       "remove_screen": "Fjern screen",
@@ -662,7 +664,7 @@
         },
         "large": {
           "title": "Standard (120×120mm)",
-          "desc": "Vår standardkassett. For screens større enn 3000 x 2300 mm."
+          "desc": "Vår standardkassett, for screens opptil 3300 x 5000 mm."
         }
       },
       "motorOptions": {
@@ -671,8 +673,8 @@
           "desc": "Enkel montering med solcellepanel."
         },
         "wired": {
-          "title": "Kablet",
-          "desc": "Tradisjonell og pålitelig."
+          "title": "Kablet screen",
+          "desc": "Tradisjonelt og trygt."
         }
       },
       "bracketOptions": {
@@ -684,6 +686,19 @@
         },
         "flexible": {
           "title": "Justerbare braketter 60-100 mm"
+        }
+      },
+      "cableExitOptions": {
+        "back": {
+          "title": "Bak",
+          "desc": "Mot vegg"
+        },
+        "top": {
+          "title": "Topp",
+          "desc": "Rett opp"
+        },
+        "bottom": {
+          "title": "Bunn"
         }
       }
     }
