@@ -537,28 +537,28 @@
     }
   },
   "configurator": {
-    "title": "Konfigurer dine screens",
+    "title": "Konfigurer screens",
     "add_another_one": "Legg til en til",
     "installation_title": "Installasjon",
     "tip_title": "Tips",
-    "tip_message_html": "Bytt til <strong>solcelledrevne</strong> screens for enklere installasjon og lavere kostnader.",
+    "tip_message_html": "Bytt til <strong>solcelledrevne</strong> screens for enklere montering og lavere kostnader.",
     "tip_benefits": {
       "no_wiring": "Ingen kabling",
       "no_wall_drilling": "Ingen boring for strøm",
       "no_electrician": "Ingen elektriker nødvendig"
     },
-    "tip_footer_html": "Bytt nå og spar <strong>12 000 kr</strong> på profesjonell montering.",
-    "switch_to_solar": "Bytt til solcelle",
+    "tip_footer_html": "Bytt til solcelledrevne screens og spar tid og penger",
+    "switch_to_solar": "Bytt til solcelledrevne screens",
     "installation_diy": {
       "title": "Selvmontering (DIY)",
-      "desc": "Enkel montering med veiledning.\n• Solcelle: 30 min. / screen\n• Kablet: 5 timer / screen",
+      "desc": "Enkel løsning med veiledning.\n• Smart for lett tilgjengelige vinduer\n• Solar gjør montasjen enda enklere\n• Full kontroll på kostnaden",
       "price": "Gratis"
     },
     "installation_professional": {
-      "title": "Profesjonell montering",
-      "desc": "La en av våre profesjonelle monteringspartnere installere screenen.",
-      "price": "+ 23 500 kr",
-      "note": "Spar 12 000 kr ved å bytte til solcelledrevne screens.",
+      "title": "Montering av fagfolk",
+      "desc": "Utføres av fagfolk via vår monteringspartner.\n• Oppmøte: fra 1250 kr (inkl. mva.)\n• Pris per screen: fra 1875 kr (inkl. mva.)\n• Elektroarbeid kommer i tillegg ved kablede screens\n• Tidspunkt avtales direkte etter bestilling\n• Funksjonstest før overlevering",
+      "price": "+ 20.350 kr",
+      "note": "Spar 12.000 kr ved å bytte til solcelledrevne screens.",
       "desc_estimated": "Estimert pris. Vår partner vil kontakte deg etter bestilling for bekreftelse.",
       "note_savings": "Spar ~ [SAVINGS] ved å bytte til solcelledrevne screens."
     },
@@ -579,16 +579,16 @@
       "professional_installation": "Profesjonell montering",
       "total": "Totalsum",
       "free_delivery": "Gratis levering",
-      "arrives_in": "Levering innen 5-7 virkedager",
-      "continue_to_payment": "Gå til betaling",
-      "please_check_dimensions": "Vennligst sjekk målene",
+      "arrives_in": "Levering om 5–7 uker",
+      "continue_to_payment": "Fortsett til betaling",
+      "please_check_dimensions": "Vennligst kontrollér målene",
       "installation_notice": "Faktureres separat av vår monteringspartner etter oppmåling på stedet.",
       "zip_screen_detail": "1x Zip-Screen",
       "per_screen": "per screen"
     },
     "awards": {
       "award_title": "Vinner av German Design Award 2026!",
-      "award_text": "Den stilsikre kombinasjonen av slankt kabinett og smart teknologi skaper en estetisk krevende solskjerming som passer harmonisk inn i moderne omgivelser."
+      "award_text": "Den stilrene kombinasjonen av slank kassett og smart teknologi skaper en estetisk gjennomført solskjerming som smelter harmonisk inn i moderne miljøer. Med denne karaktersterke løsningen setter prosjektet en imponerende standard for utendørsdesign på gullnivå."
     },
     "measurement_guide": {
       "text": "",
