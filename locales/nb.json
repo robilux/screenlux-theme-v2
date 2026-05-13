@@ -698,7 +698,16 @@
           "desc": "Rett opp"
         },
         "bottom": {
-          "title": "Bunn"
+          "title": "Bunn",
+          "desc": "Rett ned"
+        },
+        "side": {
+          "title": "Side",
+          "desc": "Ut på siden"
+        },
+        "front": {
+          "title": "Front",
+          "desc": "Ut på forsiden"
         }
       }
     }
